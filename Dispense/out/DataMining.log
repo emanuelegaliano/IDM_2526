@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.8.27)  10 OCT 2025 22:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.8.27)  11 OCT 2025 10:12
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**"/home/manu/Documents/Data mining/riassunti/DataMining.tex"
-(/home/manu/Documents/Data mining/riassunti/DataMining.tex
+**"/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex"
+(/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22> (/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 Document Class: book 2022/07/02 v1.4n Standard LaTeX document class
@@ -380,7 +380,7 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count300
 \l__pdf_internal_box=\box55
-) (out/DataMining.aux (out/introduzione.aux) (out/prerequisiti.aux) (out/capitolo1.aux) (out/capitolo2.aux) (out/capitolo3.aux))
+) (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux))
 \openout1 = `DataMining.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
@@ -522,18 +522,16 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ] (out/DataMining.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 4.
- [3])
+ [3] [4])
 \tf@toc=\write4
 \openout4 = `DataMining.toc'.
 
- [4]
-\openout2 = `introduzione.aux'.
+ [5{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] [6
 
-
-No file introduzione.tex.
+]
 \openout2 = `prerequisiti.aux'.
 
-(./prerequisiti.tex
+ (./prerequisiti.tex
 Capitolo 1.
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 8.
 (/usr/share/texlive/texmf-dist/tex/latex/lm/ts1lmr.fd
@@ -541,14 +539,10 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [1
 
 
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [2] [3]) [4]
+\openout2 = `introduzione.aux'.
 
-
-
-
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}] [2] [3]) [4]
-\openout2 = `capitolo1.aux'.
-
- (./capitolo1.tex
+ (./introduzione.tex
 Capitolo 2.
 
 Underfull \vbox (badness 1242) has occurred while \output is active []
@@ -559,9 +553,9 @@ Underfull \vbox (badness 1242) has occurred while \output is active []
 
 
 ] [6] [7]) [8]
-\openout2 = `capitolo2.aux'.
+\openout2 = `preprocessing.aux'.
 
- (./capitolo2.tex
+ (./preprocessing.tex
 Capitolo 3.
 [9
 
@@ -587,7 +581,7 @@ Overfull \hbox (13.27481pt too wide) in paragraph at lines 110--111
  []
 
 [12]
-<images/SVD.png, id=498, 1373.13pt x 750.805pt>
+<images/SVD.png, id=592, 1373.13pt x 750.805pt>
 File: images/SVD.png Graphic file (type png)
 <use images/SVD.png>
 Package pdftex.def Info: images/SVD.png  used on input line 145.
@@ -598,9 +592,9 @@ Overfull \hbox (5.67017pt too wide) in paragraph at lines 160--161
  []
 
 ) [14 <./images/SVD.png>]
-\openout2 = `capitolo3.aux'.
+\openout2 = `insiemi_frequenti.aux'.
 
- (./capitolo3.tex
+ (./insiemi_frequenti.tex
 Capitolo 4.
 [15
 
@@ -608,7 +602,7 @@ Capitolo 4.
 
 
 ]
-<images/insiemi_frequenti_massimale.png, id=524, 830.10126pt x 559.08875pt>
+<images/insiemi_frequenti_massimale.png, id=618, 830.10126pt x 559.08875pt>
 File: images/insiemi_frequenti_massimale.png Graphic file (type png)
 <use images/insiemi_frequenti_massimale.png>
 Package pdftex.def Info: images/insiemi_frequenti_massimale.png  used on input line 53.
@@ -619,13 +613,13 @@ Overfull \hbox (4.59721pt too wide) in paragraph at lines 102--109
  []
 
 [18] [19]
-<images/fp-growth-complete.png, id=563, 975.645pt x 539.01375pt>
+<images/fp-growth-complete.png, id=657, 975.645pt x 539.01375pt>
 File: images/fp-growth-complete.png Graphic file (type png)
 <use images/fp-growth-complete.png>
 Package pdftex.def Info: images/fp-growth-complete.png  used on input line 197.
 (pdftex.def)             Requested size: 392.64725pt x 216.92584pt.
  [20 <./images/fp-growth-complete.png>]
-<images/fp-growth-links.png, id=574, 877.2775pt x 566.115pt>
+<images/fp-growth-links.png, id=668, 877.2775pt x 566.115pt>
 File: images/fp-growth-links.png Graphic file (type png)
 <use images/fp-growth-links.png>
 Package pdftex.def Info: images/fp-growth-links.png  used on input line 226.
@@ -635,23 +629,73 @@ Underfull \hbox (badness 6220) in paragraph at lines 280--280
 []\T1/lmr/m/n/10.95 (+20) Pruning con prin-ci-pio di
  []
 
-) [22] (out/DataMining.aux (out/introduzione.aux) (out/prerequisiti.aux) (out/capitolo1.aux) (out/capitolo2.aux) (out/capitolo3.aux))
+) [22]
+\openout2 = `clustering.aux'.
+
+ (./clustering.tex
+Capitolo 5.
+
+Overfull \hbox (54.78693pt too wide) detected at line 46
+[] \OML/lmm/m/it/10.95 D[]\OT1/lmr/m/n/10.95 (\OT1/lmr/bx/n/10.95 x\OML/lmm/m/it/10.95 ; \OT1/lmr/bx/n/10.95 y\OT1/lmr/m/n/10.95 ) = []  [] \OML/lmm/m/it/10.95 ;  \OT1/lmr/bx/n/10.95 x \OMS/lmsy/m/n/10.95 6\OT1/lmr/m/n/10.95 = \OT1/lmr/bx/n/10.95 0\OML/lmm/m/it/10.95 ;  \OT1/lmr/bx/n/10.95 y \OMS/lmsy/m/n/10.95 6\OT1/lmr/m/n/10.95 = \OT1/lmr/bx/n/10.95 0\OML/lmm/m/it/10.95 :
+ []
+
+[23
+
+
+
+
+] [24]
+<images/cluster_distances.png, id=708, 560.0925pt x 877.2775pt>
+File: images/cluster_distances.png Graphic file (type png)
+<use images/cluster_distances.png>
+Package pdftex.def Info: images/cluster_distances.png  used on input line 116.
+(pdftex.def)             Requested size: 115.23547pt x 180.48558pt.
+<images/dendograms.png, id=709, 1394.20876pt x 650.43pt>
+File: images/dendograms.png Graphic file (type png)
+<use images/dendograms.png>
+Package pdftex.def Info: images/dendograms.png  used on input line 130.
+(pdftex.def)             Requested size: 426.79135pt x 199.11032pt.
+ [25 <./images/cluster_distances.png>] [26 <./images/dendograms.png>]
+<images/k-means.png, id=727, 1162.3425pt x 609.27625pt>
+File: images/k-means.png Graphic file (type png)
+<use images/k-means.png>
+Package pdftex.def Info: images/k-means.png  used on input line 192.
+(pdftex.def)             Requested size: 298.75264pt x 156.5952pt.
+ [27 <./images/k-means.png>]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 207.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 207.
+
+<images/elbow-k.png, id=741, 1298.8525pt x 731.73375pt>
+File: images/elbow-k.png Graphic file (type png)
+<use images/elbow-k.png>
+Package pdftex.def Info: images/elbow-k.png  used on input line 220.
+(pdftex.def)             Requested size: 341.43437pt x 192.34537pt.
+[28 <./images/elbow-k.png>]) [29] [30
+
+
+
+] (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux))
 Package rerunfilecheck Info: File `DataMining.out' has not changed.
-(rerunfilecheck)             Checksum: FD6616B5ACE6C23EF6EDF49F50AA0FBC;14199.
+(rerunfilecheck)             Checksum: 1891C02EB5D460E360C4E69F5B23A012;17518.
  ) 
 Here is how much of TeX's memory you used:
- 15082 strings out of 476034
- 241050 string characters out of 5792864
- 1866388 words of memory out of 6000000
- 34794 multiletter control sequences out of 15000+600000
- 600365 words of font info for 215 fonts, out of 8000000 for 9000
+ 15259 strings out of 476034
+ 244074 string characters out of 5792864
+ 1867388 words of memory out of 6000000
+ 34864 multiletter control sequences out of 15000+600000
+ 615700 words of font info for 240 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
- 75i,12n,76p,1052b,643s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on out/DataMining.pdf (26 pages, 687178 bytes).
+ 75i,12n,76p,1060b,643s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on out/DataMining.pdf (36 pages, 1021013 bytes).
 PDF statistics:
- 721 PDF objects out of 1000 (max. 8388607)
- 641 compressed objects within 7 object streams
- 191 named destinations out of 1000 (max. 500000)
- 49221 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 912 PDF objects out of 1000 (max. 8388607)
+ 807 compressed objects within 9 object streams
+ 247 named destinations out of 1000 (max. 500000)
+ 57569 words of extra memory for PDF output out of 61914 (max. 10000000)
 
