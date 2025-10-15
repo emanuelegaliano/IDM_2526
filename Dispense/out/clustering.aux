@@ -44,8 +44,8 @@
 \newlabel{subsec:init}{{5.3.2}{27}{Inizializzazione}{subsection.5.3.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces K-means: evoluzione in tre round. Round 1: inizializzazione e prime assegnazioni ai centroidi (quadrati). Round 2: ricalcolo dei centroidi e riassegnazione dei punti (X). Round 3: i centroidi si stabilizzano e i cluster (ellissi colorate) convergono.}}{27}{figure.5.3}\protected@file@percent }
 \newlabel{fig:k-means-example}{{5.3}{27}{K-means: evoluzione in tre round. Round 1: inizializzazione e prime assegnazioni ai centroidi (quadrati). Round 2: ricalcolo dei centroidi e riassegnazione dei punti (X). Round 3: i centroidi si stabilizzano e i cluster (ellissi colorate) convergono}{figure.5.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Funzione obiettivo e arresto}{28}{subsection.5.3.3}\protected@file@percent }
-\newlabel{subsec:objective}{{5.3.3}{28}{Funzione obiettivo e arresto}{subsection.5.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Funzione obiettivo e arresto}{27}{subsection.5.3.3}\protected@file@percent }
+\newlabel{subsec:objective}{{5.3.3}{27}{Funzione obiettivo e arresto}{subsection.5.3.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Scelta del numero di cluster $k$}{28}{subsection.5.3.4}\protected@file@percent }
 \newlabel{subsec:scelta-k}{{5.3.4}{28}{Scelta del numero di cluster $k$}{subsection.5.3.4}{}}
 \@writefile{toc}{\contentsline {paragraph}{Funzione obiettivo.}{28}{section*.76}\protected@file@percent }
@@ -55,8 +55,41 @@
 \@writefile{toc}{\contentsline {paragraph}{Metodo \emph  {silhouette}.}{29}{section*.78}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.3.5}Complessità computazionale}{29}{subsection.5.3.5}\protected@file@percent }
 \newlabel{subsec:kmeans-compl}{{5.3.5}{29}{Complessità computazionale}{subsection.5.3.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Clustering per densità: DBSCAN}{29}{section.5.4}\protected@file@percent }
+\newlabel{sec:dbscan}{{5.4}{29}{Clustering per densità: DBSCAN}{section.5.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Definizioni.}{29}{section*.79}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces DBSCAN: esempi di \emph  {core}, \emph  {border} e \emph  {noise} con parametri $\varepsilon $ e \texttt  {MinPts}.}}{30}{figure.5.5}\protected@file@percent }
+\newlabel{fig:dbscan-core}{{5.5}{30}{DBSCAN: esempi di \emph {core}, \emph {border} e \emph {noise} con parametri $\varepsilon $ e \texttt {MinPts}}{figure.5.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Algoritmo.}{30}{section*.80}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scelta dei parametri.}{30}{section*.81}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces $k$-distance plot: il gomito suggerisce il valore di $\varepsilon $.}}{30}{figure.5.6}\protected@file@percent }
+\newlabel{fig:kdist}{{5.6}{30}{$k$-distance plot: il gomito suggerisce il valore di $\varepsilon $}{figure.5.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Complessità.}{31}{section*.82}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Pro e contro.}{31}{section*.83}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}OPTICS}{31}{section.5.5}\protected@file@percent }
+\newlabel{sec:optics}{{5.5}{31}{OPTICS}{section.5.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Core–distance e reachability (OPTICS).}{31}{section*.84}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Risultato: ordering e \emph  {reachability plot}.}{31}{section*.85}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Estrazione dei cluster.}{31}{section*.86}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces OPTICS: esempio di \emph  {reachability plot}. Le zone basse (valli) indicano cluster densi; le zone alte (creste) indicano separazioni. (immagine da libro/slide)}}{32}{figure.5.7}\protected@file@percent }
+\newlabel{fig:optics-reach}{{5.7}{32}{OPTICS: esempio di \emph {reachability plot}. Le zone basse (valli) indicano cluster densi; le zone alte (creste) indicano separazioni. (immagine da libro/slide)}{figure.5.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces OPTICS. (1) A sinistra: punti nel piano e, sotto, \emph  {reachability plot}; le valli (segmenti colorati) corrispondono a regioni dense/cluster, mentre la linea orizzontale tratteggiata indica una soglia $\epsilon $ che produce un taglio in stile DBSCAN. Le linee tratteggiate collegano ogni gruppo nel piano al suo intervallo nel plot. (2) A destra: regola \emph  {steep down/up} per l’estrazione automatica dei cluster dal reachability plot (si entra quando la reachability scende bruscamente e si esce quando risale).}}{32}{figure.5.8}\protected@file@percent }
+\newlabel{fig:optics-cluster-extraction}{{5.8}{32}{OPTICS. (1) A sinistra: punti nel piano e, sotto, \emph {reachability plot}; le valli (segmenti colorati) corrispondono a regioni dense/cluster, mentre la linea orizzontale tratteggiata indica una soglia $\epsilon $ che produce un taglio in stile DBSCAN. Le linee tratteggiate collegano ogni gruppo nel piano al suo intervallo nel plot. (2) A destra: regola \emph {steep down/up} per l’estrazione automatica dei cluster dal reachability plot (si entra quando la reachability scende bruscamente e si esce quando risale)}{figure.5.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Costo.}{32}{section*.87}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}HDBSCAN}{32}{section.5.6}\protected@file@percent }
+\newlabel{sec:hdbscan}{{5.6}{32}{HDBSCAN}{section.5.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Distanza di \emph  {mutual reachability}.}{33}{section*.89}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Dal grafo all’albero dei cluster.}{33}{section*.90}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Condensed tree e stabilità.}{33}{section*.91}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Output utile.}{33}{section*.92}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces HDBSCAN. Sinistra: MST costruito sulla \emph  {mutual reachability distance} (archi più pesanti vengono tagliati al crescere di \(\lambda \)). Destra: \emph  {condensed tree}; in evidenza i cluster scelti massimizzando la stabilità.}}{34}{figure.5.9}\protected@file@percent }
+\newlabel{fig:hdbscan-figs}{{5.9}{34}{HDBSCAN. Sinistra: MST costruito sulla \emph {mutual reachability distance} (archi più pesanti vengono tagliati al crescere di \(\lambda \)). Destra: \emph {condensed tree}; in evidenza i cluster scelti massimizzando la stabilità}{figure.5.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Parametri e pratica.}{34}{section*.93}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Costo computazionale.}{34}{section*.94}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.7}Confronto rapido}{34}{section.5.7}\protected@file@percent }
+\newlabel{sec:confronto-densita}{{5.7}{34}{Confronto rapido}{section.5.7}{}}
 \@setckpt{clustering}{
-\setcounter{page}{30}
+\setcounter{page}{35}
 \setcounter{equation}{0}
 \setcounter{enumi}{2}
 \setcounter{enumii}{3}
@@ -66,16 +99,16 @@
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{5}
-\setcounter{section}{3}
-\setcounter{subsection}{5}
+\setcounter{section}{7}
+\setcounter{subsection}{0}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subparagraph}{0}
-\setcounter{figure}{4}
+\setcounter{figure}{9}
 \setcounter{table}{0}
 \setcounter{parentequation}{0}
-\setcounter{section@level}{2}
-\setcounter{Item}{35}
+\setcounter{section@level}{1}
+\setcounter{Item}{44}
 \setcounter{Hfootnote}{0}
-\setcounter{bookmark@seq@number}{87}
+\setcounter{bookmark@seq@number}{91}
 }

@@ -127,7 +127,7 @@ Criteri di terminazione:
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{images/dendograms.png}
+  \includegraphics[width=0.75\textwidth]{images/dendograms.png}
   \caption{A sinistra: punti nel piano con centroidi (triangoli) e cerchi che schematizzano la coesione dei gruppi; i colori indicano i cluster. A destra: dendrogramma agglomerativo che mostra l’ordine di fusione e l’altezza (distanza di linkage). Un taglio orizzontale del dendrogramma determina il numero di cluster.}
   \label{fig:dendograms}
 \end{figure}
@@ -260,3 +260,190 @@ Con $t$ iterazioni totali:
 \[
 T(n,k,d,t)=O(t\,n\,k\,d)\quad\text{(nelle slide: }O(tkn)\text{)}.
 \]
+
+
+\section{Clustering per densità: DBSCAN}\label{sec:dbscan}
+DBSCAN (\emph{Density-Based Spatial Clustering of Applications with Noise}) definisce i cluster come regioni con densità elevata separate da regioni a bassa densità. Richiede due parametri:
+\[
+\varepsilon>0 \quad\text{(raggio dell'intorno)}\qquad\text{e}\qquad \texttt{MinPts}\in\mathbb{N}\quad\text{(soglia di densità)}.
+\]
+
+\paragraph{Definizioni.}
+Dato un punto $p$ e una metrica $D(\cdot,\cdot)$:
+\begin{itemize}
+  \item \textbf{$\varepsilon$-intorno}: $N_\varepsilon(p)=\{x: D(x,p)\le\varepsilon\}$.
+  \item \textbf{Core point}: $p$ è \emph{core} se $|N_\varepsilon(p)|\ge \texttt{MinPts}$.
+  \item \textbf{Directly density-reachable}: $q$ è \emph{direttamente raggiungibile per densità} da $p$ se $q\in N_\varepsilon(p)$ e $p$ è core.
+  \item \textbf{Density-reachable}: $q$ è \emph{raggiungibile per densità} da $p$ se esiste una catena $p=x_0,x_1,\dots,x_m=q$ in cui ogni $x_{i+1}$ è direttamente raggiungibile da $x_i$.
+  \item \textbf{Density-connected}: $p$ e $q$ sono \emph{connessi per densità} se esiste $o$ tale che $p$ e $q$ sono entrambi raggiungibili per densità da $o$.
+\end{itemize}
+\emph{Cluster} $C$ = insieme massimale di punti \emph{density-connected}; i punti non assegnati sono \emph{rumore} (outlier). Punti non-core inclusi in un cluster sono detti \emph{border}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.68\textwidth]{images/dbscan_core.png}
+  \caption{DBSCAN: esempi di \emph{core}, \emph{border} e \emph{noise} con parametri $\varepsilon$ e \texttt{MinPts}.}
+  \label{fig:dbscan-core}
+\end{figure}
+
+\paragraph{Algoritmo.}
+\begin{enumerate}
+  \item Visita un punto non ancora etichettato $p$ e calcola $N_\varepsilon(p)$.
+  \item Se $p$ è \emph{core}, crea un nuovo cluster e \emph{espandilo}: aggiungi ricorsivamente tutti i punti direttamente raggiungibili, iterando finché possibile (tutti i raggiungibili per densità da $p$).
+  \item Se $p$ non è core e non è stato assegnato come \emph{border}, etichettalo come \emph{rumore}.
+  \item Ripeti finché tutti i punti sono visitati.
+\end{enumerate}
+
+\paragraph{Scelta dei parametri.}
+Usare $\texttt{MinPts}\approx d{+}1$ come minimo (con $d$ dimensioni) e valori più alti con dataset grandi o rumorosi. Per $\varepsilon$ si usa il \emph{$k$-distance plot}: per ogni punto si considera la distanza dal $k$-esimo vicino ($k=\texttt{MinPts}$), si ordina in senso decrescente e si cerca il \emph{gomito} della curva.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.68\textwidth]{images/kdistance_plot.png}
+  \caption{$k$-distance plot: il gomito suggerisce il valore di $\varepsilon$.}
+  \label{fig:kdist}
+\end{figure}
+
+\paragraph{Complessità.}
+Il costo è dominato dalle ricerche di vicinato. Con appropriate strutture (R-tree) il costo è $O(n\log n)$. Senza questo tipo di strutture, il costo è $O(n^2)$.
+\paragraph{Pro e contro.}
+\emph{Pro}: non richiede $k$, trova cluster di forma arbitraria, gestisce il rumore, poco sensibile all’ordine di scansione.  
+\emph{Contro}: scelta di $(\varepsilon,\texttt{MinPts})$ non banale; difficile con densità molto diverse o in alta dimensione.
+
+% ----------------------------
+
+\section{OPTICS}\label{sec:optics}
+OPTICS (\emph{Ordering Points To Identify the Clustering Structure}) estende DBSCAN per gestire \textbf{densità variabili}. Invece di una singola partizione, produce un \emph{ordinamento} dei punti con associata una misura di “raggiungibilità” che riassume la struttura di densità a più scale.
+
+\paragraph{Core–distance e reachability (OPTICS).}
+Fissiamo \texttt{MinPts} $=k$ e una metrica $D$.
+
+\begin{description}[leftmargin=1.2em,labelsep=0.5em]
+  \item[\emph{Core–distance} di $p$:] è il raggio minimo che rende $p$ un punto \emph{core}. 
+  In pratica è la distanza dal $k$-esimo vicino di $p$:
+  \[
+  \mathrm{core\_dist}_k(p)=d_k(p).
+  \]
+  Se $p$ ha meno di $k$ vicini, non è core e si pone $\mathrm{core\_dist}_k(p)=+\infty$ (non definita).
+  
+  \item[\emph{Reachability–distance} di $o$ da $p$:] misura quanto è “raggiungibile” $o$ partendo da $p$:
+  \[
+  \mathrm{reach\_dist}_k(o\,|\,p)=\max\{\mathrm{core\_dist}_k(p),\, D(p,o)\}.
+  \]
+\end{description}
+
+\noindent\textbf{Lettura immediata.}
+\begin{itemize}
+  \item Se $p$ è in una regione densa (\(\mathrm{core\_dist}_k(p)\) piccola) e $o$ è \emph{dentro} quel raggio, allora
+        \(\mathrm{reach\_dist}_k(o\,|\,p)=\mathrm{core\_dist}_k(p)\) (tutti questi $o$ “valgon lo stesso” nel plot).
+  \item Se $o$ è \emph{più lontano} del raggio denso di $p$, 
+        \(\mathrm{reach\_dist}_k(o\,|\,p)=D(p,o)\) (serve “uscire” dalla zona densa).
+\end{itemize}
+
+\noindent\textbf{Mini-esempio.} Con $k=5$ e \(\mathrm{core\_dist}_5(p)=0.8\):
+un vicino a distanza \(0.6\) ha \(\mathrm{reach\_dist}=0.8\); un punto a distanza \(1.2\) ha \(\mathrm{reach\_dist}=1.2\).
+
+
+\paragraph{Risultato: ordering e \emph{reachability plot}.}
+OPTICS visita iterativamente i punti scegliendo, tramite una coda di priorità, quello con \emph{reach\_dist} minima; registra per ciascun punto l’ordine di visita e la sua \emph{reachability}. Plottando le \emph{reachability} nell’ordine si ottiene il \textbf{reachability plot}: le \emph{valli} corrispondono a cluster, le creste a separazioni.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/optics_reachability.png}
+  \caption{OPTICS: esempio di \emph{reachability plot}. Le zone basse (valli) indicano cluster densi; le zone alte (creste) indicano separazioni. (immagine da libro/slide)}
+  \label{fig:optics-reach}
+\end{figure}
+
+\paragraph{Estrazione dei cluster.}
+Si possono ottenere partizioni:
+\begin{itemize}
+  \item applicando un \emph{cut} orizzontale sul plot (equivalente a DBSCAN a un dato $\varepsilon$);
+  \item individuando automaticamente valli significative (metodi di \emph{valley picking} o soglie relative).
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/cluster_extraction_optics.png}
+  \caption{OPTICS. (1) A sinistra: punti nel piano e, sotto, \emph{reachability plot}; le valli (segmenti colorati) corrispondono a regioni dense/cluster, mentre la linea orizzontale tratteggiata indica una soglia 
+  $\epsilon$ che produce un taglio in stile DBSCAN. Le linee tratteggiate collegano ogni gruppo nel piano al suo intervallo nel plot. (2) A destra: regola \emph{steep down/up} per l’estrazione automatica dei cluster dal reachability plot (si entra quando la reachability scende bruscamente e si esce quando risale).}  
+  \label{fig:optics-cluster-extraction}
+\end{figure}
+
+\paragraph{Costo.}
+Con le adeguate strutture: $O(n\log n)$; altrimenti $O(n^2)$.
+
+% ----------------------------
+\section{HDBSCAN}\label{sec:hdbscan}
+\textbf{HDBSCAN} (Hierarchical DBSCAN) estende DBSCAN costruendo una \emph{gerarchia di cluster per densità} e selezionando
+automaticamente i cluster più \emph{stabili}. L’unico parametro concettuale è \texttt{MinPts} (soglia minima di densità); nelle librerie può comparire anche \texttt{min\_cluster\_size} (qui lo assimiliamo a \texttt{MinPts} come nelle slide).
+
+\subsection*{Idea.}
+\begin{enumerate}
+  \item Definisco una distanza che “appiattisce” le regioni rade e rende confrontabili densità diverse.
+  \item Costruisco l’MST su tale distanza e, facendo crescere la densità minima \(\lambda=1/\varepsilon\), ottengo un \emph{cluster tree}.
+  \item Condenso l’albero tenendo solo rami sostenuti da almeno \texttt{MinPts} punti e scelgo i cluster più \emph{stabili}. 
+\end{enumerate}
+
+\paragraph{Distanza di \emph{mutual reachability}.}
+Sia \(\mathrm{core\_dist}(p)\) la distanza dal \texttt{MinPts}-esimo vicino di \(p\). La distanza
+\[
+d_{\text{mreach}}(p,q)=\max\big\{\mathrm{core\_dist}(p),\ \mathrm{core\_dist}(q),\ D(p,q)\big\}
+\]
+“\emph{dilata}” le regioni poco dense (aumentando le loro distanze interne) e \emph{comprimi} quelle dense: in questo modo cluster a densità diverse risultano separabili con un unico parametro.
+
+\paragraph{Dal grafo all’albero dei cluster.}
+\begin{enumerate}
+  \item \textbf{MST su} \(d_{\text{mreach}}\). Si costruisce il grafo completo pesato con \(d_{\text{mreach}}\) e se ne estrae l’MST (Minimum Spanning Tree).
+  \item \textbf{Aumenta la densità minima} \(\lambda=1/\varepsilon\) e \emph{taglia} gli archi dell’MST in ordine di peso decrescente: ogni taglio spezza componenti connesse e produce una \emph{cluster tree} (una gerarchia in funzione di \(\lambda\)).
+\end{enumerate}
+
+\paragraph{Condensed tree e stabilità.}
+\begin{itemize}
+  \item \textbf{Condensa.} Si filtra la cluster tree mantenendo solo i rami che, per qualche intervallo di \(\lambda\), contengono almeno \texttt{MinPts} punti. Il risultato è il \emph{condensed tree}.
+  \item \textbf{Stabilità} (persistenza). Per un cluster \(C\) la stabilità misura “per quanto a lungo” il cluster esiste al variare di \(\lambda\):
+  \[
+  \mathrm{stab}(C)=\sum_{p\in C}\bigl(\lambda^{\text{max}}_{p}(C)-\lambda^{\text{min}}_{p}(C)\bigr),
+  \]
+  dove \(\lambda^{\text{min}}_{p}(C)\) è la densità alla quale \(p\) entra in \(C\) e \(\lambda^{\text{max}}_{p}(C)\) quella alla quale lo abbandona (per taglio o split). Si selezionano i cluster che massimizzano la stabilità totale evitando sovrapposizioni: se un cluster antenato ha stabilità minore della somma dei figli, si preferiscono i figli.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.46\textwidth]{images/hdbscan_mst.png}\hfill
+  \includegraphics[width=.46\textwidth]{images/hdbscan_condensed_tree.png}
+  \caption{HDBSCAN. Sinistra: MST costruito sulla \emph{mutual reachability distance} (archi più pesanti vengono tagliati al crescere di \(\lambda\)). Destra: \emph{condensed tree}; in evidenza i cluster scelti massimizzando la stabilità.}
+  \label{fig:hdbscan-figs}
+\end{figure}
+
+\paragraph{Output utile.}
+Oltre alle etichette:
+\begin{itemize}
+  \item \textbf{rumore} (punti non assegnati a nessun cluster stabile);
+  \item \textbf{membership/probabilità} di appartenenza (quanto a lungo ogni punto rimane nel cluster selezionato);
+  \item \textbf{outlier score} (più alto se il punto “muore” presto al crescere di \(\lambda\)).
+\end{itemize}
+
+\paragraph{Parametri e pratica.}
+\begin{itemize}
+  \item \texttt{MinPts} controlla la granularità: piccolo \(\Rightarrow\) molti cluster/nuclei locali; grande \(\Rightarrow\) cluster più grossi e più rumore. Valori tipici: 5–20.
+  \item \textbf{Metrica e scala.} Standardizzare le feature; con dati sparsi/testuali usare cosine/angolare.
+  \item \textbf{Quando preferirlo.} Densità variabili, cluster annidati, rumore: HDBSCAN supera i limiti di DBSCAN (un solo \(\varepsilon\)) e NON richiede scegliere \(\varepsilon\) come OPTICS.
+\end{itemize}
+
+\paragraph{Costo computazionale.} Con strutture adeguate (R-Tree): \(O(n\log n)\); altrimenti \(O(n^2)\).
+
+\section{Confronto rapido}\label{sec:confronto-densita}
+\begin{center}
+  \begin{tabular}{@{}lccc@{}}
+  \toprule
+  & \textbf{DBSCAN} & \textbf{OPTICS} & \textbf{HDBSCAN} \\
+  \midrule
+  Parametri principali & $\varepsilon$, \texttt{MinPts} & \texttt{MinPts} ($\varepsilon$ alto) & \texttt{MinPts} \\
+  Densità variabile & \(\circ\) & \(\checkmark\) (tramite plot) & \(\checkmark\) (selezione stabile) \\
+  Rumore/outlier & \(\checkmark\) & \(\checkmark\) & \(\checkmark\) \\
+  Numero di cluster & implicito & da plot & automatico \\
+  Forma dei cluster & arbitraria & arbitraria & arbitraria \\
+  Costo tipico (indicizzato) & $O(n\log n)$ & $O(n\log n)$ & $O(n\log n)$ \\
+  \bottomrule
+  \end{tabular}
+\end{center}
