@@ -262,7 +262,9 @@ T(n,k,d,t)=O(t\,n\,k\,d)\quad\text{(nelle slide: }O(tkn)\text{)}.
 \]
 
 
-\section{Clustering per densità: DBSCAN}\label{sec:dbscan}
+\section{Clustering per densità}
+
+\subsection{DBSCAN}\label{sec:dbscan}
 DBSCAN (\emph{Density-Based Spatial Clustering of Applications with Noise}) definisce i cluster come regioni con densità elevata separate da regioni a bassa densità. Richiede due parametri:
 \[
 \varepsilon>0 \quad\text{(raggio dell'intorno)}\qquad\text{e}\qquad \texttt{MinPts}\in\mathbb{N}\quad\text{(soglia di densità)}.
@@ -312,7 +314,7 @@ Il costo è dominato dalle ricerche di vicinato. Con appropriate strutture (R-tr
 
 % ----------------------------
 
-\section{OPTICS}\label{sec:optics}
+\subsection{OPTICS}\label{sec:optics}
 OPTICS (\emph{Ordering Points To Identify the Clustering Structure}) estende DBSCAN per gestire \textbf{densità variabili}. Invece di una singola partizione, produce un \emph{ordinamento} dei punti con associata una misura di “raggiungibilità” che riassume la struttura di densità a più scale.
 
 \paragraph{Core–distance e reachability (OPTICS).}
@@ -373,39 +375,115 @@ Si possono ottenere partizioni:
 Con le adeguate strutture: $O(n\log n)$; altrimenti $O(n^2)$.
 
 % ----------------------------
-\section{HDBSCAN}\label{sec:hdbscan}
+\subsection{HDBSCAN}\label{sec:hdbscan}
 \textbf{HDBSCAN} (Hierarchical DBSCAN) estende DBSCAN costruendo una \emph{gerarchia di cluster per densità} e selezionando
 automaticamente i cluster più \emph{stabili}. L’unico parametro concettuale è \texttt{MinPts} (soglia minima di densità); nelle librerie può comparire anche \texttt{min\_cluster\_size} (qui lo assimiliamo a \texttt{MinPts} come nelle slide).
 
-\subsection*{Idea.}
+\paragraph{Idea.}
 \begin{enumerate}
   \item Definisco una distanza che “appiattisce” le regioni rade e rende confrontabili densità diverse.
   \item Costruisco l’MST su tale distanza e, facendo crescere la densità minima \(\lambda=1/\varepsilon\), ottengo un \emph{cluster tree}.
   \item Condenso l’albero tenendo solo rami sostenuti da almeno \texttt{MinPts} punti e scelgo i cluster più \emph{stabili}. 
 \end{enumerate}
 
+\paragraph{Core distance di X.} \(\mathrm{core\_dist}(p)\) = distanza dal \texttt{MinPts} più vicino.
+
 \paragraph{Distanza di \emph{mutual reachability}.}
-Sia \(\mathrm{core\_dist}(p)\) la distanza dal \texttt{MinPts}-esimo vicino di \(p\). La distanza
+Sia \(\mathrm{core\_dist}(p)\) la distanza dal \texttt{MinPts} \emph{punto} più vicino di \(p\). La distanza
 \[
 d_{\text{mreach}}(p,q)=\max\big\{\mathrm{core\_dist}(p),\ \mathrm{core\_dist}(q),\ D(p,q)\big\}
 \]
 “\emph{dilata}” le regioni poco dense (aumentando le loro distanze interne) e \emph{comprimi} quelle dense: in questo modo cluster a densità diverse risultano separabili con un unico parametro.
 
-\paragraph{Dal grafo all’albero dei cluster.}
+\paragraph{Mutual Reachability graph $G_{MinPts}$.} grafo pesato in cui i nodi sono gli oggetti dello spazio e, per ogni coppia di oggetti $X,Y$, viene inserito un arco il cui peso coincide con la Mutual Reachability distance tra $X$ e $Y$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{images/HDBSCAN_example.png}
+  \caption{HDBSCAN: illustrazione di \emph{core\_dist}, \emph{reach\_dist} e \emph{mutual reachability}.
+  Ogni cerchio centrato in un punto ha raggio pari alla sua $\mathrm{core\_dist}(\cdot)$
+  (distanza dal \texttt{MinPts}-esimo vicino). \textbf{Sinistra}: per i punti $p$ (verde) e $o$ (blu)
+  la distanza di raggiungibilità da $p$ a $o$ è
+  $\mathrm{reach\_dist}(o\mid p)=\max\{\mathrm{core\_dist}(p),\,D(p,o)\}$; poiché il raggio di $p$ domina,
+  vale $\mathrm{reach\_dist}(o\mid p)=\mathrm{core\_dist}(p)$. \textbf{Destra}: tra $p$ (verde) e $q$ (rosso)
+  prevale la distanza euclidea, quindi la \emph{mutual reachability} risulta
+  $d_{\mathrm{mreach}}(p,q)=\max\{\mathrm{core\_dist}(p),\,\mathrm{core\_dist}(q),\,D(p,q)\}=D(p,q)$.
+  L'uso di $d_{\mathrm{mreach}}$ ``gonfia'' le regioni rade e rende più separabili cluster con densità diverse.}
+  \label{fig:hdbscan-example}
+\end{figure}
+
+\subsubsection*{Costruzione del dendogramma} 
+Per la costruzione del dendogramma si procede così:
+\begin{description}
+  \item[Costruzione del MST] Si costruisce il Minimum Spanning Tree (MST) di \(G_{MinPts}\), ovvero il sottografo aciclico di di G il cui peso totale sugli archi è minimo e che garantisce la connessione di G.
+  \item[Rimozione degli archi] Si ordinano gli archi del MST in ordine decrescente di peso e si rimuovono progressivamente, partendo da quello più pesante. Ad ogni rimozione si ottiene una partizione dei punti in cluster (componenti connesse del grafo rimanente). Questa struttura, la chiamiamo \emph{cluster tree}.
+\end{description}
+
+\newpage
+\subsubsection*{Condensed tree e selezione dei cluster significativi}
+\paragraph{Condensed tree.} A partire dal cluster tree si \emph{condensa} mantenendo solo i rami che,
+per qualche intervallo di densità \(\lambda\), hanno almeno \texttt{MinPts} punti (gli altri rami vengono
+collassati sul padre). Ogni nodo \(C\) del condensed tree porta:
+\[
+\begin{aligned}
+\lambda_{\text{min}}(C) &\;\text{ (densità alla nascita)}\\
+\lambda_{\text{max}}(C) &\;\text{ (densità alla scomparsa/split)}\\
+|C|(\lambda) &\;\text{ (numero di punti in $C$ alla densità }\lambda\text{)}
+\end{aligned}
+\]
+
+Qui $|C|(\lambda)$ indica quanti punti appartengono al cluster $C$ per una data densità $\lambda$; 
+questo valore viene usato per decidere se mantenere o collassare un ramo nel \emph{condensed tree}.
+
+\paragraph{Stabilità (persistenza).} La stabilità misura “quanto a lungo” un cluster esiste al crescere di
+\(\lambda\). Per un nodo \(C\) del condensed tree:
+\[
+\mathrm{stab}(C)=\sum_{p\in C}\!\bigl(\lambda^{\text{max}}_{p}(C)-\lambda^{\text{min}}(C)\bigr),
+\]
+dove \(\lambda^{\text{max}}_{p}(C)\) è la densità alla quale il punto \(p\) lascia \(C\) (per split o perché \(C\) muore).
+Equivalente: è l’“area sotto la curva” del numero di punti di \(C\) lungo \(\lambda\) nel condensed tree.
+
+\paragraph{Estrazione dei cluster significativi (dal \emph{condensed tree}).}
+\emph{Input:} albero condensato in cui ogni nodo $C$ porta
+$\lambda_{\text{birth}}(C)$, $\lambda_{\text{death}}(C)$ e la funzione $|C|(\lambda)$
+(\# punti vivi in $C$ alla densità $\lambda$).
+
 \begin{enumerate}
-  \item \textbf{MST su} \(d_{\text{mreach}}\). Si costruisce il grafo completo pesato con \(d_{\text{mreach}}\) e se ne estrae l’MST (Minimum Spanning Tree).
-  \item \textbf{Aumenta la densità minima} \(\lambda=1/\varepsilon\) e \emph{taglia} gli archi dell’MST in ordine di peso decrescente: ogni taglio spezza componenti connesse e produce una \emph{cluster tree} (una gerarchia in funzione di \(\lambda\)).
+  \item \textbf{Calcolo della stabilità (bottom–up).}
+  Per ogni nodo $C$ si valuta la \emph{persistenza} del cluster lungo l’intervallo
+  in cui esiste come:
+  \[
+    \mathrm{stab}(C)
+    \;=\;
+    \sum_{p\in C}\bigl(\lambda^{\text{max}}_{p}(C)-\lambda^{\text{min}}(C)\bigr),
+  \]
+  dove $\lambda^{\text{min}}(C)$ è la densità alla \emph{nascita} di $C$ e
+  $\lambda^{\text{max}}_{p}(C)$ è la densità alla quale il punto $p$
+  \emph{esce} da $C$ (per split o scomparsa). Si procede dal basso verso l’alto
+  in modo da avere già disponibili le stabilità dei figli quando si valuta il padre.
+
+  \item \textbf{Regola di selezione (top–down, senza sovrapposizioni).}
+  Visitando un nodo $C$ con figli $C_1,\dots,C_m$, si confronta la stabilità del
+  padre con la somma di quelle dei figli:
+  \[
+    S_{\text{figli}}=\sum_{i=1}^{m}\mathrm{stab}(C_i).
+  \]
+  \begin{itemize}
+    \item Se $\mathrm{stab}(C)\ \mathbf{\ge}\ S_{\text{figli}}$:
+          \textbf{seleziona $C$} come cluster e \emph{non} scendere oltre in quel ramo.
+    \item Altrimenti:
+          \textbf{non} selezionare $C$ e \textbf{scendere} ricorsivamente,
+          applicando la stessa regola ai figli e selezionando quelli con stabilità $>0$.
+  \end{itemize}
+
+  \item \textbf{Output.} I nodi selezionati sono disgiunti e costituiscono
+  i \emph{cluster significativi} massimizzando la stabilità complessiva;
+  in caso di parità si preferisce il padre.
 \end{enumerate}
 
-\paragraph{Condensed tree e stabilità.}
-\begin{itemize}
-  \item \textbf{Condensa.} Si filtra la cluster tree mantenendo solo i rami che, per qualche intervallo di \(\lambda\), contengono almeno \texttt{MinPts} punti. Il risultato è il \emph{condensed tree}.
-  \item \textbf{Stabilità} (persistenza). Per un cluster \(C\) la stabilità misura “per quanto a lungo” il cluster esiste al variare di \(\lambda\):
-  \[
-  \mathrm{stab}(C)=\sum_{p\in C}\bigl(\lambda^{\text{max}}_{p}(C)-\lambda^{\text{min}}_{p}(C)\bigr),
-  \]
-  dove \(\lambda^{\text{min}}_{p}(C)\) è la densità alla quale \(p\) entra in \(C\) e \(\lambda^{\text{max}}_{p}(C)\) quella alla quale lo abbandona (per taglio o split). Si selezionano i cluster che massimizzano la stabilità totale evitando sovrapposizioni: se un cluster antenato ha stabilità minore della somma dei figli, si preferiscono i figli.
-\end{itemize}
+\textbf{Assegnazione dei border (opzionale).} I punti non-core vicini a più cluster possono essere assegnati
+al cluster selezionato con \(\lambda_{\text{birth}}\) più basso o tramite un punteggio di \emph{membership} proporzionale
+al tempo di permanenza del punto nel cluster nel condensed tree.
 
 \begin{figure}[htbp]
   \centering
@@ -415,35 +493,4 @@ d_{\text{mreach}}(p,q)=\max\big\{\mathrm{core\_dist}(p),\ \mathrm{core\_dist}(q)
   \label{fig:hdbscan-figs}
 \end{figure}
 
-\paragraph{Output utile.}
-Oltre alle etichette:
-\begin{itemize}
-  \item \textbf{rumore} (punti non assegnati a nessun cluster stabile);
-  \item \textbf{membership/probabilità} di appartenenza (quanto a lungo ogni punto rimane nel cluster selezionato);
-  \item \textbf{outlier score} (più alto se il punto “muore” presto al crescere di \(\lambda\)).
-\end{itemize}
-
-\paragraph{Parametri e pratica.}
-\begin{itemize}
-  \item \texttt{MinPts} controlla la granularità: piccolo \(\Rightarrow\) molti cluster/nuclei locali; grande \(\Rightarrow\) cluster più grossi e più rumore. Valori tipici: 5–20.
-  \item \textbf{Metrica e scala.} Standardizzare le feature; con dati sparsi/testuali usare cosine/angolare.
-  \item \textbf{Quando preferirlo.} Densità variabili, cluster annidati, rumore: HDBSCAN supera i limiti di DBSCAN (un solo \(\varepsilon\)) e NON richiede scegliere \(\varepsilon\) come OPTICS.
-\end{itemize}
-
-\paragraph{Costo computazionale.} Con strutture adeguate (R-Tree): \(O(n\log n)\); altrimenti \(O(n^2)\).
-
-\section{Confronto rapido}\label{sec:confronto-densita}
-\begin{center}
-  \begin{tabular}{@{}lccc@{}}
-  \toprule
-  & \textbf{DBSCAN} & \textbf{OPTICS} & \textbf{HDBSCAN} \\
-  \midrule
-  Parametri principali & $\varepsilon$, \texttt{MinPts} & \texttt{MinPts} ($\varepsilon$ alto) & \texttt{MinPts} \\
-  Densità variabile & \(\circ\) & \(\checkmark\) (tramite plot) & \(\checkmark\) (selezione stabile) \\
-  Rumore/outlier & \(\checkmark\) & \(\checkmark\) & \(\checkmark\) \\
-  Numero di cluster & implicito & da plot & automatico \\
-  Forma dei cluster & arbitraria & arbitraria & arbitraria \\
-  Costo tipico (indicizzato) & $O(n\log n)$ & $O(n\log n)$ & $O(n\log n)$ \\
-  \bottomrule
-  \end{tabular}
-\end{center}
+\paragraph{Costo.} Dominato dalla costruzione del MST: con strutture adeguate $O(n\log n)$; altrimenti $O(n^2)$.

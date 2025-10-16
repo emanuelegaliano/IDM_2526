@@ -164,22 +164,38 @@
 \contentsline {paragraph}{Metodo \emph {elbow}.}{28}{section*.77}%
 \contentsline {paragraph}{Metodo \emph {silhouette}.}{29}{section*.78}%
 \contentsline {subsection}{\numberline {5.3.5}Complessità computazionale}{29}{subsection.5.3.5}%
-\contentsline {section}{\numberline {5.4}Clustering per densità: DBSCAN}{29}{section.5.4}%
+\contentsline {section}{\numberline {5.4}Clustering per densità}{29}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}DBSCAN}{29}{subsection.5.4.1}%
 \contentsline {paragraph}{Definizioni.}{29}{section*.79}%
 \contentsline {paragraph}{Algoritmo.}{30}{section*.80}%
 \contentsline {paragraph}{Scelta dei parametri.}{30}{section*.81}%
-\contentsline {paragraph}{Complessità.}{31}{section*.82}%
-\contentsline {paragraph}{Pro e contro.}{31}{section*.83}%
-\contentsline {section}{\numberline {5.5}OPTICS}{31}{section.5.5}%
+\contentsline {paragraph}{Complessità.}{30}{section*.82}%
+\contentsline {paragraph}{Pro e contro.}{30}{section*.83}%
+\contentsline {subsection}{\numberline {5.4.2}OPTICS}{30}{subsection.5.4.2}%
 \contentsline {paragraph}{Core–distance e reachability (OPTICS).}{31}{section*.84}%
 \contentsline {paragraph}{Risultato: ordering e \emph {reachability plot}.}{31}{section*.85}%
 \contentsline {paragraph}{Estrazione dei cluster.}{31}{section*.86}%
 \contentsline {paragraph}{Costo.}{32}{section*.87}%
-\contentsline {section}{\numberline {5.6}HDBSCAN}{32}{section.5.6}%
-\contentsline {paragraph}{Distanza di \emph {mutual reachability}.}{33}{section*.89}%
-\contentsline {paragraph}{Dal grafo all’albero dei cluster.}{33}{section*.90}%
-\contentsline {paragraph}{Condensed tree e stabilità.}{33}{section*.91}%
-\contentsline {paragraph}{Output utile.}{33}{section*.92}%
-\contentsline {paragraph}{Parametri e pratica.}{34}{section*.93}%
-\contentsline {paragraph}{Costo computazionale.}{34}{section*.94}%
-\contentsline {section}{\numberline {5.7}Confronto rapido}{34}{section.5.7}%
+\contentsline {subsection}{\numberline {5.4.3}HDBSCAN}{33}{subsection.5.4.3}%
+\contentsline {paragraph}{Idea.}{33}{section*.88}%
+\contentsline {paragraph}{Core distance di X.}{33}{section*.89}%
+\contentsline {paragraph}{Distanza di \emph {mutual reachability}.}{33}{section*.90}%
+\contentsline {paragraph}{Mutual Reachability graph $G_{MinPts}$.}{33}{section*.91}%
+\contentsline {paragraph}{Condensed tree.}{34}{section*.94}%
+\contentsline {paragraph}{Stabilità (persistenza).}{34}{section*.95}%
+\contentsline {paragraph}{Estrazione dei cluster significativi (dal \emph {condensed tree}).}{34}{section*.96}%
+\contentsline {paragraph}{Costo.}{35}{section*.97}%
+\contentsline {chapter}{\numberline {6}Classificazione}{37}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Introduzione}{37}{section.6.1}%
+\contentsline {paragraph}{Predizione (regressione).}{37}{section*.98}%
+\contentsline {subsection}{\numberline {6.1.1}Schema generale di un classificatore}{37}{subsection.6.1.1}%
+\contentsline {paragraph}{Overfitting.}{37}{section*.99}%
+\contentsline {subsection}{\numberline {6.1.2}Requisiti desiderabili}{37}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Alberi decisionali}{38}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Classificazione tramite albero}{38}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Costruzione top–down}{39}{subsection.6.2.2}%
+\contentsline {paragraph}{Pruning.}{39}{section*.100}%
+\contentsline {subsection}{\numberline {6.2.3}Splitting degli attributi}{39}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Scelta dell’attributo e strategia greedy}{39}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Misure di goodness: Information Gain (ID3)}{39}{subsection.6.2.5}%
+\contentsline {subsection}{\numberline {6.2.6}Esempio e limitazioni}{40}{subsection.6.2.6}%
