@@ -65,6 +65,32 @@ Per variabile discreta \(X\): \(\mathbb{E}[X]=\sum_x x\,P(X=x)\), \(\mathrm{Var}
 Il \(p\)-quantile è la soglia sotto cui cade una frazione \(p\) dei dati ordinati (mediana = 50\%). L'IQR è \(Q_3-Q_1\). Regola outlier: \([Q_1-1{,}5\,\mathrm{IQR},\,Q_3+1{,}5\,\mathrm{IQR}]\).
 \paragraph{Esempio.} Dati ordinati \([3,5,7,8,9,10,13,15,20]\): \(Q_1\approx6\), mediana \(=9\), \(Q_3\approx14\), IQR \(=8\).
 
+\subsection{Modello di Bayes e tipi di probabilità}\label{subsec:bayes}
+Il \textbf{modello di Bayes} spiega come aggiornare in modo coerente la probabilità di
+un’ipotesi quando osserviamo nuovi dati.
+
+\paragraph{Tipi di probabilità.}
+\begin{itemize}
+  \item \textbf{Congiunta} $P(X,Y)$: probabilità che due eventi/variabili si verifichino insieme.
+  \item \textbf{Marginale} $P(X)$: probabilità “totale” su $X$ ottenuta dalla congiunta,
+        ad es.\ $P(X)=\sum_{y}P(X,Y)$ (discreto) oppure $P(X)=\int f_{X,Y}(x,y)\,dy$ (continuo).
+  \item \textbf{Condizionata} $P(A\mid B)=\dfrac{P(A\cap B)}{P(B)}$ (per $P(B)>0$);
+        in termini di variabili $P(X\mid Y)=\dfrac{P(X,Y)}{P(Y)}$.
+  \item \textbf{Indipendenza} $X\perp Y$ se e solo se $P(X,Y)=P(X)P(Y)$ (equivale a $P(X\mid Y)=P(X)$).
+\end{itemize}
+
+\paragraph{Teorema di Bayes.}
+Per ipotesi $h_1,\dots,h_K$ e un’osservazione $x$:
+\[
+P(h_k\mid x)=\frac{\underbrace{P(x\mid h_k)}_{\text{verosimiglianza}}\,
+\underbrace{P(h_k)}_{\text{priori}}}
+{\underbrace{P(x)}_{\text{evidenza}}},\qquad
+P(x)=\sum_{j=1}^{K}P(x\mid h_j)P(h_j).
+\]
+Il \emph{posterior} $P(h_k\mid x)$ è la nostra opinione aggiornata su $h_k$; $P(h_k)$ è il \emph{prior};
+$P(x\mid h_k)$ è la \emph{verosimiglianza} del dato sotto $h_k$; $P(x)$ è l’\emph{evidenza} (normalizzatore).
+Per variabili continue, si sostituiscono le somme con integrali.
+
 \section{Preprocessing numerico}\label{sec:scaling}
 \paragraph{Standardizzazione (z-score).} \(z_{ij}=\dfrac{x_{ij}-\mu_j}{\sigma_j}\). Quando usarla: feature con scale diverse.
 \paragraph{Min--max scaling.} \(y_{ij}=\dfrac{x_{ij}-\min_j}{\max_j-\min_j}\in[0,1]\). Nota: sensibile agli outlier.
@@ -72,14 +98,42 @@ Il \(p\)-quantile è la soglia sotto cui cade una frazione \(p\) dei dati ordina
 \paragraph{Codifiche categoriali.} One-hot: per categorie \(\{c_1,\dots,c_g\}\), \(c_i\mapsto\mathbf{e}_i\in\{0,1\}^g\).
 \paragraph{Esempio.} Se media=50 e dev.stand.=10, il valore 65 diventa \(z=1{,}5\); con min--max su \([0,100]\) diventa \(0{,}65\).
 
-\section{Ottimizzazione in pratica}\label{sec:opt}
-\paragraph{Gradiente.} Per \(f:\mathbb{R}^d\to\mathbb{R}\), \(\nabla f(\mathbf{x})=[\partial f/\partial x_1,\dots,\partial f/\partial x_d]^\top\).
-\paragraph{Discesa del gradiente.} \(\mathbf{x}^{(t+1)}=\mathbf{x}^{(t)}-\eta\,\nabla f(\mathbf{x}^{(t)})\).
-\paragraph{Convessità (idea).} Se \(f\) è convessa, ogni minimo locale è globale.
-\paragraph{Esempio 1D.} \(f(x)=(x-3)^2\). Con \(x^{(0)}=0\), \(\eta=0{,}5\): \(x^{(1)}=1{,}5\), \(x^{(2)}=2{,}25\), \(x^{(3)}=2{,}625\) \(\to\) converge a 3.
-
 \section{Combinatoria utile}\label{sec:comb}
 \paragraph{Coefficienti binomiali.} \(\binom{n}{k}=\dfrac{n!}{k!(n-k)!}\). Esempio: 3-itemset da 100 item = \(\binom{100}{3}=161700\).
 \paragraph{Permutazioni.} \(P(n,k)=n\,(n-1)\cdots(n-k+1)\): sequenze ordinate senza ripetizione.
 
-% --- Fine Capitolo 0 ---
+\section{Entropia}\label{sec:entropy}
+
+\subsection{Definizione}
+Sia \(X\) una variabile aleatoria discreta che assume valori in un insieme finito \(\mathcal{X}\), con massa di probabilità \(p_X(x)=\Pr[X=x]\).
+L'\textbf{entropia (di Shannon)} di \(X\) è
+\[
+H_b(X)\;=\;-\sum_{x\in\mathcal{X}} p_X(x)\,\log_b p_X(x),
+\]
+dove \(b\) è la base del logaritmo (tipicamente \(b=2\), quindi l'unità di misura è il \emph{bit}; se \(b=e\) l'unità è il \emph{nat}). Per convenzione \(0\log 0:=0\).
+
+\paragraph{Proprietà essenziali.}
+\[
+0 \le H_b(X) \le \log_b |\mathcal{X}|,\qquad
+H_b(X)=0 \ \Leftrightarrow\ X \text{ è deterministica},\qquad
+H_b(X)=\log_b|\mathcal{X}| \ \Leftrightarrow\ X \text{ è uniforme}.
+\]
+In pratica, più è \emph{dispersa} la distribuzione di \(X\), maggiore è l'entropia.
+
+\paragraph{Stima empirica.}
+Dati \(n\) campioni \(x_1,\dots,x_n\) e le frequenze \(n_x=|\{i:\,x_i=x\}|\), la stima plug--in è
+\[
+\widehat{H}_b(X)\;=\;-\sum_{x\in\mathcal{X}} \frac{n_x}{n}\,\log_b\!\Big(\frac{n_x}{n}\Big).
+\]
+Nel caso di etichette di classe \(Y\), \(\widehat{H}_2(Y)\) misura l'\emph{impurità} del dataset ed è usata in molti criteri di splitting (es.\ \emph{information gain}).
+
+\subsection{In parole più semplici}
+L'entropia quantifica \textbf{quanta incertezza} c'è in un fenomeno casuale: è alta quando i risultati sono imprevedibili e tutti più o meno uguali in probabilità, è bassa quando un risultato è quasi certo.
+
+\paragraph{Esempio (moneta).}
+Se una moneta è equa, testa/croce valgono \(50\%\) ciascuno: \(H_2=1\) bit (serve, in media, 1 bit per descrivere l'esito).
+Se la moneta è sbilanciata, ad esempio \(\Pr[\text{testa}]=0.99\), l'entropia scende a
+\[
+H_2 \approx -0.99\log_2 0.99 - 0.01\log_2 0.01 \approx 0.080\text{ bit},
+\]
+perché l'esito è quasi sempre testa: c'è poca incertezza.

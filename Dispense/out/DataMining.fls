@@ -797,6 +797,8 @@ INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/ec-lmr8.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/ec-lmr6.tfm
 INPUT ./introduzione.tex
 INPUT ./introduzione.tex
 INPUT ./introduzione.tex
@@ -807,8 +809,6 @@ INPUT ./introduzione.tex
 INPUT introduzione.tex
 INPUT ./introduzione.tex
 INPUT introduzione.tex
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/ec-lmr8.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/ec-lmr6.tfm
 INPUT ./preprocessing.tex
 INPUT ./preprocessing.tex
 INPUT ./preprocessing.tex
@@ -964,6 +964,16 @@ INPUT ./images/ig_outlook_example.png
 INPUT images/ig_outlook_example.png
 INPUT ./images/ig_outlook_example.png
 INPUT ./images/ig_outlook_example.png
+INPUT ./images/tree_pruning_example.png
+INPUT ./images/tree_pruning_example.png
+INPUT images/tree_pruning_example.png
+INPUT ./images/tree_pruning_example.png
+INPUT ./images/tree_pruning_example.png
+INPUT ./images/bayes_network_example.png
+INPUT ./images/bayes_network_example.png
+INPUT images/bayes_network_example.png
+INPUT ./images/bayes_network_example.png
+INPUT ./images/bayes_network_example.png
 INPUT out/DataMining.aux
 INPUT out/prerequisiti.aux
 INPUT out/prerequisiti.aux

@@ -31,171 +31,196 @@
 \contentsline {paragraph}{Esempio.}{3}{section*.13}%
 \contentsline {subsection}{\numberline {1.7.3}Quantili e IQR}{3}{subsection.1.7.3}%
 \contentsline {paragraph}{Esempio.}{3}{section*.14}%
-\contentsline {section}{\numberline {1.8}Preprocessing numerico}{3}{section.1.8}%
-\contentsline {paragraph}{Standardizzazione (z-score).}{3}{section*.15}%
-\contentsline {paragraph}{Min--max scaling.}{4}{section*.16}%
-\contentsline {paragraph}{Robust scaling.}{4}{section*.17}%
-\contentsline {paragraph}{Codifiche categoriali.}{4}{section*.18}%
-\contentsline {paragraph}{Esempio.}{4}{section*.19}%
-\contentsline {section}{\numberline {1.9}Ottimizzazione in pratica}{4}{section.1.9}%
-\contentsline {paragraph}{Gradiente.}{4}{section*.20}%
-\contentsline {paragraph}{Discesa del gradiente.}{4}{section*.21}%
-\contentsline {paragraph}{Convessità (idea).}{4}{section*.22}%
-\contentsline {paragraph}{Esempio 1D.}{4}{section*.23}%
-\contentsline {section}{\numberline {1.10}Combinatoria utile}{4}{section.1.10}%
-\contentsline {paragraph}{Coefficienti binomiali.}{4}{section*.24}%
-\contentsline {paragraph}{Permutazioni.}{4}{section*.25}%
-\contentsline {chapter}{\numberline {2}Introduzione al Data Mining}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Definizione e finalità}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Caratteristiche dei pattern}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Metodi di data mining}{5}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Perché fare data mining}{6}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Big Data}{6}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Dai dati alla conoscenza e alle comunità coinvolte}{6}{subsection.2.4.2}%
-\contentsline {section}{\numberline {2.5}Limiti e insidie del data mining}{6}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Caso di studio: Total Information Awareness (TIA)}{6}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Esempio: co-presenza in hotel come criterio di sospetto}{7}{subsection.2.5.2}%
-\contentsline {paragraph}{Dati di partenza.}{7}{section*.26}%
-\contentsline {paragraph}{Ipotesi nulla (random).}{7}{section*.27}%
-\contentsline {paragraph}{Calcoli numerici.}{7}{section*.28}%
-\contentsline {paragraph}{Considerazioni.}{7}{section*.29}%
-\contentsline {section}{\numberline {2.6}Principio di Bonferroni e test multipli}{8}{section.2.6}%
-\contentsline {paragraph}{Interpretazione operativa.}{8}{section*.30}%
-\contentsline {paragraph}{Quando applicarlo.}{8}{section*.31}%
-\contentsline {chapter}{\numberline {3}Preprocessing dei Dati}{9}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Perché il preprocessing è essenziale}{9}{section.3.1}%
-\contentsline {paragraph}{Quattro obiettivi chiave.}{9}{section*.32}%
-\contentsline {section}{\numberline {3.2}Estrazione di feature}{9}{section.3.2}%
-\contentsline {paragraph}{Esempi tipici.}{9}{section*.33}%
-\contentsline {section}{\numberline {3.3}Portabilità dei dati}{10}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Da numerico a categoriale: discretizzazione}{10}{subsection.3.3.1}%
-\contentsline {paragraph}{Esempio.}{10}{section*.34}%
-\contentsline {subsection}{\numberline {3.3.2}Da categoriale a numerico}{10}{subsection.3.3.2}%
-\contentsline {paragraph}{Definizione (one-hot).}{10}{section*.35}%
-\contentsline {paragraph}{Esempio.}{10}{section*.36}%
-\contentsline {subsection}{\numberline {3.3.3}Da testo a numerico}{10}{subsection.3.3.3}%
-\contentsline {section}{\numberline {3.4}Data cleaning}{10}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Valori mancanti}{11}{subsection.3.4.1}%
-\contentsline {paragraph}{Mini-esempio (serie temporale).}{11}{section*.37}%
-\contentsline {subsection}{\numberline {3.4.2}Valori errati e inconsistenze}{11}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Rilevazione di outlier con quantili}{11}{subsection.3.4.3}%
-\contentsline {paragraph}{Interquantile range (IQR).}{11}{section*.38}%
-\contentsline {paragraph}{Mini-esempio.}{11}{section*.39}%
-\contentsline {subsection}{\numberline {3.4.4}Scaling e normalizzazione}{11}{subsection.3.4.4}%
-\contentsline {paragraph}{Standardizzazione (z-score).}{11}{section*.40}%
-\contentsline {paragraph}{Min--max scaling.}{12}{section*.41}%
-\contentsline {section}{\numberline {3.5}Riduzione dei dati}{12}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Sampling}{12}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Selezione di feature}{12}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Riduzione tramite rotazione di assi: PCA}{12}{subsection.3.5.3}%
-\contentsline {paragraph}{Matrice di covarianza.}{12}{section*.42}%
-\contentsline {paragraph}{Autodecomposizione.}{12}{section*.43}%
-\contentsline {paragraph}{Trasformazione.}{12}{section*.44}%
-\contentsline {paragraph}{Scelta del numero di componenti.}{12}{section*.45}%
-\contentsline {paragraph}{Mini-esempio (intuitivo).}{13}{section*.46}%
-\contentsline {subsection}{\numberline {3.5.4}Singular Value Decomposition (SVD)}{13}{subsection.3.5.4}%
-\contentsline {paragraph}{Interpretazione geometrica.}{13}{section*.47}%
-\contentsline {paragraph}{Relazione con PCA.}{13}{section*.48}%
-\contentsline {paragraph}{Versioni alternative.}{13}{section*.49}%
-\contentsline {subsection}{\numberline {3.5.5}Latent Semantic Analysis (LSA)}{13}{subsection.3.5.5}%
-\contentsline {section}{\numberline {3.6}Riduzione per trasformazione dei dati}{14}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Insiemi Frequenti e Regole d'Associazione}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Market-basket model e definizioni}{15}{section.4.1}%
-\contentsline {paragraph}{Supporto.}{15}{section*.50}%
-\contentsline {paragraph}{Soglia di supporto: trade-off.}{15}{section*.51}%
-\contentsline {section}{\numberline {4.2}Regole d'associazione}{15}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Qualità di una regola}{15}{subsection.4.2.1}%
-\contentsline {paragraph}{Confidenza.}{15}{section*.52}%
-\contentsline {paragraph}{Coverage.}{15}{section*.53}%
-\contentsline {paragraph}{Interesse (o \emph {interest}).}{16}{section*.54}%
-\contentsline {paragraph}{Lift.}{16}{section*.55}%
-\contentsline {paragraph}{Nota.}{16}{section*.56}%
-\contentsline {subsection}{\numberline {4.2.2}Mini-esempio (dataset giocattolo)}{16}{subsection.4.2.2}%
-\contentsline {section}{\numberline {4.3}Insiemi frequenti chiusi e massimali}{16}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Proprietà anti-monotona e Principio di Apriori}{16}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Algoritmo Apriori}{17}{section.4.5}%
-\contentsline {subsection}{\numberline {4.5.1}Apriori: esempio (minsup = 2)}{17}{subsection.4.5.1}%
-\contentsline {paragraph}{Passo $k=1\to 2$: generazione $C_2$ e pruning.}{18}{section*.57}%
-\contentsline {paragraph}{Passo $k=2\to 3$: generazione $C_3$ da $L_2$ (self-join) e pruning.}{18}{section*.58}%
-\contentsline {paragraph}{Passo $k=3\to 4$: generazione $C_4$ e arresto.}{18}{section*.59}%
-\contentsline {paragraph}{Riassunto dell’esempio.}{18}{section*.60}%
-\contentsline {subsection}{\numberline {4.5.2}Generazione dei candidati}{18}{subsection.4.5.2}%
-\contentsline {paragraph}{Esempio (schema).}{18}{section*.61}%
-\contentsline {section}{\numberline {4.6}Ottimizzazioni di Apriori}{19}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Hashing in bucket: PCY}{19}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Partizionamento del DB: SON}{19}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Campionamento e frontiera negativa: Toivonen}{19}{subsection.4.6.3}%
-\contentsline {section}{\numberline {4.7}Perch\'e andare oltre Apriori}{19}{section.4.7}%
-\contentsline {section}{\numberline {4.8}FP-Growth: idea di base}{19}{section.4.8}%
-\contentsline {subsection}{\numberline {4.8.1}Costruzione dell'FP-tree}{20}{subsection.4.8.1}%
-\contentsline {subsection}{\numberline {4.8.2}Esempio di FP-Growth}{20}{subsection.4.8.2}%
-\contentsline {paragraph}{Header table iniziale.}{20}{section*.62}%
-\contentsline {paragraph}{Visita per pattern-growth.}{21}{section*.63}%
-\contentsline {paragraph}{Come si espande un item $x$ (pattern-growth).}{21}{section*.64}%
-\contentsline {paragraph}{Esempio 1: item $p$.}{21}{section*.65}%
-\contentsline {paragraph}{Esempio 2: item $m$.}{22}{section*.66}%
-\contentsline {paragraph}{Esempio 3: item $b$.}{22}{section*.67}%
-\contentsline {section}{\numberline {4.9}Confronto: FP-Growth vs Apriori}{22}{section.4.9}%
-\contentsline {chapter}{\numberline {5}Clustering}{23}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Concetti generali}{23}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Spazi metrici e funzioni distanza}{23}{subsection.5.1.1}%
-\contentsline {paragraph}{Distanze in spazi euclidei.}{23}{section*.68}%
-\contentsline {paragraph}{Spazi non euclidei.}{24}{section*.69}%
-\contentsline {subsection}{\numberline {5.1.2}Tassonomia degli algoritmi}{24}{subsection.5.1.2}%
-\contentsline {paragraph}{Bontà di un algoritmo.}{24}{section*.70}%
-\contentsline {subsection}{\numberline {5.1.3}Alta dimensionalità: equidistanza e ortogonalità}{24}{subsection.5.1.3}%
-\contentsline {paragraph}{Equidistanza dei punti.}{24}{section*.71}%
-\contentsline {paragraph}{Conseguenze pratiche.}{25}{section*.72}%
-\contentsline {section}{\numberline {5.2}Clustering gerarchico}{25}{section.5.2}%
-\contentsline {paragraph}{Schema agglomerativo.}{25}{section*.73}%
-\contentsline {subsection}{\numberline {5.2.1}Distanza tra cluster (\emph {linkage})}{25}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Dendrogramma e criteri di stop}{25}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Altri criteri di combinazione}{25}{subsection.5.2.3}%
-\contentsline {subsection}{\numberline {5.2.4}Versioni divisive}{26}{subsection.5.2.4}%
-\contentsline {subsection}{\numberline {5.2.5}Complessità e ottimizzazioni}{26}{subsection.5.2.5}%
-\contentsline {paragraph}{Analisi \emph {naive}.}{26}{section*.74}%
-\contentsline {paragraph}{Ottimizzazione con \emph {coda di priorità}.}{26}{section*.75}%
-\contentsline {section}{\numberline {5.3}Clustering partizionale: k-means}{27}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Algoritmo base}{27}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Inizializzazione}{27}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Funzione obiettivo e arresto}{27}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Scelta del numero di cluster $k$}{28}{subsection.5.3.4}%
-\contentsline {paragraph}{Funzione obiettivo.}{28}{section*.76}%
-\contentsline {paragraph}{Metodo \emph {elbow}.}{28}{section*.77}%
-\contentsline {paragraph}{Metodo \emph {silhouette}.}{29}{section*.78}%
-\contentsline {subsection}{\numberline {5.3.5}Complessità computazionale}{29}{subsection.5.3.5}%
-\contentsline {section}{\numberline {5.4}Clustering per densità}{29}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}DBSCAN}{29}{subsection.5.4.1}%
-\contentsline {paragraph}{Definizioni.}{29}{section*.79}%
-\contentsline {paragraph}{Algoritmo.}{30}{section*.80}%
-\contentsline {paragraph}{Scelta dei parametri.}{30}{section*.81}%
-\contentsline {paragraph}{Complessità.}{30}{section*.82}%
-\contentsline {paragraph}{Pro e contro.}{30}{section*.83}%
-\contentsline {subsection}{\numberline {5.4.2}OPTICS}{30}{subsection.5.4.2}%
-\contentsline {paragraph}{Core–distance e reachability (OPTICS).}{31}{section*.84}%
-\contentsline {paragraph}{Risultato: ordering e \emph {reachability plot}.}{31}{section*.85}%
-\contentsline {paragraph}{Estrazione dei cluster.}{31}{section*.86}%
-\contentsline {paragraph}{Costo.}{32}{section*.87}%
-\contentsline {subsection}{\numberline {5.4.3}HDBSCAN}{33}{subsection.5.4.3}%
-\contentsline {paragraph}{Idea.}{33}{section*.88}%
-\contentsline {paragraph}{Core distance di X.}{33}{section*.89}%
-\contentsline {paragraph}{Distanza di \emph {mutual reachability}.}{33}{section*.90}%
-\contentsline {paragraph}{Mutual Reachability graph $G_{MinPts}$.}{33}{section*.91}%
-\contentsline {paragraph}{Condensed tree.}{34}{section*.94}%
-\contentsline {paragraph}{Stabilità (persistenza).}{34}{section*.95}%
-\contentsline {paragraph}{Estrazione dei cluster significativi (dal \emph {condensed tree}).}{34}{section*.96}%
-\contentsline {paragraph}{Costo.}{35}{section*.97}%
-\contentsline {chapter}{\numberline {6}Classificazione}{37}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Introduzione}{37}{section.6.1}%
-\contentsline {paragraph}{Predizione (regressione).}{37}{section*.98}%
-\contentsline {subsection}{\numberline {6.1.1}Schema generale di un classificatore}{37}{subsection.6.1.1}%
-\contentsline {paragraph}{Overfitting.}{37}{section*.99}%
-\contentsline {subsection}{\numberline {6.1.2}Requisiti desiderabili}{37}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Alberi decisionali}{38}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Classificazione tramite albero}{38}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Costruzione top–down}{39}{subsection.6.2.2}%
-\contentsline {paragraph}{Pruning.}{39}{section*.100}%
-\contentsline {subsection}{\numberline {6.2.3}Splitting degli attributi}{39}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Scelta dell’attributo e strategia greedy}{39}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Misure di goodness: Information Gain (ID3)}{39}{subsection.6.2.5}%
-\contentsline {subsection}{\numberline {6.2.6}Esempio e limitazioni}{40}{subsection.6.2.6}%
+\contentsline {subsection}{\numberline {1.7.4}Modello di Bayes e tipi di probabilità}{3}{subsection.1.7.4}%
+\contentsline {paragraph}{Tipi di probabilità.}{4}{section*.15}%
+\contentsline {paragraph}{Teorema di Bayes.}{4}{section*.16}%
+\contentsline {section}{\numberline {1.8}Preprocessing numerico}{4}{section.1.8}%
+\contentsline {paragraph}{Standardizzazione (z-score).}{4}{section*.17}%
+\contentsline {paragraph}{Min--max scaling.}{4}{section*.18}%
+\contentsline {paragraph}{Robust scaling.}{4}{section*.19}%
+\contentsline {paragraph}{Codifiche categoriali.}{4}{section*.20}%
+\contentsline {paragraph}{Esempio.}{4}{section*.21}%
+\contentsline {section}{\numberline {1.9}Combinatoria utile}{4}{section.1.9}%
+\contentsline {paragraph}{Coefficienti binomiali.}{4}{section*.22}%
+\contentsline {paragraph}{Permutazioni.}{4}{section*.23}%
+\contentsline {section}{\numberline {1.10}Entropia}{5}{section.1.10}%
+\contentsline {subsection}{\numberline {1.10.1}Definizione}{5}{subsection.1.10.1}%
+\contentsline {paragraph}{Proprietà essenziali.}{5}{section*.24}%
+\contentsline {paragraph}{Stima empirica.}{5}{section*.25}%
+\contentsline {subsection}{\numberline {1.10.2}In parole più semplici}{5}{subsection.1.10.2}%
+\contentsline {paragraph}{Esempio (moneta).}{5}{section*.26}%
+\contentsline {chapter}{\numberline {2}Introduzione al Data Mining}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Definizione e finalità}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Caratteristiche dei pattern}{7}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Metodi di data mining}{7}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Perché fare data mining}{8}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Big Data}{8}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Dai dati alla conoscenza e alle comunità coinvolte}{8}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}Limiti e insidie del data mining}{8}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Caso di studio: Total Information Awareness (TIA)}{8}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Esempio: co-presenza in hotel come criterio di sospetto}{9}{subsection.2.5.2}%
+\contentsline {paragraph}{Dati di partenza.}{9}{section*.27}%
+\contentsline {paragraph}{Ipotesi nulla (random).}{9}{section*.28}%
+\contentsline {paragraph}{Calcoli numerici.}{9}{section*.29}%
+\contentsline {paragraph}{Considerazioni.}{9}{section*.30}%
+\contentsline {section}{\numberline {2.6}Principio di Bonferroni e test multipli}{10}{section.2.6}%
+\contentsline {paragraph}{Interpretazione operativa.}{10}{section*.31}%
+\contentsline {paragraph}{Quando applicarlo.}{10}{section*.32}%
+\contentsline {chapter}{\numberline {3}Preprocessing dei Dati}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Perché il preprocessing è essenziale}{11}{section.3.1}%
+\contentsline {paragraph}{Quattro obiettivi chiave.}{11}{section*.33}%
+\contentsline {section}{\numberline {3.2}Estrazione di feature}{11}{section.3.2}%
+\contentsline {paragraph}{Esempi tipici.}{11}{section*.34}%
+\contentsline {section}{\numberline {3.3}Portabilità dei dati}{12}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Da numerico a categoriale: discretizzazione}{12}{subsection.3.3.1}%
+\contentsline {paragraph}{Esempio.}{12}{section*.35}%
+\contentsline {subsection}{\numberline {3.3.2}Da categoriale a numerico}{12}{subsection.3.3.2}%
+\contentsline {paragraph}{Definizione (one-hot).}{12}{section*.36}%
+\contentsline {paragraph}{Esempio.}{12}{section*.37}%
+\contentsline {subsection}{\numberline {3.3.3}Da testo a numerico}{12}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Data cleaning}{12}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Valori mancanti}{13}{subsection.3.4.1}%
+\contentsline {paragraph}{Mini-esempio (serie temporale).}{13}{section*.38}%
+\contentsline {subsection}{\numberline {3.4.2}Valori errati e inconsistenze}{13}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Rilevazione di outlier con quantili}{13}{subsection.3.4.3}%
+\contentsline {paragraph}{Interquantile range (IQR).}{13}{section*.39}%
+\contentsline {paragraph}{Mini-esempio.}{13}{section*.40}%
+\contentsline {subsection}{\numberline {3.4.4}Scaling e normalizzazione}{13}{subsection.3.4.4}%
+\contentsline {paragraph}{Standardizzazione (z-score).}{13}{section*.41}%
+\contentsline {paragraph}{Min--max scaling.}{14}{section*.42}%
+\contentsline {section}{\numberline {3.5}Riduzione dei dati}{14}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Sampling}{14}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Selezione di feature}{14}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Riduzione tramite rotazione di assi: PCA}{14}{subsection.3.5.3}%
+\contentsline {paragraph}{Matrice di covarianza.}{14}{section*.43}%
+\contentsline {paragraph}{Autodecomposizione.}{14}{section*.44}%
+\contentsline {paragraph}{Trasformazione.}{14}{section*.45}%
+\contentsline {paragraph}{Scelta del numero di componenti.}{14}{section*.46}%
+\contentsline {paragraph}{Mini-esempio (intuitivo).}{15}{section*.47}%
+\contentsline {subsection}{\numberline {3.5.4}Singular Value Decomposition (SVD)}{15}{subsection.3.5.4}%
+\contentsline {paragraph}{Interpretazione geometrica.}{15}{section*.48}%
+\contentsline {paragraph}{Relazione con PCA.}{15}{section*.49}%
+\contentsline {paragraph}{Versioni alternative.}{15}{section*.50}%
+\contentsline {subsection}{\numberline {3.5.5}Latent Semantic Analysis (LSA)}{15}{subsection.3.5.5}%
+\contentsline {section}{\numberline {3.6}Riduzione per trasformazione dei dati}{16}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Insiemi Frequenti e Regole d'Associazione}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Market-basket model e definizioni}{17}{section.4.1}%
+\contentsline {paragraph}{Supporto.}{17}{section*.51}%
+\contentsline {paragraph}{Soglia di supporto: trade-off.}{17}{section*.52}%
+\contentsline {section}{\numberline {4.2}Regole d'associazione}{17}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Qualità di una regola}{17}{subsection.4.2.1}%
+\contentsline {paragraph}{Confidenza.}{17}{section*.53}%
+\contentsline {paragraph}{Coverage.}{17}{section*.54}%
+\contentsline {paragraph}{Interesse (o \emph {interest}).}{18}{section*.55}%
+\contentsline {paragraph}{Lift.}{18}{section*.56}%
+\contentsline {paragraph}{Nota.}{18}{section*.57}%
+\contentsline {subsection}{\numberline {4.2.2}Mini-esempio (dataset giocattolo)}{18}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Insiemi frequenti chiusi e massimali}{18}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Proprietà anti-monotona e Principio di Apriori}{18}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Algoritmo Apriori}{19}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Apriori: esempio (minsup = 2)}{19}{subsection.4.5.1}%
+\contentsline {paragraph}{Passo $k=1\to 2$: generazione $C_2$ e pruning.}{20}{section*.58}%
+\contentsline {paragraph}{Passo $k=2\to 3$: generazione $C_3$ da $L_2$ (self-join) e pruning.}{20}{section*.59}%
+\contentsline {paragraph}{Passo $k=3\to 4$: generazione $C_4$ e arresto.}{20}{section*.60}%
+\contentsline {paragraph}{Riassunto dell’esempio.}{20}{section*.61}%
+\contentsline {subsection}{\numberline {4.5.2}Generazione dei candidati}{20}{subsection.4.5.2}%
+\contentsline {paragraph}{Esempio (schema).}{20}{section*.62}%
+\contentsline {section}{\numberline {4.6}Ottimizzazioni di Apriori}{21}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Hashing in bucket: PCY}{21}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Partizionamento del DB: SON}{21}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Campionamento e frontiera negativa: Toivonen}{21}{subsection.4.6.3}%
+\contentsline {section}{\numberline {4.7}Perch\'e andare oltre Apriori}{21}{section.4.7}%
+\contentsline {section}{\numberline {4.8}FP-Growth: idea di base}{21}{section.4.8}%
+\contentsline {subsection}{\numberline {4.8.1}Costruzione dell'FP-tree}{22}{subsection.4.8.1}%
+\contentsline {subsection}{\numberline {4.8.2}Esempio di FP-Growth}{22}{subsection.4.8.2}%
+\contentsline {paragraph}{Header table iniziale.}{22}{section*.63}%
+\contentsline {paragraph}{Visita per pattern-growth.}{23}{section*.64}%
+\contentsline {paragraph}{Come si espande un item $x$ (pattern-growth).}{23}{section*.65}%
+\contentsline {paragraph}{Esempio 1: item $p$.}{23}{section*.66}%
+\contentsline {paragraph}{Esempio 2: item $m$.}{24}{section*.67}%
+\contentsline {paragraph}{Esempio 3: item $b$.}{24}{section*.68}%
+\contentsline {section}{\numberline {4.9}Confronto: FP-Growth vs Apriori}{24}{section.4.9}%
+\contentsline {chapter}{\numberline {5}Clustering}{25}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Concetti generali}{25}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Spazi metrici e funzioni distanza}{25}{subsection.5.1.1}%
+\contentsline {paragraph}{Distanze in spazi euclidei.}{25}{section*.69}%
+\contentsline {paragraph}{Spazi non euclidei.}{26}{section*.70}%
+\contentsline {subsection}{\numberline {5.1.2}Tassonomia degli algoritmi}{26}{subsection.5.1.2}%
+\contentsline {paragraph}{Bontà di un algoritmo.}{26}{section*.71}%
+\contentsline {subsection}{\numberline {5.1.3}Alta dimensionalità: equidistanza e ortogonalità}{26}{subsection.5.1.3}%
+\contentsline {paragraph}{Equidistanza dei punti.}{26}{section*.72}%
+\contentsline {paragraph}{Conseguenze pratiche.}{27}{section*.73}%
+\contentsline {section}{\numberline {5.2}Clustering gerarchico}{27}{section.5.2}%
+\contentsline {paragraph}{Schema agglomerativo.}{27}{section*.74}%
+\contentsline {subsection}{\numberline {5.2.1}Distanza tra cluster (\emph {linkage})}{27}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Dendrogramma e criteri di stop}{27}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Altri criteri di combinazione}{27}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Versioni divisive}{28}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Complessità e ottimizzazioni}{28}{subsection.5.2.5}%
+\contentsline {paragraph}{Analisi \emph {naive}.}{28}{section*.75}%
+\contentsline {paragraph}{Ottimizzazione con \emph {coda di priorità}.}{28}{section*.76}%
+\contentsline {section}{\numberline {5.3}Clustering partizionale: k-means}{29}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Algoritmo base}{29}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Inizializzazione}{29}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Funzione obiettivo e arresto}{29}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Scelta del numero di cluster $k$}{30}{subsection.5.3.4}%
+\contentsline {paragraph}{Funzione obiettivo.}{30}{section*.77}%
+\contentsline {paragraph}{Metodo \emph {elbow}.}{30}{section*.78}%
+\contentsline {paragraph}{Metodo \emph {silhouette}.}{31}{section*.79}%
+\contentsline {subsection}{\numberline {5.3.5}Complessità computazionale}{31}{subsection.5.3.5}%
+\contentsline {section}{\numberline {5.4}Clustering per densità}{31}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}DBSCAN}{31}{subsection.5.4.1}%
+\contentsline {paragraph}{Definizioni.}{31}{section*.80}%
+\contentsline {paragraph}{Algoritmo.}{32}{section*.81}%
+\contentsline {paragraph}{Scelta dei parametri.}{32}{section*.82}%
+\contentsline {paragraph}{Complessità.}{32}{section*.83}%
+\contentsline {paragraph}{Pro e contro.}{32}{section*.84}%
+\contentsline {subsection}{\numberline {5.4.2}OPTICS}{32}{subsection.5.4.2}%
+\contentsline {paragraph}{Core–distance e reachability (OPTICS).}{33}{section*.85}%
+\contentsline {paragraph}{Risultato: ordering e \emph {reachability plot}.}{33}{section*.86}%
+\contentsline {paragraph}{Estrazione dei cluster.}{33}{section*.87}%
+\contentsline {paragraph}{Costo.}{34}{section*.88}%
+\contentsline {subsection}{\numberline {5.4.3}HDBSCAN}{35}{subsection.5.4.3}%
+\contentsline {paragraph}{Idea.}{35}{section*.89}%
+\contentsline {paragraph}{Core distance di X.}{35}{section*.90}%
+\contentsline {paragraph}{Distanza di \emph {mutual reachability}.}{35}{section*.91}%
+\contentsline {paragraph}{Mutual Reachability graph $G_{MinPts}$.}{35}{section*.92}%
+\contentsline {paragraph}{Condensed tree.}{36}{section*.95}%
+\contentsline {paragraph}{Stabilità (persistenza).}{36}{section*.96}%
+\contentsline {paragraph}{Estrazione dei cluster significativi (dal \emph {condensed tree}).}{36}{section*.97}%
+\contentsline {paragraph}{Costo.}{37}{section*.98}%
+\contentsline {chapter}{\numberline {6}Classificazione}{39}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Introduzione}{39}{section.6.1}%
+\contentsline {paragraph}{Predizione (regressione).}{39}{section*.99}%
+\contentsline {subsection}{\numberline {6.1.1}Schema generale di un classificatore}{39}{subsection.6.1.1}%
+\contentsline {paragraph}{Overfitting.}{39}{section*.100}%
+\contentsline {subsection}{\numberline {6.1.2}Requisiti desiderabili}{39}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Alberi decisionali}{40}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Classificazione tramite albero}{40}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Costruzione top–down}{40}{subsection.6.2.2}%
+\contentsline {paragraph}{Pruning.}{41}{section*.101}%
+\contentsline {subsection}{\numberline {6.2.3}Splitting degli attributi}{41}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Scelta dell’attributo e strategia greedy}{41}{subsection.6.2.4}%
+\contentsline {section}{\numberline {6.3}Misure di goodness}{41}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Information Gain (ID3)}{41}{subsection.6.3.1}%
+\contentsline {paragraph}{Idea.}{41}{section*.102}%
+\contentsline {paragraph}{Limite noto.}{42}{section*.104}%
+\contentsline {subsection}{\numberline {6.3.2}Gain Ratio (C4.5)}{42}{subsection.6.3.2}%
+\contentsline {paragraph}{Selezione in C4.5.}{43}{section*.105}%
+\contentsline {paragraph}{Nota pratica (attributi continui).}{43}{section*.106}%
+\contentsline {subsection}{\numberline {6.3.3}Gini Index (CART)}{43}{subsection.6.3.3}%
+\contentsline {subsection}{\numberline {6.3.4}Pruning degli alberi}{43}{subsection.6.3.4}%
+\contentsline {paragraph}{Che cosa misurano.}{44}{section*.108}%
+\contentsline {paragraph}{Decisione di pruning.}{44}{section*.109}%
+\contentsline {paragraph}{Errore prima e dopo lo split.}{45}{section*.111}%
+\contentsline {paragraph}{Indice di costo–complessità per lo split.}{45}{section*.112}%
+\contentsline {paragraph}{Pro/contro degli alberi decisionali.}{45}{section*.113}%
+\contentsline {section}{\numberline {6.4}Classificatori generativi}{45}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Teorema di Bayes e regola di decisione}{46}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Naive Bayes}{46}{subsection.6.4.2}%
+\contentsline {paragraph}{Idea.}{46}{section*.114}%
+\contentsline {paragraph}{Regola di decisione (MAP, in scala logaritmica).}{46}{section*.115}%
+\contentsline {paragraph}{Stima essenziale delle probabilità.}{46}{section*.116}%
+\contentsline {paragraph}{Vantaggi e svantaggi.}{46}{section*.117}%
+\contentsline {subsection}{\numberline {6.4.3}Reti Bayesiane}{47}{subsection.6.4.3}%
+\contentsline {paragraph}{Uso per la classificazione.}{47}{section*.118}%
