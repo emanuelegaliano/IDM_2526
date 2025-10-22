@@ -974,6 +974,12 @@ INPUT ./images/bayes_network_example.png
 INPUT images/bayes_network_example.png
 INPUT ./images/bayes_network_example.png
 INPUT ./images/bayes_network_example.png
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/lmmib10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/lmmib10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/lmmib7.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/lmbsy10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/lmbsy10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/lmbsy7.tfm
 INPUT out/DataMining.aux
 INPUT out/prerequisiti.aux
 INPUT out/prerequisiti.aux
@@ -1004,6 +1010,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmib10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb

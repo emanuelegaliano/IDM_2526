@@ -320,3 +320,83 @@ dove $\mathrm{Pa}(X_i)$ sono i genitori di $X_i$ nel grafo. Il DAG codifica indi
 
 \paragraph{Uso per la classificazione.}
 Dato $\mathbf{x}$, si calcolano (o si approssimano) $P(y\mid \mathbf{x})$ tramite inferenza sul DAG (\emph{esatta} o \emph{approx} con sampling/variational). Le reti bayesiane generalizzano Naive Bayes (che è un caso particolare con $Y$ genitore di tutte le feature e nessun’altra dipendenza).
+
+\section{Classificatori discriminativi}\label{sec:discriminativi}
+I \textbf{classificatori discriminativi} stimano direttamente una \emph{funzione di decisione} \(F(\mathbf{x})\) (oppure \(P(y\mid\mathbf{x})\)) senza modellare la distribuzione congiunta dei dati. In pratica, fissata una nuova tupla \(\mathbf{x}\), si calcola \(F(\mathbf{x})\) e si assegna la classe corrispondente. Rispetto ai modelli generativi, richiedono meno assunzioni sulla distribuzione dei dati; tipici esempi sono \emph{Perceptron} e \emph{Support Vector Machines (SVM)}. \emph{Pro}: accuratezza spesso maggiore, robusti a errori di etichettatura, facile valutazione di \(F(\mathbf{x})\) per nuove tuple. \emph{Contro}: addestramento potenzialmente più costoso, pesi meno interpretabili. 
+
+\subsection{Classificazione lineare vs non lineare}\label{subsec:lin-nonlin}
+\begin{itemize}
+  \item \textbf{Lineare}: la decisione si basa su una combinazione lineare degli attributi, \(F(\mathbf{x})=\mathbf{w}\!\cdot\!\mathbf{x}+b\). Se esiste un iperpiano che separa le classi, i dati sono \emph{linearmente separabili}.
+  \item \textbf{Non lineare}: la decisione usa una funzione non lineare degli attributi (ad es.\ tramite \emph{kernel}), utile quando nessun iperpiano separa i dati nello spazio originale.
+\end{itemize}
+
+% -----------------------------------------------------------
+\subsection{Perceptron}\label{subsec:perceptron}
+\paragraph{Idea e funzione predittiva.}
+\emph{Perceptron} è un classificatore \emph{lineare binario} con funzione
+\[
+f(\mathbf{x})=\mathbf{w}\!\cdot\!\mathbf{x}+b,\qquad 
+\hat{y}=\begin{cases}
+1 & \text{se } f(\mathbf{x})\ge \theta,\\
+0 & \text{altrimenti.}
+\end{cases}
+\]
+L’apprendimento è tipicamente \emph{online}: gli esempi sono processati uno alla volta e i pesi vengono aggiornati sugli errori. % :contentReference[oaicite:3]{index=3}
+
+\paragraph{Variabili e aggiornamento.}
+Poni \(x_{j,0}=1\) (\emph{dummy} per il bias) e \(\mathbf{x}_j=(x_{j,1},\dots,x_{j,k})\) la \(j\)-esima tupla con etichetta \(y_j\in\{0,1\}\). Se \(\hat{y}_j\neq y_j\), aggiorna
+\[
+w_i \leftarrow w_i + r\,(y_j-\hat{y}_j)\,x_{j,i}\quad (i=0,\dots,k),\qquad r\in(0,1] \text{ (learning rate)}.
+\]
+In \emph{offline} si itera su più epoche fino a errore medio sotto una soglia \(\gamma\) o al numero massimo di iterazioni. % :contentReference[oaicite:4]{index=4}
+
+\paragraph{Soglia variabile.}
+Se \(\theta\) non è fissata, si assorbe nella parametrizzazione introducendo \(x_{j,k+1}=-1\) e un nuovo peso \(w_{k+1}\); la regola di aggiornamento resta identica per \(i=0,\dots,k{+}1\). % :contentReference[oaicite:5]{index=5}
+
+\paragraph{Multi–classe (schemi OVO/OVA).}
+\begin{itemize}
+  \item \textbf{One–Vs–One (OVO)}: si addestra un Perceptron per ogni coppia \((C_i,C_j)\); alla predizione vince la classe con più “voti”/punteggi \(O_{i,j}\) (con \(O_{i,j}=-O_{j,i}\)). % :contentReference[oaicite:6]{index=6}
+  \item \textbf{One–Vs–All (OVA)}: per ciascuna classe \(C_i\) si addestra un binario \(C_i\) vs “resto”; si assegna la classe con output \(O_i\) massimo. % :contentReference[oaicite:7]{index=7}
+\end{itemize}
+
+\paragraph{Limiti pratici.}
+Se i dati non sono linearmente separabili, Perceptron fallisce: si può mappare \(\mathbf{x}\) in uno spazio a dimensione maggiore dove la separazione è lineare, con costi e rischio di overfitting maggiori; inoltre l’algoritmo può inseguire outlier avvicinando troppo l’iperpiano a una classe e degradando la generalizzazione. -----------------------------------------------------------
+\subsection{Support Vector Machines (SVM)}\label{subsec:svm}
+\paragraph{Idea del margine massimo.}
+Tra gli infiniti iperpiani separatori per dati linearmente separabili, SVM sceglie quello che \emph{massimizza il margine}, cioè la distanza dagli esempi più vicini (i \emph{vettori di supporto}). % :contentReference[oaicite:9]{index=9}
+
+\paragraph{Formulazione hard–margin.}
+Con etichette \(y_i\in\{-1,+1\}\), il problema è:
+\[
+\min_{\mathbf{w},b}\ \tfrac{1}{2}\,\lVert \mathbf{w}\rVert^2\quad\text{s.t.}\quad y_i\,(\mathbf{w}\!\cdot\!\mathbf{x}_i+b)\ge 1,\ \ i=1,\dots,n.
+\]
+Questa forma deriva dalla normalizzazione che porta gli iperpiani di supporto a \( \mathbf{w}\!\cdot\!\mathbf{x}+b=\pm 1\), per cui il margine è \(2/\lVert\mathbf{w}\rVert\) e massimizzarlo equivale a minimizzare \(\lVert\mathbf{w}\rVert\). % :contentReference[oaicite:10]{index=10} :contentReference[oaicite:11]{index=11}
+
+\paragraph{Soft–margin e compromesso bias–varianza.}
+Per gestire rumore e outlier si introducono variabili di scarto \(\varepsilon_i\ge 0\) e un parametro di trade–off \(\lambda>0\):
+\[
+\min_{\mathbf{w},b,\boldsymbol\varepsilon}\ \lambda\,\lVert\mathbf{w}\rVert^2+\sum_{i=1}^{n}\varepsilon_i\quad\text{s.t.}\quad y_i(\mathbf{w}\!\cdot\!\mathbf{x}_i+b)\ge 1-\varepsilon_i.
+\]
+\(\lambda\) controlla l’importanza della larghezza del margine rispetto alle violazioni (\(\varepsilon_i\)). % :contentReference[oaicite:12]{index=12} :contentReference[oaicite:13]{index=13}
+
+\paragraph{Problema duale e soluzione.}
+Il duale lagrangiano porta a una QP in termini dei moltiplicatori \(\alpha_i\); \(\mathbf{w}\) si esprime come combinazione degli esempi con \(\alpha_i>0\) (i vettori di supporto) e \(b\) si ricava da condizioni di KKT. % :contentReference[oaicite:14]{index=14}
+
+\paragraph{Kernel trick (non linearità).}
+Se i dati non sono separabili linearmente nello spazio originale, si considera un mapping \(\phi:\mathbb{R}^d\!\to\!\mathcal{H}\) e si usa un \emph{kernel} \(K(\mathbf{x},\mathbf{z})=\phi(\mathbf{x})\!\cdot\!\phi(\mathbf{z})\) per lavorare implicitamente in \(\mathcal{H}\). Esempi:
+\[
+\text{Polinomiale: }K(\mathbf{x},\mathbf{z})=(\mathbf{x}\!\cdot\!\mathbf{z}+1)^h;\quad
+\text{RBF: }K(\mathbf{x},\mathbf{z})=\exp\!\big(-\tfrac{\lVert\mathbf{x}-\mathbf{z}\rVert^2}{2\sigma^2}\big);\quad
+\text{Sigmoide: }K(\mathbf{x},\mathbf{z})=\tanh(k\,\mathbf{x}\!\cdot\!\mathbf{z}-\delta).
+\]
+% :contentReference[oaicite:15]{index=15}
+
+\paragraph{Multiclasse e proprietà.}
+SVM è intrinsecamente binaria ma si estende a più classi con \emph{OVO} o \emph{OVA} come per Perceptron. È efficace in alta dimensionalità: la complessità di addestramento dipende soprattutto dal numero di tuple più che dal numero di feature; tuttavia può risultare lenta (specie nel multiclasse). % :contentReference[oaicite:16]{index=16}
+
+% \begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=.70\textwidth]{images/svm_margin.png}
+%   \caption{Iperpiano a margine massimo con iperpiani di supporto \(H_1,H_2\) e vettori di supporto.}
+% \end{figure}
+% Fonte immagine: sezione SVM (formulazione, margine) in \emph{5\_ClassificazioneParte1.pdf}; rif. anche Leskovec, cap. 12.
