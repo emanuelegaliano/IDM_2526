@@ -225,17 +225,16 @@
 \contentsline {subsection}{\numberline {6.4.3}Reti Bayesiane}{47}{subsection.6.4.3}%
 \contentsline {paragraph}{Uso per la classificazione.}{47}{section*.118}%
 \contentsline {section}{\numberline {6.5}Classificatori discriminativi}{47}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Classificazione lineare vs non lineare}{48}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.1}Classificazione lineare e non lineare}{48}{subsection.6.5.1}%
 \contentsline {subsection}{\numberline {6.5.2}Perceptron}{48}{subsection.6.5.2}%
-\contentsline {paragraph}{Idea e funzione predittiva.}{48}{section*.119}%
-\contentsline {paragraph}{Variabili e aggiornamento.}{48}{section*.120}%
-\contentsline {paragraph}{Soglia variabile.}{48}{section*.121}%
-\contentsline {paragraph}{Multi–classe (schemi OVO/OVA).}{48}{section*.122}%
-\contentsline {paragraph}{Limiti pratici.}{48}{section*.123}%
-\contentsline {subsection}{\numberline {6.5.3}Support Vector Machines (SVM)}{49}{subsection.6.5.3}%
-\contentsline {paragraph}{Idea del margine massimo.}{49}{section*.124}%
-\contentsline {paragraph}{Formulazione hard–margin.}{49}{section*.125}%
-\contentsline {paragraph}{Soft–margin e compromesso bias–varianza.}{49}{section*.126}%
-\contentsline {paragraph}{Problema duale e soluzione.}{49}{section*.127}%
-\contentsline {paragraph}{Kernel trick (non linearità).}{49}{section*.128}%
-\contentsline {paragraph}{Multiclasse e proprietà.}{49}{section*.129}%
+\contentsline {paragraph}{Definizione.}{48}{section*.119}%
+\contentsline {paragraph}{Regola di aggiornamento.}{48}{section*.120}%
+\contentsline {paragraph}{Proprietà.}{48}{section*.121}%
+\contentsline {paragraph}{Algoritmo.}{48}{section*.122}%
+\contentsline {paragraph}{Multiclass: One–Vs–One (OVO).}{49}{section*.123}%
+\contentsline {paragraph}{Multiclass: One–Vs–All (OVA).}{49}{section*.124}%
+\contentsline {subsection}{\numberline {6.5.3}Support Vector Machines (SVM)}{50}{subsection.6.5.3}%
+\contentsline {paragraph}{Margine massimo.}{50}{section*.125}%
+\contentsline {paragraph}{Soft–margin (forma standard).}{50}{section*.126}%
+\contentsline {paragraph}{Forma duale e kernel trick.}{50}{section*.127}%
+\contentsline {paragraph}{Proprietà e multiclass.}{50}{section*.128}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.8.27)  22 OCT 2025 16:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.8.27)  22 OCT 2025 20:33
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -770,32 +770,28 @@ File: images/bayes_network_example.png Graphic file (type png)
 <use images/bayes_network_example.png>
 Package pdftex.def Info: images/bayes_network_example.png  used on input line 313.
 (pdftex.def)             Requested size: 384.1096pt x 215.96089pt.
- [47 <./images/bayes_network_example.png>] [48]
-Overfull \hbox (72.56912pt too wide) detected at line 391
-[]\OML/lmm/m/it/10.95 K\OT1/lmr/m/n/10.95 (\OT1/lmr/bx/n/10.95 x\OML/lmm/m/it/10.95 ; \OT1/lmr/bx/n/10.95 z\OT1/lmr/m/n/10.95 ) = (\OT1/lmr/bx/n/10.95 x  \OMS/lmsy/m/n/10.95 ^^A  \OT1/lmr/bx/n/10.95 z \OT1/lmr/m/n/10.95 + 1)[];  []\OML/lmm/m/it/10.95 K\OT1/lmr/m/n/10.95 (\OT1/lmr/bx/n/10.95 x\OML/lmm/m/it/10.95 ; \OT1/lmr/bx/n/10.95 z\OT1/lmr/m/n/10.95 ) = []  [] \OMS/lmsy/m/n/10.95 ^^@ [][]\OT1/lmr/m/n/10.95 ;  []\OML/lmm/m/it/10.95 K\OT1/lmr/m/n/10.95 (\OT1/lmr/bx/n/10.95 x\OML/lmm/m/it/10.95 ; \OT1/lmr/bx/n/10.95 z\OT1/lmr/m/n/10.95 ) = [](\OML/lmm/m/it/10.95 k \OT1/lmr/bx/n/10.95 x  \OMS/lmsy/m/n/10.95 ^^A  \OT1/lmr/bx/n/10.95 z \OMS/lmsy/m/n/10.95 ^^@ \OML/lmm/m/it/10.95 ^^N\OT1/lmr/m/n/10.95 )\OML/lmm/m/it/10.95 :
+ [47 <./images/bayes_network_example.png>] [48] [49]
+Overfull \hbox (115.24477pt too wide) detected at line 426
+[]\OML/lmm/m/it/10.95 K\OT1/lmr/m/n/10.95 (\OT1/lmr/bx/n/10.95 x\OML/lmm/m/it/10.95 ; \OT1/lmr/bx/n/10.95 z\OT1/lmr/m/n/10.95 ) = (\OT1/lmr/bx/n/10.95 x \OMS/lmsy/m/n/10.95 ^^A \OT1/lmr/bx/n/10.95 z \OT1/lmr/m/n/10.95 + 1)[]\OML/lmm/m/it/10.95 ;  ext[]K\OT1/lmr/m/n/10.95 (\OT1/lmr/bx/n/10.95 x\OML/lmm/m/it/10.95 ; \OT1/lmr/bx/n/10.95 z\OT1/lmr/m/n/10.95 ) = [] [] \OMS/lmsy/m/n/10.95 ^^@ [][]\OML/lmm/m/it/10.95 ;  ext[]K\OT1/lmr/m/n/10.95 (\OT1/lmr/bx/n/10.95 x\OML/lmm/m/it/10.95 ; \OT1/lmr/bx/n/10.95 z\OT1/lmr/m/n/10.95 ) = [](\OML/lmm/m/it/10.95 k \OT1/lmr/bx/n/10.95 x \OMS/lmsy/m/n/10.95 ^^A \OT1/lmr/bx/n/10.95 z \OMS/lmsy/m/n/10.95 ^^@ \OML/lmm/m/it/10.95 ^^N\OT1/lmr/m/n/10.95 )\OML/lmm/m/it/10.95 :
  []
 
-) [49] [50
-
-
-
-] (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux) (out/classificazione.aux))
+) [50] (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux) (out/classificazione.aux))
 Package rerunfilecheck Info: File `DataMining.out' has not changed.
-(rerunfilecheck)             Checksum: 995DD5C7D92CD44AEB564B49C4DA8D45;22474.
+(rerunfilecheck)             Checksum: 8EF566825D1844EB8352B7A3927495B9;22469.
  ) 
 Here is how much of TeX's memory you used:
- 15699 strings out of 476034
- 252043 string characters out of 5792864
+ 15708 strings out of 476034
+ 252097 string characters out of 5792864
  1867388 words of memory out of 6000000
  35065 multiletter control sequences out of 15000+600000
- 637303 words of font info for 293 fonts, out of 8000000 for 9000
+ 637175 words of font info for 292 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
- 75i,12n,76p,1095b,643s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,76p,1095b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on out/DataMining.pdf (56 pages, 2707746 bytes).
+Output written on out/DataMining.pdf (56 pages, 2710731 bytes).
 PDF statistics:
- 1284 PDF objects out of 1440 (max. 8388607)
- 1128 compressed objects within 12 object streams
- 376 named destinations out of 1000 (max. 500000)
+ 1297 PDF objects out of 1440 (max. 8388607)
+ 1141 compressed objects within 12 object streams
+ 387 named destinations out of 1000 (max. 500000)
  66058 words of extra memory for PDF output out of 74296 (max. 10000000)
 
