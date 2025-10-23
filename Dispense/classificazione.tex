@@ -435,6 +435,144 @@ Poiché $y^{(i)}$ può essere $+1$ o $-1$, questa condizione assicura che ogni p
 y^{(i)}(\mathbf{w} \cdot \mathbf{x}^{(i)} + b) \geq 1, \quad \forall i.
 \]
 
-Purtroppo questa formulazione "libera" in termini di $\gamma$ non è direttamente utilizzabile: se $(\mathbf{w},b)$ soddisfa i vincoli, allora anche $(\lambda\mathbf{w},\lambda b)$ soddisfa i vincoli per ogni scalare $\lambda>1$ e fornisce un margine $\lambda\gamma$ più grande. Di conseguenza non esiste un massimo finito per $\gamma$ senza imporre una normalizzazione aggiuntiva. Per evitare questa degenerazione si fissa implicitamente la scala del vettore dei pesi fissando il valore del margine (ad es. $\gamma=1$) e si minimizza la norma di $\mathbf{w}$, che è equivalente a massimizzare il margine in modo ben definito.
+Purtroppo questa formulazione "libera" in termini di $\gamma$ non è direttamente utilizzabile: se $(\mathbf{w},b)$ soddisfa i vincoli, allora anche $(\lambda\mathbf{w},\lambda b)$ soddisfa i vincoli per ogni scalare $\lambda>1$ e fornisce un margine $\lambda\gamma$ più grande. Di conseguenza non esiste un massimo finito per $\gamma$ senza imporre una normalizzazione aggiuntiva. Per evitare questa degenerazione si fissa implicitamente la scala del vettore dei pesi fissando il valore del margine (ad es. $\gamma=1$) e si minimizza la norma di $\mathbf{w}$, che è equivalente a massimizzare il margine in modo ben definito. La soluzione del problema è quella di normalizzare il vettore dei pesi in modo che il margine sia fissato a 1, quindi trasformare il vettore $\mathbf{w}$ in un vettore:
+\[
+\hat{\mathbf{w}} = \frac{\mathbf{w}}{\|\mathbf{w}\|}.
+\]
 
-La soluzione del problema è 
+Il vettore $\hat{\mathbf{w}}$ è il vettore unità (modulo pari a 1) dei pesi normalizzato con stessa direzione di $\mathbf{w}$. Inoltre, poiché ha la stessa direzione è perpendicolare all'iperpiano separatore:
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/normalized_hyperplane_svm.png}
+  \caption{Iperpiani con pesi $\mathbf{w}$ normalizzati per margine unitario.}
+  \label{fig:svm-margin-normalized}
+\end{figure}
+
+Indicando con $x_2$ un vettore di supporto che giace su $H_2$ e $x_1$ la sua proiezione in $H_1$ (figura \ref{fig:svm-margin-normalized}), la distanza tra i due iperpiani è data da:
+\[
+x_1 = x_2 + 2 \gamma = x_2 + 2 \gamma \frac{\mathbf{w}}{\|\mathbf{w}\|}
+\]
+
+\noindent
+Possiamo ricalcolare l'equazione dell'iperpiano come:
+\begin{align*}
+&\mathbf{w}\cdot\bigl(x_2 + 2\gamma \frac{\mathbf{w}}{\|\mathbf{w}\|}\bigr) + b = 0 \\
+\Rightarrow\quad &\mathbf{w}\cdot x_2 + b + 2\gamma \|\mathbf{w}\| = 0
+\end{align*}
+
+Osservando che $x_2$ giace su $H_2$ abbiamo $\mathbf{w}\cdot x_2 + b = -\gamma$. Sostituendo nell'ultima equazione:
+\[
+-\gamma + 2\gamma\,\|\mathbf{w}\| = 0 \quad\Longrightarrow\quad 2\gamma\,\|\mathbf{w}\| = \gamma.
+\]
+Se $\gamma\neq 0$ segue
+\[
+\|\mathbf{w}\| = \tfrac{1}{2},
+\]
+ma ricordando che nella definizione del margine la distanza tra le due hyperplane considerate è $2\gamma$, fissando la normalizzazione standard si ricava l'identità
+\[
+\gamma = \frac{1}{\|\mathbf{w}\|},
+\]
+da cui la conclusione voluta: massimizzare $\gamma$ equivale a minimizzare $\|\mathbf{w}\|$ (e quindi, per praticità numerica, si minimizza spesso $\tfrac{1}{2}\|\mathbf{w}\|^2$).
+
+Il problema di ottimizzazione da risolvere, quindi, è:
+\[
+\begin{cases}
+\displaystyle\min\;\|\mathbf{w}\|\\[6pt]
+	y^{(i)}(\mathbf{w}\cdot\mathbf{x}^{(i)}+b)\ge 1\quad\forall\;1\le i\le n
+\end{cases}
+\]
+che si può risolvere applicando il metodo di discesa del gradiente.
+
+Nella pratica, per rendere più semplice il calcolo dei gradienti si preferisce considerare il quadrato della norma:
+\[
+\begin{cases}
+\displaystyle\min\;\tfrac{1}{2}\,\|\mathbf{w}\|^2\\[6pt]
+	y^{(i)}(\mathbf{w}\cdot\mathbf{x}^{(i)}+b)\ge 1\quad\forall\;1\le i\le n
+\end{cases}
+\]
+
+\paragraph{SVM Soft margin.} Esiste un problema nella classificazione di SVM chiamato \textbf{Hard Margin}: ovvero una classificazione dei dati troppo precisa, in quanto non può ricadere all'interno dell'intervallo dei due iperpiani. Una variante si chiama \textbf{Soft Margin}, che permette ad alcuni punti di cadere all'interno del margine o addirittura di essere classificati in modo errato, introducendo delle variabili di slack $\xi_i\ge 0$ per ogni punto dati. 
+
+Per riformulare il problema, si introducono $n$ variabili $\epsilon_1, \epsilon_2, ..., \epsilon_n$ tale che, quando $\epsilon_i = 0$, il punto ricade al di fuori del margine e soddisfa la relazione:
+\[
+y^{(i)}(\mathbf{w}\cdot\mathbf{x}^{(i)}+b)\ge 1,
+\]
+
+\noindent
+Altrimenti se $\epsilon_i > 0$, il punto ricade all'interno del margine o è classificato in modo errato, e la relazione diventa:
+\[
+y^{(i)}(\mathbf{w}\cdot\mathbf{x}^{(i)}+b)\ge 1 - \epsilon_i.
+\]
+
+Da qui si introduce un parametro $\lambda$ di \textbf{trade-off}\footnote{Il parametro di trade-off $\lambda$ bilancia l'importanza tra la massimizzazione del margine e la minimizzazione dell'errore di classificazione. Un valore più alto di $\lambda$ dà più peso alla riduzione degli errori, mentre un valore più basso enfatizza la massimizzazione del margine.} tra la minimizzazione della norma di $\mathbf{w}$ e la penalizzazione degli errori di classificazione, portando alla seguente formulazione del problema di ottimizzazione:
+\[
+\begin{cases}
+\displaystyle\min\;\biggl(\frac{1}{n}\sum_{i=1}^n\epsilon_i + \lambda\,\|\mathbf{w}\|^2\biggr)\\[6pt]
+\qquad y^{(i)}\bigl(\mathbf{w}\cdot\mathbf{x}^{(i)}+b\bigr)\ge 1-\epsilon_i, & \forall\; i=1,\dots,n\\[4pt]
+\qquad \epsilon_i\ge 0, & \forall\; i=1,\dots,n
+\end{cases}
+\]
+
+\noindent
+Più piccolo è $\lambda$, più trascurabile è $\|\mathbf{w}\|$, meno importante è la dimensione del margine.
+
+Il problema può essere risolto anche considerando il suo duale tramite la Lagrangiana. Introducendo i moltiplicatori di Lagrange $\alpha_i$ per i vincoli di classificazione (e $\mu_i$ per i vincoli $\epsilon_i\ge0$) si ottiene una funzione quadratica in $\alpha_i$, quindi il duale è una QP risolvibile con algoritmi dedicati. Ricavati i moltiplicatori $\alpha_i$, il vettore dei pesi si esprime come
+\[
+\mathbf{w}=\sum_{i=1}^n \alpha_i\,y^{(i)}\,\mathbf{x}^{(i)}.
+\]
+Il bias $b$ si ricava:
+\[
+y^{(i)}(\mathbf{w}\cdot\mathbf{x}^{(i)}+b)=1 \quad\Longrightarrow\quad b=\frac{1}{y^{(i)}} - \mathbf{w}\cdot\mathbf{x}^{(i)}.
+\]
+
+Nel caso di dati non linearmente separabili si effettua un \emph{mapping} in uno spazio di dimensione superiore tramite una funzione $\phi:\mathbb{R}^d\to\mathbb{R}^D$ (con $D>d$) e si applica SVM in tale spazio. Quindi, creiamo un nuovo problema di ottimizzazione dove al posto di $\mathbf{x}^{(i)}$ usiamo $\phi(\mathbf{x}^{(i)})$:
+\[
+\begin{cases}
+\displaystyle\max\;\Biggl(\sum_{i=1}^n c_i - \tfrac{1}{2}\sum_{i=1}^n\sum_{j=1}^n y^{(i)} c_i\,\bigl(\phi(\mathbf{x}^{(i)})\!\cdot\!\phi(\mathbf{x}^{(j)})\bigr)\,y^{(j)} c_j\Biggr)\\[6pt]
+\qquad \displaystyle\sum_{i=1}^n c_i\,y^{(i)} = 0\\[6pt]
+\qquad 0 \le c_i \le \frac{1}{2n\lambda},\quad i=1,\dots,n
+\end{cases}
+\]
+
+\paragraph{Kernel Trick.} Il prodotto scalare \(\phi(\mathbf{x}^{(i)})\cdot\phi(\mathbf{x}^{(j)})\) è \textbf{dispendioso} da calcolare. Per questo motivo, si usa una \textbf{funzione kernel $K$} tale che soddisfi tale condizione:
+\[
+K(\mathbf{x}^{(i)},\mathbf{x}^{(j)}) = \phi(\mathbf{x}^{(i)})\cdot\phi(\mathbf{x}^{(j)}).
+\]
+
+Grazie a questa funzione, si definisce il mapping del nuovo spazio permettendo di sostituire il prodotto scalare con la funzione kernel, risparmiando tempo di calcolo (esempi di kernel sono il kernel polinomiale, gaussiano e sigmoide).
+
+\paragraph{SVM Multi-classe.} SVM, come il perceptron, può essere esteso a problemi di classificazione multi-classe usando strategie come One–Vs–One (OVO) o One–Vs–All (OVA), addestrando più modelli binari e combinando le loro predizioni per ottenere la classificazione finale.
+
+\section{Apprendimento Lazy}
+Fino a qui abbiamo visto tipi di apprendimento chiamati \textbf{eager}, in cui il modello viene costruito durante la fase di training.  Esiste un secondo tipo di apprendimento chiamato \textbf{lazy}, dove il modello memorizza un training set di dati e calcola la funzione di classificazione localmente per ogni nuovo dato.
+
+La funzione di predizione è quindi approssimata \emph{localmente}, inoltre questi metodi funzionano su grandi dataset con pochi attributi e che si aggiornano continuamente.
+
+\subsection{K-Nearest Neighbor}\label{subsec:knn}
+K-Nearest Neighbor (KNN) è un algoritmo di classificazione lazy che assegna la classe di un nuovo esempio basandosi sulle classi dei suoi \(k\) vicini più prossimi nel training set.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/knn_example.png}
+  \caption{Esempio di classificazione con K-NN (k=5). Il punto da classificare (in verde) è circondato dal cerchio che indica i $k$ vicini più prossimi: tra i 5 vicini ci sono tre triangoli rossi e due quadrati blu, quindi per maggioranza il punto viene assegnato alla classe rossa.}
+  \label{fig:knn-example}
+\end{figure}
+
+\paragraph{Algoritmo.}
+\begin{enumerate}
+  \item Memorizza il training set \(D=\{(\mathbf{x}^{(i)},y^{(i)})\}_{i=1}^{n}\).
+  \item Per ogni nuovo esempio \(\mathbf{x}\):
+  \begin{enumerate}
+    \item Calcola la distanza tra \(\mathbf{x}\) e ogni esempio in \(D\) (es. distanza euclidea).
+    \item Identifica i \(k\) esempi più vicini.
+    \item Assegna a \(\mathbf{x}\) la classe più frequente tra i \(k\) vicini.
+  \end{enumerate}
+\end{enumerate}
+
+\paragraph{Varianti.}
+Esistono alcune varianti di KNN:
+\begin{itemize}
+  \item \textbf{Distanza pesata:} i punti a distanza più vicina hanno un peso maggiore nel voto.
+  \item \textbf{K-NN per valori continui:} Assegna agli attributi ignoti della tupla da classificare la media dei valori degli attributi delle tuple più vicine (rispetto agli attributi noti).
+\end{itemize}
