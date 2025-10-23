@@ -371,7 +371,7 @@ L'algoritmo del perceptron è definito come:
   \item Ripeti il passo 2 per un numero prefissato di epoche o fino a soddisfare un criterio di stop. Nel caso di learning offline, si ripete il passo 2 finché l'errore medio di classificazione sul training set non scende sotto una soglia prefissata.
 \end{enumerate}
 
-\paragraph{Multiclass: One–Vs–One (OVO).}
+\paragraph{One–Vs–One (OVO).}
 One–Vs–One costruisce un classificatore binario Perceptron per ogni coppia di classi $(C_p,C_q)$; per $K$ classi si addestrano $K(K-1)/2$ modelli. In fase di predizione, ogni classificatore vota per una delle due classi che confronta e si assegna la classe con il maggior numero di voti (voting).
 
 Motivazione: OVO è utile quando le classi sono relativamente poche e si desidera che ogni modello risolva una decisione binaria semplice; ogni modello vede dati di due sole classi, spesso permettendo separazioni più semplici e modelli più piccoli. Lo svantaggio principale è il numero di classificatori e la gestione del voto/pareggio.
@@ -385,7 +385,7 @@ Algoritmo (per ciascuna coppia $(C_p,C_q)$):
   \[\hat{\vartheta}_j\leftarrow\vartheta_j+\alpha\,(y^{(i)}-\hat{y}^{(i)})\,x_j^{(i)}\quad(j=0,\dots,d).\]
 \end{enumerate}
 
-\paragraph{Multiclass: One–Vs–All (OVA).}
+\paragraph{One–Vs–All (OVA).}
 One–Vs–All costruisce un classificatore Perceptron per ogni classe $C_k$ dove il problema è $C_k$ vs "resto". Si addestrano $K$ modelli; alla predizione si calcola il punteggio $f_k(\mathbf{x})$ per ogni modello e si sceglie la classe con il punteggio più alto.
 
 Motivazione: OVA è più parsimonioso in termini di numero di modelli rispetto a OVO (si addestrano $K$ modelli invece di $K(K-1)/2$) e può essere più efficiente quando $K$ è grande. Tuttavia ogni modello OVA affronta un problema sbilanciato (una classe vs tutte le altre), il che può richiedere tecniche di bilanciamento o regolarizzazione.
@@ -403,31 +403,38 @@ Algoritmo (per ciascuna classe $C_k$):
 \textit{Breve nota comparativa: OVO tende a produrre modelli più specialistici e può funzionare meglio quando le classi sono ben separate a coppie; OVA è più semplice ed efficiente per molti problemi pratici ma richiede attenzione allo sbilanciamento delle classi}.
 
 \subsection{Support Vector Machines (SVM)}\label{subsec:svm}
-\paragraph{Margine massimo.}
-Le SVM cercano l'iperpiano che massimizza il margine tra le due classi. Con etichette $y_i\in\{ -1,+1\}$ e dati $(\mathbf{x}_i,y_i)_{i=1}^n$, l'hard–margin SVM è:
-\[\begin{aligned}
-&\min_{\mathbf{w},b}\;\tfrac{1}{2}\lVert\mathbf{w}\rVert^2\\
-&\text{s.t. }\; y_i(\mathbf{w}\cdot\mathbf{x}_i+b)\ge 1,\quad i=1,\dots,n.
-\end{aligned}\]
+Le SVM hanno un'idea diversa dal perceptron: cercano di trovare l'iperpiano che massimizza il \textbf{margine} tra le classi, ovvero la distanza minima tra l'iperpiano e i punti dati più vicini di ciascuna classe (i \emph{support vectors}).
 
-\paragraph{Soft–margin (forma standard).}
-Per dati non separabili si introducono slack variables $\xi_i\ge0$ e un parametro di regolarizzazione $C>0$ (segue la convenzione usata nel libro):
-\[\begin{aligned}
-&\min_{\mathbf{w},b,\boldsymbol{\xi}}\; \tfrac{1}{2}\lVert\mathbf{w}\rVert^2 + C\sum_{i=1}^n \xi_i\\
-&\text{s.t. }\; y_i(\mathbf{w}\cdot\mathbf{x}_i+b)\ge 1-\xi_i,\quad \xi_i\ge0,\; i=1,\dots,n.
-\end{aligned}\]
-Qui $C$ controlla il trade–off tra margine e violazioni (più $C$ grande implica penalità maggiore per gli errori).
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.9\textwidth]{images/svm_margin.png}
+  \caption{Esempio di Support Vector Machine che massimizza il margine tra due classi. I punti cerchiati sono i support vectors che definiscono l'iperpiano ottimale.}
+  \label{fig:svm-margin}
+\end{figure}
 
-\paragraph{Forma duale e kernel trick.}
-La formulazione duale è una QP in termini dei moltiplicatori $\alpha_i$; la soluzione usa prodotti scalari tra esempi che, sostituiti con un kernel $K(\mathbf{x},\mathbf{z})$, permettono modellare non linearità. Esempi di kernel comuni:
-\[\text{Polinomiale: }K(\mathbf{x},\mathbf{z})=(\mathbf{x}\cdot\mathbf{z}+1)^d,\quad
-	ext{RBF: }K(\mathbf{x},\mathbf{z})=\exp\big(-\tfrac{\lVert\mathbf{x}-\mathbf{z}\rVert^2}{2\sigma^2}\big),\quad
-	ext{Sigmoide: }K(\mathbf{x},\mathbf{z})=\tanh(k\,\mathbf{x}\cdot\mathbf{z}-\delta).
+Per dati linearmente separabili, esistono infinite iperpiani che separano le classi; le SVM scelgono quello con il margine massimo, che tende a generalizzare meglio su dati non visti.
+
+\paragraph{Formulazione del problema.}
+Sia $D$ un dataset di addestramento formato da punti \((\mathbf{x}^{(i)},y^{(i)})\), con etichette \(y^{(i)} \in \{-1,+1\}\), pesi \(\mathbf{w}\) e bias \(b\). L'iperpiano di decisione è definito da:
+\[
+f(\mathbf{x}) = \mathbf{w} \cdot \mathbf{x} + b.
+\]
+Se indichiamo con $\gamma$ il margine, l'obiettivo delle SVM è trovare i parametri $w, b$ che massimizzano $\gamma$. Indicando con
+\begin{align*}
+  &H_1: \mathbf{w} \cdot \mathbf{x} + b = \gamma \\
+  &H_2: \mathbf{w} \cdot \mathbf{x} + b = -\gamma
+\end{align*}
+le equazioni dei due iperpiani paralleli che definiscono il margine, passanti per i vettori di supporto delle due classi. Da questo si può dedurre che i punti di classe $+1$ soddisfano la disuguaglianza \(\mathbf{w} \cdot \mathbf{x}^{(i)} + b \geq \gamma\), mentre i punti di classe $-1$ soddisfano \(\mathbf{w} \cdot \mathbf{x}^{(i)} + b \leq -\gamma\). 
+
+Combinando queste due condizioni, si ottiene la seguente disuguaglianza per tutti i punti del dataset:
+\[
+y^{(i)}(\mathbf{w} \cdot \mathbf{x}^{(i)} + b) \geq \gamma, \quad \forall i.
+\]
+Poiché $y^{(i)}$ può essere $+1$ o $-1$, questa condizione assicura che ogni punto sia correttamente classificato e si trovi al di fuori del margine. Tuttavia si può riscrivere la formulazione in modo più semplice, fissando \(\gamma = 1\), il che porta alla condizione:
+\[
+y^{(i)}(\mathbf{w} \cdot \mathbf{x}^{(i)} + b) \geq 1, \quad \forall i.
 \]
 
-\paragraph{Proprietà e multiclass.}
-SVM è intrinsecamente binaria; il multiclass si ottiene con OVA/OVO o con estensioni dirette. Le SVM tendono a essere efficaci in spazi ad alta dimensione e sono robuste (solo pochi esempi, i support vectors, definiscono la soluzione), ma l'addestramento può essere pesante su grandi dataset.
+Purtroppo questa formulazione "libera" in termini di $\gamma$ non è direttamente utilizzabile: se $(\mathbf{w},b)$ soddisfa i vincoli, allora anche $(\lambda\mathbf{w},\lambda b)$ soddisfa i vincoli per ogni scalare $\lambda>1$ e fornisce un margine $\lambda\gamma$ più grande. Di conseguenza non esiste un massimo finito per $\gamma$ senza imporre una normalizzazione aggiuntiva. Per evitare questa degenerazione si fissa implicitamente la scala del vettore dei pesi fissando il valore del margine (ad es. $\gamma=1$) e si minimizza la norma di $\mathbf{w}$, che è equivalente a massimizzare il margine in modo ben definito.
 
-\vspace{1ex}
-\noindent
-% Nota: la trattazione segue la notazione delle slide per gli argomenti richiesti e adatta la formulazione standard del libro (cap. 12) per consistenza.
+La soluzione del problema è 
