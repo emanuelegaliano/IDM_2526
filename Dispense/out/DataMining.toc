@@ -242,3 +242,17 @@
 \contentsline {subsection}{\numberline {6.6.1}K-Nearest Neighbor}{54}{subsection.6.6.1}%
 \contentsline {paragraph}{Algoritmo.}{55}{section*.129}%
 \contentsline {paragraph}{Varianti.}{55}{section*.130}%
+\contentsline {section}{\numberline {6.7}Ensemble Learning}{55}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Bagging}{55}{subsection.6.7.1}%
+\contentsline {paragraph}{Algoritmo.}{55}{section*.131}%
+\contentsline {paragraph}{Random Forest.}{55}{section*.132}%
+\contentsline {subsection}{\numberline {6.7.2}Boosting}{56}{subsection.6.7.2}%
+\contentsline {paragraph}{Algoritmo.}{56}{section*.133}%
+\contentsline {subsection}{\numberline {6.7.3}Adaboost}{57}{subsection.6.7.3}%
+\contentsline {paragraph}{Gini Index Pesato.}{57}{section*.134}%
+\contentsline {paragraph}{Peso dello stump.}{58}{section*.135}%
+\contentsline {paragraph}{Aggiornamento dei pesi.}{58}{section*.136}%
+\contentsline {section}{\numberline {6.8}Validazione di un classificatore}{59}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Matrice di confusione}{59}{subsection.6.8.1}%
+\contentsline {paragraph}{Misure di accuratezza con due classi.}{59}{section*.138}%
+\contentsline {paragraph}{Misure di accuratezza (due classi).}{59}{section*.139}%

@@ -576,3 +576,167 @@ Esistono alcune varianti di KNN:
   \item \textbf{Distanza pesata:} i punti a distanza più vicina hanno un peso maggiore nel voto.
   \item \textbf{K-NN per valori continui:} Assegna agli attributi ignoti della tupla da classificare la media dei valori degli attributi delle tuple più vicine (rispetto agli attributi noti).
 \end{itemize}
+
+\section{Ensemble Learning}\label{sec:ensemble}
+L'ensemble learning ha lo scopo di combinare più modelli, solitamente omogenei, per migliorare le prestazioni di classificazione rispetto a un singolo modello. L'idea è che combinando le predizioni di più modelli si possa ridurre l'errore complessivo, sfruttando la diversità tra i modelli. Poiché richiede molta potenza di calcolo, si combinano modelli semplici e veloci da addestrare.
+
+\subsection{Bagging}
+Il paradigma \emph{Bagging} consiste nell'addestrare diversi classificatori in parallelo, combinando le predizioni finali.
+
+\paragraph{Algoritmo.}
+Siano $M_1, M_2, ..., M_k$ i $k$ modelli da combinare:
+\begin{enumerate}
+  \item Addestra ciascun modello $M_i$ su un sottoinsieme casuale del training set o su un campione di dati estratto tramite bootstrapping\footnote{Il bootstrapping è una tecnica di campionamento con reinserimento che consente di creare più sottoinsiemi di dati a partire da un dataset originale. Ogni sottoinsieme può contenere duplicati e viene utilizzato per addestrare modelli diversi nell'ensemble learning.}.
+  \item Combina opportunamente le predizioni dei modelli:
+  \begin{itemize}
+    \item \textbf{Classificazione:} voto di maggioranza tra le classi predette.
+    \item \textbf{Regressione:} media delle predizioni.
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{Random Forest.} Una Random Forest combina molti alberi decisionali addestrati su sottoinsiemi casuali del training set e su sottoinsiemi casuali di feature. Ogni albero viene addestrato su un campione bootstrap del dataset e, ad ogni split, si considera solo un sottoinsieme casuale delle feature per determinare la migliore divisione. La predizione finale viene effettuata tramite voto di maggioranza tra gli alberi.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.75\textwidth]{images/random_forest.png}
+  \caption{Schema di Random Forest: dai dati di training $(X)$ si costruiscono $k$ alberi decisionali $T_1(X,\alpha_1)$, $T_2(X,\alpha_2)$, $\dots$, $T_k(X,\alpha_k)$, ciascuno con parametri $\alpha_i$ diversi. La predizione finale è ottenuta combinando i risultati attraverso voting o averaging ($\sum T_i(X,\alpha_i)$).}
+  \label{fig:random-forest}
+\end{figure}
+
+Il vantaggio è quello di usarlo su dataset di dati molto predittivi, in quanto riduce la correlazione tra gli alberi e migliora la generalizzazione.
+
+\subsection{Boosting}
+Il \emph{Boosting} è un paradigma di ensemble learning che costruisce sequenzialmente una serie di modelli deboli, dove ogni modello successivo si concentra sugli errori commessi dai modelli precedenti. 
+
+\paragraph{Algoritmo.}
+Siano $M_1, M_2, ..., M_k$ i $k$ modelli da combinare:
+\begin{enumerate}
+  \item Inizializza i pesi delle istanze del training set in modo uniforme.
+  \item Per ogni modello $M_i$:
+  \begin{enumerate}
+    \item Addestra $M_i$ sul training set ponderato.
+    \item Calcola l'errore di $M_i$ e aggiorna i pesi delle istanze: aumenta i pesi delle istanze mal classificate e diminuisce quelli delle istanze correttamente classificate.
+  \end{enumerate}
+  \item Combina le predizioni dei modelli, pesando ciascuna predizione in base alla sua accuratezza (anche qui, nel caso di classificazione si usa il voto ponderato, mentre nella regressione si usa una media ponderata).
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.9\textwidth]{images/boosting_example.png}
+  \caption{Schema di Boosting: ogni classificatore viene addestrato su dati pesati in base agli errori dei modelli precedenti. I dati mal classificati ricevono peso maggiore, così i modelli successivi si concentrano sulle istanze più difficili. Le predizioni finali sono combinate in un ensemble ponderato.}
+  \label{fig:boosting-example}
+\end{figure}
+
+\subsection{Adaboost} 
+In questo algoritmo si usano solitamente \textbf{alberi decisionali} con due foglie chiamati \emph{stumps}. Combinando opprtunamente tali stumps, che sono semplici e veloci, si ottiene un classificatore accurato.
+
+\begin{enumerate}
+  \item Inizializza i pesi delle istanze del training set in modo uniforme.
+  \item Per $i=1$ a $k$:
+  \begin{enumerate}
+    \item Crea lo stump $M_i$ che minimizza l'errore ponderato sul training set.
+    \item Per lo stump $M_i$, calcola un peso $P_i$ basato sulla sua accuratezza:
+    \item Aumenta i pesi delle tuple classificate in modo errato e diminuisci quelli delle tuple classificate correttamente, dopodiché normalizza tra 0 e 1 i nuovi pesi.
+  \end{enumerate}
+  \item Combina linearmente le predizioni dei modelli usando i pesi $P_i$.
+\end{enumerate}
+
+\paragraph{Gini Index Pesato.}
+Sia $D$ un \emph{dataset} con $N$ tuple e $k$ classi $C_1, C_2, \dots, C_k$ e sia $w(\mathbf{x})$ il peso associato alla tupla $\mathbf{X}$. Indico con $T_{C_i}$ l'insieme delle \textbf{tuple} di $D$ aventi \textbf{classe} $C_i$. La probabilità di osservare una tupla di classe $C_i$ è:
+\[
+p_i = \frac{\sum_{\mathbf{X} \in T_{C_i}} w(\mathbf{X})}{\sum_{\mathbf{Y} \in D} w(\mathbf{Y})}
+\]
+Il \textbf{Gini index} dello splitting è dato da:
+\[
+gini_{split}(S_X) = \sum_{i=1}^k \frac{|S_i|}{|S_X|} \; gini(S_i)
+\qquad\qquad
+  gini(S_i) = 1 - \sum_{i=1}^n p_i^2
+\]
+
+\paragraph{Peso dello stump.} 
+Considerando TotalError la somma dei pesi delle tuple classificate erroneamente dallo stump $M_i$, il peso $P_i$ dello stump si calcola come:
+\[
+P_i = \frac{1}{2} \log\biggl(\frac{1 - \text{TotalError}}{\text{TotalError}}\biggr).
+\]
+
+\paragraph{Aggiornamento dei pesi.}
+Sia $w^{(t)}(\mathbf{X})$ il peso della tupla $\mathbf{X}$ all'iterazione $t$. Dopo aver calcolato lo stump $M_i$ e il suo peso $P_i$, si aggiorna il peso della tupla come:
+
+\noindent
+Sia $w^{(i)}(\mathbf{X})$ il peso della tupla $\mathbf{X}$ al passo $i$-esimo.
+
+\begin{itemize}
+  \item Se $\mathbf{X}$ \textbf{non} è classificata correttamente dallo stump $M_i$, il peso \textbf{aumenta}:
+  \[
+    w^{i+1}(\mathbf{X}) = w^{i}(\mathbf{X}) \cdot e^{w(D_i)}
+  \]
+  \item Se $\mathbf{X}$ è classificata \textbf{correttamente} dallo stump $M_i$, il peso \textbf{diminuisce}:
+  \[
+    w^{i+1}(\mathbf{X}) = w^{i}(\mathbf{X}) \cdot e^{-w(D_i)}
+  \]
+\end{itemize}
+
+\noindent
+Esempi che mostrano l'andamento di $e^{w(D_i)}$ e $e^{-w(D_i)}$ in funzione di $w(D_i)$:
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/aumento_pesi_tuple.png}
+    \\[4pt]
+    {\small Incremento del peso: $e^{w(D_i)}$ in funzione di $w(D_i)$}
+  \end{minipage}\hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{images/diminuzione_pesI_tuple.png}
+    \\[4pt]
+    {\small Decremento del peso: $e^{-w(D_i)}$ in funzione di $w(D_i)$}
+  \end{minipage}
+  \caption{Andamento dell'incremento e del decremento dei pesi delle tuple per Adaboost.}
+  \label{fig:adaboost-weight-changes}
+\end{figure}
+
+\subsection*{Bagging vs Boosting}
+Il bagging è utilizzato maggiormente per ridurre \emph{overfitting}, mentre il boosting è più utilizzato quando si vogliono combinare classificatori molto semplice che presi singolarmente hanno bassa accuracy.
+
+\section{Validazione di un classificatore}
+
+\subsection{Matrice di confusione}
+La matrice di confusione viene usata per rappresentare l'accuracy dove ogni riga contiene valori reali mentre ogni colonna i valori predetti. Un modello che funziona bene si vede dalle colonne, poiché se hanno valori diversi da 0 allora il modello predice bene la classe.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\linewidth]{images/confusion_matrix.png}
+  \caption{Esempio di matrice di confusione per un classificatore a tre classi (Gatto, Cane, Coniglio): le righe indicano le classi reali, le colonne le classi predette. I numeri nelle celle sono le frequenze assolute; le somme marginali mostrano il totale per riga/colonna. Un buon classificatore presenta valori elevati sulla diagonale principale (corretta assegnazione).}
+  \label{fig:confusion-matrix}
+\end{figure}
+
+\paragraph{Misure di accuratezza con due classi.}
+Si possono considerare due classi "Positiva" $P$ e "Negativa" $N$. Da questo possono nascere:
+\begin{itemize}
+  \item \textbf{True positive}: tuple di classe $P$ che vengono classificate come $P$.
+  \item \textbf{False positive}: tuple di classe $P$ che vengono classificate come $N$.
+  \item \textbf{True negative}: tuple di classe $N$ che vengono classificate come $N$.
+  \item \textbf{False negative}: tuple di classe $N$ che vengono classificate come $P$.
+\end{itemize}
+
+
+\paragraph{Misure di accuratezza (due classi).}
+Per il caso binario, indicando con $\lvert\mathrm{Tpos}\rvert$ il numero di true positive, con
+ $\lvert\mathrm{Tneg}\rvert$ il numero di true negative, con $\lvert\mathrm{Fpos}\rvert$ il numero di false
+ positive, con $\lvert\mathrm{Fneg}\rvert$ il numero di false negative, e con $\lvert\mathrm{Pos}\rvert,\lvert\mathrm{Neg}\rvert$ i totali veri delle classi positive e negative, si definiscono le misure
+pi\`u comuni:
+\begin{align*}
+&\text{Recall (Rec) / Sensitivity / True Positive Rate (TPR)}:\quad &&\mathrm{Rec}=\frac{\lvert\mathrm{Tpos}\rvert}{\lvert\mathrm{Pos}\rvert},\\
+&\text{Specificity (Spec) / True Negative Rate (TNR)}:\quad &&\mathrm{Spec}=\frac{\lvert\mathrm{Tneg}\rvert}{\lvert\mathrm{Neg}\rvert},\\
+&\text{False Positive Rate (FPR)}:\quad &&\mathrm{FPR}=\frac{\lvert\mathrm{Fpos}\rvert}{\lvert\mathrm{Neg}\rvert},\\
+&\text{False Discovery Rate (FDR)}:\quad &&\mathrm{FDR}=\frac{\lvert\mathrm{Fpos}\rvert}{\lvert\mathrm{Tpos}\rvert + \lvert\mathrm{Fpos}\rvert},\\
+&\text{Precision (Prec)}:\quad &&\mathrm{Prec}=\frac{\lvert\mathrm{Tpos}\rvert}{\lvert\mathrm{Tpos}\rvert + \lvert\mathrm{Fpos}\rvert},\\
+&\text{Accuracy (Acc)}:\quad &&\mathrm{Acc}=\frac{\lvert\mathrm{Tpos}\rvert + \lvert\mathrm{Tneg}\rvert}{\lvert\mathrm{Pos}\rvert + \lvert\mathrm{Neg}\rvert},\\
+&\text{F1 (armonica di Precision e Recall)}:\quad &&F1 = 2\cdot\frac{\mathrm{Prec}\cdot\mathrm{Rec}}{\mathrm{Prec}+\mathrm{Rec}}.
+\end{align*}
+
+Queste misure sono utili per valutare diversi aspetti del classificatore: la recall misura la capacit\`a di trovare
+le istanze positive, la precision misura la correttezza delle predizioni positive, mentre l'accuracy fornisce una
+visione globale. In presenza di sbilanciamento di classe conviene preferire precision/recall o F1 all'accuracy.
+
