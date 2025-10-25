@@ -740,3 +740,33 @@ Queste misure sono utili per valutare diversi aspetti del classificatore: la rec
 le istanze positive, la precision misura la correttezza delle predizioni positive, mentre l'accuracy fornisce una
 visione globale. In presenza di sbilanciamento di classe conviene preferire precision/recall o F1 all'accuracy.
 
+\subsection{Soglia discriminativa in un classificatore binario}
+In alcuni casi, la distinzione tra due classi (caso binario) si basa su un valore soglia $\sigma$. Ad esempio, predico se una mail è spam oppure no sulla base di tale soglia. Le performance del classificatore sono valutate al variare di $\sigma$ tramite \textbf{curve ROC}. Esse rappresentano il \emph{True Positive Rate (TPR)} in funzione del \emph{False Positive Rate (FPR)}, al variare di $\sigma$.
+
+Se la soglia è molto alta, tutte le tuple sono classificate come \emph{negative}: nessuna tupla negativa è classificata come positiva (\( \mathrm{FPR}=0 \)) e nessuna tupla positiva è classificata come positiva (\( \mathrm{TPR}=0 \)). 
+
+\subsection{Curva ROC}
+Se la soglia è molto bassa, tutte le tuple sono classificate come \emph{positive}: tutte le tuple negative sono classificate come positive (\( \mathrm{FPR}=1 \)) e tutte le tuple positive sono classificate come positive (\( \mathrm{TPR}=1 \)). Per valori intermedi di soglia si ottengono valori di TPR e FPR compresi tra 0 e 1.
+
+Situazione ideale: \( \mathrm{TPR} \) aumenta fino a 1 mentre \( \mathrm{FPR} \) si mantiene pari a 0 (\emph{miglior classificatore}). Un \emph{classificatore random} ha sempre valori di \( \mathrm{TPR} \) e \( \mathrm{FPR} \) uguali al variare di $\sigma$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.6\linewidth]{images/curve-roc-example.png}
+  \caption{Esempio di curva ROC al variare della soglia $\sigma$.}
+\end{figure}
+
+\subsection{Curva di Precision-Recall}
+A differenza della curva ROC, la \textbf{curva di Precision-Recall} rappresenta la \textbf{Precision} in funzione della \textbf{Recall} al variare di $\sigma$.
+
+Le curve \textbf{ROC} si utilizzano nel caso di dataset \emph{bilanciati} (frequenza simile delle due classi), mentre la \textbf{curva di Precision-Recall} è preferibile nel caso di dataset \emph{sbilanciati}.
+
+Come indicatore dell’accuratezza del classificatore si usa l’area al di sotto delle curve ROC e Precision-Recall, detta \textbf{Area Under the Curve (AUC)}. \(\mathrm{AUC}\in[0,1]\); \(\mathrm{AUC}=1\) indica un classificatore perfetto.
+
+\subsection{Validazione di un classificatore}
+Per validare un classificatore si considerano solitamente diversi \emph{partizionamenti} del dataset in \emph{training} e \emph{test set} e si addestra il classificatore sul training set così ottenuto.
+Generalmente si utilizzano due metodi:
+\begin{description}
+  \item[Holdout:] Si fissa una percentuale $X$, dopo si partiziona il dataset in due set indipendenti, training e test sets, in base a $X$, si addestra il modello sul training set e si applica il classificatore al test set per misurare l'accuratezza. Una variante prevede di ripetere l'holdout $k$ volte e di calcolare la media delle accuratezze ottenute.
+  \item[K-Fold Cross Validation:] Si partiziona il dataset in $k$ sottoinsiemi (fold) di dimensioni approssimativamente uguali. Si eseguono $k$ iterazioni, in ciascuna si usa un fold come test set e gli altri $k-1$ fold come training set. Si calcola l'accuratezza per ogni iterazione e si fa la media delle $k$ accuratezze ottenute per avere una stima complessiva delle prestazioni del classificatore.
+\end{description}

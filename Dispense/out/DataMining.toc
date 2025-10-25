@@ -256,3 +256,7 @@
 \contentsline {subsection}{\numberline {6.8.1}Matrice di confusione}{59}{subsection.6.8.1}%
 \contentsline {paragraph}{Misure di accuratezza con due classi.}{59}{section*.138}%
 \contentsline {paragraph}{Misure di accuratezza (due classi).}{59}{section*.139}%
+\contentsline {subsection}{\numberline {6.8.2}Soglia discriminativa in un classificatore binario}{60}{subsection.6.8.2}%
+\contentsline {subsection}{\numberline {6.8.3}Curva ROC}{60}{subsection.6.8.3}%
+\contentsline {subsection}{\numberline {6.8.4}Curva di Precision-Recall}{60}{subsection.6.8.4}%
+\contentsline {subsection}{\numberline {6.8.5}Validazione di un classificatore}{61}{subsection.6.8.5}%

@@ -1034,6 +1034,11 @@ INPUT ./images/confusion_matrix.png
 INPUT images/confusion_matrix.png
 INPUT ./images/confusion_matrix.png
 INPUT ./images/confusion_matrix.png
+INPUT ./images/curve-roc-example.png
+INPUT ./images/curve-roc-example.png
+INPUT images/curve-roc-example.png
+INPUT ./images/curve-roc-example.png
+INPUT ./images/curve-roc-example.png
 INPUT out/DataMining.aux
 INPUT out/prerequisiti.aux
 INPUT out/prerequisiti.aux
