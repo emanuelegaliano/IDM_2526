@@ -1,0 +1,110 @@
+\chapter{Subgraph Matching}
+L'operazione di \textit{subgraph matching} consiste nel trovare tutte le occorrenze di un grafo più piccolo (detto \textit{query graph}) all'interno di un grafo più grande (detto \textit{data graph}). Questa operazione è fondamentale in molte applicazioni, come il rilevamento di pattern in reti sociali, l'analisi di reti biologiche e la ricerca di strutture specifiche in database grafici.
+
+\section{Isomorfismo di Grafi}
+L'\textbf{isomorfismo} tra due grafi \(G_1\) e \(G_2\) è una corrispondenza biunivoca tra i loro insiemi di nodi che preserva le relazioni di adiacenza. In altre parole, due grafi sono isomorfi se esiste una mappatura tra i nodi di \(G_1\) e \(G_2\) tale che due nodi sono connessi da un arco in \(G_1\) se e solo se i loro corrispondenti nodi sono connessi da un arco in \(G_2\).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/subgraph_mapping_example.png}
+    \caption{Esempio di subgraph mapping: il grafo di query (a sinistra) viene trovato all'interno del grafo di dati (a destra).}
+    \label{fig:subgraph_mapping_example}
+\end{figure}
+
+\subsection{Automorfismo}
+Un caso particolare di \emph{isomorfismo} è l'\textbf{automorfismo}: si verifica quando un grafo è isomorfo a se stesso. In altre parole, un automorfismo è una mappatura dei nodi di un grafo su se stessi che preserva le relazioni di adiacenza. Gli automorfismi sono importanti nello studio delle simmetrie nei grafi e possono essere utilizzati per semplificare la rappresentazione di un grafo.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/automorphism_example.png}
+    \caption{Esempi di \emph{automorfismi} del grafo \(G\): a sinistra il grafo originale; al centro un automorfismo che scambia i vertici \(2\) e \(3\) mantenendo \(1\) fisso; a destra un secondo automorfismo che permuta i vertici come indicato dalle frecce tratteggiate. In entrambi i casi la struttura di adiacenza è preservata.}
+    \label{fig:automorphism_example}
+\end{figure}
+
+\section{Operazione di subgraph matching}
+L'operazione di \textit{subgraph matching} consiste, definita in modo più formale, nel verificare se il \emph{grafo query} è contenuto nel \emph{grafo dati} attraverso una mappatura che preserva le relazioni di adiacenza.
+
+La differenza rispetto al concetto di isomorfismo risiede nel fatto che, nel subgraph matching, il grafo query può essere più piccolo del grafo dati e non è necessario che tutti i nodi del grafo dati siano coinvolti nella mappatura. Quindi , il subgraph matching cerca una corrispondenza parziale, \textbf{iniettiva}, tra i due grafi, mentre l'isomorfismo richiede una corrispondenza completa, \textbf{biunivoca}, tra tutti i nodi e gli archi dei due grafi.
+
+Definiamo $G_1 = (V_1, E_1)$ come il grafo query e $G_2 = (V_2, E_2)$ come il grafo dati. L'operazione di subgraph matching cerca una funzione iniettiva \(f: V_1 \rightarrow V_2\) chiamata \textbf{mapping} tale che per ogni arco \((u, v) \in E_1\), l'arco \((f(u), f(v))\) appartiene a \(E_2\).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/subgraph_matching_example.png}
+    \caption{Esempio di \emph{subgraph matching}: il grafo \emph{Query} (in alto a sinistra) viene ricercato all’interno del grafo \emph{Target} (in alto a destra). In basso sono mostrati i possibili match del sottografo query all’interno del grafo target, evidenziati dai riquadri rossi.}
+    \label{fig:subgraph_matching_example}
+\end{figure}
+
+Come si vede dalla figura \ref{fig:subgraph_matching_example}, il processo di subgraph matching ritorna più occorrenze del grafo query all'interno del grafo dati, evidenziando le diverse mappature possibili che soddisfano le condizioni di adiacenza.
+
+\section{Complessità computazionale}
+L'operazione di graph matching è nota per essere computazionalmente complessa. Infatti, il problema del graph matching è NP-Hard, ovvero non esiste un algoritmo noto che possa risolverlo in tempo polinomiale per tutti i casi. Questo rende il graph matching un algoritmo particolarmente esoso.
+
+Per quanto riguarda il subgraph matching, la complessità dipende dalla dimensione del grafo query e del grafo dati, nonché dalla struttura dei grafi stessi. In generale è un problema NP-Completo, il che significa che non esiste un algoritmo noto che possa risolverlo in tempo polinomiale per tutti i casi, tuttavia esistono algoritmi euristici e approssimativi che possono essere utilizzati per affrontare il problema in modo più efficiente in casi specifici o con vincoli particolari.
+
+\section{Algoritmi di subgraph matching}
+\subsection{Soluzione Bruteforce}
+La soluzione più semplice per il problema del subgraph matching è l'approccio \textbf{bruteforce}, che consiste nel generare tutte le possibili mappature dei nodi del grafo query sui nodi del grafo dati e verificare se ciascuna mappatura preserva le relazioni di adiacenza.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.78\textwidth]{images/bruteforce_subgraph_matching.png}
+    \caption{Ricerca \emph{brute force} per \emph{subgraph matching}: in alto i grafi \(G_a\) (query) e \(G_b\) (target); sotto l’albero di ricerca che esplora tutte le corrispondenze possibili tra vertici (es.\ \((1,4)\), \((1,5)\), \((1,6)\), \((1,7)\)). Le foglie evidenziate indicano i mapping completi che preservano le adiacenze (match isomorfi).}
+    \label{fig:bruteforce_subgraph_matching}
+\end{figure}
+
+Questo è chiaramente una soluzione NP-Hard, inefficiente. Si possono adottare strategie migliori per velocizzare la computazione:
+\begin{itemize}
+    \item \textbf{Look-ahead}: prima di verificare una mappatura completa, si può controllare se i nodi parzialmente mappati soddisfano le condizioni di adiacenza. Se non lo fanno, si può scartare immediatamente quella mappatura. 
+    \item \textbf{Backtracking}: si può utilizzare una strategia di backtracking per esplorare lo spazio delle mappature in modo più efficiente. Se si scopre che una mappatura parziale non può essere estesa a una mappatura completa valida, si torna indietro e si prova una diversa mappatura.
+\end{itemize}
+
+\paragraph{Esempio di backtracking.}
+Partendo dalla radice dell’albero di ricerca (figura \ref{fig:backtracking_subgraph_matching}), assegnamo progressivamente i vertici del grafo \emph{query} ai vertici del \emph{target}. Dopo le prime scelte \((1\!\to\!a)\) e \((2\!\to\!b)\), proviamo \((3\!\to\!c)\). A questo punto un controllo locale sui vincoli struttura-preservanti rivela un’incoerenza: il grado di \(3\) nel query è 3, mentre quello di \(c\) nel target è 2; quindi nessun proseguimento potrà produrre un mapping valido. L’algoritmo esegue allora \emph{pruning} del ramo e \emph{backtracking} allo stato precedente per provare alternative (ad es.\ \((3\!\to\!d)\)). Questo comportamento evita esplorazioni inutili e riduce drasticamente lo spazio di ricerca.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/backtracking_subgraph_matching.png}
+    \caption{Esempio di \emph{backtracking} con pruning nel \emph{subgraph matching}. A sinistra il grafo \emph{query} e il grafo \emph{target}; a destra l’albero di ricerca. Il ramo che mappa \((3\!\to\!c)\) viene potato perché viola un vincolo di grado (\(\deg(3)=3>\deg(c)=2\)), quindi non può condurre a una soluzione.}
+    \label{fig:backtracking_subgraph_matching}
+\end{figure}
+
+\subsection{Algoritmo di Ullmann}
+L'algoritmo di Ullman utilizza il grado del nodo come criterio di selezione per ridurre lo spazio di ricerca. In particolare, prima di tentare una mappatura, l'algoritmo verifica se il grado del nodo nel grafo query è minore o uguale al grado del nodo corrispondente nel grafo dati. Se questa condizione non è soddisfatta, la mappatura viene scartata immediatamente (\emph{look-ahead}).
+
+Dopo aver costruito una mappatura iniziale, l'algoritmo applica una procedura di \textbf{refinement} per eliminare ulteriori mappature non valide. Questa procedura verifica che per ogni arco nel grafo query, l'arco corrispondente esista nel grafo dati. Se un arco manca, la mappatura viene scartata (\emph{backtracking}).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/ullmann_algorithm_example.png}
+    \caption{Algoritmo di Ullmann: a sinistra il grafo \emph{query} \(Q\) e il grafo \emph{target} \(T\); a destra l’albero di ricerca con le corrispondenze provate. I nodi cerchiati in rosso indicano scelte scartate tramite \emph{pruning}; il ramo con \((3,7)\) completa un mapping valido.}
+    \label{fig:ullmann_algorithm_example}
+\end{figure}
+
+\paragraph{Esempio della figura \ref{fig:ullmann_algorithm_example}.}
+Per prima cosa si calcola l'ordine di ogni vertice, nel grafo $Q$ abbiamo \( deg(1) = deg(2) = deg(5) \), nel grafo $T$ abbiamo \( deg(6) = deg(7) = \deg(5) = 2, deg(4) = 1 \).
+
+L'obiettivo è quello di trovare un \emph{isomorfismo} tra i due grafi, iniziando dalla radice dell'albero di ricerca. Si prova l'assegnazione \((1, 4)\) ma viene scartata perché il grado di \(1\) è maggiore del grado di \(4\). Si prova quindi \((1, 5)\) e si procede con \((2, 4\) (non funziona per lo stesso motivo \( (1, 4)\)) , quindi si prova \((2, 6)\) e così via. Alla fine si trova il mapping valido \((1, 5), (2, 6), (5, 7)\).
+
+\subsection{Algoritmo VF}
+L'algoritmo VF (Vento-Foggia) è un altro approccio per il problema del subgraph matching che utilizza una strategia di backtracking con pruning basata su vincoli locali. L'algoritmo costruisce una mappatura incrementale dei nodi del grafo query sui nodi del grafo dati, verificando a ogni passo se la mappatura parziale soddisfa i vincoli di adiacenza.
+
+\noindent
+L'algoritmo costruisce 3 insiemi per ognuno dei grafi $Q, T$:
+\begin{itemize}
+    \item $M_Q, M_T$: nodi già mappati
+    \item $T_Q, T_T$: nodi adiacenti a quelli mappati
+    \item $U_Q, U_T$: nodi non ancora considerati
+\end{itemize}
+
+\noindent
+Dove il pedice $Q$ o $T$ indica se l'insieme appartiene al grafo query o target.
+
+\paragraph{Algoritmo.}
+Ad ogni passo dell'algoritmo:
+\begin{enumerate}
+    \item Si seleziona un nodo $q \in T_Q$ e si prova a mappare $\forall t \in T_T$.
+    \item Si verifica la regola di \textbf{fattibilità}: la mappatura parziale deve preservare le adiacenze tra i nodi mappati e i nodi adiacenti, ovvero deve esistere un arco tra un certo $(q, q')$ dove $q' \in M_Q$ se e solo se esiste un arco tra $(t, t')$ dove $t' \in M_T$.
+    \item Si spostano $q$ e $t$ negli insiemi $M_Q$ e $M_T$ rispettivamente, e si aggiornano gli insiemi $T_Q, T_T, U_Q, U_T$ di conseguenza.
+    \item Si ripete il processo fino a quando tutti i nodi del grafo query sono stati mappati (trovando così un match) o fino a quando non ci sono più nodi da mappare (in tal caso si esegue il backtracking).
+\end{enumerate}
