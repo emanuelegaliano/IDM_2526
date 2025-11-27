@@ -1,161 +1,218 @@
-\chapter{Preprocessing dei Dati}\label{ch:preprocessing}
-% Riferimento principale: Aggarwal, "Data Mining: The Textbook", Cap. 2 (citato nelle slide del corso)
+\chapter{Preprocessing}
+Il preprocessing dei dati è una fase cruciale nel flusso di lavoro di qualsiasi progetto che sfrutta un dataset. Questa fase include una serie di operazioni volte a migliorare la qualità dei dati, rendendoli più adatti per l'analisi e la modellazione. In questo capitolo, esploreremo le principali tecniche di preprocessing utilizzate nel contesto del dataset in esame.
 
-\section{Perché il preprocessing è essenziale}\label{sec:intro-preproc}
-Prima di applicare qualsiasi algoritmo di data mining, i dati grezzi devono essere resi \emph{analizzabili}. In pratica, il preprocessing riduce la distanza tra ``dati come sono'' e ``dati come l'algoritmo li richiede''. In assenza di un'adeguata preparazione, anche il miglior algoritmo può fallire o produrre risultati fuorvianti (es.\ feature mal estratte, scale non confrontabili, rumore e outlier che dominano l'analisi).
-
-\paragraph{Quattro obiettivi chiave.}
-\begin{enumerate}
-  \item \textbf{Estrazione di feature}: ricavare attributi informativi a partire da dati grezzi (log, segnali, immagini, testo, traffico di rete, \ldots), ed eventualmente integrare sorgenti eterogenee in un unico dataset.
-  \item \textbf{Portabilità/trasformazione del tipo di dato}: mappare tipi di dato verso rappresentazioni adatte agli algoritmi (es. numerico $\leftrightarrow$ categoriale, testo $\to$ vettori).
-  \item \textbf{Data cleaning}: trattare valori mancanti, errori, inconsistenze e outlier; riportare gli attributi su scale confrontabili (scaling/normalizzazione).
-  \item \textbf{Riduzione dei dati}: diminuire dimensionalità o volume preservando l'informazione utile (selezione/trasformazione di feature, sampling, PCA/SVD/LSA).
-\end{enumerate}
-
-\section{Estrazione di feature}\label{sec:feature}
-L'estrazione di feature costruisce un set di attributi più adatti al problema. È fortemente dipendente dal dominio e incide in modo determinante sulla qualità dell'analisi.
-
-\paragraph{Esempi tipici.}
-\begin{itemize}
-  \item \textbf{Dati sensoriali}: dopo il cleaning, si possono utilizzare direttamente i campioni o trasformarli (es. trasformata di Fourier) per ottenere feature spettrali.
-  \item \textbf{Immagini}: matrici di pixel, istogrammi di colore, \emph{edge features}.
-  \item \textbf{Web logs}: record testuali formattati da cui si estraggono feature di sessione, frequenze, pattern di navigazione.
-  \item \textbf{Traffico di rete}: conteggi, tassi, durate; utili per intrusion detection.
-  \item \textbf{Documenti}: rappresentazione \emph{bag-of-words} o pesi TF--IDF (\S\ref{subsec:text2num}).
-\end{itemize}
-
-\section{Portabilità dei dati}\label{sec:portabilita}
-Gli algoritmi spesso richiedono tipologie di input specifiche; la \emph{portabilità} converte i dati nella forma necessaria. Talvolta la conversione è \emph{lossy} (perdita di informazione): è buona norma esplicitarne il compromesso.
-
-\subsection{Da numerico a categoriale: discretizzazione}\label{subsec:discret}
-La discretizzazione suddivide il dominio numerico in intervalli, assegnando a ciascun valore l'etichetta dell'intervallo corrispondente.
+Generalmente una fase di preprocessing dei dati dipende dalle caratteristiche specifiche del dataset e dagli obiettivi dell'analisi. Tuttavia, alcune operazioni comuni includono:
 \begin{description}
-  \item[Equi-width] Intervalli di uguale ampiezza: $[a, a+w), [a+w, a+2w), \ldots$.
-  \item[Equi-depth] Intervalli con uguale numerosità attesa (\emph{quantile binning}).
-  \item[Equi-log] Intervalli di uguale differenza su scala logaritmica.
+  \item[Estrazione di feature] - Questa parte del preprocessing coinvolge l'identificazione e l'estrazione delle caratteristiche più rilevanti dai dati grezzi. Queste feature possono essere utilizzate come input per modelli di machine learning o altre analisi statistiche. 
+  \item[Portabilità dei dati] - Assicurarsi che i dati siano in un formato compatibile con gli strumenti e le librerie utilizzate per l'analisi. Questo può includere la conversione di formati di file, la normalizzazione delle strutture dei dati e l'adeguamento delle codifiche.
+  \item[Cleaning dei dati] - Questa fase include la gestione dei valori mancanti, la rimozione di outlier e la correzione di errori nei dati. Un dataset pulito è essenziale per garantire risultati affidabili nelle fasi successive dell'analisi.
+  \item[Riduzione dei dati] - In alcuni casi, può essere utile ridurre la dimensionalità del dataset o selezionare un sottoinsieme di dati per migliorare l'efficienza computazionale e ridurre il rumore nei dati. 
 \end{description}
-\paragraph{Esempio.} Età $\in[0,80]$ in 4 \emph{intervalli} equi-distanti da 20 anni: $[0,20),[20,40),[40,60),[60,80]$. L'età 23 $\mapsto$ intervallo 2.
 
-\subsection{Da categoriale a numerico}\label{subsec:cat2num}
-\emph{Label encoding} assegna un intero a categoria, ma introduce un ordine fittizio. Per modelli sensibili all'ordinalità (NN, distanze), si preferisce l'\emph{one-hot encoding}.
-\paragraph{Definizione (one-hot).} Per $g$ categorie si rappresenta la categoria $c_i$ con $\mathbf{e}_i\in\{0,1\}^g$, dove $(\mathbf{e}_i)_i=1$ e altrove 0.
-\paragraph{Esempio.} Colore $\in\{\texttt{rosso},\texttt{verde},\texttt{blu}\}$: rosso $\to(1,0,0)$; blu $\to(0,0,1)$.
+\section{Estrazione di feature}
+L'estrazione di feature consiste nel creare un \textbf{set di feature} più adatte al problema da risolvere rispetto ai dati grezzi. Ipotizziamo di avere un dataset di immagini, le feature grezze generalmente sono i pixel dell'immagine, ma sono poco utili per un'analisi più approfondita. In questo caso, potremmo estrarre feature come bordi, texture o forme presenti nell'immagine, che possono essere più informative per un modello di machine learning.
 
-\subsection{Da testo a numerico}\label{subsec:text2num}
-Una collezione di $n$ documenti e $d$ termini può essere rappresentata da una matrice \emph{termine-documento} $X\in\mathbb{R}^{d\times n}$, con $x_{tj}$ frequenze (o pesi TF--IDF) del termine $t$ nel documento $j$. La matrice è tipicamente sparsa; tecniche di riduzione (\S\ref{sec:riduzione}) sono utili.
-
-\section{Data cleaning}\label{sec:cleaning}
-Il cleaning gestisce mancanze, errori e inconsistenze, e riporta le feature su scale comparabili.
-
-\subsection{Valori mancanti}\label{subsec:missing}
+\subsection{Tecniche di estrazione di feature}
+Esistono diverse tecniche per l'estrazione di feature, tra cui:
 \begin{itemize}
-  \item \textbf{Eliminazione di record} con mancanti: semplice, ma rischiosa se i mancanti sono frequenti o non \emph{MCAR} (\emph{Missing Completely At Random}).
-  \item \textbf{Imputazione}: media/mediana per attributi numerici; categoria/moda per categoriali; metodi più accurati includono $k$-NN, regressione, EM, modelli generativi. \emph{Nota}: imputazioni errate possono introdurre bias.
-  \item \textbf{Gestione nativa}: alcuni algoritmi tollerano i mancanti (es. alberi decisionali con surrogate splits).
-\end{itemize}
-\paragraph{Mini-esempio (serie temporale).} Per dati temporali/spaziali è comune l'interpolazione (lineare, spline) per colmare piccole lacune.
-
-\subsection{Valori errati e inconsistenze}\label{subsec:errors}
-\begin{itemize}
-  \item \textbf{Deduplicate/record linkage}: rilevazione e fusione di duplicati (spesso in integrazione di sorgenti).
-  \item \textbf{Vincoli di dominio}: coerenza semantica (es. Nazione=\texttt{USA} \(\Rightarrow\) Città \(\neq\) \texttt{Roma}).
-  \item \textbf{Outlier}: punti anomali da investigare; non sempre errori, ma potenziali driver del fenomeno.
+  \item \textbf{Feature basate su statistiche} - Calcolo di statistiche descrittive come media, varianza, skewness e kurtosis.
+  \item \textbf{Feature basate su trasformazioni} - Utilizzo di trasformazioni matematiche come la Trasformata di Fourier o la Trasformata Wavelet per estrarre informazioni frequenziali.
+  \item \textbf{Feature basate su modelli} - Applicazione di modelli predefiniti per estrarre feature, come l'uso di reti neurali convoluzionali per l'estrazione di feature da immagini.
 \end{itemize}
 
-\subsection{Rilevazione di outlier con quantili}\label{subsec:quantili}
-Sia $S$ un insieme di valori. Il quantile d'ordine $x\in[0,1]$ è $q_x$ tale che $x\%$ di $S$ è minore di $q_x$ e $(1-x)\%$ maggiore o uguale.
-\paragraph{Interquantile range (IQR).} $\mathrm{IQR}=Q_3-Q_1$. La regola classica assegna come outlier i valori
-\[
-  x< Q_1-1.5\,\mathrm{IQR}\quad \text{oppure}\quad x> Q_3+1.5\,\mathrm{IQR}.
-\]
-\paragraph{Mini-esempio.} Con $Q_1=10$, $Q_3=22$, $\mathrm{IQR}=12$: soglia bassa $=10-18=-8$, soglia alta $=22+18=40$. Valori $>40$ o $<-8$ sono outlier.
+\section{Portabilità dei dati}
+In questo caso il problema diventa quello di convertire i dati in un formato che sia facilmente utilizzabile dagli strumenti di analisi. Ad esempio, se i dati sono in un formato proprietario, potrebbe essere necessario convertirli in un formato standard come CSV o JSON. Inoltre i dati sono generalmente salvati in modo \textbf{eterogeneo} (valori numerici oppure categorici) e quindi è necessario uniformarli per poterli utilizzare in modo efficace.
 
-\subsection{Scaling e normalizzazione}\label{subsec:scaling}
-Scale diverse rendono gli attributi \emph{non confrontabili} (es. Età vs Salario). La distanza euclidea è dominata dalla scala maggiore. Due standard interventi:
-\paragraph{Standardizzazione (z-score).} Per un attributo $A_j$ con media $\mu_j$ e deviazione standard $\sigma_j>0$, ogni valore $x_{pj}$ è trasformato in
-\[
-  z_{pj}=\frac{x_{pj}-\mu_j}{\sigma_j},\quad \mu_j=\frac{1}{n}\sum_{p=1}^n x_{pj},\quad \sigma_j^2=\frac{1}{n}\sum_{p=1}^n(x_{pj}-\mu_j)^2.
-\]
-\paragraph{Min--max scaling.} Con $\min_j,\max_j$ valori minimo/massimo osservati di $A_j$,
-\[
-  y_{pj}=\frac{x_{pj}-\min_j}{\max_j-\min_j}\in[0,1].
-\]
-\emph{Nota}: il min--max è sensibile agli outlier; lo z-score è più robusto ma non limita l'intervallo.
+\subsection{Da dati numerici a categorici}
+La conversione da dati \emph{numerici} a \emph{categorici} è detta \textbf{discretizzazione}. Questa tecnica consiste nel suddividere l'intervallo dei valori numerici in un numero finito di intervalli, assegnando a ciascun intervallo una categoria specifica. Ad esempio, i valori di età possono essere suddivisi in categorie come "giovane", "adulto" e "anziano".
 
-\section{Riduzione dei dati}\label{sec:riduzione}
-Ridurre volume e/o dimensionalità accelera l'analisi e migliora la generalizzazione, a parità d'informazione.
+\paragraph{Equi-width ranges.}
+In questo caso, l'intervallo dei valori numerici viene suddiviso in intervalli di larghezza uguale. Ad esempio, se i valori variano da $0$ a $100$ e si desidera creare 5 categorie, ogni intervallo avrà una larghezza di $20$ $(0-19, 20-39, 40-59, 60-79, 80-100)$.
 
-\subsection{Sampling}\label{subsec:sampling}
-Costruire un sottoinsieme rappresentativo dei dati.
+\paragraph{Equi-log ranges.}
+Questa tecnica invece, si costruisce ogni intervallo $[a, b]$ in modo tale che la scala logaritmica sia uniforme, ovvero $\log_x a - \log_x b$ è costante e ha sempre lo stesso valore per ogni intervallo. Questa tecnica è particolarmente utile quando i dati coprono un ampio intervallo di valori e si desidera preservare le proporzioni relative tra i valori. Ad esempio , se i valori variano da $1$ a $1000$ e si desidera creare 3 categorie, gli intervalli potrebbero essere $[1, 10]$, $[11, 100]$ e $[101, 1000]$ (per un logaritmo in base $10$).
+
+\paragraph{Equi-depth ranges.}
+In questo caso, gli intervalli vengono creati in modo tale che ogni intervallo contenga lo stesso numero di istanze. Ad esempio, se si hanno $100$ istanze e si desidera creare $5$ categorie, ogni intervallo conterrà $20$ istanze. Questa tecnica è utile quando si desidera bilanciare la distribuzione delle categorie.
+
+\subsection{Da dati categorici a numerici}
+La conversione da dati \emph{categorici} a \emph{numerici} è detta \textbf{codifica}. Questa tecnica consiste nell'assegnare un valore numerico a ciascuna categoria. Ad esempio, le categorie "rosso", "verde" e "blu" possono essere codificate come $1$, $2$ e $3$ rispettivamente. Questo si fa perché alcuni modelli di machine learning o algoritmi di analisi richiedono input numerici. 
+
+\paragraph{One-hot encoding.}
+Questo schema di codifica consiste nel creare una nuova variabile binaria per ogni categoria. Quindi si ottiene un vettore di lunghezza pari al numero di categorie, in cui solo la posizione corrispondente alla categoria attuale è impostata a $1$, mentre tutte le altre sono impostate a $0$. Ad esempio, per le categorie "rosso", "verde" e "blu", la codifica one-hot sarebbe:
 \begin{itemize}
-  \item \textbf{Biased (guidato)}: privilegia porzioni ritenute più informative (es. record recenti in serie temporali).
-  \item \textbf{Stratificato}: partiziona il dataset in strati omogenei e campiona proporzionalmente in ogni strato.
+  \item Rosso: [1, 0, 0]
+  \item Verde: [0, 1, 0]
+  \item Blu: [0, 0, 1]
+\end{itemize} 
+
+\subsection{Da testo a dati numerici}
+La conversione da \emph{testo} a \emph{dati numerici} è detta \textbf{vettorizzazione}. Questa tecnica consiste nel rappresentare il testo come un vettore di numeri, in modo che possa essere utilizzato come input per modelli di machine learning o altre analisi statistiche. Ad esempio, una frase come "Il gatto è sul tappeto" può essere rappresentata come un vettore di numeri che rappresentano la frequenza delle parole nella frase.
+
+\section{Cleaning dei dati}
+Il cleaning dei dati è una fase essenziale del preprocessing che mira a migliorare la qualità dei dati rimuovendo errori, gestendo valori mancanti e trattando outlier. Un dataset pulito è fondamentale per garantire risultati affidabili nelle fasi successive dell'analisi.
+
+\subsection{Gestione dei valori mancanti}
+I valori mancanti possono verificarsi per vari motivi, come errori di raccolta dati o problemi di trasmissione. Ci sono diverse strategie per gestire i valori mancanti:
+\begin{description}
+  \item[Rimozione delle istanze] - Eliminare le righe o le colonne che contengono valori mancanti. Questa strategia è semplice ma può portare alla perdita di informazioni importanti, tuttavia funziona bene quando la quantità di dati mancanti è minima.
+  \item[Stima dei valori mancanti] - Utilizzare tecniche di imputazione\footnote{Per imputazione si intende la sostituzione dei valori mancanti con valori stimati basati su altre informazioni presenti nel dataset.} per stimare i valori mancanti basandosi sui dati disponibili. Alcuni metodi comuni includono la media, la mediana o la moda per variabili numeriche, e il valore più frequente per variabili categoriche. Metodi più avanzati includono l'uso di modelli di regressione o algoritmi di machine learning per prevedere i valori mancanti.
+\end{description}
+
+\subsection{Gestione dei valori errati}
+I valori errati possono derivare da errori di inserimento dati, misurazioni imprecise o problemi di trasmissione. Per gestire i valori errati, è possibile:
+\begin{description}
+  \item[Rilevamento di inconsistenze] - Identificare valori che non rientrano nell'intervallo previsto o che sono logicamente incoerenti con altri dati. Ad esempio, un'età negativa o una data di nascita futura.
+  \item[Correzione dei valori errati] - Sostituire i valori errati con valori stimati o medi basati su altre informazioni nel dataset. In alcuni casi, potrebbe essere necessario consultare esperti del dominio per determinare il valore corretto. Per esempio, se abbiamo dati di ristoranti negli Stati Uniti e troviamo un ristorante nella città "Roma", è probabile che si tratti di un errore.
+\end{description}
+
+Quando si parla di valori errati si parla anche di \textbf{outlier}, ovvero valori che si discostano significativamente dalla maggior parte dei dati. Gli outlier possono essere il risultato di errori di misurazione o possono rappresentare fenomeni rari ma validi.Per esempio, in un dataset di altezze umane, un valore di $250$ cm potrebbe essere considerato un outlier. Esistono diversi metodi per eliminare gli outlier, come l'uso di tecniche statistiche.
+
+\paragraph{Quantili.}
+Un quantile è un valore che divide un insieme di dati ordinati in intervalli con una certa percentuale di dati in ciascun intervallo. Ad esempio, il primo quartile (Q1) è il valore che separa il $25\%$ inferiore dei dati dal resto del dataset, mentre il terzo quartile (Q3) separa il $75\%$ inferiore dal $25\%$ superiore. Un valore $x$ potrebbe essere definito come \emph{outlier} se non appartenente all'intervallo:
+\[
+[Q1 - 1.5 \cdot IQR, Q3 + 1.5 \cdot IQR]
+\]
+dove $IQR$ (Interquartile Range) è la differenza tra il terzo e il primo quartile ($IQR = Q3 - Q1$).
+
+Per esempio , se in un dataset il primo quartile è $10$ e il terzo quartile è $20$, l'intervallo per identificare gli outlier sarebbe:
+\[[10 - 1.5 \cdot (20 - 10), 20 + 1.5 \cdot (20 - 10)] = [-5, 35]\]
+Quindi, qualsiasi valore al di fuori di questo intervallo sarebbe considerato un outlier.
+
+\subsection{Scala dei dati}
+La scala dei dati si riferisce all'intervallo di valori che una variabile può assumere. In alcuni casi, le variabili possono avere scale molto diverse, il che può influenzare negativamente le prestazioni di alcuni algoritmi. Si può pensare ad esempio a due variabili: altezza (in centimetri) e peso (in chilogrammi). L'altezza può variare da $150$ a $200$ cm, mentre il peso può variare da $50$ a $150$ kg. Se si utilizzano queste variabili senza alcuna normalizzazione, l'algoritmo potrebbe dare più importanza alla variabile con la scala più ampia (in questo caso, l'altezza).
+
+\paragraph{Standardizzazione.}
+La standardizzazione è una tecnica che trasforma i dati in modo che abbiano una media di $0$ e una deviazione standard di $1$. La formula per standardizzare un valore $x$ è:
+\[
+z = \frac{x - \mu}{\sigma}
+\]
+dove $\mu$ è la media dei dati e $\sigma$ è la deviazione standard:
+\[
+\mu = \frac{1}{N} \sum_{i=1}^{N} x_i, \quad \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (x_i - \mu)^2}
+\]
+
+\paragraph{Min-Max scaling.}
+Il Min-Max scaling è una tecnica che trasforma i dati in modo che rientrino in un intervallo $[0, 1]$. Viene considerato un metodo meno robusto della standardizzazione, perché è sensibile agli outlier. Dato un valore $x$, la formula per il Min-Max scaling è:
+\[
+x' = \frac{x - x_{min}}{x_{max} - x_{min}}
+\]
+dove $x_{min}$ e $x_{max}$ sono rispettivamente il valore minimo e massimo dei dati.
+
+\section{Riduzione dei dati}
+La riduzione dei dati consiste nel \emph{rappresentare} i dati in maniera più compatta, in modo da facilitare l'uso di algoritmi di analisi e modellazione. 
+
+\subsection{Sampling dei dati}
+Un modo semplice per ridurre la quantità di dati è il \textbf{sampling}, ovvero la selezione di un sottoinsieme rappresentativo del dataset originale. Esistono diverse tecniche di sampling, tra cui:
+\begin{description}
+  \item[Biased] - Selezione di istanze in base a criteri specifici, come la frequenza di una classe o la rilevanza per un particolare obiettivo di analisi.
+  \item[Random] - Selezione casuale di istanze dal dataset originale, garantendo che ogni istanza abbia la stessa probabilità di essere selezionata.
+  \item[Stratificato] - Suddivisione del dataset in sottogruppi (strati) basati su una o più caratteristiche, e successiva selezione casuale di istanze da ciascuno strato per garantire una rappresentazione equilibrata delle diverse categorie nel sottoinsieme.
+\end{description}
+
+\subsection{Selezione di feature}
+La selezione di feature consiste nel scartare dai dati attributi che sono irrilevanti per l'analisi. La rilevanza delle feature \textbf{dipende} dal dominio del problema. Ad esempio, in un dataset di immagini, le feature relative al colore potrebbero essere irrilevanti per un'analisi che si concentra sulla forma degli oggetti presenti nell'immagine. Le tecniche possono essere \textbf{supervised}, ovvero basate su etichette di classe, oppure \textbf{unsupervised}, ovvero basate solo sulle caratteristiche intrinseche dei dati.
+
+\subsection{Riduzione della dimensionalità}
+I dati reali spesso contengono molte feature, alcune delle quali possono essere ridondanti o irrilevanti, spesso difficili da notare oppure \emph{implicite}. La riduzione della dimensionalità mira a ridurre il numero di feature mantenendo quante più informazioni possibili.
+
+Una possibile tecnica di riduzione è quella di individuare una rotazione degli assi, ovvero una nuova base, in cui i dati possano essere rappresentati in modo più compatto.Ricordando dall'algebra lineare, una rotazione degli assi è un cambiamento di sistema di coordinate che preserva le distanze e gli angoli tra i punti. In altre parole, i dati vengono proiettati su un nuovo insieme di assi che sono combinazioni lineari delle feature originali.
+
+\subsection{PCA: Principal Component Analysis}
+La PCA è una tecnica di riduzione della dimensionalità che identifica le direzioni principali (componenti principali). Per capire quali sono, le componenti principali, dobbiamo partire dalla matrice di \textbf{covarianza} dei dati: dati due vettori $X, Y$ la covarianza misura la \emph{varianza} di $X$ rispetto a $Y$, ovvero quanto variano insieme. Se a più alti valori di $X$ corrispondono più alti valori di $Y$, la covarianza sarà positiva, mentre se a più alti valori di $X$ corrispondono più bassi valori di $Y$, la covarianza sarà negativa. La covarianza tra due variabili $X$ e $Y$ è calcolata come:
+\begin{align*}
+C(X, Y) 
+    &= \frac{1}{N} \sum_{k=1}^{N} (X_k - \mu_X)(Y_k - \mu_Y) \\
+&\Rightarrow\;
+c_{ij} = \frac{x_i \cdot x_j}{N} - \mu_i \mu_j
+\end{align*}
+dove $\mu_X$ e $\mu_Y$ sono le medie di $X$ e $Y$, rispettivamente, e $N$ è il numero di osservazioni.
+
+\noindent
+La matrice di covarianza $C$ gode di diverse proprietà:
+\begin{itemize}
+  \item La covarianza di un vettore con se stesso equivale alla \textbf{varianza} del vettore: $C(X, X) = \sigma_X^2$.
+  \item La matricce di covarianza è \textbf{simmetrica}, ovvero $C = C^T \Rightarrow C(X, Y) = C(Y, X)$.
+  \item Il segno della covarianza indica la direzione della relazione tra le variabili: una covarianza positiva indica che le variabili tendono a variare nella stessa direzione, mentre una covarianza negativa indica che variano in direzioni opposte.
 \end{itemize}
 
-\subsection{Selezione di feature}\label{subsec:feature-selection}
-Rimuovere attributi irrilevanti, ridondanti o rumorosi.
+Le componenti principali sono le direzioni lungo le quali i dati variano maggiormente. Queste direzioni sono rappresentate dagli \textbf{autovettori} della matrice di covarianza, mentre la quantità di varianza spiegata da ciascuna componente principale è rappresentata dagli \textbf{autovalori} corrispondenti. 
+
+Si consideri un dataset rappresentato da una matrice $D$ con $M$ osservazioni (righe) e $N$ feature (colonne). A partire da $D$ si costruisce la matrice di covarianza, da cui si ricavano le componenti principali, ovvero nuovi attributi ottenuti come combinazioni lineari degli attributi originari. I nuov attributi presentano due proprietà fondamentali:
 \begin{itemize}
-  \item \textbf{Unsupervised}: criteri di ridondanza/varianza, filtri (es. varianza bassa) e metodi embedded.
-  \item \textbf{Supervised}: per classificazione, scegliere feature predittive della classe (filtri basati su correlazione/\emph{mutual information}, wrapper, embedded tipo LASSO).
+  \item Sono tra di loro \textbf{non correlate}, ovvero la covarianza tra due componenti principali è zero.
+  \item Concentrano la maggior parte della \textbf{varianza} dei dati originali in poche dimensioni.
 \end{itemize}
 
-\subsection{Riduzione tramite rotazione di assi: PCA}\label{subsec:pca}
-La \emph{Principal Component Analysis} cerca una base ortogonale in cui poche dimensioni catturano la maggior parte della varianza.
-\paragraph{Matrice di covarianza.} Dato un dataset $D\in\mathbb{R}^{M\times N}$ (righe=record, colonne=attributi), centrato per colonna, la covarianza è $C=\tfrac{1}{M}D^\top D\in\mathbb{R}^{N\times N}$.
-\paragraph{Autodecomposizione.} $C=P\,\Lambda\,P^\top$, con colonne di $P$ autovettori ortonormali (componenti principali) e $\Lambda=\mathrm{diag}(\lambda_1\ge\cdots\ge\lambda_N)$ varianze spiegate.
-\paragraph{Trasformazione.} Scegliendo $P$ componenti $P_p=[\mathbf{p}_1\,\cdots\,\mathbf{p}_P]$, i dati proiettati sono
+In presenza di forte correlazione tra attriuti, poche componenti principali riescono a spiegare gran parte della varianza totale del dataset. Questo permette di ridurre la dimensionalità del dataset mantenendo la maggior parte delle informazioni rilevanti.
+
+\noindent
+I passi principali della PCA sono:
+\begin{description}
+  \item[Standardizzazione dei dati.] I dati vengono standardizzati per avere media zero e deviazione standard uno. Ciò è necessario perché la PCA è sensibile alla varianza iniziale dei dati nelle varie dimensioni, infatti dimensioni con varianze molto diverse possono dominare la direzione delle componenti principali.
+  \item[Calcolo delle componenti principali.] Grazie alla PCA si può decomporre la matrice di covarianza nel prodotto di 3 matrici:
+  \[
+  C = P \Lambda P^T
+  \]
+  dove $P$ è la matrice degli autovettori (le componenti principali) e $\Lambda$ è la matrice diagonale degli autovalori (la varianza spiegata da ciascuna componente principale).
+  \item[Selezione delle componenti principali.] Le componenti principali determinate sono uguali al numero di feature originali. La prima componente principale, però, \textbf{cattura} la più alta varianza nei dati e da un punto di vista geometrico corrisponde nel trovare la retta dove le proiezioni dei punti hanno la massima varianza. La seconda componente principale è ortogonale alla prima e cattura la seconda più alta varianza, e così via. Si selezionano le prime $k$ componenti principali che spiegano una percentuale significativa della varianza totale (ad esempio, il $95\%$).
+  \item[Trasformazione dei dati.] Infine, utilizzando il dataset $D: M \times N$ la matrice $P: N \times k$ ottenuta concatenando per colonna i primi $k$ autovettori selezionati, si ottiene il dataset ridotto $D': M \times k$ tramite la moltiplicazione:
+  \[
+  D' = D \cdot P
+  \]
+\end{description}
+
+\subsection{SVD: Singular Value Decomposition}
+La Singular Value Decomposition (SVD) è un'altra tecnica di riduzione della dimensionalità che decompone una matrice $M$ di dimensione $n \times d$ nel prodotto:
 \[
-  D' = D\,P_p.\label{eq:pca-transform}
+M = U \Sigma V^T
 \]
-\paragraph{Scelta del numero di componenti.} Si usa la frazione di varianza spiegata $\sum_{i=1}^P\lambda_i/\sum_{i=1}^N\lambda_i$ (\emph{es.} soglia 90\%), oppure un grafico a gomito (\emph{scree plot}).
-\paragraph{Mini-esempio (intuitivo).} Con due attributi fortemente correlati (es. altezza e apertura delle braccia), la prima componente è circa la bisettrice che massimizza la varianza proiettata; la seconda è ortogonale e a bassa varianza.
-
-\subsection{Singular Value Decomposition (SVD)}\label{subsec:svd}
-La SVD decompone una matrice $M\in\mathbb{R}^{n\times d}$ come
-\[
-  M = U\,\Sigma\,V^\top,
-\]
-con $U\in\mathbb{R}^{n\times n}$ e $V\in\mathbb{R}^{d\times d}$ ortogonali, e $\Sigma\in\mathbb{R}^{n\times d}$ diagonale non negativa. I valori singolari non nulli sono radici degli autovalori di $M^\top M$; il loro numero è il rango di $M$.
-\paragraph{Interpretazione geometrica.} In $\mathbb{R}^2$, un cerchio unitario è ruotato (da $V$), scalato lungo i semiassi (da $\Sigma$) e ri-ruotato (da $U$) in un'ellisse.
-
-\paragraph{Relazione con PCA.} Con dati centrati, PCA e SVD coincidono (sulle direzioni delle colonne). PCA massimizza varianza spiegata; SVD massimizza la norma di Frobenius catturata dall'approssimazione rank-$k$.
-
-\paragraph{Versioni alternative.}
+dove:
 \begin{itemize}
-  \item \textbf{Thin SVD} (o economy): rimuove le \emph{colonne} di $U$ e le \emph{righe} di $\Sigma$ in eccesso rispetto alla dimensione minima.
-        Per $M\in\mathbb{R}^{m\times n}$ con $m\ge n$: $U_n\in\mathbb{R}^{m\times n}$, $\Sigma_n\in\mathbb{R}^{n\times n}$, $V^{\top}\in\mathbb{R}^{n\times n}$.
-        Decomposizione \emph{esatta} ($M=U_n\,\Sigma_n\,V^{\top}$), ma con meno memoria.
-        \textit{Uso tipico}: quando $m\gg n$ (o viceversa) e vuoi la SVD senza parti sicuramente nulle.
-
-  \item \textbf{Compact SVD}: elimina \emph{tutte e sole} le righe/colonne di $\Sigma$ associate a valori singolari \emph{nulli}
-        e, di conseguenza, le colonne di $U$ e le righe di $V^{\top}$ corrispondenti.
-        Se $\mathrm{rank}(M)=r<\min(m,n)$: $U_r\in\mathbb{R}^{m\times r}$, $\Sigma_r\in\mathbb{R}^{r\times r}$, $V_r^{\top}\in\mathbb{R}^{r\times n}$.
-        Decomposizione ancora \emph{esatta}.
-        \textit{Uso tipico}: matrici a rango basso (colonne/righe dipendenti), per togliere zeri inutili.
-
-  \item \textbf{Truncated SVD} (rank-$k$): mantiene solo i \emph{primi} $k$ valori singolari ($k<r$) e tronca il resto:
-        $U_k\in\mathbb{R}^{m\times k}$, $\Sigma_k\in\mathbb{R}^{k\times k}$, $V_k^{\top}\in\mathbb{R}^{k\times n}$.
-        Decomposizione \emph{non esatta}: $M\approx U_k\,\Sigma_k\,V_k^{\top}$, migliore approssimazione a rango $k$ (in norma 2/Frobenius).
-        \textit{Uso tipico}: riduzione dimensionale, denoising, LSA/LSI, raccomandazione (si conserva la maggior parte della “energia”).
+  \item $U$ è una matrice ortogonale di dimensione $n \times n$ le cui colonne sono chiamate \emph{left singular vectors}.
+  \item $\Sigma$ è una matrice diagonale di dimensione $n \times d$ i cui elementi diagonali sono chiamati \emph{singular values}, ordinati in ordine decrescente.
+  \item $V$ è una matrice ortogonale di dimensione $d \times d$ le cui colonne sono chiamate \emph{right singular vectors}.
 \end{itemize}
 
+\paragraph{Interpretazione geometrica.}
+La SVD può essere interpretata come una rotazione e una scalatura dello spazio dei dati. I \emph{right singular vectors} (colonne di $V$) rappresentano le direzioni principali nello spazio delle feature, mentre i \emph{left singular vectors} (colonne di $U$) rappresentano le direzioni principali nello spazio delle osservazioni. I \emph{singular values} nella matrice $\Sigma$ indicano l'importanza di ciascuna direzione.
+
+Consideriamo il caso in cui $M$ sia una matrice $2 \times 2$ e agisca quindi sul piano $\mathbb{R}^2$. Partiamo da un cerchio unitario con i due vettori canonici. La SVD 
+\[
+M = U \Sigma V^T
+\]
+può essere vista come una successione di tre operazioni semplici. La prima trasformazione, data da $V^T$, ruota il cerchio e riallinea gli assi secondo le direzioni individuate dai \emph{right singular vectors}. La matrice diagonale $\Sigma$ applica poi una scalatura lungo tali direzioni, trasformando il cerchio in un'ellisse i cui semiassi hanno lunghezze pari ai valori singolari non nulli. Infine, la matrice $U$ effettua un'ulteriore rotazione, orientando l'ellisse nelle direzioni dei \emph{left singular vectors}. In sintesi, nella SVD la matrice $M$ agisce come una combinazione di rotazioni e scalature che mappa la sfera unitaria in un'ellissoide.
+
+\paragraph{Varianti ridotte della SVD.}
+Esistono varianti della SVD che permettono di ridurre il tempo computazionale e lo spazio di memoria necessari per calcolare la decomposizione, specialmente quando la matrice $M$ è di grandi dimensioni o sparsa. La variante principale si chiama \textbf{Full-SVD} ed è la versione completa della SVD descritta sopra, ne esistono tuttavia altre versioni:
+\begin{description}
+  \item[Think SVD] - In questo approccio si rimuovono le colonne di $U$ e le righe di $\Sigma$ in eccesso rispetto alle colonne della matrice $V$, in modo da assicurare una decomposizione più compatta. La matrice $U$ diventa quindi di dimensione $n \times r$, dove $r$ è il rango della matrice $M$, mentre $\Sigma$ diventa una matrice diagonale di dimensione $r \times r$.
+  \item[Compact SVD] - Questa versione rimuove le righe di $\Sigma$ che contengono valori singolari nulli e di conseguenza anche le colonne di $U$ e le righe di $V^T$ in eccesso rispetto al nuovo numero di righe di $\Sigma$. La matrice $U$ diventa quindi di dimensione $n \times k$, dove $k$ è il numero di valori singolari non nulli, mentre $\Sigma$ diventa una matrice diagonale di dimensione $k \times k$.
+  \item[Truncated SVD] - In questa variante si selezionano solo i primi $k$ valori singolari più grandi e le corrispondenti colonne di $U$ e righe di $V^T$. Questo approccio è particolarmente utile quando si desidera ridurre la dimensionalità dei dati mantenendo solo le componenti più significative. La matrice $U$ diventa quindi di dimensione $n \times k$, mentre $\Sigma$ diventa una matrice diagonale di dimensione $k \times k$.  
+\end{description}
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{images/SVD.png}
-  \caption{Confronto tra varianti della SVD.
-  Full: $U\in\mathbb{R}^{m\times m}$, $\Sigma\in\mathbb{R}^{m\times n}$, $V^{\top}\in\mathbb{R}^{n\times n}$.
-  Compact/Thin: $U_r\in\mathbb{R}^{m\times r}$, $\Sigma_r\in\mathbb{R}^{r\times r}$, $V_r^{\top}\in\mathbb{R}^{r\times n}$.
-  Truncated: $U_t\in\mathbb{R}^{m\times t}$, $\Sigma_t\in\mathbb{R}^{t\times t}$, $V_t^{\top}\in\mathbb{R}^{t\times n}$ con $t<r$.}
-  \label{fig:svd-variants}
+  \caption{Confronto tra le principali varianti della Decomposizione ai Valori Singolari (SVD): Full SVD, Compact SVD, Thin SVD e Truncated SVD, con rappresentazione delle dimensioni delle matrici coinvolte.}
+  \label{fig:SVD}
 \end{figure}
 
-\subsection{Latent Semantic Analysis (LSA)}\label{subsec:lsa}
-LSA applica la SVD alla matrice termine-documento (\S\ref{subsec:text2num}). Troncando ai primi $k$ valori singolari si ottiene uno spazio semantico di bassa dimensione che attenua sinonimia/rumore e migliora il recupero di informazione.
-
-\section{Riduzione per trasformazione dei dati}\label{sec:riduzione-trasf}
-Ridurre dimensionalità trasformando i dati in forme più compatte e \emph{strutturate}:
+\paragraph{SVD vs PCA.}
+La SVD e la PCA sono entrambe tecniche di riduzione della dimensionalità, ma presentano alcune differenze chiave:
 \begin{itemize}
-  \item \textbf{Serie temporali}: trasformata di Fourier, trasformata wavelet di Haar.
-  \item \textbf{Grafi}: embedding spettrali/\emph{multidimensional scaling} per preservare distanze/similarità tra nodi.
+  \item SVD è più generale della PCA, poiché produce due set di autovettori anziché uno solo. La PCA può essere vista come un caso speciale della SVD applicata alla matrice di covarianza.
+  \item SVD corrisponde alla PCA nel caso in cui i dati sono centrati attorno allo zero, ovvero quando la media dei valori di ogni attributo è zero.
+  \item La PCA cattura quanto più varianza possibile nei dati, la SVD cattura quanta più distanza euclidea al quadrato rispetto all'origine possibile.
 \end{itemize}
+
+\subsection{LSA: Latent Semantic Analysis}
+La Latent Semantic Analysis (LSA) è una tecnica di riduzione della dimensionalità utilizzata principalmente nell'elaborazione del linguaggio naturale e nel recupero delle informazioni. LSA mira a identificare le relazioni semantiche tra parole e documenti, riducendo la dimensionalità dello spazio delle caratteristiche.
+
+La matrice di partenza è una matrice $n \times d$ di $n$ documenti e $d$ termini, contenente le frequenze normalizzate delle parole in ciascun documento. La LSA utilizza la SVD per decomporre questa matrice nei suoi componenti principali, identificando le direzioni principali nello spazio delle caratteristiche che catturano le relazioni semantiche tra parole e documenti.
+
+\subsection{Riduzione di dimensionalità con trasformazione dei dati}
+Oltre alle tecniche basate su decomposizioni matriciali, esistono metodi di riduzione della dimensionalità che si basano sulla trasformazione non lineare dei dati. Questi metodi cercano di mappare i dati originali in uno spazio a bassa dimensionalità preservando le relazioni strutturali tra i punti dati.
+
+\paragraph{Esempio: serie temporali.}
+Un esempio di riduzione della dimensionalità basata sulla trasformazione dei dati è l'analisi delle serie temporali. Le serie temporali sono sequenze di dati raccolti nel tempo, e spesso presentano una struttura complessa che può essere difficile da analizzare direttamente. Tecniche come la trasformata di Fourier o la trasformata wavelet possono essere utilizzate per rappresentare le serie temporali in uno spazio a bassa dimensionalità, catturando le caratteristiche principali delle variazioni temporali.
