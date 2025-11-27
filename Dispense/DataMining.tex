@@ -52,6 +52,11 @@
 % description: rientro e allineamento gradevole; etichetta in grassetto
 \setlist[description]{font=\normalfont\bfseries, labelsep=0.6em, leftmargin=2em}
 
+\usepackage{array} % già caricato spesso, ma lo richiamo per sicurezza
+\newcolumntype{C}{>{$}c<{$}} % colonna centrata in math-mode
+
+\usepackage{subcaption}
+
 % (Facoltativo) Se vuoi che gli elenchi siano più “a colonna” in certi punti:
 % \begin{description}[widest=Etichetta-più-lunga,leftmargin=!,labelsep=0.6em]
 %   \item[Etichetta] Testo...
@@ -77,9 +82,10 @@ Università di Catania}
 \include{insiemi_frequenti}
 \include{clustering}
 \include{classificazione}
-\include{regressione}
 \include{grafi}
 \include{subgraphmatching}
+\include{frequent_subgraphmatching}
+\include{neural_network}
 
 \backmatter
 % (eventuali appendici)

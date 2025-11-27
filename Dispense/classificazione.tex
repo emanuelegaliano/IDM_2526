@@ -770,3 +770,67 @@ Generalmente si utilizzano due metodi:
   \item[Holdout:] Si fissa una percentuale $X$, dopo si partiziona il dataset in due set indipendenti, training e test sets, in base a $X$, si addestra il modello sul training set e si applica il classificatore al test set per misurare l'accuratezza. Una variante prevede di ripetere l'holdout $k$ volte e di calcolare la media delle accuratezze ottenute.
   \item[K-Fold Cross Validation:] Si partiziona il dataset in $k$ sottoinsiemi (fold) di dimensioni approssimativamente uguali. Si eseguono $k$ iterazioni, in ciascuna si usa un fold come test set e gli altri $k-1$ fold come training set. Si calcola l'accuratezza per ogni iterazione e si fa la media delle $k$ accuratezze ottenute per avere una stima complessiva delle prestazioni del classificatore.
 \end{description}
+
+\section{Regressione}
+La regressione è un tipo di problema di apprendimento supervisionato (Machine Learning) in cui l'obiettivo è prevedere un valore continuo (variabile dipendente) basandosi su uno o più valori di input (variabili indipendenti o \emph{predittive}). A differenza della classificazione, che assegna etichette discrete, la regressione mira a modellare la relazione tra le variabili per fare previsioni numeriche.
+
+\subsection{Regressione lineare semplice}
+Il particolare caso di regressione lineare semplice coinvolge una singola variabile indipendente $x$ e una variabile dipendente $y$. L'obiettivo è trovare la retta che meglio approssima la relazione tra $x$ e $y$. La retta è definita dall'equazione:
+\[
+y = w_0 + w_1 x
+\]
+Dove $w_0$ è l'intercetta (valore di $y$ quando $x=0$) e $w_1$ è la pendenza della retta (quanto $y$ cambia per un'unità di cambiamento in $x$). Questi coefficienti vengono chiamati \emph{parametri} del modello.
+
+L'addestramento del modello consiste nel trovare i valori di $w_0$ e $w_1$ che minimizzano la somma dei quadrati degli errori (SSE) tra i valori osservati di $y$ e quelli predetti dalla retta. La funzione di costo da minimizzare è:
+\[
+J(w_0, w_1) = \sum_{i=1}^{n} (y^{(i)} - (w_0 + w_1 x^{(i)}))^2
+\]
+
+\subsection{Regressione lineare multipla}
+Si può generalizzare la regressione lineare semplice a più variabili indipendenti, che formano un \textbf{vettore di features} $\mathbf{x} = [x_1, x_2, \dots, x_d]$. L'equazione dell'iperpiano\footnote{L'iperpiano è una generalizzazione della retta e del piano in spazi di dimensioni superiori.} che modella la relazione tra le variabili è:
+\[
+y = w_0 + w_1 x_1 + w_2 x_2 + \dots + w_d x_d = w_0 + \mathbf{w} \cdot \mathbf{x}
+\]
+Dove $\mathbf{w} = [w_1, w_2, \dots, w_d]$ è il vettore dei pesi associati alle variabili indipendenti. Anche in questo caso, l'addestramento del modello consiste nel trovare i valori di $w_0$ e $\mathbf{w}$ che minimizzano la somma dei quadrati degli errori:
+\[
+J(w_0, \mathbf{w}) = \sum_{i=1}^{n} (y^{(i)} - (w_0 + \mathbf{w} \cdot \mathbf{x}^{(i)}))^2
+\]
+
+\subsection{Regressione non lineare}
+La funzione di regressione può essere estesa a modelli non lineari utilizzando trasformazioni delle variabili indipendenti o introducendo termini polinomiali. Ad esempio, si può modellare una relazione cubica tra $x$ e $y$ con l'equazione:
+\[
+y = w_0 + w_1x + w_2 x^2 + w_3 x^3
+\]
+che può essere convertita in una funzione lineare ponendo $x=2 = x^2, x_3 = x^3$:
+\[
+y = w_0 + w_1 x_1 + w_2 x_2 + w_3 x_3
+\]
+
+\subsection{Regressione logistica}
+La regressione logistica usa una \textbf{funzione logistica} per predire il valore a partire da una combinazione lineare delle variabili predittive. Alla base della regressione logistica vi è la \textbf{funzione logistica} (o sigmoide) che è una distribuzione di probabilità definita come:
+\[
+p(x) = \frac{1}{1 + e^{-(x - \mu)/s}}
+\]
+Dove $\mu$ è il parametro di locazione (media) e rappresenta la posizione del punto centrale della curva, mentre $s$ è il parametro di scala che determina la larghezza della curva. La funzione logistica mappa qualsiasi valore reale in un intervallo compreso tra 0 e 1, rendendola adatta per problemi di classificazione binaria.
+
+\paragraph{Regressione logistica binaria semplice.}
+Con una sola variabile predittiva, la funzione logistica è espressa come:
+\[
+p(x) = \frac{1}{1 + e^{-(w_0 + w_1 x)}}
+\]
+
+Come per la regressione lineare, i parametri $w_0$ e $w_1$ vengono stimati minimizzando una funzione di costo, che in questo caso è basata sulla \textbf{log-loss} (o entropia incrociata). Data una tupla $(x^{(i)}, y^{(i)})$, la log-loss è definita come:
+\[
+L(w_0, w_1) = -\sum_{i=1}^{n} \left[ y^{(i)} \ln(p(x^{(i)})) + (1 - y^{(i)}) \ln(1 - p(x^{(i)})) \right]
+\]
+
+Che in realtà si può riscrivere come:
+\[
+L(h_{\vartheta}(x), y) = 
+\begin{cases}
+-\ln(h_{\vartheta}(x)) & \text{se } y = 1\\
+-\ln(1 - h_{\vartheta}(x)) & \text{se } y = 0
+\end{cases}
+\]
+
+Dove $h_{\vartheta}(x) = p(x)$ è la funzione di ipotesi che predice la probabilità che l'output sia 1 dato l'input $x$.

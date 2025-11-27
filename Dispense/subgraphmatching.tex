@@ -69,7 +69,7 @@ Partendo dalla radice dell’albero di ricerca (figura \ref{fig:backtracking_sub
     \label{fig:backtracking_subgraph_matching}
 \end{figure}
 
-\subsection{Algoritmo di Ullmann}
+\subsection{Algoritmo di Ullmann}\label{subsec:ullmann_algorithm}
 L'algoritmo di Ullman utilizza il grado del nodo come criterio di selezione per ridurre lo spazio di ricerca. In particolare, prima di tentare una mappatura, l'algoritmo verifica se il grado del nodo nel grafo query è minore o uguale al grado del nodo corrispondente nel grafo dati. Se questa condizione non è soddisfatta, la mappatura viene scartata immediatamente (\emph{look-ahead}).
 
 Dopo aver costruito una mappatura iniziale, l'algoritmo applica una procedura di \textbf{refinement} per eliminare ulteriori mappature non valide. Questa procedura verifica che per ogni arco nel grafo query, l'arco corrispondente esista nel grafo dati. Se un arco manca, la mappatura viene scartata (\emph{backtracking}).
@@ -98,13 +98,267 @@ L'algoritmo costruisce 3 insiemi per ognuno dei grafi $Q, T$:
 \end{itemize}
 
 \noindent
-Dove il pedice $Q$ o $T$ indica se l'insieme appartiene al grafo query o target.
+Dove il pedice $Q$ o $T$ indica se l'insieme appartiene al grafo query o target. 
+
+\textbf{N.B.} È importante notare che l'algoritmo VF è ricorsivo ma lavora a \textbf{stati}: ad ogni passo ricorsivo considera lo stato attuale in cui, definito dagli insiemi di nodi mappati, adiacenti e non ancora considerati.
 
 \paragraph{Algoritmo.}
-Ad ogni passo dell'algoritmo:
+Ad ogni passo dell'algoritmo, per lo stato corrente $s$, si eseguono i seguenti passi:
 \begin{enumerate}
-    \item Si seleziona un nodo $q \in T_Q$ e si prova a mappare $\forall t \in T_T$.
-    \item Si verifica la regola di \textbf{fattibilità}: la mappatura parziale deve preservare le adiacenze tra i nodi mappati e i nodi adiacenti, ovvero deve esistere un arco tra un certo $(q, q')$ dove $q' \in M_Q$ se e solo se esiste un arco tra $(t, t')$ dove $t' \in M_T$.
-    \item Si spostano $q$ e $t$ negli insiemi $M_Q$ e $M_T$ rispettivamente, e si aggiornano gli insiemi $T_Q, T_T, U_Q, U_T$ di conseguenza.
+    \item Si seleziona un nodo $q \in T_Q(s)$ e si prova a mappare $\forall t \in T_T(s)$.
+    \item Si verifica la regola di \textbf{fattibilità} per un certa coppia $(q, t) \in T_Q(s) \times T_T(s)$. Se la coppia è fattibile, si crea un nuovo stato $s'$ aggiornando gli insiemi $M_Q, M_T, T_Q, T_T, U_Q, U_T$ di entrambi i grafi. Da notare che si preferisce sempre scegliere una coppia di nodi che il grado più alto possibile, in modo da massimizzare le possibilità di pruning e ridurre la computazione nel caso medio.
     \item Si ripete il processo fino a quando tutti i nodi del grafo query sono stati mappati (trovando così un match) o fino a quando non ci sono più nodi da mappare (in tal caso si esegue il backtracking).
 \end{enumerate}
+
+\paragraph{Regola di fattibilità per grafi indiretti.}
+Una coppia di nodi $(q, t) \in T_Q(s) \times T_T(s)$ è considerata fattibile se soddisfa le seguenti condizioni:
+\begin{itemize}
+    \item Per ogni nodo query $q' \in M_Q(s)$ connesso a $q$, esiste un nodo target $t' \in M_T(s)$ connesso a $t$.
+    \item Il numero di nodi query in $T_Q(s)$ deve essere minore o uguale\footnote{Minore o uguale nel caso di subgraph matching, nel caso di graph matching invece deve essere uguale.} al numero di nodi target in $T_T(s)$ (regola look-ahead a un livello).
+    \item Il numero di nodi query in $U_Q(s)$ deve essere minore o uguale\footnote{Anche qui,minore uguale solo nel caso di subgraph matching. Nel caso di Graph deve essere uguale.} al numero di nodi target in $U_T(s)$ (regola look-ahead a due livelli).
+\end{itemize}
+
+\paragraph{Regola di fattibilità per grafi diretti.}
+Nel caso di grafi diretti, la regola di fattibilità deve considerare anche la direzione degli archi. Quindi, ogni grafo non ha più 3 insiemi di nodi ma 6:
+\begin{itemize}
+    \item $M_Q^{in}, M_T^{in}$: nodi già mappati considerando gli archi entranti
+    \item $M_Q^{out}, M_T^{out}$: nodi già mappati considerando gli archi uscenti
+    \item $T_Q^{in}, T_T^{in}$: nodi adiacenti a quelli mappati considerando gli archi entranti
+    \item $T_Q^{out}, T_T^{out}$: nodi adiacenti a quelli mappati considerando gli archi uscenti
+    \item $U_Q, U_T$: nodi non ancora considerati
+\end{itemize}
+
+\noindent
+La regola di fattibilità in questo caso, deve essere modificata per tenere conto delle direzioni degli archi:
+\begin{itemize}
+    \item Per ogni nodo query $q' \in M_Q^{in}(s)$, predecessore di $q$, esiste un nodo target $t' \in M_T^{in}(s)$ predecessore di $t$.
+    \item Per ogni nodo query $q' \in M_Q^{out}(s)$, successore di $q$, esiste un nodo target $t' \in M_T^{out}(s)$ successore di $t$.
+    \item Il numero di nodi query in $T_Q^{in}(s)$ deve essere minore o uguale al numero di nodi target in $T_T^{in}(s)$.
+    \item Il numero di nodi query in $T_Q^{out}(s)$ deve essere minore o uguale al numero di nodi target in $T_T^{out}(s)$.
+    \item Il numero di nodi query in $U_Q(s)$ deve essere minore o uguale al numero di nodi target in $U_T(s)$.
+\end{itemize}
+
+\paragraph{Complessità e considerazioni}
+La complessità, nell'ipotesi che i due grafi abbiano $N$ nodi, si può calcolare come:
+\begin{enumerate}
+    \item Sapendo che ogni nodo ha in media $O(N)$ nodi adiacenti, quindi per ogni nodo query si devono considerare $O(N)$ possibili mappature nel grafo target.
+    \item Per ogni mappatura, si devono verificare le condizioni di fattibilità, che richiedono di controllare gli archi adiacenti. Questo richiede $O(N)$ operazioni.
+\end{enumerate}
+
+Quindi nel caso migliore, la complessità dell'algoritmo dipende dalla visita di un solo nodo candidato per ogni nodo query, portando a una complessità di \(O(N^2)\). Tuttavia, nel caso peggiore, l'algoritmo potrebbe dover esplorare tutte le possibili mappature, portando a una complessità esponenziale di \(O(N!)\).
+
+La complessità spaziale, al più $k$ stati (dove $k$ è il numero di nodi del grafo query) porta a una complessità spaziale di \(O(k \cdot N)\), considerando che per ogni stato si devono memorizzare gli insiemi di nodi mappati, adiacenti e non ancora considerati per entrambi i grafi.
+
+\subsection{Algoritmo VF2}
+VF2 ottimizza lo spazio ottimizzato, fino ad ottenere una complessità spaziale pari a, per $k$ stati, \( O(k \cdot N) \) utilizzando strutture dati globali e condivise tra i vari stati.
+
+Vengono introdotte:
+\begin{itemize}
+    \item $\text{core}_1, \text{core}_2$: array globali che memorizzano le mappature correnti dei nodi per i grafi query e target.
+    \item $\text{in}_1, \text{in}_2$: array globali che indicano se un nodo è entrato nell'insieme dei nodi adiacenti mappati.
+    \item $\text{out}_1, \text{out}_2$: array globali che indicano se un nodo è uscito dall'insieme dei nodi adiacenti mappati.
+\end{itemize}
+
+L'obiettivo di introdurre queste strutture dati è di \textbf{tracciare} contemporaneamente l'appartenenza al nodo agli insiemi terminali (per terminali si intende i nodi adiacenti mappati) e lo stato corrispondente della computazione. Quando si fa \textbf{backtracking}, invece di eliminare gli insiemi specifici per lo stato, si aggiornano semplicemente questi array globali per riflettere lo stato precedente.
+
+\subsection{Algoritmo RI}
+
+\paragraph{Idea generale.}
+RI riduce i costi delle verifiche di fattibilità tipiche di VF/VF2 concentrandosi
+sull'\textbf{ordinamento dei nodi della query}. Un buon ordinamento fa emergere velocemente violazioni locali dei vincoli di mappatura, permettendo di scartare rapidamente rami non promettenti dell'albero di ricerca (pruning).
+
+\paragraph{Passi dell'algoritmo.}
+\begin{enumerate}
+  \item \textbf{Calcolo dell'ordinamento della query.}
+        Si costruisce una sequenza $U = (u_1,\ldots,u_n)$ scegliendo a ogni passo il nodo con punteggio massimo rispetto ai nodi già inseriti.
+  \item \textbf{Ricerca con backtracking.}
+        Seguendo l'ordine $U$, si prova a mappare ogni $q = u_i$ su un nodo $t$ del grafo target verificando le seguenti condizioni:
+        \begin{itemize}
+           \item \textbf{Iniettività}: né $q$ né $t$ sono già mappati.
+           \item \textbf{Compatibilità di etichette} (se presenti).
+           \item \textbf{Grado} (regola di Ullmann): $\deg_Q(q)\le \deg_T(t)$.
+           \item \textbf{Coerenza locale verso i mappati}: per ogni vicino $q'$ di $q$ già mappato in $m(q')$, deve valere $(t,m(q'))\in E_T$.
+        \end{itemize}
+        Se tutte le verifiche passano, si estende la mappatura e si prosegue; altrimenti si fa backtracking.
+\end{enumerate}
+
+\paragraph{Ordinamento dei nodi della query.}
+Sia $U^{i-1}$ l'ordinamento parziale (primi $i\!-\!1$ nodi), $N(v)$ la lista di adiacenza (o matrice). 
+Per un candidato $v$ definisco tre insiemi nel grafo di \emph{query}:
+\begin{align*}
+V_{\text{adiac}}(i,v) &= N(v)\cap U^{i-1},\\[2pt]
+V_{\text{conn}}(i,v) &= \big\{\, x\in U^{i-1}\ \big|\ \exists\, y\in V\!\setminus\!U^{i-1}:\ (v,y)\in E \land (x,y)\in E \,\big\},\\[2pt]
+V_{\text{rem}}(i,v)  &= \big\{\, y\in V\!\setminus\!U^{i-1}\ \big|\ (v,y)\in E \land N(y)\cap U^{i-1}=\varnothing \,\big\}.
+\end{align*}
+
+\noindent
+Dove $V_{\text{adiac}}(i,v)$ sono i nodi già inseriti adiacenti a $v$,
+$V_{\text{conn}}(i,v)$ sono i nodi già inseriti che collegano $v$ a nodi non ancora inseriti, $V_{\text{rem}}(i,v)$ sono i nodi non ancora inseriti adiacenti a $v$ e non collegati a nodi già inseriti.
+
+Il prossimo nodo da inserire è quello che massimizza:
+\begin{enumerate}
+    \item Il valore $|V_{\text{adiac}}(i,v)|$.
+    \item A parità, il valore $|V_{\text{conn}}(i,v)|$.
+    \item A ulteriore parità, il valore $|V_{\text{rem}}(i,v)|$.
+\end{enumerate}
+In caso di ulteriore parità il nodo è scelto in modo arbitrario.
+
+\subsubsection*{Esempio.}
+Consideriamo il grafo di query \(Q\) nella figura \ref{fig:ri_algorithm_example} 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/ri_algorithm_example.png}
+    \caption{Grafo non diretto di esempio (11 nodi, 0-10), usato per illustrare l'ordinamento dei nodi della query nell'algoritmo RI.}
+    \label{fig:ri_algorithm_example}
+\end{figure}
+
+\paragraph{Passo $i=1$.}
+Per prima cosa, dobbiamo ordinare i nodi. Lo stato iniziale dell'ordinamento è $U^0 = \emptyset$, per ogni nodo $v$ calcoliamo i 3 insiemi:
+\[
+|V_{\text{adiac}}(1,v)| = 0, \quad |V_{\text{conn}}(1,v)| = 0, \quad |V_{\text{rem}}(1,v)| = \deg(v)
+\]
+Quindi vince il nodo con grado massimo, ovvero il nodo 4. Ora lo stato dell'ordinamento è $U^1 = (4)$.
+
+\paragraph{Passo $i=2$.}
+Possiamo calcolare una tabella per tutti i candidati al passo 2, in quanto ora $U^1 = (4)$.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{c|CCC}
+\textbf{Nodo $v$} & V_{\text{adiac}}(2,v) & V_{\text{conn}}(2,v) & V_{\text{rem}}(2,v) \\
+\hline
+0  & \{4\}       & \{4\}       & \{9\}     \\
+1  & \{4\}       & \{4\}       & \{2\}     \\
+2  & \varnothing & \{4\}       & \varnothing \\
+3  & \{4\}       & \{4\}       & \varnothing \\
+5  & \{4\}       & \{4\}       & \{2,8\}   \\
+6  & \{4\}       & \{4\}       & \{9\}     \\
+7  & \{4\}       & \{4\}       & \{8\}     \\
+8  & \varnothing & \{4\}       & \varnothing \\
+9  & \varnothing & \{4\}       & \{10\}    \\
+10 & \varnothing & \varnothing & \{9\}     \\
+\end{tabular}
+\end{table}
+
+In questo caso, si nota che i nodi candidati hanno $|V_{\text{adiac}}| = 1$. e $|V_{\text{conn}}| = 1$. Quindi si passa a guardare $|V_{\text{rem}}|$, che è massimo per il nodo 5 (2 nodi). Quindi il secondo nodo dell'ordinamento è $u_2$ = 5, e lo stato diventa $U^2 = (4, 5)$.
+
+\paragraph{Tabella finale}
+Dopo aver ripetuto questo processo per tutti i nodi, otteniamo l'ordinamento finale:
+\[
+U = (4, 5, 1, 3, 7, 0, 6, 9, 2, 8, 10)
+\]
+
+\subsection{Algoritmo RI-DS}
+L'algoritmo RI-DS è un'ottimizzazione di RI che consiste nel pre-calcolare, per ogni nodo query $q$, insiemi di \emph{nodi target} chiamati \textbf{domini di compatibilità} che potrebbero essere mappati con $q$.
+
+L'obiettivo è semplice: applicare la regola del grado di \textbf{Ullman} ùin fase di matching una sola volta per una stessa coppia $(q, t)$ e ridurre a monte le possibili \textbf{coppie candidate}.
+
+\[
+\text{Insieme di compatibilità di } q: D(q) = \{t \in V_T: \text{deg}(t) \geq \text{deg}(q)\}
+\]
+
+\paragraph{Passi dell'algoritmo.}
+Si definiscono così i passi dell'algoritmo:
+\begin{itemize}
+    \item Ordina i nodi del grafo query.
+    \item Calcola i domini di compatibilità per ogni nodo query.
+    \item Seguendo l'ordinamento calcolato al passo 1 mappare i nodi della query a nodi del target, verificando per ogni coppia candidata $(q, t)$ che:
+    \begin{itemize}
+        \item $(q, t)$ non siano già stati mappati ad altri nodi
+        \item $t$ appartenga al dominio di compatibilità di $q$ (ovvero $t \in D(q)$).
+    \end{itemize}
+    \item Ripetere il passo 2 fino a quando l'intero spazio di ricerca non è stato esplorato.
+\end{itemize}
+
+\section{Subgraph Matching in database di grafi}
+\subsection{Il problema}
+In un database di grafi, l'operazione di subgraph matching consiste nel trovare tutte le occorrenze di un grafo query all'interno di una collezione di grafi.
+
+\subsection{Indicizzazione}
+Una soluzione banale è quella di applicare algoritmi di \textbf{subgraph matching} su ciascun grafo del database, ma questo approccio può essere inefficiente, specialmente quando il database contiene un gran numero di grafi o quando i grafi sono di grandi dimensioni.
+
+Per risolvere il problema, si possono utilizzare tecniche di \emph{indicizzazione} che può essere effettuata off-line una sola volta, per poi essere riutilizzata per rispondere a molteplici query di subgraph matching in modo efficiente.
+
+\paragraph{Indcizzazione basata su feature.}
+Il grafo viene rappresentato tramite un insieme $F$ di attributi (o feature). I \textbf{grafi} che non contengono tutte le feature di feature della query vengono \emph{filtrate} prima del matching.
+
+\paragraph{Indicizzazione non basata su feature.}
+I grafi del database vengono \emph{mappati} in uno spazio metrico e memorizzati in un albero di ricerca spaziale (B-tree, R-tree). Questi approcci sono utilizzati quando:
+\begin{itemize}
+    \item Non è possibile estrarre feature dal database.
+    \item Il database è in continua evoluzione, rendendo difficile mantenere aggiornate le feature.
+\end{itemize}
+
+\paragraph{Features.}
+Le features da estrarre dai grafi possono essere: piccoli grafi, alberi o cammini. Le feature a cammini o alberi sono le più facili da estrarre rispetto a sottografi.
+
+Un esempio può essere estrarre da un grafo tutti i cammini di lunghezza $k=3$ come mostrato in figura \ref{fig:path_feature_extraction}.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/path_feature_extraction.png}
+    \caption{Esempio di estrazione di feature a cammini di lunghezza \(k=3\) da un grafo.}
+    \label{fig:path_feature_extraction}
+\end{figure}
+
+\noindent
+Per fare un matching in un database di grafi, lo schema generale è questo:
+\begin{enumerate}
+    \item \textbf{Preprocessing}: per ogni grafo del database si estraggono tutte le features che contiene.
+    \item \textbf{Filtering}: dalla query si estraggono tutte le features contenute e viene costruito un insieme di grafi del database \emph{candidati} che contengono tutte le features della query.
+    \item \textbf{Matching}: per ogni grafo candidato si esegue un algoritmo di subgraph matching per verificare se la query è effettivamente contenuta nel grafo.
+\end{enumerate}
+
+\paragraph{Indicizzazione inversa}
+Per velocizzare il filtering si usa la tecnica dell'\emph{indicizzazione inversa}: ad ogni \textbf{feature} (chiave) si associa la lista dei grafi che la contengo con il relativo numero di occorrenze della feature. L'insieme dei candidati per il matching si può ottenere per intersezione delle liste di grafi associati alle feature della query.
+
+\subsection{Algoritmo SING}
+L'algoritmo SING (Subgraph Indexing and subGraph matching) è un approccio efficiente per il subgraph matching in database di grafi che utilizza un indice basato su feature per ridurre lo spazio di ricerca.
+
+Per migliorare l'efficacia dell'indicizzazione si associa ad ogni feature la frequenza ma anche il nodo da cui parte.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/sing_indexing_example.png}
+    \caption{Esempio di indicizzazione SING: AB e AC stanno in $g_1, g_2$ ma \emph{solo} $g_1$ contiene $Q$. Questo perché AB e AC partono dallo stesso nodo in $g_1$ ma da nodi diversi in $g_2$.}
+    \label{fig:sing_indexing_example}
+\end{figure}
+
+\noindent
+Nell'indicizzazione in SING, si costruiscono due indici inversi (figura \ref{fig:indici-inversi}):
+\begin{itemize}
+    \item \textbf{Indice inverso globale} (figura \ref{fig:inv-globale}): ad ogni feature si associa la lista dei grafi del database che la contengono e il relativo conteggio.
+    \item \textbf{Indice inverso locale} (figura \ref{fig:inv-locale}): per ciascun grafo $g$, ad ogni feature $F$ presente in $g$ è associato un vettore binario in cui l'$i$-esimo elemento vale 1 se esiste un'occorrenza di $F$ che parte dal nodo $i$, 0 altrimenti.
+\end{itemize}
+
+\begin{figure}[hbpt]
+\centering
+\begin{subfigure}{0.58\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{images/index_inv_globale.png}% <-- prima immagine
+  \caption{Indice inverso globale: ad ogni feature si associa la lista dei grafi del database che la contengono e il relativo conteggio.}
+  \label{fig:inv-globale}
+\end{subfigure}\hfill
+\begin{subfigure}{0.38\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{images/index_inv_locale.png}% <-- seconda immagine
+  \caption{Indice inverso locale per ciascun grafo $g$: ad ogni feature $F$ presente in $g$ è associato un vettore binario in cui l'$i$-esimo elemento vale 1 se esiste un'occorrenza di $F$ che parte dal nodo $i$, 0 altrimenti.}
+  \label{fig:inv-locale}
+\end{subfigure}
+\caption{Strutture di indicizzazione per \emph{SING}: indice inverso globale (sinistra) e indice inverso locale (destra).}
+\label{fig:indici-inversi}
+\end{figure}
+
+\subsubsection*{Processamento della query}
+Per processare una query di subgraph matching con SING, si seguono i seguenti passi:
+\begin{description}
+    \item[Filtering 1]: per ogni feature F della query, si prende l'insieme dei grafi in cui occorre un numero di volte maggiore o uguale del numero di occorrenze nel grafo query e dopo si calcola l'intersezione $R$ di tutti questi insiemi
+    \item[Filtering 2]: per ogni grafo $G \in R$, si usa l'indice locale per verificare che gli insiemi di nodi di partenza delle feature della query abbiano intersezione non vuota (siano compatibili e mappabili). Se l'intersezione è vuota, $G$ viene rimosso da $R$.
+    \item[Matching]: per ogni grafo che supera i due \emph{filtering}, si verifica se contiene il grafo query tramite algoritmo di subgraph matching.
+\end{description}
+
+\paragraph{Secondo filtering.}
+Nel particolare caso del secondo filtering, dato un vertice $v$ della query, l'algoritmo calcola se il vertice è \textbf{compatibile}. Un vertice $x \in V_G$ di un grafo $G$ si dice compatibile con $v$ se per ogni feature $F$ che parte da $v$ nella query, esiste almeno una occorrenza di $F$ che parte da $x$ in $G$. 
+
+Se $S$ è l'insieme di queste features che partono da $v$, è sufficiente calcolare, nell'indice locale di $G$, l'operazione di AND bit a bit tra i vettori binari associati a ciascuna feature in $S$. Se il risultato ha almeno un bit a 1, allora esiste almeno un nodo in $G$ compatibile con $v$.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.8.27)  4 NOV 2025 12:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.8.27)  13 NOV 2025 08:30
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -372,50 +372,83 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@inbox=\box54
 \enit@count@id=\count298
 \enitdp@description=\count299
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen180
+\ar@mcellbox=\box55
+\extrarowheight=\dimen181
+\NC@list=\toks34
+\extratabsurround=\skip68
+\backup@length=\skip69
+\ar@cellbox=\box56
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/02/19 v1.6 Sub-captions (AR)
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/03/12 v3.6j Customizing captions (AR)
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/03/12 v2.4 caption3 kernel (AR)
+\caption@tempdima=\dimen182
+\captionmargin=\dimen183
+\caption@leftmargin=\dimen184
+\caption@rightmargin=\dimen185
+\caption@width=\dimen186
+\caption@indent=\dimen187
+\caption@parindent=\dimen188
+\caption@hangindent=\dimen189
+Package caption Info: Standard document class detected.
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 67.
+\c@caption@flags=\count300
+\c@continuedfloat=\count301
+Package caption Info: hyperref package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 239.
+\c@subfigure=\count302
+Package caption Info: New subtype `subtable' on input line 239.
+\c@subtable=\count303
+)
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 72.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count300
-\l__pdf_internal_box=\box55
-) (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux) (out/classificazione.aux) (out/regressione.aux) (out/grafi.aux) (out/subgraphmatching.aux))
+\l__color_backend_stack_int=\count304
+\l__pdf_internal_box=\box57
+) (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux) (out/classificazione.aux) (out/grafi.aux) (out/subgraphmatching.aux) (out/frequent_subgraphmatching.aux) (out/neural_network.aux))
 \openout1 = `DataMining.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Info: Redefining \it@ocap on input line 67.
-LaTeX Info: Redefining \it@ccap on input line 67.
-LaTeX Info: Redefining \microtypecontext on input line 67.
-Package microtype Info: Applying patch `item' on input line 67.
-Package microtype Info: Applying patch `toc' on input line 67.
-Package microtype Info: Applying patch `eqnum' on input line 67.
-Package microtype Info: Applying patch `footnote' on input line 67.
-Package microtype Info: Applying patch `verbatim' on input line 67.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Info: Redefining \it@ocap on input line 72.
+LaTeX Info: Redefining \it@ccap on input line 72.
+LaTeX Info: Redefining \microtypecontext on input line 72.
+Package microtype Info: Applying patch `item' on input line 72.
+Package microtype Info: Applying patch `toc' on input line 72.
+Package microtype Info: Applying patch `eqnum' on input line 72.
+Package microtype Info: Applying patch `footnote' on input line 72.
+Package microtype Info: Applying patch `verbatim' on input line 72.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 67.
+LaTeX Info: Redefining \showhyphens on input line 72.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -458,57 +491,59 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count301
-\scratchdimen=\dimen180
-\scratchbox=\box56
-\nofMPsegments=\count302
-\nofMParguments=\count303
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count304
-\MPscratchDim=\dimen181
-\MPnumerator=\count305
-\makeMPintoPDFobject=\count306
-\everyMPtoPDFconversion=\toks35
+\scratchcounter=\count305
+\scratchdimen=\dimen190
+\scratchbox=\box58
+\nofMPsegments=\count306
+\nofMParguments=\count307
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count308
+\MPscratchDim=\dimen191
+\MPnumerator=\count309
+\makeMPintoPDFobject=\count310
+\everyMPtoPDFconversion=\toks36
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 67.
+Package hyperref Info: Link coloring OFF on input line 72.
  (out/DataMining.out) (out/DataMining.out)
 \@outlinefile=\write3
 \openout3 = `DataMining.out'.
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 71.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 76.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 71.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 76.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 71.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 76.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 71.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 76.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 71.
+(Font)              <12> on input line 76.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 71.
+(Font)              <8> on input line 76.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 71.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 71.
+(Font)              <6> on input line 76.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 76.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 71.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 76.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
@@ -586,7 +621,7 @@ Overfull \hbox (13.27481pt too wide) in paragraph at lines 110--111
  []
 
 [14]
-<images/SVD.png, id=973, 1373.13pt x 750.805pt>
+<images/SVD.png, id=1124, 1373.13pt x 750.805pt>
 File: images/SVD.png Graphic file (type png)
 <use images/SVD.png>
 Package pdftex.def Info: images/SVD.png  used on input line 145.
@@ -607,7 +642,7 @@ Capitolo 4.
 
 
 ]
-<images/insiemi_frequenti_massimale.png, id=999, 830.10126pt x 559.08875pt>
+<images/insiemi_frequenti_massimale.png, id=1150, 830.10126pt x 559.08875pt>
 File: images/insiemi_frequenti_massimale.png Graphic file (type png)
 <use images/insiemi_frequenti_massimale.png>
 Package pdftex.def Info: images/insiemi_frequenti_massimale.png  used on input line 53.
@@ -618,20 +653,20 @@ Overfull \hbox (4.59721pt too wide) in paragraph at lines 102--109
  []
 
 [20] [21]
-<images/fp-growth-complete.png, id=1038, 975.645pt x 539.01375pt>
+<images/fp-growth-complete.png, id=1189, 975.645pt x 539.01375pt>
 File: images/fp-growth-complete.png Graphic file (type png)
 <use images/fp-growth-complete.png>
 Package pdftex.def Info: images/fp-growth-complete.png  used on input line 197.
 (pdftex.def)             Requested size: 392.64725pt x 216.92584pt.
  [22 <./images/fp-growth-complete.png>]
-<images/fp-growth-links.png, id=1049, 877.2775pt x 566.115pt>
+<images/fp-growth-links.png, id=1200, 877.2775pt x 566.115pt>
 File: images/fp-growth-links.png Graphic file (type png)
 <use images/fp-growth-links.png>
 Package pdftex.def Info: images/fp-growth-links.png  used on input line 226.
 (pdftex.def)             Requested size: 384.1096pt x 247.87338pt.
  [23 <./images/fp-growth-links.png>]
 Underfull \hbox (badness 6220) in paragraph at lines 280--280
-[]\T1/lmr/m/n/10.95 (+20) Pruning con prin-ci-pio di
+[]|\T1/lmr/m/n/10.95 (+20) Pruning con prin-ci-pio di
  []
 
 ) [24]
@@ -650,18 +685,18 @@ Overfull \hbox (54.78693pt too wide) detected at line 46
 
 
 ] [26]
-<images/cluster_distances.png, id=1088, 560.0925pt x 877.2775pt>
+<images/cluster_distances.png, id=1239, 560.0925pt x 877.2775pt>
 File: images/cluster_distances.png Graphic file (type png)
 <use images/cluster_distances.png>
 Package pdftex.def Info: images/cluster_distances.png  used on input line 116.
 (pdftex.def)             Requested size: 115.23547pt x 180.48558pt.
-<images/dendograms.png, id=1089, 1394.20876pt x 650.43pt>
+<images/dendograms.png, id=1240, 1394.20876pt x 650.43pt>
 File: images/dendograms.png Graphic file (type png)
 <use images/dendograms.png>
 Package pdftex.def Info: images/dendograms.png  used on input line 130.
 (pdftex.def)             Requested size: 320.0935pt x 149.32777pt.
  [27 <./images/cluster_distances.png>] [28 <./images/dendograms.png>]
-<images/k-means.png, id=1106, 1162.3425pt x 609.27625pt>
+<images/k-means.png, id=1257, 1162.3425pt x 609.27625pt>
 File: images/k-means.png Graphic file (type png)
 <use images/k-means.png>
 Package pdftex.def Info: images/k-means.png  used on input line 192.
@@ -675,76 +710,73 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 207.
 
-<images/elbow-k.png, id=1122, 1298.8525pt x 731.73375pt>
+<images/elbow-k.png, id=1272, 1298.8525pt x 731.73375pt>
 File: images/elbow-k.png Graphic file (type png)
 <use images/elbow-k.png>
 Package pdftex.def Info: images/elbow-k.png  used on input line 220.
 (pdftex.def)             Requested size: 341.43437pt x 192.34537pt.
 [30 <./images/elbow-k.png>] [31]
-<images/dbscan_core.png, id=1140, 1298.8525pt x 519.9425pt>
+<images/dbscan_core.png, id=1291, 1298.8525pt x 519.9425pt>
 File: images/dbscan_core.png Graphic file (type png)
 <use images/dbscan_core.png>
 Package pdftex.def Info: images/dbscan_core.png  used on input line 286.
 (pdftex.def)             Requested size: 290.21498pt x 116.17278pt.
-<images/kdistance_plot.png, id=1141, 1422.31375pt x 779.91376pt>
+<images/kdistance_plot.png, id=1292, 1422.31375pt x 779.91376pt>
 File: images/kdistance_plot.png Graphic file (type png)
 <use images/kdistance_plot.png>
 Package pdftex.def Info: images/kdistance_plot.png  used on input line 304.
 (pdftex.def)             Requested size: 290.21498pt x 159.13362pt.
  [32 <./images/dbscan_core.png>]
-<images/optics_reachability.png, id=1156, 1441.385pt x 865.2325pt>
+<images/optics_reachability.png, id=1307, 1441.385pt x 865.2325pt>
 File: images/optics_reachability.png Graphic file (type png)
 <use images/optics_reachability.png>
 Package pdftex.def Info: images/optics_reachability.png  used on input line 354.
 (pdftex.def)             Requested size: 341.43437pt x 204.95355pt.
  [33 <./images/kdistance_plot.png>]
-<images/cluster_extraction_optics.png, id=1166, 1587.9325pt x 653.44125pt>
+<images/cluster_extraction_optics.png, id=1317, 1587.9325pt x 653.44125pt>
 File: images/cluster_extraction_optics.png Graphic file (type png)
 <use images/cluster_extraction_optics.png>
 Package pdftex.def Info: images/cluster_extraction_optics.png  used on input line 368.
 (pdftex.def)             Requested size: 341.43437pt x 140.4971pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [34 <./images/optics_reachability.png> <./images/cluster_extraction_optics.png>]
-<images/HDBSCAN_example.png, id=1176, 1499.6025pt x 512.91624pt>
+<images/HDBSCAN_example.png, id=1327, 1499.6025pt x 512.91624pt>
 File: images/HDBSCAN_example.png Graphic file (type png)
 <use images/HDBSCAN_example.png>
 Package pdftex.def Info: images/HDBSCAN_example.png  used on input line 402.
 (pdftex.def)             Requested size: 426.79135pt x 145.97133pt.
- [35] [36 <./images/HDBSCAN_example.png>]
-<images/hdbscan_mst.png, id=1200, 1143.27126pt x 762.85pt>
+ [35 <./images/HDBSCAN_example.png>] [36] [37]
+<images/hdbscan_mst.png, id=1358, 1143.27126pt x 762.85pt>
 File: images/hdbscan_mst.png Graphic file (type png)
 <use images/hdbscan_mst.png>
 Package pdftex.def Info: images/hdbscan_mst.png  used on input line 490.
 (pdftex.def)             Requested size: 196.32687pt x 130.99812pt.
-<images/hdbscan_condensed_tree.png, id=1201, 920.43875pt x 567.11874pt>
+<images/hdbscan_condensed_tree.png, id=1359, 920.43875pt x 567.11874pt>
 File: images/hdbscan_condensed_tree.png Graphic file (type png)
 <use images/hdbscan_condensed_tree.png>
 Package pdftex.def Info: images/hdbscan_condensed_tree.png  used on input line 491.
 (pdftex.def)             Requested size: 196.32687pt x 120.95895pt.
-) [37 <./images/hdbscan_mst.png> <./images/hdbscan_condensed_tree.png>]
+) [38 <./images/hdbscan_mst.png> <./images/hdbscan_condensed_tree.png>]
 \openout2 = `classificazione.aux'.
 
- (./classificazione.tex [38
+ (./classificazione.tex
+Capitolo 6.
+<images/schema_classificatore.png, id=1368, 1852.9225pt x 744.7825pt>
+File: images/schema_classificatore.png Graphic file (type png)
+<use images/schema_classificatore.png>
+Package pdftex.def Info: images/schema_classificatore.png  used on input line 26.
+(pdftex.def)             Requested size: 307.29028pt x 123.50885pt.
+[39
 
 
 
 
 ]
-Capitolo 6.
-<images/schema_classificatore.png, id=1217, 1852.9225pt x 744.7825pt>
-File: images/schema_classificatore.png Graphic file (type png)
-<use images/schema_classificatore.png>
-Package pdftex.def Info: images/schema_classificatore.png  used on input line 26.
-(pdftex.def)             Requested size: 307.29028pt x 123.50885pt.
-[39]
-<images/weather_table.png, id=1227, 799.98875pt x 682.55pt>
+<images/weather_table.png, id=1378, 799.98875pt x 682.55pt>
 File: images/weather_table.png Graphic file (type png)
 <use images/weather_table.png>
 Package pdftex.def Info: images/weather_table.png  used on input line 52.
 (pdftex.def)             Requested size: 213.39568pt x 182.06218pt.
-<images/decision_tree_weather.png, id=1228, 1003.75pt x 712.6625pt>
+<images/decision_tree_weather.png, id=1379, 1003.75pt x 712.6625pt>
 File: images/decision_tree_weather.png Graphic file (type png)
 <use images/decision_tree_weather.png>
 Package pdftex.def Info: images/decision_tree_weather.png  used on input line 56.
@@ -754,31 +786,31 @@ Overfull \hbox (67.96466pt too wide) detected at line 128
 []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 246\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 029\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 151\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 048\OML/lmm/m/it/10.95 :
  []
 
-<images/ig_outlook_example.png, id=1251, 1613.02625pt x 540.0175pt>
+<images/ig_outlook_example.png, id=1401, 1613.02625pt x 540.0175pt>
 File: images/ig_outlook_example.png Graphic file (type png)
 <use images/ig_outlook_example.png>
 Package pdftex.def Info: images/ig_outlook_example.png  used on input line 137.
 (pdftex.def)             Requested size: 384.1096pt x 128.59332pt.
 [42 <./images/ig_outlook_example.png>] [43] [44]
-<images/tree_pruning_example.png, id=1276, 1595.9625pt x 816.04875pt>
+<images/tree_pruning_example.png, id=1427, 1595.9625pt x 816.04875pt>
 File: images/tree_pruning_example.png Graphic file (type png)
 <use images/tree_pruning_example.png>
 Package pdftex.def Info: images/tree_pruning_example.png  used on input line 248.
 (pdftex.def)             Requested size: 320.0935pt x 163.66757pt.
  [45 <./images/tree_pruning_example.png>] [46]
-<images/bayes_network_example.png, id=1294, 1531.7225pt x 861.2175pt>
+<images/bayes_network_example.png, id=1445, 1531.7225pt x 861.2175pt>
 File: images/bayes_network_example.png Graphic file (type png)
 <use images/bayes_network_example.png>
 Package pdftex.def Info: images/bayes_network_example.png  used on input line 313.
 (pdftex.def)             Requested size: 384.1096pt x 215.96089pt.
  [47 <./images/bayes_network_example.png>] [48] [49]
-<images/svm_margin.png, id=1329, 1146.2825pt x 668.4975pt>
+<images/svm_margin.png, id=1480, 1146.2825pt x 668.4975pt>
 File: images/svm_margin.png Graphic file (type png)
 <use images/svm_margin.png>
 Package pdftex.def Info: images/svm_margin.png  used on input line 410.
 (pdftex.def)             Requested size: 384.1096pt x 224.0118pt.
  [50 <./images/svm_margin.png>]
-<images/normalized_hyperplane_svm.png, id=1337, 1298.8525pt x 863.225pt>
+<images/normalized_hyperplane_svm.png, id=1488, 1298.8525pt x 863.225pt>
 File: images/normalized_hyperplane_svm.png Graphic file (type png)
 <use images/normalized_hyperplane_svm.png>
 Package pdftex.def Info: images/normalized_hyperplane_svm.png  used on input line 447.
@@ -793,31 +825,31 @@ Underfull \vbox (badness 1796) has occurred while \output is active []
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <9> on input line 508.
  [53]
-<images/knn_example.png, id=1362, 1038.88126pt x 746.79pt>
+<images/knn_example.png, id=1512, 1038.88126pt x 746.79pt>
 File: images/knn_example.png Graphic file (type png)
 <use images/knn_example.png>
 Package pdftex.def Info: images/knn_example.png  used on input line 557.
 (pdftex.def)             Requested size: 341.43437pt x 245.42729pt.
  [54 <./images/knn_example.png>]
-<images/random_forest.png, id=1371, 2633.84pt x 2087.8pt>
+<images/random_forest.png, id=1522, 2633.84pt x 2087.8pt>
 File: images/random_forest.png Graphic file (type png)
 <use images/random_forest.png>
 Package pdftex.def Info: images/random_forest.png  used on input line 601.
 (pdftex.def)             Requested size: 320.0935pt x 253.7109pt.
  [55]
-<images/boosting_example.png, id=1388, 1331.97626pt x 764.8575pt>
+<images/boosting_example.png, id=1539, 1331.97626pt x 764.8575pt>
 File: images/boosting_example.png Graphic file (type png)
 <use images/boosting_example.png>
 Package pdftex.def Info: images/boosting_example.png  used on input line 625.
 (pdftex.def)             Requested size: 384.1096pt x 220.56589pt.
 
-Underfull \vbox (badness 1515) has occurred while \output is active []
+Underfull \vbox (badness 1838) has occurred while \output is active []
 
  [56 <./images/random_forest.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [57 <./images/boosting_example.png>]
-<images/aumento_pesi_tuple.png, id=1413, 1376.14125pt x 861.2175pt>
+<images/aumento_pesi_tuple.png, id=1564, 1376.14125pt x 861.2175pt>
 File: images/aumento_pesi_tuple.png Graphic file (type png)
 <use images/aumento_pesi_tuple.png>
 Package pdftex.def Info: images/aumento_pesi_tuple.png  used on input line 685.
@@ -826,13 +858,13 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 687.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 687.
-<images/diminuzione_pesI_tuple.png, id=1414, 1421.31pt x 866.23625pt>
+<images/diminuzione_pesI_tuple.png, id=1565, 1421.31pt x 866.23625pt>
 File: images/diminuzione_pesI_tuple.png Graphic file (type png)
 <use images/diminuzione_pesI_tuple.png>
 Package pdftex.def Info: images/diminuzione_pesI_tuple.png  used on input line 691.
 (pdftex.def)             Requested size: 204.85802pt x 124.85423pt.
  [58 <./images/aumento_pesi_tuple.png> <./images/diminuzione_pesI_tuple.png>]
-<images/confusion_matrix.png, id=1429, 801.99625pt x 464.73625pt>
+<images/confusion_matrix.png, id=1580, 801.99625pt x 464.73625pt>
 File: images/confusion_matrix.png Graphic file (type png)
 <use images/confusion_matrix.png>
 Package pdftex.def Info: images/confusion_matrix.png  used on input line 709.
@@ -841,22 +873,15 @@ Package pdftex.def Info: images/confusion_matrix.png  used on input line 709.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [59 <./images/confusion_matrix.png>]
-<images/curve-roc-example.png, id=1439, 899.36pt x 915.42pt>
+<images/curve-roc-example.png, id=1590, 899.36pt x 915.42pt>
 File: images/curve-roc-example.png Graphic file (type png)
 <use images/curve-roc-example.png>
 Package pdftex.def Info: images/curve-roc-example.png  used on input line 755.
 (pdftex.def)             Requested size: 256.07741pt x 260.64598pt.
- [60]) [61 <./images/curve-roc-example.png>]
-\openout2 = `regressione.aux'.
+ [60]
+Underfull \vbox (badness 1558) has occurred while \output is active []
 
- (./regressione.tex [62
-
-
-
-
-]
-Capitolo 7.
-) [63]
+ [61 <./images/curve-roc-example.png>] [62]) [63]
 \openout2 = `grafi.aux'.
 
  (./grafi.tex [64
@@ -865,81 +890,81 @@ Capitolo 7.
 
 
 ]
-Capitolo 8.
-<images/grafo_esemipo.png, id=1462, 456.5055pt x 282.45525pt>
+Capitolo 7.
+<images/grafo_esemipo.png, id=1616, 456.5055pt x 282.45525pt>
 File: images/grafo_esemipo.png Graphic file (type png)
 <use images/grafo_esemipo.png>
 Package pdftex.def Info: images/grafo_esemipo.png  used on input line 14.
 (pdftex.def)             Requested size: 256.07741pt x 158.44106pt.
 [65 <./images/grafo_esemipo.png>]
-<images/grafo_diretto_indiretto.png, id=1470, 1561.835pt x 561.09625pt>
+<images/grafo_diretto_indiretto.png, id=1624, 1561.835pt x 561.09625pt>
 File: images/grafo_diretto_indiretto.png Graphic file (type png)
 <use images/grafo_diretto_indiretto.png>
 Package pdftex.def Info: images/grafo_diretto_indiretto.png  used on input line 33.
 (pdftex.def)             Requested size: 341.43437pt x 122.66245pt.
  [66 <./images/grafo_diretto_indiretto.png>]
-<images/grafo_pesato_etichettato.png, id=1479, 1541.76pt x 1027.84pt>
+<images/grafo_pesato_etichettato.png, id=1632, 1541.76pt x 1027.84pt>
 File: images/grafo_pesato_etichettato.png Graphic file (type png)
 <use images/grafo_pesato_etichettato.png>
 Package pdftex.def Info: images/grafo_pesato_etichettato.png  used on input line 49.
 (pdftex.def)             Requested size: 341.43437pt x 227.61543pt.
  [67 <./images/grafo_pesato_etichettato.png (PNG copy)>]
-<images/grafo_bipartito_esempio.png, id=1485, 1541.76pt x 1027.84pt>
+<images/grafo_bipartito_esempio.png, id=1639, 1541.76pt x 1027.84pt>
 File: images/grafo_bipartito_esempio.png Graphic file (type png)
 <use images/grafo_bipartito_esempio.png>
 Package pdftex.def Info: images/grafo_bipartito_esempio.png  used on input line 88.
 (pdftex.def)             Requested size: 341.43437pt x 227.61543pt.
  [68 <./images/grafo_bipartito_esempio.png (PNG copy)>]
-<images/grafo_regolare_completo.png, id=1491, 1476.51625pt x 475.7775pt>
+<images/grafo_regolare_completo.png, id=1645, 1476.51625pt x 475.7775pt>
 File: images/grafo_regolare_completo.png Graphic file (type png)
 <use images/grafo_regolare_completo.png>
 Package pdftex.def Info: images/grafo_regolare_completo.png  used on input line 105.
 (pdftex.def)             Requested size: 426.79135pt x 137.52182pt.
-<images/cammino.png, id=1492, 479.7925pt x 333.245pt>
+<images/cammino.png, id=1646, 479.7925pt x 333.245pt>
 File: images/cammino.png Graphic file (type png)
 <use images/cammino.png>
 Package pdftex.def Info: images/cammino.png  used on input line 115.
 (pdftex.def)             Requested size: 256.07741pt x 177.86479pt.
  [69 <./images/grafo_regolare_completo.png>] [70 <./images/cammino.png>]
-<images/clustering_coeff.png, id=1510, 857.2025pt x 352.31625pt>
+<images/clustering_coeff.png, id=1664, 857.2025pt x 352.31625pt>
 File: images/clustering_coeff.png Graphic file (type png)
 <use images/clustering_coeff.png>
 Package pdftex.def Info: images/clustering_coeff.png  used on input line 154.
 (pdftex.def)             Requested size: 426.79135pt x 175.4158pt.
  [71 <./images/clustering_coeff.png>]
-<images/betweenness_centrality.png, id=1518, 595.22375pt x 620.3175pt>
+<images/betweenness_centrality.png, id=1672, 595.22375pt x 620.3175pt>
 File: images/betweenness_centrality.png Graphic file (type png)
 <use images/betweenness_centrality.png>
-Package pdftex.def Info: images/betweenness_centrality.png  used on input line 189.
+Package pdftex.def Info: images/betweenness_centrality.png  used on input line 191.
 (pdftex.def)             Requested size: 170.71393pt x 177.90923pt.
  [72] [73 <./images/betweenness_centrality.png>]
-<images/centralita_prossimita.png, id=1534, 661.47125pt x 607.26875pt>
+<images/centralita_prossimita.png, id=1688, 661.47125pt x 607.26875pt>
 File: images/centralita_prossimita.png Graphic file (type png)
 <use images/centralita_prossimita.png>
-Package pdftex.def Info: images/centralita_prossimita.png  used on input line 235.
+Package pdftex.def Info: images/centralita_prossimita.png  used on input line 237.
 (pdftex.def)             Requested size: 170.71393pt x 156.71861pt.
  [74 <./images/centralita_prossimita.png>]
-<images/pagerank_initial.png, id=1542, 831.105pt x 525.965pt>
+<images/pagerank_initial.png, id=1696, 831.105pt x 525.965pt>
 File: images/pagerank_initial.png Graphic file (type png)
 <use images/pagerank_initial.png>
-Package pdftex.def Info: images/pagerank_initial.png  used on input line 260.
+Package pdftex.def Info: images/pagerank_initial.png  used on input line 262.
 (pdftex.def)             Requested size: 192.0548pt x 121.53922pt.
-<images/pagerank_rounds.png, id=1543, 1284.8pt x 487.8225pt>
+<images/pagerank_rounds.png, id=1697, 1284.8pt x 487.8225pt>
 File: images/pagerank_rounds.png Graphic file (type png)
 <use images/pagerank_rounds.png>
-Package pdftex.def Info: images/pagerank_rounds.png  used on input line 280.
+Package pdftex.def Info: images/pagerank_rounds.png  used on input line 282.
 (pdftex.def)             Requested size: 298.75264pt x 113.43243pt.
 ) [75 <./images/pagerank_initial.png> <./images/pagerank_rounds.png>] [76]
 \openout2 = `subgraphmatching.aux'.
 
  (./subgraphmatching.tex
-Capitolo 9.
-<images/subgraph_mapping_example.png, id=1557, 1245.65375pt x 366.36874pt>
+Capitolo 8.
+<images/subgraph_mapping_example.png, id=1711, 1245.65375pt x 366.36874pt>
 File: images/subgraph_mapping_example.png Graphic file (type png)
 <use images/subgraph_mapping_example.png>
 Package pdftex.def Info: images/subgraph_mapping_example.png  used on input line 9.
 (pdftex.def)             Requested size: 341.43437pt x 100.41908pt.
-<images/automorphism_example.png, id=1558, 1451.4225pt x 409.53pt>
+<images/automorphism_example.png, id=1712, 1451.4225pt x 409.53pt>
 File: images/automorphism_example.png Graphic file (type png)
 <use images/automorphism_example.png>
 Package pdftex.def Info: images/automorphism_example.png  used on input line 19.
@@ -950,45 +975,195 @@ Package pdftex.def Info: images/automorphism_example.png  used on input line 19.
 
 
  <./images/subgraph_mapping_example.png>]
-<images/subgraph_matching_example.png, id=1566, 820.06375pt x 509.905pt>
+<images/subgraph_matching_example.png, id=1720, 820.06375pt x 509.905pt>
 File: images/subgraph_matching_example.png Graphic file (type png)
 <use images/subgraph_matching_example.png>
 Package pdftex.def Info: images/subgraph_matching_example.png  used on input line 33.
 (pdftex.def)             Requested size: 341.43437pt x 212.30687pt.
  [78 <./images/automorphism_example.png> <./images/subgraph_matching_example.png>]
-<images/bruteforce_subgraph_matching.png, id=1576, 1541.76pt x 1027.84pt>
+<images/bruteforce_subgraph_matching.png, id=1730, 1541.76pt x 1027.84pt>
 File: images/bruteforce_subgraph_matching.png Graphic file (type png)
 <use images/bruteforce_subgraph_matching.png>
 Package pdftex.def Info: images/bruteforce_subgraph_matching.png  used on input line 51.
 (pdftex.def)             Requested size: 332.89673pt x 221.9223pt.
  [79 <./images/bruteforce_subgraph_matching.png (PNG copy)>]
-<images/backtracking_subgraph_matching.png, id=1583, 1359.0775pt x 533.995pt>
+<images/backtracking_subgraph_matching.png, id=1737, 1359.0775pt x 533.995pt>
 File: images/backtracking_subgraph_matching.png Graphic file (type png)
 <use images/backtracking_subgraph_matching.png>
 Package pdftex.def Info: images/backtracking_subgraph_matching.png  used on input line 67.
 (pdftex.def)             Requested size: 341.43437pt x 134.15027pt.
-<images/ullmann_algorithm_example.png, id=1584, 1541.76pt x 1027.84pt>
+<images/ullmann_algorithm_example.png, id=1738, 1541.76pt x 1027.84pt>
 File: images/ullmann_algorithm_example.png Graphic file (type png)
 <use images/ullmann_algorithm_example.png>
 Package pdftex.def Info: images/ullmann_algorithm_example.png  used on input line 79.
 (pdftex.def)             Requested size: 384.1096pt x 256.0654pt.
- [80 <./images/backtracking_subgraph_matching.png>] [81 <./images/ullmann_algorithm_example.png (PNG copy)>]) [82] (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux) (out/classificazione.aux) (out/regressione.aux) (out/grafi.aux) (out/subgraphmatching.aux))
+ [80 <./images/backtracking_subgraph_matching.png>] [81 <./images/ullmann_algorithm_example.png (PNG copy)>]
+Overfull \hbox (1.85927pt too wide) in paragraph at lines 109--110
+\T1/lmr/m/n/10.95 (-20) pia è fat-ti-bi-le, si crea un nuo-vo sta-to $\OML/lmm/m/it/10.95 s[]$ \T1/lmr/m/n/10.95 (-20) ag-gior-nan-do gli in-sie-mi $\OML/lmm/m/it/10.95 M[]; M[]; T[]; T[]; U[]; U[]$
+ []
+
+[82] [83]
+Overfull \hbox (2.36096pt too wide) in paragraph at lines 172--174
+[]\T1/lmr/bx/n/10.95 (-20) Calcolo del-l'or-di-na-men-to del-la que-ry. \T1/lmr/m/n/10.95 (-20) Si co-strui-sce una se-quen-za $\OML/lmm/m/it/10.95 U \OT1/lmr/m/n/10.95 (-20) = (\OML/lmm/m/it/10.95 u[]; [] ; u[]\OT1/lmr/m/n/10.95 (-20) )$
+ []
+
+<images/ri_algorithm_example.png, id=1777, 286.06876pt x 366.36874pt>
+File: images/ri_algorithm_example.png Graphic file (type png)
+<use images/ri_algorithm_example.png>
+Package pdftex.def Info: images/ri_algorithm_example.png  used on input line 211.
+(pdftex.def)             Requested size: 170.71393pt x 218.63779pt.
+[84] [85 <./images/ri_algorithm_example.png>] [86]
+<images/path_feature_extraction.png, id=1811, 831.105pt x 394.47375pt>
+File: images/path_feature_extraction.png Graphic file (type png)
+<use images/path_feature_extraction.png>
+Package pdftex.def Info: images/path_feature_extraction.png  used on input line 300.
+(pdftex.def)             Requested size: 341.43437pt x 162.05429pt.
+ [87 <./images/path_feature_extraction.png>]
+<images/sing_indexing_example.png, id=1824, 748.7975pt x 245.91875pt>
+File: images/sing_indexing_example.png Graphic file (type png)
+<use images/sing_indexing_example.png>
+Package pdftex.def Info: images/sing_indexing_example.png  used on input line 323.
+(pdftex.def)             Requested size: 341.43437pt x 112.13335pt.
+<images/index_inv_globale.png, id=1828, 725.71124pt x 467.7475pt>
+File: images/index_inv_globale.png Graphic file (type png)
+<use images/index_inv_globale.png>
+Package pdftex.def Info: images/index_inv_globale.png  used on input line 339.
+(pdftex.def)             Requested size: 247.53976pt x 159.54591pt.
+<images/index_inv_locale.png, id=1829, 456.70625pt x 431.6125pt>
+File: images/index_inv_locale.png Graphic file (type png)
+<use images/index_inv_locale.png>
+Package pdftex.def Info: images/index_inv_locale.png  used on input line 345.
+(pdftex.def)             Requested size: 162.18279pt x 153.26631pt.
+ [88 <./images/sing_indexing_example.png> <./images/index_inv_globale.png> <./images/index_inv_locale.png>]) [89]
+\openout2 = `frequent_subgraphmatching.aux'.
+
+ (./frequent_subgraphmatching.tex [90
+
+
+
+
+]
+Capitolo 9.
+<images/frequent-subgraph-matching.png, id=1851, 879.285pt x 162.6075pt>
+File: images/frequent-subgraph-matching.png Graphic file (type png)
+<use images/frequent-subgraph-matching.png>
+Package pdftex.def Info: images/frequent-subgraph-matching.png  used on input line 14.
+(pdftex.def)             Requested size: 426.79135pt x 78.92656pt.
+<images/frequent-subgraph-frequency.png, id=1852, 799.98875pt x 330.23375pt>
+File: images/frequent-subgraph-frequency.png Graphic file (type png)
+<use images/frequent-subgraph-frequency.png>
+Package pdftex.def Info: images/frequent-subgraph-frequency.png  used on input line 23.
+(pdftex.def)             Requested size: 426.79135pt x 176.182pt.
+[91 <./images/frequent-subgraph-matching.png>] [92 <./images/frequent-subgraph-frequency.png>]
+<images/fsg-join-1.png, id=1868, 869.2475pt x 321.2pt>
+File: images/fsg-join-1.png Graphic file (type png)
+<use images/fsg-join-1.png>
+Package pdftex.def Info: images/fsg-join-1.png  used on input line 59.
+(pdftex.def)             Requested size: 426.79135pt x 157.70795pt.
+<images/fsg-join-2.png, id=1870, 807.015pt x 274.02374pt>
+File: images/fsg-join-2.png Graphic file (type png)
+<use images/fsg-join-2.png>
+Package pdftex.def Info: images/fsg-join-2.png  used on input line 80.
+(pdftex.def)             Requested size: 426.79135pt x 144.91829pt.
+ [93 <./images/fsg-join-1.png>]
+<images/fsg-join-3.png, id=1884, 856.19875pt x 417.56pt>
+File: images/fsg-join-3.png Graphic file (type png)
+<use images/fsg-join-3.png>
+Package pdftex.def Info: images/fsg-join-3.png  used on input line 111.
+(pdftex.def)             Requested size: 426.79135pt x 208.14233pt.
+ [94 <./images/fsg-join-2.png>] [95 <./images/fsg-join-3.png>]
+Underfull \vbox (badness 1342) has occurred while \output is active []
+
+ [96]
+<images/adjacency_string_example.png, id=1925, 810.02625pt x 314.17375pt>
+File: images/adjacency_string_example.png Graphic file (type png)
+<use images/adjacency_string_example.png>
+Package pdftex.def Info: images/adjacency_string_example.png  used on input line 177.
+(pdftex.def)             Requested size: 341.43437pt x 132.42667pt.
+<images/canonical-form-example.png, id=1927, 896.34875pt x 412.54124pt>
+File: images/canonical-form-example.png Graphic file (type png)
+<use images/canonical-form-example.png>
+Package pdftex.def Info: images/canonical-form-example.png  used on input line 200.
+(pdftex.def)             Requested size: 384.1096pt x 176.78497pt.
+ [97 <./images/adjacency_string_example.png>] [98 <./images/canonical-form-example.png>]
+<images/dfs_visit_example.png, id=1949, 1262.7175pt x 867.24pt>
+File: images/dfs_visit_example.png Graphic file (type png)
+<use images/dfs_visit_example.png>
+Package pdftex.def Info: images/dfs_visit_example.png  used on input line 247.
+(pdftex.def)             Requested size: 341.43437pt x 234.50198pt.
+<images/dfs_tree_example.png, id=1951, 1586.92876pt x 659.46375pt>
+File: images/dfs_tree_example.png Graphic file (type png)
+<use images/dfs_tree_example.png>
+Package pdftex.def Info: images/dfs_tree_example.png  used on input line 267.
+(pdftex.def)             Requested size: 426.79135pt x 177.35321pt.
+ [99] [100 <./images/dfs_visit_example.png> <./images/dfs_tree_example.png>] [101]
+<images/gspan_candidate_generation.png, id=1984, 1318.9275pt x 944.52875pt>
+File: images/gspan_candidate_generation.png Graphic file (type png)
+<use images/gspan_candidate_generation.png>
+Package pdftex.def Info: images/gspan_candidate_generation.png  used on input line 328.
+(pdftex.def)             Requested size: 426.79135pt x 305.64227pt.
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/lmr/m/sc/10.95'.
+(microtype)             Ignoring protrusion settings for this character.
+)
+Underfull \vbox (badness 1127) has occurred while \output is active []
+
+ [102 <./images/gspan_candidate_generation.png>] [103]
+\openout2 = `neural_network.aux'.
+
+ (./neural_network.tex [104
+
+
+
+
+]
+Capitolo 10.
+<images/nn_neuron_comparison.png, id=2002, 1541.76pt x 1027.84pt>
+File: images/nn_neuron_comparison.png Graphic file (type png)
+<use images/nn_neuron_comparison.png>
+Package pdftex.def Info: images/nn_neuron_comparison.png  used on input line 6.
+(pdftex.def)             Requested size: 426.79135pt x 284.51537pt.
+[105 <./images/nn_neuron_comparison.png (PNG copy)>]
+<images/neural_network_example.png, id=2009, 567.11874pt x 391.96437pt>
+File: images/neural_network_example.png Graphic file (type png)
+<use images/neural_network_example.png>
+Package pdftex.def Info: images/neural_network_example.png  used on input line 27.
+(pdftex.def)             Requested size: 298.75264pt x 206.49011pt.
+
+Underfull \vbox (badness 2005) has occurred while \output is active []
+
+ [106 <./images/neural_network_example.png>] [107]
+<images/step_function.png, id=2026, 937.5025pt x 812.03375pt>
+File: images/step_function.png Graphic file (type png)
+<use images/step_function.png>
+Package pdftex.def Info: images/step_function.png  used on input line 87.
+(pdftex.def)             Requested size: 256.07741pt x 221.8045pt.
+<images/perceptron.png, id=2027, 1167.36125pt x 611.28375pt>
+File: images/perceptron.png Graphic file (type png)
+<use images/perceptron.png>
+Package pdftex.def Info: images/perceptron.png  used on input line 96.
+(pdftex.def)             Requested size: 341.43437pt x 178.78812pt.
+) [108 <./images/step_function.png>] [109 <./images/perceptron.png>] [110
+
+
+
+] (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux) (out/classificazione.aux) (out/grafi.aux) (out/subgraphmatching.aux) (out/frequent_subgraphmatching.aux) (out/neural_network.aux))
 Package rerunfilecheck Info: File `DataMining.out' has not changed.
-(rerunfilecheck)             Checksum: 411F045D5905AAAE75D96BC9F8F5D753;29486.
+(rerunfilecheck)             Checksum: 5642E68B1B17B900870A42F0E20A4B93;34430.
  ) 
 Here is how much of TeX's memory you used:
- 16287 strings out of 476034
- 264744 string characters out of 5792864
+ 18208 strings out of 476034
+ 303181 string characters out of 5792864
  1867388 words of memory out of 6000000
- 35387 multiletter control sequences out of 15000+600000
- 664746 words of font info for 335 fonts, out of 8000000 for 9000
+ 37061 multiletter control sequences out of 15000+600000
+ 675971 words of font info for 364 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
- 75i,12n,76p,1095b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on out/DataMining.pdf (90 pages, 9320278 bytes).
+ 75i,13n,77p,1110b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on out/DataMining.pdf (118 pages, 11397650 bytes).
 PDF statistics:
- 1844 PDF objects out of 2073 (max. 8388607)
- 1592 compressed objects within 16 object streams
- 534 named destinations out of 1000 (max. 500000)
- 82916 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 2328 PDF objects out of 2487 (max. 8388607)
+ 2000 compressed objects within 20 object streams
+ 688 named destinations out of 1000 (max. 500000)
+ 89395 words of extra memory for PDF output out of 106986 (max. 10000000)
 
