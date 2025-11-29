@@ -677,6 +677,9 @@ INPUT out/grafi.aux
 INPUT out/subgraphmatching.aux
 INPUT out/subgraphmatching.aux
 INPUT out/subgraphmatching.aux
+INPUT out/reti_neurali.aux
+INPUT out/reti_neurali.aux
+INPUT out/reti_neurali.aux
 OUTPUT out/DataMining.aux
 INPUT /usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 INPUT /usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
@@ -1163,6 +1166,16 @@ INPUT ./images/ullmann_algorithm_example.png
 INPUT images/ullmann_algorithm_example.png
 INPUT ./images/ullmann_algorithm_example.png
 INPUT ./images/ullmann_algorithm_example.png
+INPUT ./reti_neurali.tex
+INPUT ./reti_neurali.tex
+INPUT ./reti_neurali.tex
+OUTPUT out/reti_neurali.aux
+INPUT ./reti_neurali.tex
+INPUT ./reti_neurali.tex
+INPUT ./reti_neurali.tex
+INPUT reti_neurali.tex
+INPUT ./reti_neurali.tex
+INPUT reti_neurali.tex
 INPUT out/DataMining.aux
 INPUT out/prerequisiti.aux
 INPUT out/prerequisiti.aux
@@ -1191,6 +1204,9 @@ INPUT out/grafi.aux
 INPUT out/subgraphmatching.aux
 INPUT out/subgraphmatching.aux
 INPUT out/subgraphmatching.aux
+INPUT out/reti_neurali.aux
+INPUT out/reti_neurali.aux
+INPUT out/reti_neurali.aux
 INPUT out/DataMining.out
 INPUT out/DataMining.out
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb

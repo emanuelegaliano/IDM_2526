@@ -292,3 +292,4 @@
 \contentsline {paragraph}{Esempio della figura \ref {fig:ullmann_algorithm_example}.}{85}{section*.138}%
 \contentsline {subsection}{\numberline {9.4.3}Algoritmo VF}{85}{subsection.9.4.3}%
 \contentsline {paragraph}{Algoritmo.}{86}{section*.139}%
+\contentsline {chapter}{\numberline {10}Elementi di Reti Neurali}{87}{chapter.10}%
