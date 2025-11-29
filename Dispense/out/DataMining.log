@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.11.29)  29 NOV 2025 17:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.11.29)  29 NOV 2025 23:11
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -364,58 +364,288 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip66
-) (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+) (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2024/03/21 v3.20 programmable bibliographies (PK/MW)
+ (/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count298
+ (/usr/share/texlive/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+)) (/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+\c@tabx@nest=\count299
+\c@listtotal=\count300
+\c@listcount=\count301
+\c@liststart=\count302
+\c@liststop=\count303
+\c@citecount=\count304
+\c@citetotal=\count305
+\c@multicitecount=\count306
+\c@multicitetotal=\count307
+\c@instcount=\count308
+\c@maxnames=\count309
+\c@minnames=\count310
+\c@maxitems=\count311
+\c@minitems=\count312
+\c@citecounter=\count313
+\c@maxcitecounter=\count314
+\c@savedcitecounter=\count315
+\c@uniquelist=\count316
+\c@uniquename=\count317
+\c@refsection=\count318
+\c@refsegment=\count319
+\c@maxextratitle=\count320
+\c@maxextratitleyear=\count321
+\c@maxextraname=\count322
+\c@maxextradate=\count323
+\c@maxextraalpha=\count324
+\c@abbrvpenalty=\count325
+\c@highnamepenalty=\count326
+\c@lownamepenalty=\count327
+\c@maxparens=\count328
+\c@parenlevel=\count329
+\blx@tempcnta=\count330
+\blx@tempcntb=\count331
+\blx@tempcntc=\count332
+\c@blx@maxsection=\count333
+\blx@maxsegment@0=\count334
+\blx@notetype=\count335
+\blx@parenlevel@text=\count336
+\blx@parenlevel@foot=\count337
+\blx@sectionciteorder@0=\count338
+\blx@sectionciteorderinternal@0=\count339
+\blx@entrysetcounter=\count340
+\blx@biblioinstance=\count341
+\labelnumberwidth=\skip67
+\labelalphawidth=\skip68
+\biblabelsep=\skip69
+\bibitemsep=\skip70
+\bibnamesep=\skip71
+\bibinitsep=\skip72
+\bibparsep=\skip73
+\bibhang=\skip74
+\blx@bcfin=\read3
+\blx@bcfout=\write3
+\blx@langwohyphens=\language86
+\c@mincomprange=\count342
+\c@maxcomprange=\count343
+\c@mincompwidth=\count344
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2024/03/21 v3.20 biblatex datamodel (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count345
+\c@savedafterword=\count346
+\c@annotator=\count347
+\c@savedannotator=\count348
+\c@author=\count349
+\c@savedauthor=\count350
+\c@bookauthor=\count351
+\c@savedbookauthor=\count352
+\c@commentator=\count353
+\c@savedcommentator=\count354
+\c@editor=\count355
+\c@savededitor=\count356
+\c@editora=\count357
+\c@savededitora=\count358
+\c@editorb=\count359
+\c@savededitorb=\count360
+\c@editorc=\count361
+\c@savededitorc=\count362
+\c@foreword=\count363
+\c@savedforeword=\count364
+\c@holder=\count365
+\c@savedholder=\count366
+\c@introduction=\count367
+\c@savedintroduction=\count368
+\c@namea=\count369
+\c@savednamea=\count370
+\c@nameb=\count371
+\c@savednameb=\count372
+\c@namec=\count373
+\c@savednamec=\count374
+\c@translator=\count375
+\c@savedtranslator=\count376
+\c@shortauthor=\count377
+\c@savedshortauthor=\count378
+\c@shorteditor=\count379
+\c@savedshorteditor=\count380
+\c@labelname=\count381
+\c@savedlabelname=\count382
+\c@institution=\count383
+\c@savedinstitution=\count384
+\c@lista=\count385
+\c@savedlista=\count386
+\c@listb=\count387
+\c@savedlistb=\count388
+\c@listc=\count389
+\c@savedlistc=\count390
+\c@listd=\count391
+\c@savedlistd=\count392
+\c@liste=\count393
+\c@savedliste=\count394
+\c@listf=\count395
+\c@savedlistf=\count396
+\c@location=\count397
+\c@savedlocation=\count398
+\c@organization=\count399
+\c@savedorganization=\count400
+\c@origlocation=\count401
+\c@savedoriglocation=\count402
+\c@origpublisher=\count403
+\c@savedorigpublisher=\count404
+\c@publisher=\count405
+\c@savedpublisher=\count406
+\c@language=\count407
+\c@savedlanguage=\count408
+\c@origlanguage=\count409
+\c@savedoriglanguage=\count410
+\c@pageref=\count411
+\c@savedpageref=\count412
+\shorthandwidth=\skip75
+\shortjournalwidth=\skip76
+\shortserieswidth=\skip77
+\shorttitlewidth=\skip78
+\shortauthorwidth=\skip79
+\shorteditorwidth=\skip80
+\locallabelnumberwidth=\skip81
+\locallabelalphawidth=\skip82
+\localshorthandwidth=\skip83
+\localshortjournalwidth=\skip84
+\localshortserieswidth=\skip85
+\localshorttitlewidth=\skip86
+\localshortauthorwidth=\skip87
+\localshorteditorwidth=\skip88
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
+\c@textcitecount=\count413
+\c@textcitetotal=\count414
+\c@textcitemaxnames=\count415
+\c@biburlbigbreakpenalty=\count416
+\c@biburlbreakpenalty=\count417
+\c@biburlnumpenalty=\count418
+\c@biburlucpenalty=\count419
+\c@biburllcpenalty=\count420
+\biburlbigskip=\muskip18
+\biburlnumskip=\muskip19
+\biburlucskip=\muskip20
+\biburllcskip=\muskip21
+\c@smartand=\count421
+)
+Package biblatex Info: Trying to load bibliography style 'numeric'...
+Package biblatex Info: ... file 'numeric.bbx' found.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2024/03/21 v3.20 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2024/03/21 v3.20 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count422
+\c@bbx:relatedtotal=\count423
+))
+Package biblatex Info: Trying to load citation style 'numeric'...
+Package biblatex Info: ... file 'numeric.cbx' found.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2024/03/21 v3.20 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\supercite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Document encoding is UTF8 ....
+ (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2023-02-22 L3 programming layer (loader) 
+ (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count424
+\l__pdf_internal_box=\box54
+))
+Package biblatex Info: ... and expl3
+(biblatex)             2023-02-22 L3 programming layer (loader) 
+(biblatex)             is new enough (at least 2020/04/06),
+(biblatex)             setting 'casechanger=expl3'.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2023-02-02 L3 Experimental document command parser
+)
+Package: blx-case-expl3 2024/03/21 v3.20 expl3 case changing code for biblatex
+)) (/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
-\labelindent=\skip67
+\labelindent=\skip89
 \enit@outerparindent=\dimen179
 \enit@toks=\toks33
-\enit@inbox=\box54
-\enit@count@id=\count298
-\enitdp@description=\count299
+\enit@inbox=\box55
+\enit@count@id=\count425
+\enitdp@description=\count426
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 67.
- (/usr/share/texlive/texmf-dist/tex/latex/lm/t1lmr.fd
+
+Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
+(biblatex)                Loading 'csquotes' recommended.
+
+\@quotelevel=\count427
+\@quotereset=\count428
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 70.
+(/usr/share/texlive/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count300
-\l__pdf_internal_box=\box55
 ) (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux) (out/classificazione.aux) (out/regressione.aux) (out/grafi.aux) (out/subgraphmatching.aux) (out/reti_neurali.aux))
 \openout1 = `DataMining.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 67.
-LaTeX Font Info:    ... okay on input line 67.
-LaTeX Info: Redefining \it@ocap on input line 67.
-LaTeX Info: Redefining \it@ccap on input line 67.
-LaTeX Info: Redefining \microtypecontext on input line 67.
-Package microtype Info: Applying patch `item' on input line 67.
-Package microtype Info: Applying patch `toc' on input line 67.
-Package microtype Info: Applying patch `eqnum' on input line 67.
-Package microtype Info: Applying patch `footnote' on input line 67.
-Package microtype Info: Applying patch `verbatim' on input line 67.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Info: Redefining \it@ocap on input line 70.
+LaTeX Info: Redefining \it@ccap on input line 70.
+LaTeX Info: Redefining \microtypecontext on input line 70.
+Package microtype Info: Applying patch `item' on input line 70.
+Package microtype Info: Applying patch `toc' on input line 70.
+Package microtype Info: Applying patch `eqnum' on input line 70.
+Package microtype Info: Applying patch `footnote' on input line 70.
+Package microtype Info: Applying patch `verbatim' on input line 70.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 67.
+LaTeX Info: Redefining \showhyphens on input line 70.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -458,16 +688,16 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count301
+\scratchcounter=\count429
 \scratchdimen=\dimen180
 \scratchbox=\box56
-\nofMPsegments=\count302
-\nofMParguments=\count303
+\nofMPsegments=\count430
+\nofMParguments=\count431
 \everyMPshowfont=\toks34
-\MPscratchCnt=\count304
+\MPscratchCnt=\count432
 \MPscratchDim=\dimen181
-\MPnumerator=\count305
-\makeMPintoPDFobject=\count306
+\MPnumerator=\count433
+\makeMPintoPDFobject=\count434
 \everyMPtoPDFconversion=\toks35
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -475,40 +705,55 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 67.
+Package hyperref Info: Link coloring OFF on input line 70.
  (out/DataMining.out) (out/DataMining.out)
-\@outlinefile=\write3
-\openout3 = `DataMining.out'.
+\@outlinefile=\write4
+\openout4 = `DataMining.out'.
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 71.
+Package biblatex Info: Trying to load language 'italian'...
+Package biblatex Info: ... file 'italian.lbx' found.
+ (/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/italian.lbx
+File: italian.lbx 2024/03/21 v3.20 biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout3 = `DataMining.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'DataMining.bbl' found.
+ (out/DataMining.bbl)
+Package biblatex Info: Reference section=0 on input line 70.
+Package biblatex Info: Reference segment=0 on input line 70.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 74.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 71.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 74.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 71.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 74.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 71.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 74.
  (/usr/share/texlive/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 71.
+(Font)              <12> on input line 74.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 71.
+(Font)              <8> on input line 74.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 71.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 71.
+(Font)              <6> on input line 74.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 74.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 71.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 74.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
@@ -523,8 +768,8 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 4.
  [3] [4] [5{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}] [6])
-\tf@toc=\write4
-\openout4 = `DataMining.toc'.
+\tf@toc=\write5
+\openout5 = `DataMining.toc'.
 
  [7] [8
 
@@ -578,7 +823,7 @@ Overfull \hbox (2.02293pt too wide) in paragraph at lines 134--135
  []
 
 [16] [17] [18]
-<images/SVD.png, id=992, 1373.13pt x 750.805pt>
+<images/SVD.png, id=1037, 1373.13pt x 750.805pt>
 File: images/SVD.png Graphic file (type png)
 <use images/SVD.png>
 Package pdftex.def Info: images/SVD.png  used on input line 196.
@@ -594,7 +839,7 @@ Capitolo 4.
 
 
 ]
-<images/insiemi_frequenti_massimale.png, id=1011, 830.10126pt x 559.08875pt>
+<images/insiemi_frequenti_massimale.png, id=1057, 830.10126pt x 559.08875pt>
 File: images/insiemi_frequenti_massimale.png Graphic file (type png)
 <use images/insiemi_frequenti_massimale.png>
 Package pdftex.def Info: images/insiemi_frequenti_massimale.png  used on input line 61.
@@ -605,12 +850,12 @@ Overfull \hbox (4.59721pt too wide) in paragraph at lines 108--115
  []
 
 [24] [25]
-<images/fp-growth-complete.png, id=1052, 975.645pt x 539.01375pt>
+<images/fp-growth-complete.png, id=1097, 975.645pt x 539.01375pt>
 File: images/fp-growth-complete.png Graphic file (type png)
 <use images/fp-growth-complete.png>
 Package pdftex.def Info: images/fp-growth-complete.png  used on input line 180.
 (pdftex.def)             Requested size: 392.64725pt x 216.92584pt.
-<images/fp-growth-links.png, id=1053, 877.2775pt x 566.115pt>
+<images/fp-growth-links.png, id=1098, 877.2775pt x 566.115pt>
 File: images/fp-growth-links.png Graphic file (type png)
 <use images/fp-growth-links.png>
 Package pdftex.def Info: images/fp-growth-links.png  used on input line 200.
@@ -636,18 +881,18 @@ Overfull \hbox (54.78693pt too wide) detected at line 46
  []
 
 [29] [30]
-<images/cluster_distances.png, id=1099, 560.0925pt x 877.2775pt>
+<images/cluster_distances.png, id=1144, 560.0925pt x 877.2775pt>
 File: images/cluster_distances.png Graphic file (type png)
 <use images/cluster_distances.png>
 Package pdftex.def Info: images/cluster_distances.png  used on input line 116.
 (pdftex.def)             Requested size: 115.23547pt x 180.48558pt.
-<images/dendograms.png, id=1100, 1394.20876pt x 650.43pt>
+<images/dendograms.png, id=1145, 1394.20876pt x 650.43pt>
 File: images/dendograms.png Graphic file (type png)
 <use images/dendograms.png>
 Package pdftex.def Info: images/dendograms.png  used on input line 130.
 (pdftex.def)             Requested size: 320.0935pt x 149.32777pt.
  [31 <./images/cluster_distances.png>] [32 <./images/dendograms.png>]
-<images/k-means.png, id=1118, 1162.3425pt x 609.27625pt>
+<images/k-means.png, id=1164, 1162.3425pt x 609.27625pt>
 File: images/k-means.png Graphic file (type png)
 <use images/k-means.png>
 Package pdftex.def Info: images/k-means.png  used on input line 192.
@@ -661,7 +906,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 207.
 
-<images/elbow-k.png, id=1133, 1298.8525pt x 731.73375pt>
+<images/elbow-k.png, id=1178, 1298.8525pt x 731.73375pt>
 File: images/elbow-k.png Graphic file (type png)
 <use images/elbow-k.png>
 Package pdftex.def Info: images/elbow-k.png  used on input line 220.
@@ -676,24 +921,24 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [35]
-<images/dbscan_core.png, id=1153, 1298.8525pt x 519.9425pt>
+<images/dbscan_core.png, id=1198, 1298.8525pt x 519.9425pt>
 File: images/dbscan_core.png Graphic file (type png)
 <use images/dbscan_core.png>
 Package pdftex.def Info: images/dbscan_core.png  used on input line 286.
 (pdftex.def)             Requested size: 290.21498pt x 116.17278pt.
-<images/kdistance_plot.png, id=1154, 1422.31375pt x 779.91376pt>
+<images/kdistance_plot.png, id=1199, 1422.31375pt x 779.91376pt>
 File: images/kdistance_plot.png Graphic file (type png)
 <use images/kdistance_plot.png>
 Package pdftex.def Info: images/kdistance_plot.png  used on input line 304.
 (pdftex.def)             Requested size: 290.21498pt x 159.13362pt.
  [36 <./images/dbscan_core.png>]
-<images/optics_reachability.png, id=1169, 1441.385pt x 865.2325pt>
+<images/optics_reachability.png, id=1214, 1441.385pt x 865.2325pt>
 File: images/optics_reachability.png Graphic file (type png)
 <use images/optics_reachability.png>
 Package pdftex.def Info: images/optics_reachability.png  used on input line 354.
 (pdftex.def)             Requested size: 341.43437pt x 204.95355pt.
  [37 <./images/kdistance_plot.png>]
-<images/cluster_extraction_optics.png, id=1179, 1587.9325pt x 653.44125pt>
+<images/cluster_extraction_optics.png, id=1224, 1587.9325pt x 653.44125pt>
 File: images/cluster_extraction_optics.png Graphic file (type png)
 <use images/cluster_extraction_optics.png>
 Package pdftex.def Info: images/cluster_extraction_optics.png  used on input line 368.
@@ -702,18 +947,18 @@ Package pdftex.def Info: images/cluster_extraction_optics.png  used on input lin
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [38 <./images/optics_reachability.png> <./images/cluster_extraction_optics.png>]
-<images/HDBSCAN_example.png, id=1189, 1499.6025pt x 512.91624pt>
+<images/HDBSCAN_example.png, id=1234, 1499.6025pt x 512.91624pt>
 File: images/HDBSCAN_example.png Graphic file (type png)
 <use images/HDBSCAN_example.png>
 Package pdftex.def Info: images/HDBSCAN_example.png  used on input line 402.
 (pdftex.def)             Requested size: 426.79135pt x 145.97133pt.
  [39] [40 <./images/HDBSCAN_example.png>]
-<images/hdbscan_mst.png, id=1212, 1143.27126pt x 762.85pt>
+<images/hdbscan_mst.png, id=1257, 1143.27126pt x 762.85pt>
 File: images/hdbscan_mst.png Graphic file (type png)
 <use images/hdbscan_mst.png>
 Package pdftex.def Info: images/hdbscan_mst.png  used on input line 490.
 (pdftex.def)             Requested size: 196.32687pt x 130.99812pt.
-<images/hdbscan_condensed_tree.png, id=1213, 920.43875pt x 567.11874pt>
+<images/hdbscan_condensed_tree.png, id=1258, 920.43875pt x 567.11874pt>
 File: images/hdbscan_condensed_tree.png Graphic file (type png)
 <use images/hdbscan_condensed_tree.png>
 Package pdftex.def Info: images/hdbscan_condensed_tree.png  used on input line 491.
@@ -728,18 +973,18 @@ Package pdftex.def Info: images/hdbscan_condensed_tree.png  used on input line 4
 
 ]
 Capitolo 6.
-<images/schema_classificatore.png, id=1230, 1852.9225pt x 744.7825pt>
+<images/schema_classificatore.png, id=1276, 1852.9225pt x 744.7825pt>
 File: images/schema_classificatore.png Graphic file (type png)
 <use images/schema_classificatore.png>
 Package pdftex.def Info: images/schema_classificatore.png  used on input line 26.
 (pdftex.def)             Requested size: 307.29028pt x 123.50885pt.
 [43]
-<images/weather_table.png, id=1240, 799.98875pt x 682.55pt>
+<images/weather_table.png, id=1286, 799.98875pt x 682.55pt>
 File: images/weather_table.png Graphic file (type png)
 <use images/weather_table.png>
 Package pdftex.def Info: images/weather_table.png  used on input line 52.
 (pdftex.def)             Requested size: 213.39568pt x 182.06218pt.
-<images/decision_tree_weather.png, id=1241, 1003.75pt x 712.6625pt>
+<images/decision_tree_weather.png, id=1287, 1003.75pt x 712.6625pt>
 File: images/decision_tree_weather.png Graphic file (type png)
 <use images/decision_tree_weather.png>
 Package pdftex.def Info: images/decision_tree_weather.png  used on input line 56.
@@ -749,31 +994,31 @@ Overfull \hbox (67.96466pt too wide) detected at line 128
 []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 246\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 029\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 151\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 048\OML/lmm/m/it/10.95 :
  []
 
-<images/ig_outlook_example.png, id=1263, 1613.02625pt x 540.0175pt>
+<images/ig_outlook_example.png, id=1308, 1613.02625pt x 540.0175pt>
 File: images/ig_outlook_example.png Graphic file (type png)
 <use images/ig_outlook_example.png>
 Package pdftex.def Info: images/ig_outlook_example.png  used on input line 137.
 (pdftex.def)             Requested size: 384.1096pt x 128.59332pt.
 [46 <./images/ig_outlook_example.png>] [47] [48]
-<images/tree_pruning_example.png, id=1289, 1595.9625pt x 816.04875pt>
+<images/tree_pruning_example.png, id=1334, 1595.9625pt x 816.04875pt>
 File: images/tree_pruning_example.png Graphic file (type png)
 <use images/tree_pruning_example.png>
 Package pdftex.def Info: images/tree_pruning_example.png  used on input line 248.
 (pdftex.def)             Requested size: 320.0935pt x 163.66757pt.
  [49 <./images/tree_pruning_example.png>] [50]
-<images/bayes_network_example.png, id=1307, 1531.7225pt x 861.2175pt>
+<images/bayes_network_example.png, id=1352, 1531.7225pt x 861.2175pt>
 File: images/bayes_network_example.png Graphic file (type png)
 <use images/bayes_network_example.png>
 Package pdftex.def Info: images/bayes_network_example.png  used on input line 313.
 (pdftex.def)             Requested size: 384.1096pt x 215.96089pt.
  [51 <./images/bayes_network_example.png>] [52] [53]
-<images/svm_margin.png, id=1342, 1146.2825pt x 668.4975pt>
+<images/svm_margin.png, id=1388, 1146.2825pt x 668.4975pt>
 File: images/svm_margin.png Graphic file (type png)
 <use images/svm_margin.png>
 Package pdftex.def Info: images/svm_margin.png  used on input line 410.
 (pdftex.def)             Requested size: 384.1096pt x 224.0118pt.
  [54 <./images/svm_margin.png>]
-<images/normalized_hyperplane_svm.png, id=1350, 1298.8525pt x 863.225pt>
+<images/normalized_hyperplane_svm.png, id=1396, 1298.8525pt x 863.225pt>
 File: images/normalized_hyperplane_svm.png Graphic file (type png)
 <use images/normalized_hyperplane_svm.png>
 Package pdftex.def Info: images/normalized_hyperplane_svm.png  used on input line 447.
@@ -785,19 +1030,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 1796) has occurred while \output is active []
 
  [56] [57]
-<images/knn_example.png, id=1372, 1038.88126pt x 746.79pt>
+<images/knn_example.png, id=1417, 1038.88126pt x 746.79pt>
 File: images/knn_example.png Graphic file (type png)
 <use images/knn_example.png>
 Package pdftex.def Info: images/knn_example.png  used on input line 557.
 (pdftex.def)             Requested size: 341.43437pt x 245.42729pt.
  [58 <./images/knn_example.png>]
-<images/random_forest.png, id=1381, 2633.84pt x 2087.8pt>
+<images/random_forest.png, id=1426, 2633.84pt x 2087.8pt>
 File: images/random_forest.png Graphic file (type png)
 <use images/random_forest.png>
 Package pdftex.def Info: images/random_forest.png  used on input line 601.
 (pdftex.def)             Requested size: 320.0935pt x 253.7109pt.
  [59]
-<images/boosting_example.png, id=1399, 1331.97626pt x 764.8575pt>
+<images/boosting_example.png, id=1444, 1331.97626pt x 764.8575pt>
 File: images/boosting_example.png Graphic file (type png)
 <use images/boosting_example.png>
 Package pdftex.def Info: images/boosting_example.png  used on input line 625.
@@ -809,7 +1054,7 @@ Underfull \vbox (badness 1515) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [61 <./images/boosting_example.png>]
-<images/aumento_pesi_tuple.png, id=1424, 1376.14125pt x 861.2175pt>
+<images/aumento_pesi_tuple.png, id=1469, 1376.14125pt x 861.2175pt>
 File: images/aumento_pesi_tuple.png Graphic file (type png)
 <use images/aumento_pesi_tuple.png>
 Package pdftex.def Info: images/aumento_pesi_tuple.png  used on input line 685.
@@ -818,13 +1063,13 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 687.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 687.
-<images/diminuzione_pesI_tuple.png, id=1425, 1421.31pt x 866.23625pt>
+<images/diminuzione_pesI_tuple.png, id=1470, 1421.31pt x 866.23625pt>
 File: images/diminuzione_pesI_tuple.png Graphic file (type png)
 <use images/diminuzione_pesI_tuple.png>
 Package pdftex.def Info: images/diminuzione_pesI_tuple.png  used on input line 691.
 (pdftex.def)             Requested size: 204.85802pt x 124.85423pt.
  [62 <./images/aumento_pesi_tuple.png> <./images/diminuzione_pesI_tuple.png>]
-<images/confusion_matrix.png, id=1440, 801.99625pt x 464.73625pt>
+<images/confusion_matrix.png, id=1485, 801.99625pt x 464.73625pt>
 File: images/confusion_matrix.png Graphic file (type png)
 <use images/confusion_matrix.png>
 Package pdftex.def Info: images/confusion_matrix.png  used on input line 709.
@@ -833,7 +1078,7 @@ Package pdftex.def Info: images/confusion_matrix.png  used on input line 709.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [63 <./images/confusion_matrix.png>]
-<images/curve-roc-example.png, id=1449, 899.36pt x 915.42pt>
+<images/curve-roc-example.png, id=1494, 899.36pt x 915.42pt>
 File: images/curve-roc-example.png Graphic file (type png)
 <use images/curve-roc-example.png>
 Package pdftex.def Info: images/curve-roc-example.png  used on input line 755.
@@ -858,65 +1103,65 @@ Capitolo 7.
 
 ]
 Capitolo 8.
-<images/grafo_esemipo.png, id=1473, 456.5055pt x 282.45525pt>
+<images/grafo_esemipo.png, id=1519, 456.5055pt x 282.45525pt>
 File: images/grafo_esemipo.png Graphic file (type png)
 <use images/grafo_esemipo.png>
 Package pdftex.def Info: images/grafo_esemipo.png  used on input line 14.
 (pdftex.def)             Requested size: 256.07741pt x 158.44106pt.
 [69 <./images/grafo_esemipo.png>]
-<images/grafo_diretto_indiretto.png, id=1480, 1561.835pt x 561.09625pt>
+<images/grafo_diretto_indiretto.png, id=1526, 1561.835pt x 561.09625pt>
 File: images/grafo_diretto_indiretto.png Graphic file (type png)
 <use images/grafo_diretto_indiretto.png>
 Package pdftex.def Info: images/grafo_diretto_indiretto.png  used on input line 33.
 (pdftex.def)             Requested size: 341.43437pt x 122.66245pt.
  [70 <./images/grafo_diretto_indiretto.png>]
-<images/grafo_pesato_etichettato.png, id=1489, 1541.76pt x 1027.84pt>
+<images/grafo_pesato_etichettato.png, id=1534, 1541.76pt x 1027.84pt>
 File: images/grafo_pesato_etichettato.png Graphic file (type png)
 <use images/grafo_pesato_etichettato.png>
 Package pdftex.def Info: images/grafo_pesato_etichettato.png  used on input line 49.
 (pdftex.def)             Requested size: 341.43437pt x 227.61543pt.
  [71 <./images/grafo_pesato_etichettato.png (PNG copy)>]
-<images/grafo_bipartito_esempio.png, id=1496, 1541.76pt x 1027.84pt>
+<images/grafo_bipartito_esempio.png, id=1541, 1541.76pt x 1027.84pt>
 File: images/grafo_bipartito_esempio.png Graphic file (type png)
 <use images/grafo_bipartito_esempio.png>
 Package pdftex.def Info: images/grafo_bipartito_esempio.png  used on input line 88.
 (pdftex.def)             Requested size: 341.43437pt x 227.61543pt.
  [72 <./images/grafo_bipartito_esempio.png (PNG copy)>]
-<images/grafo_regolare_completo.png, id=1502, 1476.51625pt x 475.7775pt>
+<images/grafo_regolare_completo.png, id=1547, 1476.51625pt x 475.7775pt>
 File: images/grafo_regolare_completo.png Graphic file (type png)
 <use images/grafo_regolare_completo.png>
 Package pdftex.def Info: images/grafo_regolare_completo.png  used on input line 105.
 (pdftex.def)             Requested size: 426.79135pt x 137.52182pt.
-<images/cammino.png, id=1503, 479.7925pt x 333.245pt>
+<images/cammino.png, id=1548, 479.7925pt x 333.245pt>
 File: images/cammino.png Graphic file (type png)
 <use images/cammino.png>
 Package pdftex.def Info: images/cammino.png  used on input line 115.
 (pdftex.def)             Requested size: 256.07741pt x 177.86479pt.
  [73 <./images/grafo_regolare_completo.png>] [74 <./images/cammino.png>]
-<images/clustering_coeff.png, id=1521, 857.2025pt x 352.31625pt>
+<images/clustering_coeff.png, id=1566, 857.2025pt x 352.31625pt>
 File: images/clustering_coeff.png Graphic file (type png)
 <use images/clustering_coeff.png>
 Package pdftex.def Info: images/clustering_coeff.png  used on input line 154.
 (pdftex.def)             Requested size: 426.79135pt x 175.4158pt.
  [75 <./images/clustering_coeff.png>]
-<images/betweenness_centrality.png, id=1528, 595.22375pt x 620.3175pt>
+<images/betweenness_centrality.png, id=1573, 595.22375pt x 620.3175pt>
 File: images/betweenness_centrality.png Graphic file (type png)
 <use images/betweenness_centrality.png>
 Package pdftex.def Info: images/betweenness_centrality.png  used on input line 189.
 (pdftex.def)             Requested size: 170.71393pt x 177.90923pt.
  [76] [77 <./images/betweenness_centrality.png>]
-<images/centralita_prossimita.png, id=1545, 661.47125pt x 607.26875pt>
+<images/centralita_prossimita.png, id=1590, 661.47125pt x 607.26875pt>
 File: images/centralita_prossimita.png Graphic file (type png)
 <use images/centralita_prossimita.png>
 Package pdftex.def Info: images/centralita_prossimita.png  used on input line 235.
 (pdftex.def)             Requested size: 170.71393pt x 156.71861pt.
  [78 <./images/centralita_prossimita.png>]
-<images/pagerank_initial.png, id=1553, 831.105pt x 525.965pt>
+<images/pagerank_initial.png, id=1598, 831.105pt x 525.965pt>
 File: images/pagerank_initial.png Graphic file (type png)
 <use images/pagerank_initial.png>
 Package pdftex.def Info: images/pagerank_initial.png  used on input line 260.
 (pdftex.def)             Requested size: 192.0548pt x 121.53922pt.
-<images/pagerank_rounds.png, id=1554, 1284.8pt x 487.8225pt>
+<images/pagerank_rounds.png, id=1599, 1284.8pt x 487.8225pt>
 File: images/pagerank_rounds.png Graphic file (type png)
 <use images/pagerank_rounds.png>
 Package pdftex.def Info: images/pagerank_rounds.png  used on input line 280.
@@ -926,12 +1171,12 @@ Package pdftex.def Info: images/pagerank_rounds.png  used on input line 280.
 
  (./subgraphmatching.tex
 Capitolo 9.
-<images/subgraph_mapping_example.png, id=1568, 1245.65375pt x 366.36874pt>
+<images/subgraph_mapping_example.png, id=1613, 1245.65375pt x 366.36874pt>
 File: images/subgraph_mapping_example.png Graphic file (type png)
 <use images/subgraph_mapping_example.png>
 Package pdftex.def Info: images/subgraph_mapping_example.png  used on input line 9.
 (pdftex.def)             Requested size: 341.43437pt x 100.41908pt.
-<images/automorphism_example.png, id=1569, 1451.4225pt x 409.53pt>
+<images/automorphism_example.png, id=1614, 1451.4225pt x 409.53pt>
 File: images/automorphism_example.png Graphic file (type png)
 <use images/automorphism_example.png>
 Package pdftex.def Info: images/automorphism_example.png  used on input line 19.
@@ -942,59 +1187,98 @@ Package pdftex.def Info: images/automorphism_example.png  used on input line 19.
 
 
  <./images/subgraph_mapping_example.png>]
-<images/subgraph_matching_example.png, id=1576, 820.06375pt x 509.905pt>
+<images/subgraph_matching_example.png, id=1622, 820.06375pt x 509.905pt>
 File: images/subgraph_matching_example.png Graphic file (type png)
 <use images/subgraph_matching_example.png>
 Package pdftex.def Info: images/subgraph_matching_example.png  used on input line 33.
 (pdftex.def)             Requested size: 341.43437pt x 212.30687pt.
  [82 <./images/automorphism_example.png> <./images/subgraph_matching_example.png>]
-<images/bruteforce_subgraph_matching.png, id=1586, 1541.76pt x 1027.84pt>
+<images/bruteforce_subgraph_matching.png, id=1632, 1541.76pt x 1027.84pt>
 File: images/bruteforce_subgraph_matching.png Graphic file (type png)
 <use images/bruteforce_subgraph_matching.png>
 Package pdftex.def Info: images/bruteforce_subgraph_matching.png  used on input line 51.
 (pdftex.def)             Requested size: 332.89673pt x 221.9223pt.
  [83 <./images/bruteforce_subgraph_matching.png (PNG copy)>]
-<images/backtracking_subgraph_matching.png, id=1594, 1359.0775pt x 533.995pt>
+<images/backtracking_subgraph_matching.png, id=1640, 1359.0775pt x 533.995pt>
 File: images/backtracking_subgraph_matching.png Graphic file (type png)
 <use images/backtracking_subgraph_matching.png>
 Package pdftex.def Info: images/backtracking_subgraph_matching.png  used on input line 67.
 (pdftex.def)             Requested size: 341.43437pt x 134.15027pt.
-<images/ullmann_algorithm_example.png, id=1595, 1541.76pt x 1027.84pt>
+<images/ullmann_algorithm_example.png, id=1641, 1541.76pt x 1027.84pt>
 File: images/ullmann_algorithm_example.png Graphic file (type png)
 <use images/ullmann_algorithm_example.png>
 Package pdftex.def Info: images/ullmann_algorithm_example.png  used on input line 79.
 (pdftex.def)             Requested size: 384.1096pt x 256.0654pt.
- [84 <./images/backtracking_subgraph_matching.png>] [85 <./images/ullmann_algorithm_example.png (PNG copy)>]) [86]
+ [84 <./images/backtracking_subgraph_matching.png>] [85 <./images/ullmann_algorithm_example.png (PNG copy)>]
+<images/vf_algorithm_example.png, id=1656, 1541.76pt x 1027.84pt>
+File: images/vf_algorithm_example.png Graphic file (type png)
+<use images/vf_algorithm_example.png>
+Package pdftex.def Info: images/vf_algorithm_example.png  used on input line 133.
+(pdftex.def)             Requested size: 426.79135pt x 284.51537pt.
+ [86] [87 <./images/vf_algorithm_example.png (PNG copy)>] [88] [89]
+<images/ri_algorithm_example.png, id=1700, 793.96625pt x 935.495pt>
+File: images/ri_algorithm_example.png Graphic file (type png)
+<use images/ri_algorithm_example.png>
+Package pdftex.def Info: images/ri_algorithm_example.png  used on input line 218.
+(pdftex.def)             Requested size: 170.71393pt x 201.14177pt.
+ [90 <./images/ri_algorithm_example.png>] [91] [92]
+<images/feature_indexing_example.png, id=1728, 1297.84875pt x 612.2875pt>
+File: images/feature_indexing_example.png Graphic file (type png)
+<use images/feature_indexing_example.png>
+Package pdftex.def Info: images/feature_indexing_example.png  used on input line 329.
+(pdftex.def)             Requested size: 426.79135pt x 201.34544pt.
+ [93 <./images/feature_indexing_example.png>]
+<images/sing_algorithm_example.png, id=1738, 1682.285pt x 527.9725pt>
+File: images/sing_algorithm_example.png Graphic file (type png)
+<use images/sing_algorithm_example.png>
+Package pdftex.def Info: images/sing_algorithm_example.png  used on input line 362.
+(pdftex.def)             Requested size: 384.1096pt x 120.54494pt.
+ [94 <./images/sing_algorithm_example.png>]
+<images/sing_indexing_example.png, id=1750, 1856.9375pt x 776.9025pt>
+File: images/sing_indexing_example.png Graphic file (type png)
+<use images/sing_indexing_example.png>
+Package pdftex.def Info: images/sing_indexing_example.png  used on input line 380.
+(pdftex.def)             Requested size: 426.79135pt x 178.5534pt.
+ [95 <./images/sing_indexing_example.png>]) [96]
 \openout2 = `reti_neurali.aux'.
 
  (./reti_neurali.tex
 Capitolo 10.
-) [87
+) [97
 
 
 
 
-] [88
+] [98
 
 
+
+]
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/lmr/m/sc/10.95'.
+(microtype)             Ignoring protrusion settings for this character.
+ [99
 
 ] (out/DataMining.aux (out/prerequisiti.aux) (out/introduzione.aux) (out/preprocessing.aux) (out/insiemi_frequenti.aux) (out/clustering.aux) (out/classificazione.aux) (out/regressione.aux) (out/grafi.aux) (out/subgraphmatching.aux) (out/reti_neurali.aux))
 Package rerunfilecheck Info: File `DataMining.out' has not changed.
-(rerunfilecheck)             Checksum: 6FFE16061CB35E4CAAAFE098B436C67E;29643.
+(rerunfilecheck)             Checksum: 748D99B801EB2C302CDBDA7EC12A6D43;31170.
+Package logreq Info: Writing requests to 'DataMining.run.xml'.
+\openout1 = `DataMining.run.xml'.
+
  ) 
 Here is how much of TeX's memory you used:
- 16287 strings out of 476041
- 265159 string characters out of 5793173
- 1867388 words of memory out of 6000000
- 35386 multiletter control sequences out of 15000+600000
- 664538 words of font info for 334 fonts, out of 8000000 for 9000
+ 23698 strings out of 476041
+ 415212 string characters out of 5793173
+ 1868388 words of memory out of 6000000
+ 42653 multiletter control sequences out of 15000+600000
+ 667979 words of font info for 341 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
- 75i,12n,76p,1095b,786s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on out/DataMining.pdf (96 pages, 9327183 bytes).
+ 75i,12n,76p,1383b,2115s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on out/DataMining.pdf (107 pages, 10718278 bytes).
 PDF statistics:
- 1864 PDF objects out of 2073 (max. 8388607)
- 1605 compressed objects within 17 object streams
- 529 named destinations out of 1000 (max. 500000)
- 82932 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 2044 PDF objects out of 2073 (max. 8388607)
+ 1762 compressed objects within 18 object streams
+ 600 named destinations out of 1000 (max. 500000)
+ 85077 words of extra memory for PDF output out of 89155 (max. 10000000)
 

@@ -31,7 +31,7 @@ Definiamo $G_1 = (V_1, E_1)$ come il grafo query e $G_2 = (V_2, E_2)$ come il gr
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/subgraph_matching_example.png}
-    \caption{Esempio di \emph{subgraph matching}: il grafo \emph{Query} (in alto a sinistra) viene ricercato all’interno del grafo \emph{Target} (in alto a destra). In basso sono mostrati i possibili match del sottografo query all’interno del grafo target, evidenziati dai riquadri rossi.}
+    \caption{Esempio di \emph{subgraph matching}: il grafo \emph{Query} (in alto a sinistra) viene ricercato all'interno del grafo \emph{Target} (in alto a destra). In basso sono mostrati i possibili match del sottografo query all'interno del grafo target, evidenziati dai riquadri rossi.}
     \label{fig:subgraph_matching_example}
 \end{figure}
 
@@ -49,7 +49,7 @@ La soluzione più semplice per il problema del subgraph matching è l'approccio 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.78\textwidth]{images/bruteforce_subgraph_matching.png}
-    \caption{Ricerca \emph{brute force} per \emph{subgraph matching}: in alto i grafi \(G_a\) (query) e \(G_b\) (target); sotto l’albero di ricerca che esplora tutte le corrispondenze possibili tra vertici (es.\ \((1,4)\), \((1,5)\), \((1,6)\), \((1,7)\)). Le foglie evidenziate indicano i mapping completi che preservano le adiacenze (match isomorfi).}
+    \caption{Ricerca \emph{brute force} per \emph{subgraph matching}: in alto i grafi \(G_a\) (query) e \(G_b\) (target); sotto l'albero di ricerca che esplora tutte le corrispondenze possibili tra vertici (es.\ \((1,4)\), \((1,5)\), \((1,6)\), \((1,7)\)). Le foglie evidenziate indicano i mapping completi che preservano le adiacenze (match isomorfi).}
     \label{fig:bruteforce_subgraph_matching}
 \end{figure}
 
@@ -60,12 +60,12 @@ Questo è chiaramente una soluzione NP-Hard, inefficiente. Si possono adottare s
 \end{itemize}
 
 \paragraph{Esempio di backtracking.}
-Partendo dalla radice dell’albero di ricerca (figura \ref{fig:backtracking_subgraph_matching}), assegnamo progressivamente i vertici del grafo \emph{query} ai vertici del \emph{target}. Dopo le prime scelte \((1\!\to\!a)\) e \((2\!\to\!b)\), proviamo \((3\!\to\!c)\). A questo punto un controllo locale sui vincoli struttura-preservanti rivela un’incoerenza: il grado di \(3\) nel query è 3, mentre quello di \(c\) nel target è 2; quindi nessun proseguimento potrà produrre un mapping valido. L’algoritmo esegue allora \emph{pruning} del ramo e \emph{backtracking} allo stato precedente per provare alternative (ad es.\ \((3\!\to\!d)\)). Questo comportamento evita esplorazioni inutili e riduce drasticamente lo spazio di ricerca.
+Partendo dalla radice dell'albero di ricerca (figura \ref{fig:backtracking_subgraph_matching}), assegnamo progressivamente i vertici del grafo \emph{query} ai vertici del \emph{target}. Dopo le prime scelte \((1\!\to\!a)\) e \((2\!\to\!b)\), proviamo \((3\!\to\!c)\). A questo punto un controllo locale sui vincoli struttura-preservanti rivela un'incoerenza: il grado di \(3\) nel query è 3, mentre quello di \(c\) nel target è 2; quindi nessun proseguimento potrà produrre un mapping valido. L'algoritmo esegue allora \emph{pruning} del ramo e \emph{backtracking} allo stato precedente per provare alternative (ad es.\ \((3\!\to\!d)\)). Questo comportamento evita esplorazioni inutili e riduce drasticamente lo spazio di ricerca.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/backtracking_subgraph_matching.png}
-    \caption{Esempio di \emph{backtracking} con pruning nel \emph{subgraph matching}. A sinistra il grafo \emph{query} e il grafo \emph{target}; a destra l’albero di ricerca. Il ramo che mappa \((3\!\to\!c)\) viene potato perché viola un vincolo di grado (\(\deg(3)=3>\deg(c)=2\)), quindi non può condurre a una soluzione.}
+    \caption{Esempio di \emph{backtracking} con pruning nel \emph{subgraph matching}. A sinistra il grafo \emph{query} e il grafo \emph{target}; a destra l'albero di ricerca. Il ramo che mappa \((3\!\to\!c)\) viene potato perché viola un vincolo di grado (\(\deg(3)=3>\deg(c)=2\)), quindi non può condurre a una soluzione.}
     \label{fig:backtracking_subgraph_matching}
 \end{figure}
 
@@ -77,7 +77,7 @@ Dopo aver costruito una mappatura iniziale, l'algoritmo applica una procedura di
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{images/ullmann_algorithm_example.png}
-    \caption{Algoritmo di Ullmann: a sinistra il grafo \emph{query} \(Q\) e il grafo \emph{target} \(T\); a destra l’albero di ricerca con le corrispondenze provate. I nodi cerchiati in rosso indicano scelte scartate tramite \emph{pruning}; il ramo con \((3,7)\) completa un mapping valido.}
+    \caption{Algoritmo di Ullmann: a sinistra il grafo \emph{query} \(Q\) e il grafo \emph{target} \(T\); a destra l'albero di ricerca con le corrispondenze provate. I nodi cerchiati in rosso indicano scelte scartate tramite \emph{pruning}; il ramo con \((3,7)\) completa un mapping valido.}
     \label{fig:ullmann_algorithm_example}
 \end{figure}
 
@@ -108,3 +108,295 @@ Ad ogni passo dell'algoritmo:
     \item Si spostano $q$ e $t$ negli insiemi $M_Q$ e $M_T$ rispettivamente, e si aggiornano gli insiemi $T_Q, T_T, U_Q, U_T$ di conseguenza.
     \item Si ripete il processo fino a quando tutti i nodi del grafo query sono stati mappati (trovando così un match) o fino a quando non ci sono più nodi da mappare (in tal caso si esegue il backtracking).
 \end{enumerate}
+
+\paragraph{Regola di fattibilità.}
+L'algoritmo VF definisce 6 insiemi di nodi che si aggiornano durante la transizione da uno stato ad un altro e questi insiemi sono utilizzati per verificare la regola di fattibilità, che assicura che la mappatura parziale preservi le adiacenze tra i nodi mappati e i nodi adiacenti:
+\begin{itemize}
+    \item $\text{Match}_Q(s)$: insieme dei nodi query già mappati allo stato $s$.
+    \item $\text{Match}_T(s)$: insieme dei nodi target già mappati allo stato $s$.
+    \item $\text{Term}_Q(s)$: insieme dei nodi query adiacenti a quelli mappati allo stato $s$.
+    \item $\text{Term}_T(s)$: insieme dei nodi target adiacenti a quelli mappati allo stato $s$.
+    \item $\text{Rem}_Q(s)$: insieme dei nodi query non ancora considerati allo stato $s$.
+    \item $\text{Rem}_T(s)$: insieme dei nodi target non ancora considerati allo stato $s$.
+\end{itemize}
+
+\paragraph{Regola di fattibilità nei grafi indiretti.}
+Nel caso dei grafi indiretti, la regola di fattibilità richiede che una coppia di nodi $(q, t) \in P(s)$ (insieme delle coppie di nodi mappati allo stato $s$) viene aggiunta alla mappatura parziale $M(s)$ se e solo se:
+\begin{enumerate}
+    \item Per ogni nodo query $q' \in M_Q(s)$ connesso a $q$, esiste un nodo target corrispondente $t' \in M_T(s)$ connesso a $t$. Questo vincolo assicura che le adiacenze tra i nodi già mappati siano preservate.
+    \item Il numero di nodi query in $T_Q(s)$ connessi a $q$ è minore o uguale al numero di nodi target in $T_T(s)$ connessi a $t$, anche chiamata \textbf{regola look-ahead} ad un livello. In poche parole, questo vincolo assicura che ci siano abbastanza nodi target adiacenti per mappare i nodi query adiacenti.
+    \item Il numero di nodi query in $R_Q(s)$ connessi a $q$ è minore o uguale al numero di nodi target in $R_T(s)$ connessi a $t$, anche chiamata \textbf{regola look-ahead} a due livelli. Questo vincolo, invece, estende la verifica ai nodi non ancora considerati, assicurando che ci siano abbastanza nodi target disponibili per mappare i nodi query futuri.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/vf_algorithm_example.png}
+    \caption{Rappresentazione grafica dei sei insiemi utilizzati dall'algoritmo VF per verificare la regola di fattibilità durante la costruzione incrementale della mappatura tra nodi del grafo query $Q$ e nodi del grafo target $T$.  
+    La figura mostra, per uno stato $s$ dell'algoritmo, la suddivisione di entrambi i grafi nei tre insiemi fondamentali: i nodi già mappati ($\text{Match}_Q(s)$ e $\text{Match}_T(s)$), i nodi adiacenti a quelli mappati ($\text{Term}_Q(s)$ e $\text{Term}_T(s)$) e i nodi non ancora considerati ($\text{Rem}_Q(s)$ e $\text{Rem}_T(s)$).  
+    Le frecce tratteggiate indicano le possibili connessioni tra nodi dei diversi insiemi, mentre le frecce orizzontali centrali rappresentano la mappatura parziale $M(s)$ costruita dallo stato corrente.  
+    Questa struttura consente di verificare la regola di fattibilità: ogni nuova coppia $(q,t)$ può essere aggiunta alla mappatura se preserva le adiacenze verso i nodi già mappati, se esistono sufficienti nodi adiacenti disponibili (look-ahead a un livello) e se esistono sufficienti nodi non ancora considerati per supportare eventuali mappature future (look-ahead a due livelli).}
+    \label{fig:vf_algorithm_example}
+\end{figure}
+
+\paragraph{Regole di fattibilità nei grafi diretti.}
+Nel caso dei grafi diretti, la regola di fattibilità viene adattata per tenere conto della direzionalità degli archi. In particolare, vengono sdoppiati gli insiemi dei nodi adiacenti e non considerati in insiemi separati per i nodi entranti e uscenti:
+\begin{itemize}
+    \item $\text{Term}^{in}_Q(s), \text{Term}^{out}_Q(s)$: insiemi dei nodi query adiacenti a quelli mappati, rispettivamente entranti e uscenti.
+    \item $\text{Term}^{in}_T(s), \text{Term}^{out}_T(s)$: insiemi dei nodi target adiacenti a quelli mappati, rispettivamente entranti e uscenti.
+    \item $\text{Rem}^{in}_Q(s), \text{Rem}^{out}_Q(s)$: insiemi dei nodi query non ancora considerati, rispettivamente entranti e uscenti.
+    \item $\text{Rem}^{in}_T(s), \text{Rem}^{out}_T(s)$: insiemi dei nodi target non ancora considerati, rispettivamente entranti e uscenti.
+\end{itemize}
+
+\noindent
+In questo contesto, una coppia di nodi $(q, t) \in P(s)$ viene aggiunta alla mappatura parziale $M(s)$ se e solo se:
+\begin{enumerate}
+    \item Per ogni nodo query $q' \in M_Q(s)$ predecessore di $q$ (cioè con un arco diretto verso $q$), esiste un nodo target corrispondente $t' \in M_T(s)$ predecessore di $t$. Questo vincolo assicura che le adiacenze direzionali tra i nodi già mappati siano preservate.
+    \item Analogamente, per ogni nodo query $q' \in M_Q(s)$ successore di $q$ (cioè con un arco diretto da $q$), esiste un nodo target corrispondente $t' \in M_T(s)$ successore di $t$. Questo vincolo assicura che le adiacenze direzionali tra i nodi già mappati siano preservate.
+    \item Il numero di nodi query in $\text{Term}^{in}_Q(s)$ predecessori di $q$ è minore o uguale al numero di nodi target in $\text{Term}^{in}_T(s)$ predecessori di $t$ (look-ahead a un livello per i predecessori).
+    \item Il numero di nodi query in $\text{Term}^{out}_Q(s)$ successori di $q$ è minore o uguale al numero di nodi target in $\text{Term}^{out}_T(s)$ successori di $t$ (look-ahead a un livello per i successori).
+    \item Il numero di nodi query in $\text{Rem}^{in}_Q(s)$ predecessori di $q$ è minore o uguale al numero di nodi target in $\text{Rem}^{in}_T(s)$ predecessori di $t$ (look-ahead a due livelli per i predecessori).
+    \item Il numero di nodi query in $\text{Rem}^{out}_Q(s)$ successori di $q$ è minore o uguale al numero di nodi target in $\text{Rem}^{out}_T(s)$ successori di $t$ (look-ahead a due livelli per i successori).
+\end{enumerate}
+
+\paragraph{Complessità e considerazioni.}
+L'algoritmo VF è noto per essere più efficiente rispetto ad altri approcci di subgraph matching, grazie alla sua capacità di ridurre lo spazio di ricerca attraverso l'uso di vincoli locali e strategie di pruning. Tuttavia, la complessità computazionale rimane elevata nei casi peggiori, essendo ancora un problema NP-Completo. 
+
+Nel caso di isomorfismo, basta cambiare la condizione delle regole look-ahead da "minore o uguale" a "uguale", in modo da garantire che ogni nodo del grafo query abbia un corrispondente esatto nel grafo target. 
+
+La \textbf{complessità computazionale} dell'algoritmo VF, per un grafo a $N$ nodi, è di $O(N!N)$ nel caso peggiore, perché ogni nodo può avere nel caso peggiore $N$ possibili mappature e per ogni mappatura si devono verificare $N$ vincoli di adiacenza. Nel caso migliore, la complessità può scendere a $O(N^2)$ grazie al pruning efficace che riduce drasticamente lo spazio di ricerca.
+
+La \textbf{complessità spaziale} dell'algoritmo VF è di $O(N^2)$, poiché richiede di memorizzare le strutture dati per i sei insiemi di nodi (mappati, adiacenti e non considerati) per entrambi i grafi, oltre alla mappatura parziale corrente.
+
+\subsection{Algoritmo VF2}
+L'algoritmo VF2 è un miglioramento dell'algoritmo VF, progettato per essere più efficiente nel risolvere il problema del subgraph matching. VF2 ottimizza lo spazio utilizzato, fino ad ottenere una complessità spaziale pari a $O(N)$, utilizzando strutture dati globali e condivise tra i vari stati. Si introducono sei strutture dati:
+\begin{itemize}
+    \item $\text{core}_1$ e $\text{core}_2$: array che memorizzano la mappatura corrente dei nodi del grafo query e del grafo target, rispettivamente.
+    \item $\text{in}_1$ e $\text{in}_2$: array booleani che indicano se un nodo è adiacente a un nodo già mappato (insiemi $\text{Term}_Q$ e $\text{Term}_T$).
+    \item $\text{out}_1$ e $\text{out}_2$: array booleani che indicano se un nodo non è ancora considerato (insiemi $\text{Rem}_Q$ e $\text{Rem}_T$).
+\end{itemize}
+
+Grazie a queste strutture, si può \emph{tracciare} contemporaneamente l'appartenenza dei nodi agli insiemi necessari per la verifica della regola di fattibilità, senza dover mantenere insiemi separati per ogni stato dell'algoritmo. Questo riduce significativamente l'overhead di memoria, permettendo all'algoritmo di gestire grafi più grandi in modo più efficiente.
+
+\subsection{Algoritmo RI}
+L'algoritmo RI è un approccio alternativo per il problema del subgraph matching. Gli algoritmi VF si basano su una strategia di backtracking con pruning, mentre l'algoritmo RI si concentra invece \textbf{sull'ordine} in cui i nodi della query vengono processati nell'albero di ricerca. Un ordinamento efficace, infatti, \emph{velocizza} molto il matching anche in presenza di regole di pruning meno restrittive rispetto a VF.
+
+In particolare, l'ordinamento in RI è calcolato indipendentemente dal grafo target (static ordering) e si può riassumere nei seguenti passi:
+\begin{enumerate}
+    \item Si ordinano i nodi del grafo query in modo da \textbf{massimizzare} la probabilità che un cammino parziale nell'albero di ricerca venga tagliato il prima possibile.
+    \item Seguendo l'ordinamento calcolato al passo 1, si mappano i nodi della query a nodi del target verificando per ogni coppia candidata $(q, t)$ che:
+    \begin{enumerate}
+        \item $q$ e $t$ non siano già stati mappati ad altri nodi.
+        \item Il grado di $q$ sia minore o uguale al grado di $t$.
+    \end{enumerate}
+    \item Si ripete il passo 2 finché l'intero spazio di ricerca non viene esplorato.
+\end{enumerate}
+
+\paragraph{Ordinamento dei nodi.}
+Il punto principale di questo algoritmo è capire come ordinare i nodi della query per massimizzare l'efficacia del pruning. L'obiettivo dell'ordinamento è quello di costruire una sequenza ordinata di nodi \( [q_1, q_2, \ldots, q_n] \) tale che, durante la ricerca, i nodi connessi ai nodi già mappati vengano processati il prima possibile. Questo aumenta la probabilità che le condizioni di fattibilità vengano violate precocemente, permettendo di tagliare rami dell'albero di ricerca in modo più efficiente. Per farlo, si può definire una \textbf{regola generale}: al passo $i$, si sceglie il nodo $q_i$ con grado più alto e con un elevato numero di connessioni con i nodi già presenti nell'ordinamento $\bigcup^{i-1}$.
+
+Sia $\bigcup^{i-1} = \{q_1, q_2, \ldots, q_{i-1}\}$ la sequenza parziale già ordinata al passo $i-1$. Allora, il punteggio di un nodo candidato $v$ da inserire nell'ordinamento è definito sulla base di 3 insiemi:
+\begin{enumerate}
+    \item $V_{adj}(i)$: insieme dei nodi adiacenti a $v$ che sono già presenti in $\bigcup^{i-1}$.
+    \item $V_{conn}(i)$: insieme dei nodi in $\bigcup^{i-1}$ adiacenti ad almeno un nodo che non appartiene a $\bigcup^{i-1}$ ed è connesso a $v$.
+    \item $V_{rem}(i)$: insieme dei nodi non ancora considerati (cioè non in $\bigcup^{i-1}$) e non connessi a nessun nodo in $\bigcup^{i-1}$, ma connessi a $v$.
+\end{enumerate}
+
+Da questo si crea un punteggio per il successivo nodo da inserire:
+\begin{enumerate}
+    \item Massimo valore di $|V_{adj}(i)|$.
+    \item In caso di parità, massimo valore di $|V_{conn}(i)|$.
+    \item In caso di ulteriore parità, massimo valore di $|V_{rem}(i)|$.
+\end{enumerate}
+
+\noindent
+Se ancora dovesse esserci parità, si sceglie il nodo con il grado più alto.
+
+
+\paragraph{Esempio completo di ordinamento.}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/ri_algorithm_example.png}
+    \caption{Grafo di query usato nell'esempio di ordinamento RI: base a griglia \(3\times3\) (nodi \(0\text{--}8\)) con nodo centrale \(4\) ad alto grado, diagonali verso \(4\) e colonna superiore \(9\!\rightarrow\!10\).}
+    \label{fig:ri_algorithm_example}
+\end{figure}
+
+\noindent
+Data la query in figura~\ref{fig:ri_algorithm_example}, applichiamo la regola a tre livelli
+\(\big(|V_{\text{adj}}|,\ |V_{\text{conn}}|,\ |V_{\text{rem}}|\big)\).
+Indichiamo con \(S_i=\{q_1,\dots,q_i\}\) l'insieme dei nodi già ordinati dopo il passo \(i\).
+A parità sul primo criterio, si passa al secondo, poi al terzo; in ulteriore parità si usa il grado.
+
+\medskip
+
+\begin{description}
+  \item[\textit{Scelta 1}] \(S_1=\{4\}\). Selezioniamo \(4\) perché, al passo iniziale, tutti i \(V_{\text{adj}}\) sono vuoti; si rompe la parità col \emph{grado} massimo, massimizzando il potenziale di collegamenti verso il resto della query.
+
+  \item[\textit{Scelta 2}] \(S_2=\{4,0\}\). Tra i vicini di \(4\) (tutti con \(|V_{\text{adj}}|=1\)) i valori successivi sono in parità; scegliamo arbitrariamente \(0\) (a pari merito con \(5\) e \(6\)).
+
+  \item[\textit{Scelta 3}] \(S_3=\{4,0,1\}\). I candidati includono \(1,3,5,6,7,9\).
+  Massimizziamo \(|V_{\text{adj}}|\): \(1\) e \(3\) hanno due adiacenze verso \(S_2\) (connessi a \(0\) e \(4\)).
+  Scegliamo \(1\) perché offre migliore frontiera verso nodi rimanenti (\(V_{\text{rem}}\) introduce \(2\)).
+
+  \item[\textit{Scelta 4}] \(S_4=\{4,0,1,3\}\). Tra \(\{5,6,7,2,9\}\) massimizzano \(|V_{\text{adj}}|=2\) i nodi \(5\) (adiacente a \(4,1\)) e \(6\) (adiacente a \(4,3\)).
+  Per estendere presto verso la parte alta (catena \(9\!\to\!10\)), selezioniamo \(6\):
+  \(S_5=\{4,0,1,3,6\}\).
+
+  \item[\textit{Scelta 5}] Candidati \(\{5,7,2,9\}\).
+  Anche qui \(|V_{\text{adj}}|=2\) per \(5\) e \(7\), ma \(9\) ottiene \(|V_{\text{adj}}|=2\) rispetto a \(S_5\) (\(0\) e \(6\)) e apre \(V_{\text{rem}}\) verso \(10\).
+  Scegliamo quindi \(9\): \(S_6=\{4,0,1,3,6,9\}\).
+
+  \item[\textit{Scelta 6}] Ora \(\{5,7,2,10\}\).
+  \(5\) e \(7\) hanno \(|V_{\text{adj}}|=2\); scegliamo \(5\) perché massimizza \(V_{\text{rem}}\) (porta a \(2\) e \(8\)):
+  \(S_7=\{4,0,1,3,6,9,5\}\).
+
+  \item[\textit{Scelta 7}] Candidati \(\{7,2,8,10\}\).
+  \(|V_{\text{adj}}|=2\) per \(7\) (\(4,6\)) e \(2\) (\(1,5\)).
+  Selezioniamo \(7\) per aprire la frontiera su \(8\):
+  \(S_8=\{4,0,1,3,6,9,5,7\}\).
+
+  \item[\textit{Scelta 8}] Candidati \(\{2,8,10\}\).
+  \(|V_{\text{adj}}|=2\) per \(2\) e \(8\); in parità scegliamo \(2\):
+  \(S_9=\{4,0,1,3,6,9,5,7,2\}\).
+
+  \item[\textit{Scelta 9}] Rimangono \(\{8,10\}\).
+  \(8\) ha \(|V_{\text{adj}}|=2\) (\(5,7\)), \(10\) ha \(|V_{\text{adj}}|=1\) (solo \(9\)).
+  Scegliamo \(8\): \(S_{10}=\{4,0,1,3,6,9,5,7,2,8\}\).
+
+  \item[\textit{Scelta 10}] Ultimo nodo \(10\), collegato a \(9\):
+  \(S_{11}=\{4,0,1,3,6,9,5,7,2,8,10\}\).
+\end{description}
+
+
+\noindent\textbf{Ordinamento finale}
+\[
+[\,4,\ 0,\ 1,\ 3,\ 6,\ 9,\ 5,\ 7,\ 2,\ 8,\ 10\,].
+\]
+
+\noindent
+Le scelte “arbitrarie in parità” derivano dall'applicazione fedele dei tre criteri
+\[
+\big(|V_{\text{adj}}|,\ |V_{\text{conn}}|,\ |V_{\text{rem}}|\big).
+\]
+Quando due o più candidati restano indistinguibili, l'algoritmo RI ammette qualsiasi selezione senza compromettere la correttezza; in pratica si preferisce quella che \emph{anticipa} l'aggancio di nuove porzioni della query (maggiore \(V_{\text{rem}}\)), così da massimizzare il pruning nei passi successivi.
+
+\subsection{RI-DS}
+Una versione ottimizzata dell'algoritmo RI, chiamata RI-DS (RI with Domain Size ordering), introduce un'ulteriore strategia di ordinamento basata sulle dimensioni del \textbf{dominio} di ciascun nodo della query. In particolare si cerca di applicare la regola del grado di Ullman in fase di matching una sola volta per una stessa coppia $(q, t)$ e ridurre a monte le possibili coppie candidate. Questo perché se un nodo $q$ della query ha un grado maggiore di un nodo $t$ del target, allora non può esistere una mappatura valida che includa la coppia $(q, t)$.
+
+Si può definire, per un certo nodo $q$ della query, il suo \textbf{dominio} $D(q)$ come l'insieme dei nodi del grafo target che possono essere mappati a $q$ rispettando la condizione del grado:
+\[
+D(q) = \{t \in V_T: deg(q) \leq deg(t)\}
+\]
+dove $deg(x)$ indica il grado del nodo $x$. Da questo, l'algoritmo esegue i seguenti passi:
+\begin{enumerate}
+    \item Ordina i nodi del grafo query.
+    \item Calcola i domini per ogni nodo query.
+    \item SEguendo l'ordinamento calcolato al passo 1, si mappano i nodi della query a nodi del target verificando per ogni coppia candidata $(q, t)$ che:
+    \begin{enumerate}
+        \item $q$ e $t$ non siano già stati mappati ad altri nodi.
+        \item $t \in D(q)$, ovvero il nodo target $t$ appartiene al dominio del nodo query $q$.
+    \end{enumerate}
+    \item Si ripete il passo 3 finché l'intero spazio di ricerca non viene esplorato.
+\end{enumerate}
+
+\section{Subgraph Matching in Database di Grafi}
+Il problema del subgraph matching è di fondamentale importanza nei database di grafi, dove si desidera trovare sottografi specifici all'interno di uno o più grafi target. Il problema diventa particolarmente rilevante in applicazioni come la bioinformatica, l'analisi delle reti sociali e la ricerca di pattern in grandi dataset.
+
+La vera sfida in questi scenari è l'efficienza: i database di grafi possono contenere milioni o addirittura miliardi di nodi e archi, rendendo il subgraph matching un compito computazionalmente intensivo. 
+
+\subsection{Indicizzazione}
+Una soluzione \emph{naif} consisterebbe nell'eseguire il subgraph matching su ogni grafo del database; tuttavia, ciò sarebbe proibitivo in termini di tempo.
+
+Per ottenere tempi ragionevoli, si indicizzano i grafi del database così da \textbf{filtrare} rapidamente i candidati rilevanti per una data query. L'idea è il classico paradigma \emph{filter-and-verify}: prima si usa l'indice per selezionare soltanto i grafi che condividono con la query determinate \emph{caratteristiche discriminanti} (ad es.\ frequenti sottografi, cammini/percorsi $q$-gram, firme di vicinato, conteggi di etichette e gradi), poi si applica il subgraph matching \emph{solo} su questo sottoinsieme ristretto. In questo modo si riduce drasticamente il numero di confronti, concentrando l'attenzione sui grafi con una reale possibilità di contenere il sottografo cercato, e migliorando sensibilmente i tempi di risposta senza sacrificare la correttezza del risultato.
+
+\noindent
+Esistono due tipi di indicizzazione:
+\begin{description}
+    \item[Indicizzazione basata su feature] - il grafo viene rappresentato tramite un insieme di \emph{feature} (sottografi frequenti, cammini, alberi, ecc.) che catturano le sue proprietà strutturali. Queste feature vengono poi memorizzate in un indice che consente di recuperare rapidamente i grafi che contengono determinate feature.
+    \item[Indicizzazione non basata su feature] - i grafi vengoono mappati in uno spazio metrico e memorizzato in un \textbf{albero} (come un B-tree) dove fare ricerca basata su distanze. In questo modo, si possono recuperare rapidamente i grafi che sono "vicini" alla query in termini di struttura.  
+\end{description}
+
+\section{Features dei grafi}
+Le \textbf{feature} sono delle proprietà strutturali dei grafi che possono essere utilizzate per l'indicizzazione e il filtraggio nei database di grafi. Si possono estrarre dal grafo diverse feature:
+\begin{itemize}
+    \item \textbf{Piccoli sottografi}: si possono identificare e memorizzare piccoli sottografi frequenti all'interno del grafo. Questi sottografi possono essere utilizzati come feature per rappresentare la struttura del grafo.
+    \item \textbf{Cammini e percorsi}: si possono estrarre cammini di lunghezza fissa (chiamati $q$-gram) o percorsi specifici all'interno del grafo. Questi cammini possono essere utilizzati per confrontare la struttura dei grafi.
+    \item \textbf{Alberi}: si possono identificare alberi radicati o alberi di profondità limitata all'interno del grafo. Questi alberi possono essere utilizzati come feature per rappresentare la struttura gerarchica del grafo.
+\end{itemize}
+
+\paragraph{Esempio di filtraggio tramite profili di feature.}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{images/feature_indexing_example.png}
+  \caption{Indicizzazione \emph{feature-based} per il filtraggio dei candidati.
+  A sinistra: dalla query \(Q\) si estraggono piccole caratteristiche (feature) e
+  si costruisce il profilo di frequenza \(F_Q\).
+  A destra: per ogni grafo del database (es.\ \(G\)) è precomputato il profilo \(F_G\).}
+  \label{fig:feature_indexing_example}
+\end{figure}
+
+L'idea è rappresentare sia la query \(Q\) sia ciascun grafo \(G\) con un vettore/multinsieme di \emph{feature} e delle loro occorrenze (cammini, piccoli pattern etichettati, ecc.).  
+Nel riquadro di sinistra, \(F_Q\) riporta per ogni feature il numero richiesto dalla query: una di esse richiede \(3\) occorrenze, altre due compaiono almeno una volta.  
+Nel riquadro di destra, \(F_G\) mostra le occorrenze del medesimo insieme di feature nel grafo candidato \(G\).
+
+Regola di filtro: se esiste una feature \(f\) tale che \(F_Q(f) > F_G(f)\), allora \(G\) \emph{non} può contenere \(Q\) e viene scartato.  
+Nell'immagine, per una feature \(Q\) richiede \(3\) occorrenze mentre \(G\) ne ha \(1\) (\(\rightarrow\) \emph{2 occorrenze mancanti}); inoltre due feature presenti in \(Q\) non compaiono in \(G\) (\emph{2 feature mancanti}). Il grafo \(G\) viene dunque escluso già in fase di filtro, riducendo il numero di candidati da passare al subgraph matching.
+
+\subsection{Schema di subgraph matching in database di grafi}
+Nel caso di database di grafi, il subgraph matching segue lo schema \emph{filter-and-verify} (filtra e verifica):
+\begin{enumerate}
+    \item \textbf{Preprocessing}: per ogni grafo del database, si estraggono tutte le features rilevanti che contiene.
+    \item \textbf{Filtering}: dalla query si estraggono tutte le feature contenute e si confrontano con quelle dei grafi del database, scartando quelli che non le contengono tutte.
+    \item \textbf{Matching}: per ogni grafo rimanente, si esegue l'algoritmo di subgraph matching (ad es.\ VF2, RI-DS) per verificare se la query è effettivamente un sottografo del grafo target.
+\end{enumerate}
+
+Grazie a questo schema, si riduce drasticamente il numero di grafi su cui eseguire il subgraph matching, migliorando l'efficienza complessiva del processo.
+
+\subsection{Indicizzazione inversa}
+Un'altra tecnica di indicizzazione nei database di grafi è l'uso di un indice inverso\footnote{per indice inverso si intende una struttura dati che mappa feature a grafi contenenti tali feature} basato sulle feature. Ad ogni feature (intesa come chiave) si associa la lista dei grafi che la contengono, con il relativo numero di occorrenze della feature.
+
+L'insieme dei candidati per il matching si può ottenere per intersezione delle liste dei grafi associate a ciascuna feature della query. In questo modo, si ottiene rapidamente l'insieme ristretto di grafi che contengono tutte le feature richieste dalla query, riducendo il numero di confronti necessari per il subgraph matching.
+
+\subsection{Algoritmo SING}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/sing_algorithm_example.png}
+    \caption{Query \(Q\) (angolo con nodo \(A\) adiacente a \(B\) e \(C\)) e due grafi candidati. 
+    Nel grafo \(g_1\) il pattern è presente come \emph{subgrafo non indotto}, ma non come \emph{indotto} a causa dell'arco diagonale aggiuntivo; 
+    nel grafo \(g_2\) il pattern è presente anche come \emph{subgrafo indotto}.}
+    \label{fig:sing_algorithm_example}
+\end{figure}
+
+\noindent
+L'algoritmo SING (Subgraph search In Non-homogeneous Graphs) è un algoritmo di subgraph matching in un database di grafi basato su indexing tramite cammini di nodi. Per migliorare l'efficacia dell'indicizzazione si associa ad ogni feature la frequenza di occorrenza in ogni grafo del database ed il nodo da cui parte. 
+
+L'algoritmo utilizza due tipi di \textbf{indicizzazione} (come si vede in figura \ref{fig:sing_indexing_example}):
+\begin{description}
+    \item[Indice inverso globale] - ad ogni feature si associa la lista dei grafi del database che la contengo e il relativo conteggio di occorrenze. Questo aiuta a filtrare rapidamente i grafi che non contengono tutte le feature della query.
+    \item[Indice inverso locale per ciascun grafo $\mathbf{g}$] - per ogni feature presente in $g$ è associato un vettore binario dove l'$i$-esimo bit indica se la feature parte dal nodo $i$ di $g$. Questo aiuta a velocizzare il processo di matching all'interno di ciascun grafo candidato.
+\end{description}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/sing_indexing_example.png}
+    \caption{Indicizzazione inversa globale e locale per l'algoritmo SING.
+    A sinistra: indice inverso globale che associa ad ogni feature a lista dei grafi che la contengono e il conteggio delle occorrenze.
+    A destra: indice inverso locale per il grafo \(g_1\), dove per ogni feature è indicato un vettore binario che mostra i nodi di partenza della feature in \(g_1\).}
+    \label{fig:sing_indexing_example}
+\end{figure}
+
+\paragraph{Processamento della query.}
+L'algoritmo procede a eseguire una query di subgraph matching seguendo questi passi:
+\begin{enumerate}
+    \item Si esegue il \textbf{primo filtraggio}, ovvero per ogni feature $F$ della query si recuperano i grafi che la contengono, per un maggiore numero di volte del grafy query, dall'indice inverso globale. Si ottiene così un insieme di grafi candidati che contengono tutte le feature della query e poi insieme si calcola l'intersezione $R$.
+    \item Dopo si esegue un \textbf{secondo filtraggio}, per ogni grafo $G \in R$ si usa l'indica locale per calolcare gli insiemi di nodi compatibili con i nodi della query. Da quello, si scartano i grafi che non hanno almeno un nodo compatibile per ogni nodo della query. Questo, dato un vertice $v$ della query, calcola l'insieme dei vertici di un grafo $G$ del database che sono compatibili con $v$. Si dice compatibile un nodo $u$ di $G$ se esiste almeno una feature che parte da $v$ nella query e da $u$ in $G$. Dato $S$ insieme di queste features che partono da $v$, è sufficiente calcolare nell'indice locale del grafo $G$ un AND logico tra i vettori binari associati alle feature di $S$ e se restituisce un vettore non nullo, allora esiste almeno un nodo compatibile con $v$ in $G$.
+    \item Infine, si esegue il \textbf{matching} vero e proprio sui grafi rimanenti, usando un algoritmo di subgraph matching (ad es.\ VF2, RI-DS) per verificare se la query è effettivamente un sottografo del grafo target.
+\end{enumerate}
+
+\section*{Riferimenti}
+I riferimenti per questo capitolo sono:
+\begin{itemize}
+    \item Articolo originale dell'algoritmo Vento-Foggia\cite{Cordella1999VF}
+    \item Articolo originale dell'algoritmo VF2\cite{Cordella2004VF2}
+    \item Articolo dell'algoritmo RI e RI-DS \cite{Bonnici2013RI}
+\end{itemize}
+

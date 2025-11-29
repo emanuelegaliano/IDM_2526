@@ -292,4 +292,21 @@
 \contentsline {paragraph}{Esempio della figura \ref {fig:ullmann_algorithm_example}.}{85}{section*.138}%
 \contentsline {subsection}{\numberline {9.4.3}Algoritmo VF}{85}{subsection.9.4.3}%
 \contentsline {paragraph}{Algoritmo.}{86}{section*.139}%
-\contentsline {chapter}{\numberline {10}Elementi di Reti Neurali}{87}{chapter.10}%
+\contentsline {paragraph}{Regola di fattibilità.}{86}{section*.140}%
+\contentsline {paragraph}{Regola di fattibilità nei grafi indiretti.}{86}{section*.141}%
+\contentsline {paragraph}{Regole di fattibilità nei grafi diretti.}{87}{section*.142}%
+\contentsline {paragraph}{Complessità e considerazioni.}{88}{section*.143}%
+\contentsline {subsection}{\numberline {9.4.4}Algoritmo VF2}{88}{subsection.9.4.4}%
+\contentsline {subsection}{\numberline {9.4.5}Algoritmo RI}{89}{subsection.9.4.5}%
+\contentsline {paragraph}{Ordinamento dei nodi.}{89}{section*.144}%
+\contentsline {paragraph}{Esempio completo di ordinamento.}{90}{figure.9.8}%
+\contentsline {subsection}{\numberline {9.4.6}RI-DS}{91}{subsection.9.4.6}%
+\contentsline {section}{\numberline {9.5}Subgraph Matching in Database di Grafi}{92}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Indicizzazione}{92}{subsection.9.5.1}%
+\contentsline {section}{\numberline {9.6}Features dei grafi}{93}{section.9.6}%
+\contentsline {paragraph}{Esempio di filtraggio tramite profili di feature.}{93}{figure.9.9}%
+\contentsline {subsection}{\numberline {9.6.1}Schema di subgraph matching in database di grafi}{94}{subsection.9.6.1}%
+\contentsline {subsection}{\numberline {9.6.2}Indicizzazione inversa}{94}{subsection.9.6.2}%
+\contentsline {subsection}{\numberline {9.6.3}Algoritmo SING}{94}{subsection.9.6.3}%
+\contentsline {paragraph}{Processamento della query.}{95}{section*.147}%
+\contentsline {chapter}{\numberline {10}Elementi di Reti Neurali}{97}{chapter.10}%

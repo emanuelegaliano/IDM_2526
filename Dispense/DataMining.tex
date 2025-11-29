@@ -44,6 +44,9 @@
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
 
+\usepackage{biblatex}
+\addbibresource{refs.bib}
+
 % ===== Liste: leggibili, non compattate eccessivamente =====
 \usepackage{enumitem}
 % itemize / enumerate: spazi moderati per mantenere i dettagli visivi
@@ -83,12 +86,6 @@ Università di Catania}
 \include{reti_neurali}
 
 \backmatter
-% (eventuali appendici)
-% \appendix
-% \include{appendici}
-
-% (eventuale bibliografia)
-% \bibliographystyle{plain}
-% \bibliography{bibliografia}
+\printbibliography  
 
 \end{document}
