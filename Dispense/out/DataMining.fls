@@ -856,7 +856,6 @@ INPUT ./insiemi_frequenti.tex
 INPUT insiemi_frequenti.tex
 INPUT ./insiemi_frequenti.tex
 INPUT insiemi_frequenti.tex
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT ./images/insiemi_frequenti_massimale.png
 INPUT ./images/insiemi_frequenti_massimale.png
 INPUT images/insiemi_frequenti_massimale.png
@@ -895,6 +894,7 @@ INPUT ./images/dendograms.png
 INPUT images/dendograms.png
 INPUT ./images/dendograms.png
 INPUT ./images/dendograms.png
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/lm/ec-lmbxi10.tfm
 INPUT ./images/k-means.png
 INPUT ./images/k-means.png
 INPUT images/k-means.png
