@@ -1,1 +1,105 @@
-\chapter{Regressione}
+\chapter{Cenni di Regressione}
+La regressione è una tecnica di apprendimento supervisionato utilizzata per prevedere valori continui basandosi su un insieme di dati di input. A differenza della classificazione, che assegna etichette discrete, la regressione mira a modellare la relazione tra una variabile dipendente (target) e una o più variabili indipendenti (predittori).
+
+Da notare che la regressione può essere analizzata su diversi aspetti:
+\begin{itemize}
+    \item Un aspetto statistico: la regressione viene utilizzata per stimare le relazioni tra variabili e per fare inferenze sui dati.
+    \item Un aspetto di machine learning: la regressione viene utilizzata per costruire modelli predittivi che possono generalizzare su nuovi dati.
+\end{itemize}
+
+Questo capitolo darà una panoramica delle principali tecniche di regressione utilizzate nel data mining e nel machine learning.
+
+\section{Regressione lineare semplice}
+La regressione lineare semplice è il caso più elementare di regressione, in cui si cerca di modellare la relazione tra due variabili: una variabile indipendente \( x \) e una variabile dipendente \( y \). 
+
+\subsection{Formulazione del modello}
+La relazione viene rappresentata da una retta di regressione, espressa dall'equazione:
+\[
+y = \beta_0 + \beta_1 x + \epsilon
+\]
+dove:
+\begin{itemize}
+    \item \( \beta_0 \) è l'intercetta (valore di \( y \) quando \( x = 0 \)). Questo parametro viene anche chiamato \textbf{bias} e rappresenta il punto in cui la retta interseca l'asse delle ordinate,
+    \item \( \beta_1 \) è il coefficiente di regressione (pendenza della retta) che indica quanto varia \( y \) al variare di \( x \).
+    \item \( \epsilon \) è l'errore casuale. Questo errore viene introdotto per tenere conto delle variazioni non spiegate dal modello lineare.
+\end{itemize}
+
+\subsection{Stima dei parametri}
+Nel contesto del machine learning, l'obiettivo è stimare i parametri \( \beta_0 \) e \( \beta_1 \). In particolare si può utilizzare quella che viene chiamata la \textbf{metodologia dei minimi quadrati} (Ordinary Least Squares, OLS) che minimizza la somma dei quadrati degli errori tra i valori osservati e quelli predetti dal modello. La funzione di costo da minimizzare è:
+\[
+J(\beta_0, \beta_1) = \sum_{i=1}^{n} (y_i - (\beta_0 + \beta_1 x_i))^2
+\]
+dove \( n \) è il numero di osservazioni nel dataset.
+
+\subsection{Interpretazione geoemetrica}
+Geometricamente, la regressione lineare semplice cerca di trovare la retta che meglio si adatta ai punti dati in uno spazio bidimensionale. La pendenza \( \beta_1 \) indica l'inclinazione della retta, mentre l'intercetta \( \beta_0 \) indica il punto in cui la retta interseca l'asse delle ordinate.
+
+\section{Regressione lineare multipla}
+Un altro caso di regressione lineare è quella multipla, in cui si considerano più variabili indipendenti \( x_1, x_2, \ldots, x_p \) per prevedere la variabile dipendente \( y \). 
+
+\subsection{Formulazione del modello}
+La relazione viene rappresentata dall'equazione:
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_p x_p + \epsilon
+\]
+o, in forma matriciale:
+\[
+\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\epsilon}
+\]
+dove:
+\begin{itemize}
+    \item \( \mathbf{y} \) è il vettore delle osservazioni della variabile dipendente,
+    \item \( \mathbf{X} \) è la matrice delle variabili indipendenti (inclusa una colonna di 1 per l'intercetta),
+    \item \( \boldsymbol{\beta} \) è il vettore dei coefficienti di regressione,
+    \item \( \boldsymbol{\epsilon} \) è il vettore degli errori casuali.
+\end{itemize}
+
+\subsection{Stima dei parametri}
+Anche in questo caso, si può utilizzare la metodologia dei minimi quadrati per stimare i parametri \( \boldsymbol{\beta} \). La soluzione analitica è data dalla formula:
+\[
+\boldsymbol{\hat{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}
+\]
+dove \( \boldsymbol{\hat{\beta}} \) rappresenta i coefficienti stimati.
+
+\subsection{Interpretazione geometrica}
+Geometricamente, la regressione lineare multipla cerca di trovare un iperpiano in uno spazio multidimensionale che meglio si adatta ai punti dati. Ogni coefficiente \( \beta_j \) rappresenta l'effetto marginale della variabile \( x_j \) sulla variabile dipendente \( y \), mantenendo costanti tutte le altre variabili indipendenti.
+
+\section{Regressione non lineare}
+In molti casi, la relazione tra le variabili indipendenti e la variabile dipendente non è lineare. In questi casi, si possono utilizzare modelli di regressione non lineare, che possono assumere varie forme, come polinomiali, esponenziali o logaritmiche. Questi modelli possono essere stimati utilizzando tecniche di ottimizzazione numerica, poiché spesso non esiste una soluzione analitica semplice come nel caso della regressione lineare.
+
+Un esempio di regressione polinomiale è dato dall'equazione:
+\[
+y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \epsilon
+\]
+dove i termini \( x^2 \) e \( x^3 \) permettono di modellare relazioni più complesse tra \( x \) e \( y \). Tuttavia questa formulazione si può convertire in una funzione lineare, considerando $x_2 = x^2$ e $x_3 = x^3$ come nuove variabili indipendenti:
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \epsilon
+\]
+
+\section{Regressione logistica}
+La regressione logistica è una tecnica utilizzata per problemi di classificazione binaria, ma può essere vista come un'estensione della regressione lineare. In questo caso, l'obiettivo è prevedere la probabilità che un'osservazione appartenga a una delle due classi. La relazione viene modellata utilizzando la funzione logistica (sigmoide):
+\[
+P(y=1|x) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \ldots + \beta_p x_p)}}
+\]
+dove \( P(y=1|x) \) rappresenta la probabilità che la variabile dipendente \( y \) sia uguale a 1 dato il vettore delle variabili indipendenti \( x \).
+
+\subsection{Regressione logistica binaria semplice}
+Nel caso più semplice di regressione logistica binaria con una sola variabile indipendente \( x \), la probabilità viene espressa come:
+\[
+P(y=1|x) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}}
+\]
+In questo caso, il modello stima la probabilità che l'evento \( y=1 \) si verifichi in funzione della variabile \( x \).
+
+\paragraph{Stima dei parametri.}
+Per stimare i parametri ottimali \( \beta_0 \) e \( \beta_1 \) si può andare a minimizzare la somma delle log-loss delle singole tuple. Data una tupla $T$ avente variabile predittiva $x$ e variabile target $y \in \{0,1\}$, la log-loss è definita come:
+\[
+\text{log-loss}(x) = 
+\begin{cases}
+-\log p(x) & \text{se } y = 1 \\
+-\log (1 - p(x)) & \text{se } y = 0
+\end{cases}
+\]
+dove \( p(x) = P(y=1|x) \) è la probabilità stimata dal modello. La funzione di costo complessiva da minimizzare è quindi:
+\[
+J(\beta_0, \beta_1) = -\sum_{i=1}^{n} \left[ y_i \log p(x_i) + (1 - y_i) \log (1 - p(x_i)) \right]
+\]

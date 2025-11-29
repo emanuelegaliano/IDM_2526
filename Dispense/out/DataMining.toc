@@ -251,62 +251,74 @@
 \contentsline {subsection}{\numberline {6.8.3}Curva ROC}{64}{subsection.6.8.3}%
 \contentsline {subsection}{\numberline {6.8.4}Curva di Precision-Recall}{64}{subsection.6.8.4}%
 \contentsline {subsection}{\numberline {6.8.5}Validazione di un classificatore}{65}{subsection.6.8.5}%
-\contentsline {chapter}{\numberline {7}Regressione}{67}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Grafi}{69}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Definizione formale}{69}{section.8.1}%
-\contentsline {subsection}{\numberline {8.1.1}Network science}{70}{subsection.8.1.1}%
-\contentsline {section}{\numberline {8.2}Grafi diretti e indiretti}{70}{section.8.2}%
-\contentsline {paragraph}{Come capire che tipologia usare.}{70}{section*.130}%
-\contentsline {section}{\numberline {8.3}Grafi pesati e grafi etichettati}{71}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Gradi dei vertici}{71}{section.8.4}%
-\contentsline {subsection}{\numberline {8.4.1}Distribuzione dei gradi}{72}{subsection.8.4.1}%
-\contentsline {section}{\numberline {8.5}Grafi bipartiti}{72}{section.8.5}%
-\contentsline {paragraph}{Generalizzazione.}{73}{section*.131}%
-\contentsline {section}{\numberline {8.6}Grafo completo vs Grafo regolare}{73}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Cammini tra due nodi}{73}{section.8.7}%
-\contentsline {subsection}{\numberline {8.7.1}Cammino minimo}{73}{subsection.8.7.1}%
-\contentsline {subsection}{\numberline {8.7.2}Diametro}{74}{subsection.8.7.2}%
-\contentsline {subsection}{\numberline {8.7.3}Ciclo}{74}{subsection.8.7.3}%
-\contentsline {paragraph}{Cappio.}{74}{section*.132}%
-\contentsline {section}{\numberline {8.8}Connettività}{74}{section.8.8}%
-\contentsline {subsection}{\numberline {8.8.1}Connettività forte e debole}{75}{subsection.8.8.1}%
-\contentsline {section}{\numberline {8.9}Coefficiente di Clustering}{75}{section.8.9}%
-\contentsline {paragraph}{Clustering medio.}{76}{section*.133}%
-\contentsline {paragraph}{Coefficiente di clustering globale.}{76}{section*.134}%
-\contentsline {section}{\numberline {8.10}Misure di centralità}{76}{section.8.10}%
-\contentsline {subsection}{\numberline {8.10.1}Centralità di grado}{76}{subsection.8.10.1}%
-\contentsline {subsection}{\numberline {8.10.2}Centralità di vicinanza}{76}{subsection.8.10.2}%
-\contentsline {paragraph}{Esempio (nodo \(3\)).}{77}{section*.135}%
-\contentsline {subsection}{\numberline {8.10.3}Centralità di prossimità}{78}{subsection.8.10.3}%
-\contentsline {subsection}{\numberline {8.10.4}Centralità di PageRank}{78}{subsection.8.10.4}%
-\contentsline {paragraph}{Esempio.}{79}{section*.136}%
-\contentsline {chapter}{\numberline {9}Subgraph Matching}{81}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Isomorfismo di Grafi}{81}{section.9.1}%
-\contentsline {subsection}{\numberline {9.1.1}Automorfismo}{81}{subsection.9.1.1}%
-\contentsline {section}{\numberline {9.2}Operazione di subgraph matching}{82}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Complessità computazionale}{83}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Algoritmi di subgraph matching}{83}{section.9.4}%
-\contentsline {subsection}{\numberline {9.4.1}Soluzione Bruteforce}{83}{subsection.9.4.1}%
-\contentsline {paragraph}{Esempio di backtracking.}{84}{section*.137}%
-\contentsline {subsection}{\numberline {9.4.2}Algoritmo di Ullmann}{84}{subsection.9.4.2}%
-\contentsline {paragraph}{Esempio della figura \ref {fig:ullmann_algorithm_example}.}{85}{section*.138}%
-\contentsline {subsection}{\numberline {9.4.3}Algoritmo VF}{85}{subsection.9.4.3}%
-\contentsline {paragraph}{Algoritmo.}{86}{section*.139}%
-\contentsline {paragraph}{Regola di fattibilità.}{86}{section*.140}%
-\contentsline {paragraph}{Regola di fattibilità nei grafi indiretti.}{86}{section*.141}%
-\contentsline {paragraph}{Regole di fattibilità nei grafi diretti.}{87}{section*.142}%
-\contentsline {paragraph}{Complessità e considerazioni.}{88}{section*.143}%
-\contentsline {subsection}{\numberline {9.4.4}Algoritmo VF2}{88}{subsection.9.4.4}%
-\contentsline {subsection}{\numberline {9.4.5}Algoritmo RI}{89}{subsection.9.4.5}%
-\contentsline {paragraph}{Ordinamento dei nodi.}{89}{section*.144}%
-\contentsline {paragraph}{Esempio completo di ordinamento.}{90}{figure.9.8}%
-\contentsline {subsection}{\numberline {9.4.6}RI-DS}{91}{subsection.9.4.6}%
-\contentsline {section}{\numberline {9.5}Subgraph Matching in Database di Grafi}{92}{section.9.5}%
-\contentsline {subsection}{\numberline {9.5.1}Indicizzazione}{92}{subsection.9.5.1}%
-\contentsline {section}{\numberline {9.6}Features dei grafi}{93}{section.9.6}%
-\contentsline {paragraph}{Esempio di filtraggio tramite profili di feature.}{93}{figure.9.9}%
-\contentsline {subsection}{\numberline {9.6.1}Schema di subgraph matching in database di grafi}{94}{subsection.9.6.1}%
-\contentsline {subsection}{\numberline {9.6.2}Indicizzazione inversa}{94}{subsection.9.6.2}%
-\contentsline {subsection}{\numberline {9.6.3}Algoritmo SING}{94}{subsection.9.6.3}%
-\contentsline {paragraph}{Processamento della query.}{95}{section*.147}%
-\contentsline {chapter}{\numberline {10}Elementi di Reti Neurali}{97}{chapter.10}%
+\contentsline {chapter}{\numberline {7}Cenni di Regressione}{67}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Regressione lineare semplice}{67}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Formulazione del modello}{67}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Stima dei parametri}{68}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.3}Interpretazione geoemetrica}{68}{subsection.7.1.3}%
+\contentsline {section}{\numberline {7.2}Regressione lineare multipla}{68}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Formulazione del modello}{68}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Stima dei parametri}{69}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Interpretazione geometrica}{69}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Regressione non lineare}{69}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Regressione logistica}{69}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Regressione logistica binaria semplice}{70}{subsection.7.4.1}%
+\contentsline {paragraph}{Stima dei parametri.}{70}{section*.130}%
+\contentsline {chapter}{\numberline {8}Grafi}{71}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Definizione formale}{71}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Network science}{72}{subsection.8.1.1}%
+\contentsline {section}{\numberline {8.2}Grafi diretti e indiretti}{72}{section.8.2}%
+\contentsline {paragraph}{Come capire che tipologia usare.}{72}{section*.131}%
+\contentsline {section}{\numberline {8.3}Grafi pesati e grafi etichettati}{73}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Gradi dei vertici}{73}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Distribuzione dei gradi}{74}{subsection.8.4.1}%
+\contentsline {section}{\numberline {8.5}Grafi bipartiti}{74}{section.8.5}%
+\contentsline {paragraph}{Generalizzazione.}{75}{section*.132}%
+\contentsline {section}{\numberline {8.6}Grafo completo vs Grafo regolare}{75}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Cammini tra due nodi}{75}{section.8.7}%
+\contentsline {subsection}{\numberline {8.7.1}Cammino minimo}{75}{subsection.8.7.1}%
+\contentsline {subsection}{\numberline {8.7.2}Diametro}{76}{subsection.8.7.2}%
+\contentsline {subsection}{\numberline {8.7.3}Ciclo}{76}{subsection.8.7.3}%
+\contentsline {paragraph}{Cappio.}{76}{section*.133}%
+\contentsline {section}{\numberline {8.8}Connettività}{76}{section.8.8}%
+\contentsline {subsection}{\numberline {8.8.1}Connettività forte e debole}{77}{subsection.8.8.1}%
+\contentsline {section}{\numberline {8.9}Coefficiente di Clustering}{77}{section.8.9}%
+\contentsline {paragraph}{Clustering medio.}{78}{section*.134}%
+\contentsline {paragraph}{Coefficiente di clustering globale.}{78}{section*.135}%
+\contentsline {section}{\numberline {8.10}Misure di centralità}{78}{section.8.10}%
+\contentsline {subsection}{\numberline {8.10.1}Centralità di grado}{78}{subsection.8.10.1}%
+\contentsline {subsection}{\numberline {8.10.2}Centralità di vicinanza}{78}{subsection.8.10.2}%
+\contentsline {paragraph}{Esempio (nodo \(3\)).}{79}{section*.136}%
+\contentsline {subsection}{\numberline {8.10.3}Centralità di prossimità}{80}{subsection.8.10.3}%
+\contentsline {subsection}{\numberline {8.10.4}Centralità di PageRank}{80}{subsection.8.10.4}%
+\contentsline {paragraph}{Esempio.}{81}{section*.137}%
+\contentsline {chapter}{\numberline {9}Subgraph Matching}{83}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Isomorfismo di Grafi}{83}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Automorfismo}{83}{subsection.9.1.1}%
+\contentsline {section}{\numberline {9.2}Operazione di subgraph matching}{84}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Complessità computazionale}{85}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Algoritmi di subgraph matching}{85}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}Soluzione Bruteforce}{85}{subsection.9.4.1}%
+\contentsline {paragraph}{Esempio di backtracking.}{86}{section*.138}%
+\contentsline {subsection}{\numberline {9.4.2}Algoritmo di Ullmann}{86}{subsection.9.4.2}%
+\contentsline {paragraph}{Esempio della figura \ref {fig:ullmann_algorithm_example}.}{87}{section*.139}%
+\contentsline {subsection}{\numberline {9.4.3}Algoritmo VF}{87}{subsection.9.4.3}%
+\contentsline {paragraph}{Algoritmo.}{88}{section*.140}%
+\contentsline {paragraph}{Regola di fattibilità.}{88}{section*.141}%
+\contentsline {paragraph}{Regola di fattibilità nei grafi indiretti.}{88}{section*.142}%
+\contentsline {paragraph}{Regole di fattibilità nei grafi diretti.}{89}{section*.143}%
+\contentsline {paragraph}{Complessità e considerazioni.}{90}{section*.144}%
+\contentsline {subsection}{\numberline {9.4.4}Algoritmo VF2}{90}{subsection.9.4.4}%
+\contentsline {subsection}{\numberline {9.4.5}Algoritmo RI}{91}{subsection.9.4.5}%
+\contentsline {paragraph}{Ordinamento dei nodi.}{91}{section*.145}%
+\contentsline {paragraph}{Esempio completo di ordinamento.}{92}{figure.9.8}%
+\contentsline {subsection}{\numberline {9.4.6}RI-DS}{93}{subsection.9.4.6}%
+\contentsline {section}{\numberline {9.5}Subgraph Matching in Database di Grafi}{94}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Indicizzazione}{94}{subsection.9.5.1}%
+\contentsline {section}{\numberline {9.6}Features dei grafi}{95}{section.9.6}%
+\contentsline {paragraph}{Esempio di filtraggio tramite profili di feature.}{95}{figure.9.9}%
+\contentsline {subsection}{\numberline {9.6.1}Schema di subgraph matching in database di grafi}{96}{subsection.9.6.1}%
+\contentsline {subsection}{\numberline {9.6.2}Indicizzazione inversa}{96}{subsection.9.6.2}%
+\contentsline {subsection}{\numberline {9.6.3}Algoritmo SING}{96}{subsection.9.6.3}%
+\contentsline {paragraph}{Processamento della query.}{97}{section*.148}%
+\contentsline {chapter}{\numberline {10}Elementi di Reti Neurali}{99}{chapter.10}%
