@@ -1,0 +1,496 @@
+\chapter{Clustering}\label{ch:clustering}
+
+\section{Concetti generali}\label{sec:clu-concetti}
+Il \textbf{clustering} raggruppa oggetti in \emph{cluster} tali che i punti nello stesso cluster siano tra loro simili, mentre punti in cluster diversi siano dissimili. È un compito \emph{unsupervised}: non si conoscono etichette a priori. La \emph{classificazione} è invece \emph{supervised} e richiede classi note per l’addestramento.
+
+\subsection{Spazi metrici e funzioni distanza}\label{subsec:metric-spaces}
+Si assume uno \textbf{spazio metrico} $(\mathcal{S},D)$, con $D$ che soddisfa:
+\[
+\begin{aligned}
+\text{\textbf{Non negatività}}\quad & D(x,y) \ge \,0 && \forall\, x,y \in S,\\
+\text{\textbf{Simmetria}}\quad & D(x,y) = D(y,x) && \forall\, x,y \in S,\\
+\text{\textbf{Disuguaglianza triangolare}}\quad & D(x,y)+D(y,z) \ge D(x,z) && \forall\, x,y,z \in S.
+\end{aligned}
+\]
+
+\paragraph{Distanze in spazi euclidei.}
+Siano $\mathbf{x}=(x_1,\dots,x_n)$ e $\mathbf{y}=(y_1,\dots,y_n)\in\mathbb{R}^n$.
+
+\[
+\textbf{Distanza euclidea:}\quad
+D_2(\mathbf{x},\mathbf{y})=\sqrt{\sum_{i=1}^{n}(x_i-y_i)^2}
+\]
+
+\[
+\textbf{Distanza di Manhattan:}\quad
+D_1(\mathbf{x},\mathbf{y})=\sum_{i=1}^{n}\lvert x_i-y_i\rvert
+\]
+
+\[
+\textbf{Norma }L_r:\quad
+D_r(\mathbf{x},\mathbf{y})=\Bigg(\sum_{i=1}^{n}\lvert x_i-y_i\rvert^{\,r}\Bigg)^{\!1/r},\ \ r\ge 1
+\]
+
+\[
+\textbf{Norma }L_{\infty}:\quad
+D_{\infty}(\mathbf{x},\mathbf{y})=\max_{1\le i\le n}\lvert x_i-y_i\rvert
+\]
+
+\[
+\textbf{Distanza del coseno (angolare):}\quad
+D_{\angle}(\mathbf{x},\mathbf{y})
+=\arccos\!\left(
+\frac{\sum_{i=1}^{n} x_i y_i}{\sqrt{\sum_{i=1}^{n} x_i^{2}}\ \sqrt{\sum_{i=1}^{n} y_i^{2}}}
+\right),
+\qquad \mathbf{x}\neq\mathbf{0},\ \mathbf{y}\neq\mathbf{0}.
+\]
+
+
+
+\paragraph{Spazi non euclidei.}
+Per oggetti-insiemi o stringhe il centroide può non avere senso: si usa il \textbf{medoide} (elemento del dataset che minimizza la somma delle distanze agli altri).
+Esempi di metriche:
+\[
+D_\mathrm{Jac}(S,T)=1- \frac{|S\cap T|}{|S\cup T|}\quad\text{(Jaccard)},
+\]
+Altri esempi di distanze sono:
+\begin{enumerate}
+  \item \textbf{Distanza di Edit}: il minimo numero di operazioni di cancellazione o inserzioni di caratteri da effettuare partendo da una stringa A per ottenere la stringa B. (es. A = abcde, B = acfdeg $\Rightarrow$ D(A, B) = 3).
+  \item \textbf{Distanza di Hamming}: dati A, B vettori, il numero di componeneti in corrispondenza delle quali differiscono (es. A = (1, 0, 1, 0, 1), B = (1, 1, 1, 1, 0) $\Rightarrow$ D(A, B) = 3).
+\end{enumerate}
+
+\subsection{Tassonomia degli algoritmi}\label{subsec:taxonomy}
+Tre famiglie principali:
+
+\begin{enumerate}
+  \item \textbf{gerarchici} (agglomerativi/divisivi);
+  \item \textbf{partizionali} (es.\ k-means);
+  \item \textbf{a densità} (DBSCAN/OPTICS/HDBSCAN).
+\end{enumerate}
+
+\paragraph{Bontà di un algoritmo.}
+Dipende da: \emph{scalabilità}, supporto a attributi eterogenei, capacità di cogliere \emph{forme diverse} di cluster, \emph{robustezza} a outlier/rumore e dati mancanti, \emph{stabilità} all’aggiunta di nuovi dati, e \emph{interpretabilità} dei risultati. La scelta pratica è un compromesso tra qualità e costi computazionali.
+
+\subsection{Alta dimensionalità: equidistanza e ortogonalità}\label{subsec:curse}
+Spazi euclidei ad elevata dimensionalità soffrono del \emph{problema della dimensionalità}:
+\begin{itemize}
+  \item quasi tutte le coppie di punti risultano \textbf{equidistanti} e lontane tra loro;
+  \item quasi tutte le coppie di vettori sono quasi \textbf{ortogonali}.
+\end{itemize}
+
+\paragraph{Equidistanza dei punti.}
+Sia $D(\mathbf{x},\mathbf{y})=\|\mathbf{x}-\mathbf{y}\|_2$ con $\mathbf{x},\mathbf{y}\in[0,1]^n$ indipendenti.
+Quando $n$ è grande, con alta probabilità:
+\[
+\underbrace{1}_{\text{limite inferiore}} \ \lesssim\ D(\mathbf{x},\mathbf{y})\ \lesssim\ \underbrace{\sqrt{n}}_{\text{limite superiore}}
+\]
+e \emph{solo una frazione trascurabile} di coppie è vicina ai due limiti. La \textbf{maggior parte} delle coppie ha una distanza
+vicina alla media, circa $\sqrt{n}/3$ (concentrazione della distanza). Inoltre i prodotti scalari tendono a $0$,
+così gli angoli sono prossimi a $90^\circ$ (quasi ortogonalità).
+
+\paragraph{Conseguenze pratiche.}
+Distinguerre “vicini” da “lontani” diventa difficile; conviene standardizzare le feature, ridurre la dimensionalità (es.\ PCA)
+o usare metriche più adatte (cosine/angolare), soprattutto in presenza di dati sparsi.
+
+
+\section{Clustering gerarchico}\label{sec:hierarchical}
+\paragraph{Schema agglomerativo.}
+(a) inizializza: ogni punto è un cluster; (b) ripeti: fonde i due cluster più vicini secondo una \emph{distanza tra cluster}; (c) termina con un criterio (numero desiderato di cluster o qualità).
+
+\subsection{Distanza tra cluster (\emph{linkage})}\label{subsec:linkages}
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.65\textwidth}
+\vspace{0pt}
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Single-link}: $\min\{D(x,y): x\in C_i,\ y\in C_j\}$ (tende a catene).
+  \item \textbf{Complete-link}: $\max\{D(x,y): x\in C_i,\ y\in C_j\}$ (favorisce cluster compatti).
+  \item \textbf{Average-link}: media delle distanze su tutte le coppie $x\in C_i,\,y\in C_j$ (compromesso).
+  \item \textbf{Centroid/medoid}: distanza tra centroidi (euclideo) o tra medoidi (generale).
+\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.27\textwidth}
+\vspace{0pt}
+\centering
+\includegraphics[width=\linewidth]{images/cluster_distances.png}
+\caption{Esempi grafici delle diverse nozioni di distanza tra cluster.}
+\label{fig:cluster_distances}
+\end{minipage}
+\end{figure}
+
+\subsection{Dendrogramma e criteri di stop}\label{subsec:dendro}
+Il \textbf{dendrogramma} registra le fusioni; tagliandolo a una certa altezza si ottiene la partizione.
+Criteri di terminazione:
+(i) fermarsi a $k$ cluster prefissati;
+(ii) fermarsi quando l’unione successiva degrada troppo la qualità (es.\ aumento del diametro o della distanza media intra-cluster).
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/dendograms.png}
+  \caption{A sinistra: punti nel piano con centroidi (triangoli) e cerchi che schematizzano la coesione dei gruppi; i colori indicano i cluster. A destra: dendrogramma agglomerativo che mostra l’ordine di fusione e l’altezza (distanza di linkage). Un taglio orizzontale del dendrogramma determina il numero di cluster.}
+  \label{fig:dendograms}
+\end{figure}
+
+\subsection{Altri criteri di combinazione}\label{subsec:altri-criteri}
+Si può fondere la coppia che massimizza la \emph{qualità} del cluster risultante.
+Definizioni utili: \emph{raggio} $=\max_{x\in C} D(x,\mathrm{centroide}(C))$; \emph{diametro} $=\max_{x,y\in C} D(x,y)$.
+
+\subsection{Versioni divisive}\label{subsec:divisive}
+Approccio \textbf{top–down}: un'altra versione dove si parte da un unico cluster e lo si \emph{divide} iterativamente scegliendo il miglior \emph{taglio}. Le stesse metriche di distanza/qualità si applicano in modo duale.
+
+\subsection{Complessità e ottimizzazioni}\label{subsec:hclust-compl}
+
+\paragraph{Analisi \emph{naive}.}
+Al primo passo si valuta la distanza per ogni coppia di cluster e si sceglie la migliore: costo $\Theta(n^2)$.
+Dopo ogni fusione i cluster diminuiscono di uno, quindi i passi successivi costano, nell’ordine,
+$(n-1)^2,(n-2)^2,\dots,2^2$.
+\[
+T_{\text{naive}}
+=\sum_{k=2}^{n} k^{2}
+=\frac{n(n+1)(2n+1)}{6}-1
+=\Theta(n^{3}).
+\]
+(Spazio tipico: matrice delle distanze $O(n^2)$.)
+
+\paragraph{Ottimizzazione con \emph{coda di priorità}.}
+Usando una coda di priorità (min-heap) sulle distanze tra cluster:
+\begin{itemize}
+  \item accesso al minimo (\emph{peek}) in $O(1)$; inserimenti e cancellazioni in $O(\log n)$;
+  \item ad ogni fusione si \emph{rimuovono} al più $2(n-1)$ distanze (quelle dai due cluster che si fondono): $O(n\log n)$;
+  \item si \emph{calcolano e inseriscono} le distanze tra il nuovo cluster e gli altri (al più $n-2$): $O(n\log n)$.
+\end{itemize}
+Su $n-1$ fusioni:
+\[
+T_{\text{heap}}=O\big(n \cdot (n\log n)\big)=O(n^{2}\log n).
+\]
+Risultato: la complessità scende da $O(n^{3})$ a circa $O(n^{2}\log n)$ mantenendo la matrice (o la coda) aggiornata a ogni iterazione.
+
+
+\section{Clustering partizionale: k-means}\label{sec:kmeans}
+Metodi per spazi euclidei che partizionano i dati in $k$ cluster minimizzando la somma delle distanze al quadrato dai centroidi.
+
+\subsection{Algoritmo base}\label{subsec:kmeans-basic}
+\begin{enumerate}
+  \item \textbf{Inizializza} $k$ centroidi (idealmente separati).
+  \item \textbf{Assegna} ogni punto al centroide più vicino (distanza euclidea).
+  \item \textbf{Aggiorna} ogni centroide come media dei punti assegnati.
+  \item \textbf{Ripeti} finché i centroidi si stabilizzano o il miglioramento è sotto soglia.
+\end{enumerate}
+Converge in pochi round, ma solo a un ottimo \emph{locale}.
+
+\subsection{Inizializzazione}\label{subsec:init}
+Scelta \emph{greedy}:
+\begin{enumerate}
+  \item Si sceglie il primo punto in maniera casuale o lo si aggiunge all'insieme $S$ dei punti già selezionati, inizialmente vuoto.
+  \item Si calcola la massima distanza minima dai centroidi scelti.
+  \item Si ripete il passo 2. finché $|s| < k$.
+\end{enumerate}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/k-means.png}
+  \caption{K-means: evoluzione in tre round. 
+  Round 1: inizializzazione e prime assegnazioni ai centroidi (quadrati). 
+  Round 2: ricalcolo dei centroidi e riassegnazione dei punti (X). 
+  Round 3: i centroidi si stabilizzano e i cluster (ellissi colorate) convergono.}
+  \label{fig:k-means-example}
+\end{figure}
+
+\subsection{Funzione obiettivo e arresto}\label{subsec:objective}
+Con partizione $C_1,\dots,C_k$ e centroidi $\mu_r$:
+\[
+J=\sum_{r=1}^k \sum_{x\in C_r} \|\mathbf{x}-\mu_r\|_2^2.
+\]
+Arresto quando $\Delta J$ tra iterazioni consecutive è sotto soglia o quando non cambia l’assegnazione. Con metriche diverse da euclidea il centroide non è il minimizzatore naturale.
+
+\subsection{Scelta del numero di cluster $k$}\label{subsec:scelta-k}
+Poiché $k$ non è noto a priori, si esegue il metodo per più valori e si seleziona quello che ottimizza una metrica di qualità interna.
+
+\paragraph{Funzione obiettivo.}
+Per $k$ cluster $C_1,\dots,C_k$ con centroidi $\mathbf{c}_1,\dots,\mathbf{c}_k$, la funzione standard è
+\[
+W(k)=\sum_{i=1}^k \sum_{\mathbf{x}\in C_i}\|\mathbf{x}-\mathbf{c}_i\|_2^2,\qquad 
+\bar W(k)=\frac{W(k)}{n}\;\;(\text{distanza media al centroide}).
+\]
+$W(k)$ è decrescente in $k$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/elbow-k.png}
+  \caption{Metodo (\emph{elbow}). Si traccia la distanza media dal centroide (o WCSS/n) al variare di $k$; il valore “ottimo” è nel punto di flesso, dove l’aumento di $k$ porta benefici marginali trascurabili.}
+  \label{fig:elbow}
+\end{figure}
+
+\paragraph{Metodo \emph{elbow}.}
+Si calcola $\bar W(k)$ per $k=k_{\min},\dots,k_{\max}$ e si sceglie il $k$ per cui il calo di $\bar W$ passa da “ripido” a “lento” (punto di flesso).
+\begin{itemize}
+  \item \emph{Procedura pratica:} si valuta $\bar W(k)$ su una griglia di valori e si ispeziona il grafico $\bar W$ vs $k$.
+  \item \emph{Variante a ricerca binaria:} fissati due estremi $x<y$, si prende $z=\lfloor(x+y)/2\rfloor$, si calcola $\bar W(z)$ e si sostituisce l’estremo \emph{più vicino} a $\bar W(z)$ con $z$; si ripete finché l’intervallo è piccolo. Il $k$ finale approssima il gomito.
+\end{itemize}
+\emph{Nota:} se la curva non mostra un gomito netto, l’elbow diventa ambiguo e conviene affiancarlo a silhouette/stabilità.
+
+
+
+\paragraph{Metodo \emph{silhouette}.}
+Per ogni punto $\mathbf{x}$ assegnato al cluster $C_i$:
+\[
+a(\mathbf{x})=\frac{1}{|C_i|-1}\sum_{\mathbf{y}\in C_i,\ \mathbf{y}\neq \mathbf{x}}\!\!\!\!\|\mathbf{x}-\mathbf{y}\|, \qquad
+b(\mathbf{x})=\min_{j\neq i}\ \frac{1}{|C_j|}\sum_{\mathbf{y}\in C_j}\|\mathbf{x}-\mathbf{y}\|.
+\]
+Lo \emph{score di silhouette} del punto è
+\[
+s(\mathbf{x})=\frac{b(\mathbf{x})-a(\mathbf{x})}{\max\{a(\mathbf{x}),\,b(\mathbf{x})\}}\in[-1,1].
+\]
+Valori vicini a $1$ indicano assegnazioni “pulite”, vicini a $0$ punti al confine, negativi assegnazioni sbagliate. Si sceglie
+\[
+k^\star=\arg\max_k\ \frac{1}{n}\sum_{r=1}^n s(\mathbf{x}_r).
+\]
+\emph{Regole d’uso.} Calcolare gli indici su più esecuzioni (inizializzazioni diverse) e riportare media/deviazione; standardizzare le feature prima del confronto; evitare $k$ troppo grandi che trivialiscono $\bar W$ ma peggiorano la silhouette.
+
+% --------------------------------------------------------------------
+
+\subsection{Complessità computazionale}\label{subsec:kmeans-compl}
+Ogni iterazione del \emph{k}-means ha due passi:
+\begin{enumerate}
+  \item \textbf{Assegnamento} (nearest–centroid): per ciascun punto si valuta la distanza verso i $k$ centroidi. Costo $O(nkd)$ in $\mathbb{R}^d$ (spesso si sottintende $d$, scrivendo $O(nk)$).
+  \item \textbf{Aggiornamento dei centroidi}: si ricalcolano le medie dei cluster. Costo $O(nd)$.
+\end{enumerate}
+Con $t$ iterazioni totali:
+\[
+T(n,k,d,t)=O(t\,n\,k\,d)\quad\text{(nelle slide: }O(tkn)\text{)}.
+\]
+
+
+\section{Clustering per densità}
+
+\subsection{DBSCAN}\label{sec:dbscan}
+DBSCAN (\emph{Density-Based Spatial Clustering of Applications with Noise}) definisce i cluster come regioni con densità elevata separate da regioni a bassa densità. Richiede due parametri:
+\[
+\varepsilon>0 \quad\text{(raggio dell'intorno)}\qquad\text{e}\qquad \texttt{MinPts}\in\mathbb{N}\quad\text{(soglia di densità)}.
+\]
+
+\paragraph{Definizioni.}
+Dato un punto $p$ e una metrica $D(\cdot,\cdot)$:
+\begin{itemize}
+  \item \textbf{$\varepsilon$-intorno}: $N_\varepsilon(p)=\{x: D(x,p)\le\varepsilon\}$.
+  \item \textbf{Core point}: $p$ è \emph{core} se $|N_\varepsilon(p)|\ge \texttt{MinPts}$.
+  \item \textbf{Directly density-reachable}: $q$ è \emph{direttamente raggiungibile per densità} da $p$ se $q\in N_\varepsilon(p)$ e $p$ è core.
+  \item \textbf{Density-reachable}: $q$ è \emph{raggiungibile per densità} da $p$ se esiste una catena $p=x_0,x_1,\dots,x_m=q$ in cui ogni $x_{i+1}$ è direttamente raggiungibile da $x_i$.
+  \item \textbf{Density-connected}: $p$ e $q$ sono \emph{connessi per densità} se esiste $o$ tale che $p$ e $q$ sono entrambi raggiungibili per densità da $o$.
+\end{itemize}
+\emph{Cluster} $C$ = insieme massimale di punti \emph{density-connected}; i punti non assegnati sono \emph{rumore} (outlier). Punti non-core inclusi in un cluster sono detti \emph{border}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.68\textwidth]{images/dbscan_core.png}
+  \caption{DBSCAN: esempi di \emph{core}, \emph{border} e \emph{noise} con parametri $\varepsilon$ e \texttt{MinPts}.}
+  \label{fig:dbscan-core}
+\end{figure}
+
+\paragraph{Algoritmo.}
+\begin{enumerate}
+  \item Visita un punto non ancora etichettato $p$ e calcola $N_\varepsilon(p)$.
+  \item Se $p$ è \emph{core}, crea un nuovo cluster e \emph{espandilo}: aggiungi ricorsivamente tutti i punti direttamente raggiungibili, iterando finché possibile (tutti i raggiungibili per densità da $p$).
+  \item Se $p$ non è core e non è stato assegnato come \emph{border}, etichettalo come \emph{rumore}.
+  \item Ripeti finché tutti i punti sono visitati.
+\end{enumerate}
+
+\paragraph{Scelta dei parametri.}
+Usare $\texttt{MinPts}\approx d{+}1$ come minimo (con $d$ dimensioni) e valori più alti con dataset grandi o rumorosi. Per $\varepsilon$ si usa il \emph{$k$-distance plot}: per ogni punto si considera la distanza dal $k$-esimo vicino ($k=\texttt{MinPts}$), si ordina in senso decrescente e si cerca il \emph{gomito} della curva.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.68\textwidth]{images/kdistance_plot.png}
+  \caption{$k$-distance plot: il gomito suggerisce il valore di $\varepsilon$.}
+  \label{fig:kdist}
+\end{figure}
+
+\paragraph{Complessità.}
+Il costo è dominato dalle ricerche di vicinato. Con appropriate strutture (R-tree) il costo è $O(n\log n)$. Senza questo tipo di strutture, il costo è $O(n^2)$.
+\paragraph{Pro e contro.}
+\emph{Pro}: non richiede $k$, trova cluster di forma arbitraria, gestisce il rumore, poco sensibile all’ordine di scansione.  
+\emph{Contro}: scelta di $(\varepsilon,\texttt{MinPts})$ non banale; difficile con densità molto diverse o in alta dimensione.
+
+% ----------------------------
+
+\subsection{OPTICS}\label{sec:optics}
+OPTICS (\emph{Ordering Points To Identify the Clustering Structure}) estende DBSCAN per gestire \textbf{densità variabili}. Invece di una singola partizione, produce un \emph{ordinamento} dei punti con associata una misura di “raggiungibilità” che riassume la struttura di densità a più scale.
+
+\paragraph{Core–distance e reachability (OPTICS).}
+Fissiamo \texttt{MinPts} $=k$ e una metrica $D$.
+
+\begin{description}[leftmargin=1.2em,labelsep=0.5em]
+  \item[\emph{Core–distance} di $p$:] è il raggio minimo che rende $p$ un punto \emph{core}. 
+  In pratica è la distanza dal $k$-esimo vicino di $p$:
+  \[
+  \mathrm{core\_dist}_k(p)=d_k(p).
+  \]
+  Se $p$ ha meno di $k$ vicini, non è core e si pone $\mathrm{core\_dist}_k(p)=+\infty$ (non definita).
+  
+  \item[\emph{Reachability–distance} di $o$ da $p$:] misura quanto è “raggiungibile” $o$ partendo da $p$:
+  \[
+  \mathrm{reach\_dist}_k(o\,|\,p)=\max\{\mathrm{core\_dist}_k(p),\, D(p,o)\}.
+  \]
+\end{description}
+
+\noindent\textbf{Lettura immediata.}
+\begin{itemize}
+  \item Se $p$ è in una regione densa (\(\mathrm{core\_dist}_k(p)\) piccola) e $o$ è \emph{dentro} quel raggio, allora
+        \(\mathrm{reach\_dist}_k(o\,|\,p)=\mathrm{core\_dist}_k(p)\) (tutti questi $o$ “valgon lo stesso” nel plot).
+  \item Se $o$ è \emph{più lontano} del raggio denso di $p$, 
+        \(\mathrm{reach\_dist}_k(o\,|\,p)=D(p,o)\) (serve “uscire” dalla zona densa).
+\end{itemize}
+
+\noindent\textbf{Mini-esempio.} Con $k=5$ e \(\mathrm{core\_dist}_5(p)=0.8\):
+un vicino a distanza \(0.6\) ha \(\mathrm{reach\_dist}=0.8\); un punto a distanza \(1.2\) ha \(\mathrm{reach\_dist}=1.2\).
+
+
+\paragraph{Risultato: ordering e \emph{reachability plot}.}
+OPTICS visita iterativamente i punti scegliendo, tramite una coda di priorità, quello con \emph{reach\_dist} minima; registra per ciascun punto l’ordine di visita e la sua \emph{reachability}. Plottando le \emph{reachability} nell’ordine si ottiene il \textbf{reachability plot}: le \emph{valli} corrispondono a cluster, le creste a separazioni.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/optics_reachability.png}
+  \caption{OPTICS: esempio di \emph{reachability plot}. Le zone basse (valli) indicano cluster densi; le zone alte (creste) indicano separazioni. (immagine da libro/slide)}
+  \label{fig:optics-reach}
+\end{figure}
+
+\paragraph{Estrazione dei cluster.}
+Si possono ottenere partizioni:
+\begin{itemize}
+  \item applicando un \emph{cut} orizzontale sul plot (equivalente a DBSCAN a un dato $\varepsilon$);
+  \item individuando automaticamente valli significative (metodi di \emph{valley picking} o soglie relative).
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.8\textwidth]{images/cluster_extraction_optics.png}
+  \caption{OPTICS. (1) A sinistra: punti nel piano e, sotto, \emph{reachability plot}; le valli (segmenti colorati) corrispondono a regioni dense/cluster, mentre la linea orizzontale tratteggiata indica una soglia 
+  $\epsilon$ che produce un taglio in stile DBSCAN. Le linee tratteggiate collegano ogni gruppo nel piano al suo intervallo nel plot. (2) A destra: regola \emph{steep down/up} per l’estrazione automatica dei cluster dal reachability plot (si entra quando la reachability scende bruscamente e si esce quando risale).}  
+  \label{fig:optics-cluster-extraction}
+\end{figure}
+
+\paragraph{Costo.}
+Con le adeguate strutture: $O(n\log n)$; altrimenti $O(n^2)$.
+
+% ----------------------------
+\subsection{HDBSCAN}\label{sec:hdbscan}
+\textbf{HDBSCAN} (Hierarchical DBSCAN) estende DBSCAN costruendo una \emph{gerarchia di cluster per densità} e selezionando
+automaticamente i cluster più \emph{stabili}. L’unico parametro concettuale è \texttt{MinPts} (soglia minima di densità); nelle librerie può comparire anche \texttt{min\_cluster\_size} (qui lo assimiliamo a \texttt{MinPts} come nelle slide).
+
+\paragraph{Idea.}
+\begin{enumerate}
+  \item Definisco una distanza che “appiattisce” le regioni rade e rende confrontabili densità diverse.
+  \item Costruisco l’MST su tale distanza e, facendo crescere la densità minima \(\lambda=1/\varepsilon\), ottengo un \emph{cluster tree}.
+  \item Condenso l’albero tenendo solo rami sostenuti da almeno \texttt{MinPts} punti e scelgo i cluster più \emph{stabili}. 
+\end{enumerate}
+
+\paragraph{Core distance di X.} \(\mathrm{core\_dist}(p)\) = distanza dal \texttt{MinPts} più vicino.
+
+\paragraph{Distanza di \emph{mutual reachability}.}
+Sia \(\mathrm{core\_dist}(p)\) la distanza dal \texttt{MinPts} \emph{punto} più vicino di \(p\). La distanza
+\[
+d_{\text{mreach}}(p,q)=\max\big\{\mathrm{core\_dist}(p),\ \mathrm{core\_dist}(q),\ D(p,q)\big\}
+\]
+“\emph{dilata}” le regioni poco dense (aumentando le loro distanze interne) e \emph{comprimi} quelle dense: in questo modo cluster a densità diverse risultano separabili con un unico parametro.
+
+\paragraph{Mutual Reachability graph $G_{MinPts}$.} grafo pesato in cui i nodi sono gli oggetti dello spazio e, per ogni coppia di oggetti $X,Y$, viene inserito un arco il cui peso coincide con la Mutual Reachability distance tra $X$ e $Y$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{images/HDBSCAN_example.png}
+  \caption{HDBSCAN: illustrazione di \emph{core\_dist}, \emph{reach\_dist} e \emph{mutual reachability}.
+  Ogni cerchio centrato in un punto ha raggio pari alla sua $\mathrm{core\_dist}(\cdot)$
+  (distanza dal \texttt{MinPts}-esimo vicino). \textbf{Sinistra}: per i punti $p$ (verde) e $o$ (blu)
+  la distanza di raggiungibilità da $p$ a $o$ è
+  $\mathrm{reach\_dist}(o\mid p)=\max\{\mathrm{core\_dist}(p),\,D(p,o)\}$; poiché il raggio di $p$ domina,
+  vale $\mathrm{reach\_dist}(o\mid p)=\mathrm{core\_dist}(p)$. \textbf{Destra}: tra $p$ (verde) e $q$ (rosso)
+  prevale la distanza euclidea, quindi la \emph{mutual reachability} risulta
+  $d_{\mathrm{mreach}}(p,q)=\max\{\mathrm{core\_dist}(p),\,\mathrm{core\_dist}(q),\,D(p,q)\}=D(p,q)$.
+  L'uso di $d_{\mathrm{mreach}}$ ``gonfia'' le regioni rade e rende più separabili cluster con densità diverse.}
+  \label{fig:hdbscan-example}
+\end{figure}
+
+\subsubsection*{Costruzione del dendogramma} 
+Per la costruzione del dendogramma si procede così:
+\begin{description}
+  \item[Costruzione del MST] Si costruisce il Minimum Spanning Tree (MST) di \(G_{MinPts}\), ovvero il sottografo aciclico di di G il cui peso totale sugli archi è minimo e che garantisce la connessione di G.
+  \item[Rimozione degli archi] Si ordinano gli archi del MST in ordine decrescente di peso e si rimuovono progressivamente, partendo da quello più pesante. Ad ogni rimozione si ottiene una partizione dei punti in cluster (componenti connesse del grafo rimanente). Questa struttura, la chiamiamo \emph{cluster tree}.
+\end{description}
+
+\newpage
+\subsubsection*{Condensed tree e selezione dei cluster significativi}
+\paragraph{Condensed tree.} A partire dal cluster tree si \emph{condensa} mantenendo solo i rami che,
+per qualche intervallo di densità \(\lambda\), hanno almeno \texttt{MinPts} punti (gli altri rami vengono
+collassati sul padre). Ogni nodo \(C\) del condensed tree porta:
+\[
+\begin{aligned}
+\lambda_{\text{min}}(C) &\;\text{ (densità alla nascita)}\\
+\lambda_{\text{max}}(C) &\;\text{ (densità alla scomparsa/split)}\\
+|C|(\lambda) &\;\text{ (numero di punti in $C$ alla densità }\lambda\text{)}
+\end{aligned}
+\]
+
+Qui $|C|(\lambda)$ indica quanti punti appartengono al cluster $C$ per una data densità $\lambda$; 
+questo valore viene usato per decidere se mantenere o collassare un ramo nel \emph{condensed tree}.
+
+\paragraph{Stabilità (persistenza).} La stabilità misura “quanto a lungo” un cluster esiste al crescere di
+\(\lambda\). Per un nodo \(C\) del condensed tree:
+\[
+\mathrm{stab}(C)=\sum_{p\in C}\!\bigl(\lambda^{\text{max}}_{p}(C)-\lambda^{\text{min}}(C)\bigr),
+\]
+dove \(\lambda^{\text{max}}_{p}(C)\) è la densità alla quale il punto \(p\) lascia \(C\) (per split o perché \(C\) muore).
+Equivalente: è l’“area sotto la curva” del numero di punti di \(C\) lungo \(\lambda\) nel condensed tree.
+
+\paragraph{Estrazione dei cluster significativi (dal \emph{condensed tree}).}
+\emph{Input:} albero condensato in cui ogni nodo $C$ porta
+$\lambda_{\text{birth}}(C)$, $\lambda_{\text{death}}(C)$ e la funzione $|C|(\lambda)$
+(\# punti vivi in $C$ alla densità $\lambda$).
+
+\begin{enumerate}
+  \item \textbf{Calcolo della stabilità (bottom–up).}
+  Per ogni nodo $C$ si valuta la \emph{persistenza} del cluster lungo l’intervallo
+  in cui esiste come:
+  \[
+    \mathrm{stab}(C)
+    \;=\;
+    \sum_{p\in C}\bigl(\lambda^{\text{max}}_{p}(C)-\lambda^{\text{min}}(C)\bigr),
+  \]
+  dove $\lambda^{\text{min}}(C)$ è la densità alla \emph{nascita} di $C$ e
+  $\lambda^{\text{max}}_{p}(C)$ è la densità alla quale il punto $p$
+  \emph{esce} da $C$ (per split o scomparsa). Si procede dal basso verso l’alto
+  in modo da avere già disponibili le stabilità dei figli quando si valuta il padre.
+
+  \item \textbf{Regola di selezione (top–down, senza sovrapposizioni).}
+  Visitando un nodo $C$ con figli $C_1,\dots,C_m$, si confronta la stabilità del
+  padre con la somma di quelle dei figli:
+  \[
+    S_{\text{figli}}=\sum_{i=1}^{m}\mathrm{stab}(C_i).
+  \]
+  \begin{itemize}
+    \item Se $\mathrm{stab}(C)\ \mathbf{\ge}\ S_{\text{figli}}$:
+          \textbf{seleziona $C$} come cluster e \emph{non} scendere oltre in quel ramo.
+    \item Altrimenti:
+          \textbf{non} selezionare $C$ e \textbf{scendere} ricorsivamente,
+          applicando la stessa regola ai figli e selezionando quelli con stabilità $>0$.
+  \end{itemize}
+
+  \item \textbf{Output.} I nodi selezionati sono disgiunti e costituiscono
+  i \emph{cluster significativi} massimizzando la stabilità complessiva;
+  in caso di parità si preferisce il padre.
+\end{enumerate}
+
+\textbf{Assegnazione dei border (opzionale).} I punti non-core vicini a più cluster possono essere assegnati
+al cluster selezionato con \(\lambda_{\text{birth}}\) più basso o tramite un punteggio di \emph{membership} proporzionale
+al tempo di permanenza del punto nel cluster nel condensed tree.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.46\textwidth]{images/hdbscan_mst.png}\hfill
+  \includegraphics[width=.46\textwidth]{images/hdbscan_condensed_tree.png}
+  \caption{HDBSCAN. Sinistra: MST costruito sulla \emph{mutual reachability distance} (archi più pesanti vengono tagliati al crescere di \(\lambda\)). Destra: \emph{condensed tree}; in evidenza i cluster scelti massimizzando la stabilità.}
+  \label{fig:hdbscan-figs}
+\end{figure}
+
+\paragraph{Costo.} Dominato dalla costruzione del MST: con strutture adeguate $O(n\log n)$; altrimenti $O(n^2)$.

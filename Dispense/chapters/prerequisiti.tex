@@ -1,0 +1,139 @@
+\chapter{Prerequisiti Matematici Essenziali [WIP]}\label{ch:prerequisiti}
+% Capitolo generale: basi di algebra lineare, probabilità/statistica e ottimizzazione.
+% Stile discorsivo: definizioni, idee chiave, esempi numerici brevi e promemoria pratici.
+
+\section{Orientamento e notazione}\label{sec:notazione}
+Pensiamo a un vettore come a una freccia nello spazio (coordinate) e a una matrice come a un "trasformatore" di vettori.
+\begin{itemize}
+  \item Vettori colonna in grassetto: \(\mathbf{x}\in\mathbb{R}^d\). Matrici in maiuscolo: \(A\in\mathbb{R}^{m\times n}\). Trasposta: \(A^\top\).
+  \item Prodotto scalare: \(\langle\mathbf{x},\mathbf{y}\rangle=\mathbf{x}^\top\mathbf{y}\). Norme: \(\|\mathbf{x}\|_2=\sqrt{\sum_i x_i^2}\), \(\|\mathbf{x}\|_1=\sum_i |x_i|\), \(\|\mathbf{x}\|_\infty=\max_i |x_i|\).
+  \item Identità: \(I\). Vettore nullo: \(\mathbf{0}\).
+\end{itemize}
+
+\section{Vettori e matrici}\label{sec:vett-matr}
+\subsection{Combinazioni lineari e prodotto matrice–vettore}
+Una combinazione lineare di \(\mathbf{v}_1,\dots,\mathbf{v}_k\) è \(\sum_i \alpha_i\mathbf{v}_i\). Il prodotto \(A\mathbf{x}\) è una combinazione delle colonne di \(A\) con pesi i componenti di \(\mathbf{x}\).
+\paragraph{Esempio.} Se \(A=\begin{bmatrix}1&2\\0&-1\end{bmatrix}\) e \(\mathbf{x}=\begin{bmatrix}3\\1\end{bmatrix}\), allora \(A\mathbf{x}=3\begin{bmatrix}1\\0\end{bmatrix}+1\begin{bmatrix}2\\-1\end{bmatrix}=\begin{bmatrix}5\\-1\end{bmatrix}.\)
+
+\subsection{Prodotto matrice–matrice}
+La riga \(i\) di \(AB\) si ottiene moltiplicando la riga \(i\) di \(A\) per ogni colonna di \(B\). Non è commutativo.
+\paragraph{Esempio.} \(\begin{bmatrix}1&0\\2&1\end{bmatrix}\begin{bmatrix}3&1\\-1&2\end{bmatrix}=\begin{bmatrix}3&1\\5&4\end{bmatrix}\), ma invertendo l'ordine il risultato cambia.
+
+\section{Distanze e similarità}\label{sec:norme}
+\subsection{Norme classiche}
+\begin{align}
+\|\mathbf{x}\|_1&=\sum_i |x_i|, & \|\mathbf{x}\|_2&=\sqrt{\sum_i x_i^2}, & \|\mathbf{x}\|_\infty&=\max_i |x_i|.\label{eq:norme}
+\end{align}
+\paragraph{Esempio.} Per \(\mathbf{x}=(3,-4)\): \(\|\mathbf{x}\|_1=7\), \(\|\mathbf{x}\|_2=5\), \(\|\mathbf{x}\|_\infty=4\).
+\subsection{Prodotto scalare e angolo}
+\[\langle\mathbf{x},\mathbf{y}\rangle=\|\mathbf{x}\|_2\,\|\mathbf{y}\|_2\,\cos\theta\ \Rightarrow\ \cos\theta=\dfrac{\mathbf{x}^\top\mathbf{y}}{\|\mathbf{x}\|_2\,\|\mathbf{y}\|_2}.\]
+\paragraph{Esempio (cosine).} \(\mathbf{x}=(1,0,1)\), \(\mathbf{y}=(1,1,0)\): \(\mathbf{x}^\top\mathbf{y}=1\), \(\|\mathbf{x}\|_2=\|\mathbf{y}\|_2=\sqrt{2}\) \(\Rightarrow\cos\theta=1/2\).
+\subsection{Jaccard per insiemi}
+Per insiemi \(A,B\): \(J(A,B)=\tfrac{|A\cap B|}{|A\cup B|}\). Utile con basket o set di parole.
+
+\section{Sottospazi, basi e rango}\label{sec:span-rank}
+Lo span di \(\{\mathbf{v}_1,\dots,\mathbf{v}_k\}\) è l'insieme delle combinazioni lineari possibili. Una base è un insieme indipendente che genera lo spazio.
+\paragraph{Rango.} \(\mathrm{rank}(A)\) conta quante direzioni indipendenti contengono le colonne (o righe) di \(A\).
+\paragraph{Esempio.} In \(\mathbb{R}^2\), \((1,0)\) e \((2,0)\) sono dipendenti (stessa direzione): rango 1. \((1,0)\) e \((0,1)\) sono indipendenti: rango 2.
+
+\section{Proiezioni ortogonali e minimi quadrati}\label{sec:proiezioni}
+\subsection{Proiezione su una direzione}
+Se \(\mathbf{u}\) è unitario, \(\mathrm{proj}_{\mathbf{u}}(\mathbf{x})=(\mathbf{u}^\top\mathbf{x})\,\mathbf{u}\).
+\paragraph{Esempio (retta \(y=x\)).} \(\mathbf{u}=\tfrac{1}{\sqrt{2}}(1,1)\), \(\mathbf{x}=(2,0)\). Allora \(\mathbf{u}^\top\mathbf{x}=\sqrt{2}\) e la proiezione è \(\sqrt{2}\,\mathbf{u}=(1,1)\).
+\subsection{Minimi quadrati in due righe}
+Dato \(A\in\mathbb{R}^{m\times n}\) (\(m\ge n\)) e \(\mathbf{b}\), risolvi \(\min_{\mathbf{x}}\|A\mathbf{x}-\mathbf{b}\|_2\). Le equazioni normali sono \(A^\top A\,\mathbf{x}=A^\top\mathbf{b}\).
+\paragraph{Esempio.} \(A=\begin{bmatrix}1\\1\\1\end{bmatrix}\), \(\mathbf{b}=\begin{bmatrix}2\\3\\4\end{bmatrix}\). Qui \(x\) è lo scalare che approssima nel senso LS: \(A^\top A=3\), \(A^\top\mathbf{b}=9\) \(\Rightarrow x=3\).
+
+\section{Autovalori e autovettori}\label{sec:eig}
+Per \(A\in\mathbb{R}^{n\times n}\), \(A\mathbf{v}=\lambda\mathbf{v}\) significa che \(\mathbf{v}\) è una direzione lasciata invariata (a fattore \(\lambda\)). Se \(C=C^\top\) è simmetrica:
+\begin{itemize}
+  \item gli autovalori \(\lambda\) sono reali;
+  \item autovettori di autovalori diversi sono ortogonali;
+  \item esiste \(P\) ortogonale con \(C=P\,\Lambda\,P^\top\) (teorema spettrale).
+\end{itemize}
+\paragraph{Esempio.} \(C=\begin{bmatrix}2&1\\1&2\end{bmatrix}\): autovalori \(3,1\) con autovettori proporzionali a \((1,1)\) e \((1,-1)\).
+
+\section{Probabilità e statistica}\label{sec:prob}
+\subsection{Attesa e varianza}
+Per variabile discreta \(X\): \(\mathbb{E}[X]=\sum_x x\,P(X=x)\), \(\mathrm{Var}(X)=\mathbb{E}[(X-\mu)^2]\). Linearità: \(\mathbb{E}[aX+bY]=a\,\mathbb{E}[X]+b\,\mathbb{E}[Y]\).
+\paragraph{Esempio.} Dado equo: \(\mu=3{,}5\); \(\mathrm{Var}(X)=\tfrac{35}{12}\).
+\subsection{Covarianza e correlazione}
+\[\mathrm{Cov}(X,Y)=\mathbb{E}[(X-\mu_X)(Y-\mu_Y)],\qquad \rho=\tfrac{\mathrm{Cov}(X,Y)}{\sigma_X\sigma_Y}.\]
+\paragraph{Matrice di covarianza (dati centrati).} Per \(X\in\mathbb{R}^{n\times d}\): \(C=\tfrac{1}{n}X^\top X\).
+\paragraph{Esempio.} Dati centrati \((1,2),(2,3),(3,4)\) su due feature: \(C=\bigl[\begin{smallmatrix}1&1\\1&1\end{smallmatrix}\bigr]\).
+\subsection{Quantili e IQR}
+Il \(p\)-quantile è la soglia sotto cui cade una frazione \(p\) dei dati ordinati (mediana = 50\%). L'IQR è \(Q_3-Q_1\). Regola outlier: \([Q_1-1{,}5\,\mathrm{IQR},\,Q_3+1{,}5\,\mathrm{IQR}]\).
+\paragraph{Esempio.} Dati ordinati \([3,5,7,8,9,10,13,15,20]\): \(Q_1\approx6\), mediana \(=9\), \(Q_3\approx14\), IQR \(=8\).
+
+\subsection{Modello di Bayes e tipi di probabilità}\label{subsec:bayes}
+Il \textbf{modello di Bayes} spiega come aggiornare in modo coerente la probabilità di
+un’ipotesi quando osserviamo nuovi dati.
+
+\paragraph{Tipi di probabilità.}
+\begin{itemize}
+  \item \textbf{Congiunta} $P(X,Y)$: probabilità che due eventi/variabili si verifichino insieme.
+  \item \textbf{Marginale} $P(X)$: probabilità “totale” su $X$ ottenuta dalla congiunta,
+        ad es.\ $P(X)=\sum_{y}P(X,Y)$ (discreto) oppure $P(X)=\int f_{X,Y}(x,y)\,dy$ (continuo).
+  \item \textbf{Condizionata} $P(A\mid B)=\dfrac{P(A\cap B)}{P(B)}$ (per $P(B)>0$);
+        in termini di variabili $P(X\mid Y)=\dfrac{P(X,Y)}{P(Y)}$.
+  \item \textbf{Indipendenza} $X\perp Y$ se e solo se $P(X,Y)=P(X)P(Y)$ (equivale a $P(X\mid Y)=P(X)$).
+\end{itemize}
+
+\paragraph{Teorema di Bayes.}
+Per ipotesi $h_1,\dots,h_K$ e un’osservazione $x$:
+\[
+P(h_k\mid x)=\frac{\underbrace{P(x\mid h_k)}_{\text{verosimiglianza}}\,
+\underbrace{P(h_k)}_{\text{priori}}}
+{\underbrace{P(x)}_{\text{evidenza}}},\qquad
+P(x)=\sum_{j=1}^{K}P(x\mid h_j)P(h_j).
+\]
+Il \emph{posterior} $P(h_k\mid x)$ è la nostra opinione aggiornata su $h_k$; $P(h_k)$ è il \emph{prior};
+$P(x\mid h_k)$ è la \emph{verosimiglianza} del dato sotto $h_k$; $P(x)$ è l’\emph{evidenza} (normalizzatore).
+Per variabili continue, si sostituiscono le somme con integrali.
+
+\section{Preprocessing numerico}\label{sec:scaling}
+\paragraph{Standardizzazione (z-score).} \(z_{ij}=\dfrac{x_{ij}-\mu_j}{\sigma_j}\). Quando usarla: feature con scale diverse.
+\paragraph{Min--max scaling.} \(y_{ij}=\dfrac{x_{ij}-\min_j}{\max_j-\min_j}\in[0,1]\). Nota: sensibile agli outlier.
+\paragraph{Robust scaling.} \(r_{ij}=\dfrac{x_{ij}-\mathrm{mediana}_j}{\mathrm{IQR}_j}\). Pro: robusto ai valori estremi.
+\paragraph{Codifiche categoriali.} One-hot: per categorie \(\{c_1,\dots,c_g\}\), \(c_i\mapsto\mathbf{e}_i\in\{0,1\}^g\).
+\paragraph{Esempio.} Se media=50 e dev.stand.=10, il valore 65 diventa \(z=1{,}5\); con min--max su \([0,100]\) diventa \(0{,}65\).
+
+\section{Combinatoria utile}\label{sec:comb}
+\paragraph{Coefficienti binomiali.} \(\binom{n}{k}=\dfrac{n!}{k!(n-k)!}\). Esempio: 3-itemset da 100 item = \(\binom{100}{3}=161700\).
+\paragraph{Permutazioni.} \(P(n,k)=n\,(n-1)\cdots(n-k+1)\): sequenze ordinate senza ripetizione.
+
+\section{Entropia}\label{sec:entropy}
+
+\subsection{Definizione}
+Sia \(X\) una variabile aleatoria discreta che assume valori in un insieme finito \(\mathcal{X}\), con massa di probabilità \(p_X(x)=\Pr[X=x]\).
+L'\textbf{entropia (di Shannon)} di \(X\) è
+\[
+H_b(X)\;=\;-\sum_{x\in\mathcal{X}} p_X(x)\,\log_b p_X(x),
+\]
+dove \(b\) è la base del logaritmo (tipicamente \(b=2\), quindi l'unità di misura è il \emph{bit}; se \(b=e\) l'unità è il \emph{nat}). Per convenzione \(0\log 0:=0\).
+
+\paragraph{Proprietà essenziali.}
+\[
+0 \le H_b(X) \le \log_b |\mathcal{X}|,\qquad
+H_b(X)=0 \ \Leftrightarrow\ X \text{ è deterministica},\qquad
+H_b(X)=\log_b|\mathcal{X}| \ \Leftrightarrow\ X \text{ è uniforme}.
+\]
+In pratica, più è \emph{dispersa} la distribuzione di \(X\), maggiore è l'entropia.
+
+\paragraph{Stima empirica.}
+Dati \(n\) campioni \(x_1,\dots,x_n\) e le frequenze \(n_x=|\{i:\,x_i=x\}|\), la stima plug--in è
+\[
+\widehat{H}_b(X)\;=\;-\sum_{x\in\mathcal{X}} \frac{n_x}{n}\,\log_b\!\Big(\frac{n_x}{n}\Big).
+\]
+Nel caso di etichette di classe \(Y\), \(\widehat{H}_2(Y)\) misura l'\emph{impurità} del dataset ed è usata in molti criteri di splitting (es.\ \emph{information gain}).
+
+\subsection{In parole più semplici}
+L'entropia quantifica \textbf{quanta incertezza} c'è in un fenomeno casuale: è alta quando i risultati sono imprevedibili e tutti più o meno uguali in probabilità, è bassa quando un risultato è quasi certo.
+
+\paragraph{Esempio (moneta).}
+Se una moneta è equa, testa/croce valgono \(50\%\) ciascuno: \(H_2=1\) bit (serve, in media, 1 bit per descrivere l'esito).
+Se la moneta è sbilanciata, ad esempio \(\Pr[\text{testa}]=0.99\), l'entropia scende a
+\[
+H_2 \approx -0.99\log_2 0.99 - 0.01\log_2 0.01 \approx 0.080\text{ bit},
+\]
+perché l'esito è quasi sempre testa: c'è poca incertezza.

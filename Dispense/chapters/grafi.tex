@@ -1,0 +1,283 @@
+\chapter{Grafi}
+I grafi risolvono uno dei problemi più comuni in informatica: la rappresentazione e l'analisi delle relazioni tra oggetti. Molto spesso, infatti, i dati non sono semplicemente una lista di elementi ma possono essere visti come un insieme di connessioni tra degli elementi: basti pensare a una rete sociale, dove gli utenti sono collegati tra loro da amicizie, oppure a una mappa stradale, dove le città sono collegate da strade. In questi casi, i grafi forniscono un modo efficace per rappresentare e analizzare queste relazioni.
+
+\section{Definizione formale}
+Un graffo è una coppia ordinata \( G = (V, E) \), dove:
+\begin{itemize}
+    \item \( V \) è un insieme non vuoto di vertici (o nodi).
+    \item \( E \) è un insieme di archi (o spigoli), che sono coppie ordinate o non ordinate di vertici.
+\end{itemize}
+Gli archi possono essere diretti (nel caso di grafi orientati) o non diretti (nel caso di grafi non orientati).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/grafo_esemipo.png}
+    \caption{Grafo non orientato con quattro vertici \(V=\{A,B,C,D\}\) e archi \(E=\{(A,B),(A,C),(A,D),(B,D),(C,D)\}\). In figura: A è collegato a B (in alto), a C (sinistra) e a D (diagonale); B è collegato a D (destra); C è collegato a D (in basso).}
+    \label{fig:grafo_esempio}
+\end{figure}
+
+\subsection{Network science}
+La scienza che studia i grafi, o reti in questo caso, è la \textbf{network science}. É una disciplina interdisciplinare che combina elementi di matematica, informatica, fisica e sociologia per analizzare e comprendere le strutture complesse delle reti.
+
+Un esempio recente di Network science è il \emph{Covid}: Gli epidemiologi hanno utilizzato modelli basati su grafi per tracciare la diffusione del virus, identificare i nodi critici (come le persone più connesse) e prevedere l'impatto delle misure di contenimento.
+
+\section{Grafi diretti e indiretti}
+I grafi possono essere classificati in due categorie principali: grafi diretti (o orientati) e grafi indiretti (o non orientati):
+\begin{description}
+    \item[Grafo diretto.] In un grafo diretto, gli archi hanno una direzione specifica, rappresentata da una freccia. Questo significa che la relazione tra due vertici è unidirezionale. Ad esempio, in un grafo che rappresenta le relazioni di follower su un social media, se l'utente A segue l'utente B, c'è un arco diretto da A a B, ma non necessariamente da B ad A.
+    \item[Grafo indiretto.] In un grafo indiretto, gli archi non hanno una direzione specifica. Questo significa che la relazione tra due vertici è bidirezionale, ovvero per ogni arco $(a, b) $ esiste anche l'arco $(b, a)$. Ad esempio, in un grafo che rappresenta le amicizie in un social media, se l'utente A è amico dell'utente B, c'è un arco non diretto tra A e B.
+\end{description}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/grafo_diretto_indiretto.png}
+    \caption{Confronto tra grafo non orientato (a sinistra) e grafo orientato (a destra). Nel grafo orientato, gli archi hanno una direzione indicata da frecce, mentre nel grafo non orientato rappresentano relazioni bidirezionali.}
+    \label{fig:grafo_diretto_indiretto}
+\end{figure}
+
+\paragraph{Come capire che tipologia usare.} La scelta tra grafo diretto e indiretto dipende dalla natura delle relazioni che si desidera rappresentare. Se le relazioni sono unidirezionali, come nel caso dei follower sui social media, è appropriato utilizzare un grafo diretto. Se le relazioni sono bidirezionali, come nel caso delle amicizie, è più adatto utilizzare un grafo indiretto.
+
+\section{Grafi pesati e grafi etichettati}
+Oltre alla distinzione tra grafi diretti e indiretti, i grafi possono essere ulteriormente classificati in grafi pesati e grafi etichettati:
+\begin{description}
+    \item[Grafo pesato.] In un grafo pesato, ogni arco ha un peso associato, che rappresenta il costo, la distanza o qualsiasi altra misura quantitativa tra i vertici collegati. Ad esempio, in un grafo che rappresenta una rete stradale, il peso degli archi può rappresentare la distanza tra le città.
+    \item[Grafo etichettato.] In un grafo etichettato, i vertici e/o gli archi hanno etichette o nomi associati, che forniscono informazioni aggiuntive sui nodi o sulle relazioni. Ad esempio, in un grafo che rappresenta una rete sociale, i vertici possono essere etichettati con i nomi degli utenti.
+\end{description}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/grafo_pesato_etichettato.png}
+    \caption{Esempio di grafo pesato (a sinistra) ed etichettato (a destra). Nel grafo pesato, i numeri sugli archi rappresentano i pesi associati a ciascun arco. Nel grafo etichettato, i vertici sono etichettati con nomi specifici.}
+    \label{fig:grafo_pesato_etichettato}
+\end{figure}
+
+\section{Gradi dei vertici}
+Il grado di un vertice in un grafo rappresenta il numero di archi che sono collegati a quel vertice. In un grafo indiretto, il grado di un vertice \( v \) è semplicemente il numero di archi incidenti su \( v \).
+
+\noindent
+Nel caso particolare di un \textbf{grafo diretto} si fa distinzione tra:
+\begin{itemize}
+    \item \textbf{Grado entrante} (in-degree): il numero di archi che arrivano al vertice \( v \).
+    \item \textbf{Grado uscente} (out-degree): il numero di archi che partono dal vertice \( v \).
+\end{itemize}
+
+\noindent
+Poi si parla di \textbf{grado totale} di un vertice \( v \) come la somma del grado entrante e del grado uscente.
+
+Si può parlare anche di \textbf{grado medio} di un grafo, che rappresenta la media dei gradi di tutti i vertici nel grafo. In un grafo indiretto, il grado medio \( \bar{k} \) può essere calcolato utilizzando la formula:
+\[
+\bar{k} = \frac{|E|}{|V|}
+\]
+dove \( |E| \) è il numero totale di archi e \( |V| \) è il numero totale di vertici nel grafo.
+
+\subsection{Distribuzione dei gradi}
+La distribuzione dei gradi di un grafo descrive come i gradi dei vertici sono distribuiti all'interno del grafo.
+
+Questa è una distribuzione di probabilità $P$ dove $p_k$ è la probabilità che un vertice scelto a caso abbia grado $k$. 
+
+In una rete reale, $p_k$ si ottiene dividendo il numero $N_k$ di nodi con grado $k$ per il numero totale $N$ di nodi nella rete:
+\[
+p_k = \frac{N_k}{N}
+\]
+
+\section{Grafi bipartiti}
+Un grafo bipartito è un tipo speciale di grafo in cui i vertici possono essere divisi in due insiemi disgiunti \( U \) e \( V \) tali che ogni arco collega un vertice in \( U \) a un vertice in \( V \). Non ci sono archi che collegano vertici all'interno dello stesso insieme.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/grafo_bipartito_esempio.png}
+    \caption{Esempio di grafo bipartito con partizioni \(U\) (nodi verdi) e \(V\) (nodi viola): gli archi collegano solo vertici appartenenti a insiemi diversi. In basso sono mostrati i grafi proiettati: \emph{projection \(U\)} (a sinistra), dove due vertici di \(U\) sono adiacenti se condividono almeno un vicino in \(V\), e \emph{projection \(V\)} (a destra), definita simmetricamente.}
+    \label{fig:grafo_bipartito}
+\end{figure}
+
+
+Da un \emph{grafo bipartito} si possono derivare due \emph{grafi proiettati}, che sono grafi non bipartiti ottenuti collegando i vertici di uno degli insiemi \( U \) o \( V \) se condividono un vicino nell'altro insieme.
+
+\paragraph{Generalizzazione.} I grafi bipartiti possono essere generalizzati a \emph{grafi multipartiti}, dove i vertici sono divisi in più di due insiemi disgiunti, e gli archi collegano solo vertici appartenenti a insiemi diversi.
+
+\section{Grafo completo vs Grafo regolare}
+Un grafo completo è un grafo in cui ogni coppia di vertici distinti è collegata da un arco. In altre parole, in un grafo completo con \( n \) vertici, ogni vertice ha un arco che lo collega a tutti gli altri \( n-1 \) vertici. Un grafo completo con \( n \) vertici è denotato come \( K_n \).
+
+Un grafo regolare è un grafo in cui ogni vertice ha lo stesso grado. In altre parole, in un grafo regolare con \( n \) vertici, ogni vertice ha esattamente \( k \) archi collegati ad esso, dove \( k \) è un numero fisso. Un grafo regolare con \( n \) vertici e grado \( k \) è denotato come \( R(n, k) \).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/grafo_regolare_completo.png}
+    \caption{A sinistra: esempi di grafi completi \(K_n\) per \(n=2,\dots,7\), in cui ogni coppia di vertici è adiacente. A destra: esempi di grafi \(k\)-regolari (da \(k=1\) a \(k=4\)), in cui ogni vertice ha lo stesso grado \(k\).}
+    \label{fig:grafo_regolare}
+\end{figure}
+
+\section{Cammini tra due nodi}
+Si definisce \textbf{cammino} tra due nodi \( u \) e \( v \) in un grafo come una sequenza di vertici e archi che collega \( u \) a \( v \). Un cammino può essere rappresentato come una sequenza di vertici \( (u = v_0, v_1, v_2, \ldots, v_k = v) \) tale che ogni coppia di vertici consecutivi \( (v_i, v_{i+1}) \) è collegata da un arco nel grafo.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/cammino.png}
+    \caption{Esempio di cammino in un grafo: gli archi verdi definiscono la struttura, mentre in arancione è evidenziato un \emph{cammino} che attraversa i vertici \(1 \to 2 \to 5 \to 7\).}
+    \label{fig:cammino_grafo}
+\end{figure}
+
+\subsection{Cammino minimo} Si definisce \textbf{cammino minimo} tra due nodi \( u \) e \( v \) come il cammino che collega \( u \) a \( v \) con il minor numero di archi possibile. In un grafo pesato, il cammino minimo può essere definito come il cammino che minimizza la somma dei pesi degli archi attraversati. Nella figura \ref{fig:cammino_grafo}, il cammino minimo tra i nodi \(1\) e \(7\) è \(1 \to 2 \to 5 \to 7\), che attraversa tre archi, quindi $d(1, 7) = 3$.
+
+\subsection{Diametro} Il \textbf{diametro} di un grafo è la massima distanza tra tutte le coppie di vertici nel grafo. In altre parole, è la lunghezza del cammino minimo più lungo tra qualsiasi coppia di vertici nel grafo. Il diametro fornisce una misura della "grandezza" del grafo in termini di distanza tra i suoi vertici. Nel caso della figura \ref{fig:cammino_grafo}, il diametro del grafo è \(4\), che corrisponde alla distanza massima tra le coppie di nodi \( (1, 6) \) e \( (3, 6) \).
+
+\subsection{Ciclo}
+Un particolare tipo di cammino è il \textbf{ciclo}, che inizia e termina nello stesso vertice senza ripetere alcun altro vertice lungo il percorso. Un ciclo può essere rappresentato come una sequenza di vertici \( (v_0, v_1, v_2, \ldots, v_k, v_0) \) tale che ogni coppia di vertici consecutivi \( (v_i, v_{i+1}) \) è collegata da un arco nel grafo, e \( v_0 = v_k \). Nell'immagine \ref{fig:cammino_grafo}, un esempio di ciclo è \(2 \to 5 \to 4 \to 2\).
+
+\paragraph{Cappio.} Un particolare tipo di ciclo è il \textbf{cappio}, che è un arco che collega un vertice a se stesso. In altre parole, un cappio è un ciclo di lunghezza 1.
+
+\section{Connettività}
+Due nodi $i, j$ di un grafo si dicono \textbf{connessi} se esiste almeno un cammino che li collega. Un grafo si dice \textbf{connesso} se ogni coppia di nodi del grafo è connessa, al contrario si dice \textbf{disconnesso}.
+
+Un grafo disconnesso $G$ risulta formato dall'unione di più sottografi connessi, detti \textbf{componenti connesse} di $G$.
+
+\subsection{Connettività forte e debole}
+In un grafo diretto, si distinguono due tipi di connettività:
+\begin{description}
+    \item[Connettività forte] Due nodi \( u \) e \( v \) sono fortemente connessi se esiste un cammino diretto da \( u \) a \( v \) e un cammino diretto da \( v \) a \( u \). Un grafo diretto è fortemente connesso se ogni coppia di nodi è fortemente connessa.
+    \item[Connettività debole] Due nodi \( u \) e \( v \) sono debolmente connessi se esiste un cammino diretto da \( u \) a \( v \) o un cammino diretto da \( v \) a \( u \). Un grafo diretto è debolmente connesso se ogni coppia di nodi è debolmente connessa.
+\end{description}
+
+\section{Coefficiente di Clustering}
+Il \textbf{coefficiente di clustering} $C_n$ di un nodo $n$ è una misura di quanto gli adiacenti di $n$ siano \textbf{connessi tra loro}. Misura la \emph{densit\`a locale} della rete attorno a $n$: pi\`u il vicinato di $n$ \`e densamente connesso, pi\`u alto \`e il coefficiente.
+
+Formalmente, se $k_n$ \`e il grado di $n$ (numero di vicini) e $L_n$ \`e il numero di archi effettivamente presenti tra i $k_n$ vicini, il coefficiente di clustering locale si definisce come:
+\[
+C_n \,=\, \frac{2\,L_n}{k_n\,(k_n-1)}
+\]
+La formula normalizza il numero di archi esistenti rispetto al numero massimo possibile di archi tra i $k_n$ vicini, cos\`i che $C_n\in[0,1]$.
+
+Esempi visuali: il primo caso mostra un vicinato completamente connesso ($C_i=1$), il secondo un vicinato parzialmente connesso ($C_i=1/2$) e il terzo un vicinato senza archi tra vicini ($C_i=0$).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/clustering_coeff.png}
+    \caption{Esempio del coefficiente di clustering locale per un nodo centrale (viola) con quattro vicini (arancioni). A sinistra il vicinato è completamente connesso, quindi \(C_i=1\); al centro solo metà delle possibili connessioni tra i vicini è presente (\(C_i=\tfrac{1}{2}\)); a destra non ci sono archi tra i vicini e il coefficiente è nullo (\(C_i=0\)).}
+    \label{fig:clustering-coeff}
+\end{figure}
+
+\paragraph{Clustering medio.}
+Il \textbf{clustering medio} $\langle C \rangle$ di un grafo si ottiene calcolando la media aritmetica dei coefficienti di clustering locali di tutti i nodi del grafo:
+\[
+\langle C \rangle \,=\, \frac{1}{N} \sum_{n=1}^{N} C_n
+\]
+dove $N$ è il numero totale di nodi nel grafo. Il clustering medio fornisce una misura globale della tendenza dei nodi a formare gruppi o comunità all'interno del grafo.
+
+\paragraph{Coefficiente di clustering globale.} Un'altra misura del clustering in un grafo è il \emph{coefficiente di clustering globale} $\phi$, che si basa sul conteggio dei triangoli e delle triplette nel grafo. Un triangolo è una tripla di nodi tutti connessi tra loro, mentre una tripletta è una sequenza di tre nodi collegati da due archi. 
+
+Un triangolo però, si può esprimere in 3 modi diversi in base all'orientamento: ad esempio, i nodi \(A\), \(B\) e \(C\) formano un triangolo, ma si possono contare le triplette \( (A, B, C) \), \( (B, C, A) \) e \( (C, A, B) \). 
+
+\section{Misure di centralità}
+La \textbf{centralità} di un nodo in un grafo è una misura dell'importanza di un nodo nella rete. Esistono diverse misure di centralità a seconda del criterio di misura.
+
+\subsection{Centralità di grado}
+La \textbf{centralità di grado} \( C_G(v) \) di un nodo \( v \) è definita come il numero di archi incidenti su \( v \). In un grafo indiretto, la centralità di grado è semplicemente il grado del nodo:
+\[C_G(v) = \text{grado}(v) \]
+In un grafo diretto , si può distinguere tra centralità di grado entrante e centrale di grado uscente:
+\[C_G^{in}(v) = \text{grado entrante}(v) \]
+\[C_G^{out}(v) = \text{grado uscente}(v) \] 
+
+\subsection{Centralità di vicinanza}
+La \textbf{centralità di vicinanza} \( C_C(v) \) di un nodo \( v \) è definita come il numero di cammini minimi che passano per \( v \) tra tutte le coppie di nodi nel grafo:
+\[C_C(v) = \sum_{s \neq v \neq t} \frac{\delta_{ij}(v)}{\delta_{ij}} \]
+dove \( \delta_{ij} \) è il numero di cammini minimi tra i nodi \( i \) e \( j \), e \( \delta_{ij}(v) \) è il numero di tali cammini che passano per \( v \). Un nodo con alta centralità di vicinanza agisce come un ponte critico nella rete, facilitando la comunicazione tra altri nodi.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/betweenness_centrality.png}
+    \caption{Esempio di calcolo della centralità di vicinanza per i nodi in un grafo. I numeri accanto ai nodi indicano le distanze minime da ciascun nodo agli altri nodi nel grafo.}
+    \label{fig:centralita_vicinanza}
+\end{figure}
+
+\paragraph{Esempio (nodo \(3\)).}
+Consideriamo ora il calcolo della \textbf{centralità di vicinanza} per il nodo \(3\). Questa misura quantifica quante volte il nodo \(3\) si trova sui cammini minimi tra coppie di altri nodi del grafo.
+
+Nella tabella seguente riportiamo tutte le coppie di nodi \((i,j)\) che non includono il nodo \(3\), insieme ai valori di \(\delta_{ij}(3)\), \(\delta_{ij}\) e del loro rapporto.
+
+\[
+\begin{array}{c|c|c|c}
+\text{Coppia } (i,j) & \delta_{ij}(3) & \delta_{ij} & \frac{\delta_{ij}(3)}{\delta_{ij}} \\ \hline
+(1,2) & 0 & 1 & 0 \\ 
+(1,4) & 1 & 1 & 1 \\
+(1,5) & 1 & 2 & 0.5 \\
+(1,6) & 1 & 2 & 0.5 \\
+(1,7) & 1 & 2 & 0.5 \\ \hline
+(2,4) & 1 & 1 & 1 \\
+(2,5) & 0 & 1 & 0 \\
+(2,6) & 0 & 1 & 0 \\
+(2,7) & 0 & 1 & 0 \\ \hline
+(4,5) & 1 & 1 & 1 \\
+(4,6) & 1 & 1 & 1 \\
+(4,7) & 1 & 1 & 1 \\ \hline
+(5,6) & 0 & 1 & 0 \\
+(5,7) & 0 & 1 & 0 \\
+(6,7) & 0 & 1 & 0 \\ \hline
+\text{Totale} & - & - & 6.5
+\end{array}
+\]
+
+La somma dei rapporti fornisce il valore complessivo della centralità di intermediazione per il nodo \(3\):
+\[
+C_B(3) = 6.5
+\]
+
+\subsection{Centralità di prossimità}
+La \textbf{centralità di prossimità} \( C_P(v) \) di un nodo \( v \) è definita come l'inverso della somma delle distanze minime da \( v \) a tutti gli altri nodi nel grafo:
+\[C_P(v) = \frac{1}{\sum_{u \neq v} d(v, u)} \]
+dove \( d(v, u) \) è la distanza minima tra i nodi \( v \) e \( u \). Un nodo con alta centralità di prossimità è in grado di raggiungere rapidamente tutti gli altri nodi nel grafo.
+
+Il grafo in figura \ref{fig:centralita_vicinanza} può essere riscritto con i valori di centralità di prossimità, come mostrato in figura \ref{fig:centralita_prossimita}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/centralita_prossimita.png}
+    \caption{Esempio di calcolo della centralità di prossimità per i nodi in un grafo. I numeri accanto ai nodi indicano i valori di centralità di prossimità calcolati in base alle distanze minime da ciascun nodo agli altri nodi nel grafo.}
+    \label{fig:centralita_prossimita}
+\end{figure}
+
+\subsection{Centralità di PageRank}
+La \textbf{centralità di PageRank} \( C_{PR}(v) \) di un nodo \( v \) è una misura dell'importanza di un nodo basata sulla struttura del grafo e sulle connessioni tra i nodi. PageRank è stato originariamente sviluppato da Google per valutare l'importanza delle pagine web, ma può essere applicato a qualsiasi grafo.
+
+La formula di PageRank è data da:
+\[C_{PR}(v) = \frac{1 - d}{N} + d \sum_{u \in \text{In}(v)} \frac{C_{PR}(u)}{\text{OutDegree}(u)} \]
+dove:
+\begin{itemize}
+    \item \( d \) è il fattore di damping, solitamente impostato a 0.85.
+    \item \( N \) è il numero totale di nodi nel grafo.
+    \item \( \text{In}(v) \) è l'insieme dei nodi che puntano a \( v \).
+    \item \( \text{OutDegree}(u) \) è il grado uscente del nodo \( u \).
+\end{itemize}
+
+\paragraph{Esempio.}
+Consideriamo una \textbf{rete diretta} costituita da quattro nodi \( A, B, C, D \).  
+Ogni nodo parte con uno \emph{score iniziale} uguale per tutti, pari a \(0.25\), poiché lo score complessivo della rete è \(1\).  
+La figura~\ref{fig:pagerank_initial} mostra la configurazione iniziale del grafo, in cui ogni nodo ha lo stesso valore di PageRank.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/pagerank_initial.png}
+    \caption{Configurazione iniziale della rete diretta con quattro nodi \(A, B, C, D\), ciascuno con uno score iniziale di \(0.25\).}
+    \label{fig:pagerank_initial}
+\end{figure}
+
+In ogni iterazione, ciascun nodo cede il proprio score in \textbf{parti uguali} tra i nodi verso i quali ha archi uscenti.  
+Nel primo round le distribuzioni sono le seguenti:
+\begin{itemize}
+    \item \(A\) cede metà score a \(B\) (0.125) e metà a \(C\) (0.125);
+    \item \(B\) cede tutto il proprio score a \(C\) (0.25);
+    \item \(C\) cede tutto il proprio score a \(D\) (0.25);
+    \item \(D\) cede metà score a \(A\) (0.125) e metà a \(B\) (0.125).
+\end{itemize}
+
+Dopo il primo round si ottengono i seguenti valori di PageRank: \( A = 0.125, \quad B = 0.25, \quad C = 0.375, \quad D = 0.25 \)
+
+Iterando questo processo di redistribuzione, i valori dei nodi si aggiornano progressivamente fino a raggiungere una situazione di \textbf{equilibrio}, in cui i punteggi non variano più in modo significativo:
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/pagerank_rounds.png}
+    \caption{Evoluzione dei valori di PageRank per i nodi \(A, B, C, D\) nei round successivi.}
+    \label{fig:pagerank_rounds}
+\end{figure}
+
+Al termine delle iterazioni, i valori di equilibrio rappresentano la \textbf{centralità di PageRank} dei nodi, indicando la loro importanza relativa all’interno della rete.

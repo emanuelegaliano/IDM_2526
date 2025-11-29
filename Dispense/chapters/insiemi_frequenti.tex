@@ -1,0 +1,240 @@
+\chapter{Insiemi Frequenti e Regole d'Associazione}\label{ch:frequent-itemsets}
+
+\section{Market-basket model e definizioni}\label{sec:mbm}
+Nel \emph{market-basket model} ogni transazione (\emph{basket}) è un insieme di oggetti (\emph{item}). L'obiettivo è individuare \textbf{itemset frequenti}, cioè insiemi di item che compaiono assieme in molte transazioni, e derivarne \textbf{regole d'associazione} utili per descrivere co-occorrenze interessanti. Per farlo, abbiamo bisogno di definire delle nozioni di base:
+
+\subsection{Supporto}
+Sia $\mathcal{D}$ l'insieme dei basket ($|\mathcal{D}|{=}N$) e sia $I{\subseteq}\mathcal{I}$ un itemset. Il \textbf{supporto} assoluto di $I$ è
+\[
+\mathrm{supp}(I) \;=\; \bigl|\{\,T\in\mathcal{D}: I\subseteq T\,\}\bigr|,\qquad 
+\mathrm{supp}_{\mathrm{rel}}(I)\;=\;\frac{\mathrm{supp}(I)}{N}.
+\]
+Dato un valore soglia $\sigma$ (\emph{min-sup}), $I$ è \textbf{frequente} se $\mathrm{supp}(I)\ge \sigma$. 
+
+Per fare un esempio, con $N{=}5$ e transazioni $\{a,b,c\}$, $\{a,c\}$, $\{b,c\}$, $\{a,b\}$, $\{a,b,c\}$, l'itemset $\{a,b\}$ ha supporto $3$ (frequente se $\sigma{\le}3$), mentre $\{b,c\}$ ha supporto $3$ (frequente se $\sigma{\le}3$) e $\{a,b,c\}$ ha supporto $2$ (frequente se $\sigma{\le}2$).
+
+\paragraph{Soglia di supporto: trade-off.} Soglie alte eliminano pattern rari ma potenzialmente informativi; soglie basse provocano un'esplosione di candidati, con costi elevati nel conteggio e nella validazione.
+
+\section{Regole d'associazione}\label{sec:assoc}
+Una \textbf{regola d'associazione} è un'implicazione $X\to j$ con $X$ itemset e $j$ un singolo item, $j\notin X$. Si estende a $X\to Y$ con $X\cap Y=\varnothing$. La regola afferma che la presenza di $X$ in una transazione implica (con una certa probabilità) la presenza di $j$. Le regole si estraggono dagli insiemi frequenti: se $I$ è frequente e $j\in I$, allora $X=I\setminus\{j\}$ produce la regola $X\to j$.
+
+\subsection{Qualità di una regola}\label{subsec:qualita-regole}
+\paragraph{Confidenza.} La confidenza di $X\to j$ è
+\[
+\mathrm{conf}(X\to j)\;=\;\frac{\mathrm{supp}(X\cup\{j\})}{\mathrm{supp}(X)}\;=\;P(j\mid X).
+\]
+\paragraph{Coverage.} $\mathrm{supp}(X)$ è anche \emph{coverage}: misura la copertura/applicabilità della regola.
+\paragraph{Interesse.} Scostamento rispetto alla prevalenza marginale di $j$:
+\[
+\mathrm{int}(X\to j)\;=\;\mathrm{conf}(X\to j)-\frac{\mathrm{supp}(\{j\})}{N}.
+\]
+\paragraph{Lift.} Rapporto tra co-occorrenza osservata e quella attesa in indipendenza:
+\[
+\mathrm{lift}(X\to j)\;=\;\frac{N\cdot\mathrm{supp}(X\cup\{j\})}{\mathrm{supp}(X)\,\mathrm{supp}(\{j\})}
+\;=\;\frac{\mathrm{conf}(X\to j)}{\mathrm{supp}(\{j\})/N}.
+\]
+Valori $>1$ indicano associazione positiva; $<1$ negativa.
+
+\paragraph{Nota.} Supporto e confidenza alti possono produrre regole ovvie o ridondanti perché guidate da item molto frequenti. Altre metriche come lift (o \emph{leverage}: $\mathrm{supp}(XY)-\mathrm{supp}(X)\mathrm{supp}(Y)/N$) aiutano a individuare co-occorrenze non banali.
+
+\paragraph{Mini-esempio (toy dataset).}
+Sia $N{=}8$ con item $\{b,c,j,m,p\}$. Supponiamo:
+\[
+\mathrm{supp}(\{b\}){=}6,\ \mathrm{supp}(\{c\}){=}5,\ \mathrm{supp}(\{j\}){=}4,\ \mathrm{supp}(\{m\}){=}5,\ \mathrm{supp}(\{p\}){=}2,
+\]
+e, tra le coppie, $\mathrm{supp}(\{b,c\}){=}4$, $\mathrm{supp}(\{c,j\}){=}3$, $\mathrm{supp}(\{c,m\}){=}2$, $\mathrm{supp}(\{m,p\}){=}2$, ecc. Per la regola $\{c,m\}\to b$:
+\[
+\mathrm{conf}\;=\;\frac{\mathrm{supp}(\{b,c,m\})}{\mathrm{supp}(\{c,m\})}=\frac{2}{2}=1.0,\qquad
+\mathrm{lift}\;=\;\frac{8\cdot 2}{2\cdot 6}=1.33.
+\]
+
+\section{Insiemi frequenti chiusi e massimali}\label{sec:closed-maximal}
+Sia $I$ frequente.
+\begin{itemize}
+  \item $I$ è \textbf{chiuso} se nessun suo superinsieme ha lo \emph{stesso} supporto di $I$.
+  \item $I$ è \textbf{massimale} se nessun suo superinsieme è frequente.
+\end{itemize}
+Gli insiemi massimali sono chiusi; gli insiemi chiusi forniscono una rappresentazione più compatta (mantengono il supporto dei soli chiusi).
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/insiemi_frequenti_massimale.png}
+  \caption[Itemset lattice (minsup 2)]{Grafo degli itemset con minsup $=2$. \emph{Frequente}: supporto $\ge 2$; \emph{chiuso}: nessun superinsieme con lo stesso supporto; \emph{massimale}: nessun superinsieme frequente. Esempio con chiusi (es.\ CE) e chiusi–massimali (CE, DE).}
+  \label{fig:ifm}
+\end{figure}
+
+\section{Anti-monotonia e Principio di Apriori}\label{sec:apriori-principle}
+Per $S\subseteq I$ vale l'\textbf{anti-monotonicità del supporto}:
+\[
+\mathrm{supp}(I)\le \mathrm{supp}(S).
+\]
+Da questo principio, nasce il \textbf{Principio di Apriori}.
+
+\subsection{Principio di Apriori} Se $I$ è frequente, ogni suo sottoinsieme è frequente; equivalentemente, se $I$ non è frequente, nessun suo superinsieme può esserlo.
+
+Questo principio consente di ridurre lo spazio di ricerca degli insiemi frequenti: se un candidato $C$ contiene un sottoinsieme non frequente, $C$ può essere scartato senza calcolarne il supporto.
+
+\section{Algoritmo Apriori}\label{sec:apriori}
+Ricerca \emph{bottom-up} per cardinalità crescente. % Slide 2
+\begin{enumerate}
+  \item Calcola $L_1$ (item singoli frequenti).
+  \item Per $k=1,2,\dots$:
+  \begin{enumerate}
+    \item \textbf{Join}: genera $C_{k+1}$ (candidati di taglia $k{+}1$) con self-join di $L_k$.
+    \item \textbf{Prune}: elimina da $C_{k+1}$ i candidati che contengono un sottoinsieme di taglia $k$ non frequente (\S\ref{sec:apriori-principle}).
+    \item \textbf{Conteggio}: scansiona il DB e costruisci $L_{k+1}=\{\,c\in C_{k+1}: \mathrm{supp}(c)\ge\sigma\,\}$.
+  \end{enumerate}
+  \item Arresta quando $C_{k+1}=\varnothing$.
+\end{enumerate}
+
+\subsection{Esempio Apriori (minsup = 2)}\label{subsec:apriori-esempio}
+% Esempio coerente con le slide: item {b,c,j,m,p} e N=8.
+\begin{center}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Item & $b$ & $c$ & $j$ & $m$ & $p$ \\
+\midrule
+$\mathrm{supp}(\cdot)$ & 6 & 5 & 4 & 5 & 2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Con minsup $=2$, $L_1=\{b,c,j,m,p\}$.
+
+\paragraph{$k=1\!\to\!2$: generazione $C_2$ e conteggi.}
+\[
+\{b,c\},\{b,j\},\{b,m\},\{b,p\},\{c,j\},\{c,m\},\{c,p\},\{j,m\},\{j,p\},\{m,p\}.
+\]
+\begin{center}
+\begin{tabular}{@{}lcccccccccc@{}}
+\toprule
+Itemset & $\{b,c\}$ & $\{b,j\}$ & $\{b,m\}$ & $\{b,p\}$ & $\{c,j\}$ & $\{c,m\}$ & $\{c,p\}$ & $\{j,m\}$ & $\{j,p\}$ & $\{m,p\}$ \\
+\midrule
+$\mathrm{supp}(\cdot)$ & 4 & 2 & 4 & 1 & 3 & 2 & 0 & 2 & 1 & 2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Quindi $L_2=\{\{b,c\},\{b,j\},\{b,m\},\{c,j\},\{c,m\},\{j,m\},\{m,p\}\}$.
+
+\paragraph{$k=2\!\to\!3$: self-join e prune.}
+\[
+C_3=\{\{b,c,j\},\{b,c,m\},\{b,j,m\},\{c,j,m\}\}.
+\]
+\begin{center}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Itemset & $\{b,c,j\}$ & $\{b,c,m\}$ & $\{b,j,m\}$ & $\{c,j,m\}$ \\
+\midrule
+$\mathrm{supp}(\cdot)$ & 2 & 2 & 1 & 1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+Quindi $L_3=\{\{b,c,j\},\{b,c,m\}\}$; $L_4=\varnothing$.
+
+\subsection{Generazione dei candidati}\label{subsec:candidate-gen}
+Se gli item sono ordinati, due insiemi $A=(a_1,\dots,a_{k-1},x)$ e $B=(a_1,\dots,a_{k-1},y)$ in $L_k$ con $x<y$ producono $(a_1,\dots,a_{k-1},x,y)$. Il \emph{prune} scarta i candidati che hanno almeno un sottoinsieme di taglia $k$ non in $L_k$.
+
+\section{Ottimizzazioni di Apriori}\label{sec:apriori-opt}
+% Slide 3: migliorie pratiche e scalabilità
+\subsection{Hashing in bucket: PCY}\label{subsec:pcy}
+Alla prima passata si contano i singoli item e, in parallelo, si proiettano tutte le coppie in bucket tramite hash. I bucket sotto soglia sono marcati come non frequenti: alla seconda passata, una coppia $(i,j)$ è candidata solo se \emph{entrambi} gli item sono frequenti e il bucket di $(i,j)$ è frequente. Riduce notevolmente $|C_2|$.
+
+\paragraph{Varianti multistadio e multihash.}
+\begin{itemize}
+  \item \textbf{Multistage PCY}: più passate di hashing con funzioni diverse; un candidato è ammesso solo se sopravvive a tutti i filtri (meno falsi positivi rispetto a PCY base).
+  \item \textbf{Multihash PCY}: nella stessa passata si usano più funzioni hash indipendenti; una coppia è candidata se tutti i bucket corrispondenti sono frequenti (filtro più severo).
+\end{itemize}
+
+\subsection{Partizionamento del DB: SON}\label{subsec:son}
+Divide il dataset in partizioni; su ciascuna esegue Apriori con min-sup scalato. L'unione dei frequenti locali fornisce i candidati globali, poi verificati su tutto il DB. Adatto a MapReduce e ambienti distribuiti.
+
+\subsection{Campionamento e frontiera negativa: Toivonen}\label{subsec:toivonen}
+Esegue Apriori su un campione $S$ con soglia più bassa $\sigma'$; produce un insieme di candidati e la \emph{frontiera negativa} (insiemi non frequenti in $S$ con tutti i sottoinsiemi immediati frequenti). Se nessun elemento della frontiera negativa risulta frequente a livello globale, l'output è corretto; altrimenti si ripete con nuovo campione (evitando falsi negativi).
+
+\section{Perch\'e andare oltre Apriori}\label{sec:oltre-apriori}
+Apriori richiede (i) generare esplicitamente $C_k$ a ogni livello e (ii) molte passate sul DB per i conteggi. Con soglie basse o molti pattern, i candidati esplodono e le scansioni sono costose. \textbf{FP-Growth} evita entrambi: rappresenta il DB in modo compatto (FP-tree) e \emph{fa crescere} i pattern senza generare $C_k$. % Slide 3→4 (motivazione)
+
+\section{FP-Growth: idea di base}\label{sec:fpgrowth}
+\begin{enumerate}
+  \item \textbf{Costruzione FP-tree}: prima passata per $\mathrm{supp}(i)$; scarta item sotto soglia, ordina gli item per supporto decrescente, reinserisce le transazioni condividendo i prefissi (header table + node-link).
+  \item \textbf{Pattern-growth}: per ogni item $x$ (dal meno al più frequente) estrai la \emph{pattern base condizionale} dai cammini che portano a $x$, costruisci l'\emph{FP-tree condizionale} e ripeti ricorsivamente. I pattern trovati si concatenano con $x$.
+\end{enumerate}
+In genere bastano \textbf{due passate} sul DB; poi si lavora sull'FP-tree in memoria.
+
+\subsection{Costruzione dell'FP-tree}\label{subsec:costruzione-fptree}
+\begin{enumerate}
+  \item \textbf{Prima passata}: calcola $\mathrm{supp}(i)$ e rimuovi gli item con $\mathrm{supp}(i){<}\sigma$.
+  \item \textbf{Ordina} gli item per supporto decrescente; \textbf{riordina} ogni transazione seguendo lo stesso ordine.
+  \item \textbf{Inserisci} ogni transazione nell'albero dalla radice, condividendo prefissi e aggiornando i \emph{node-link}.
+\end{enumerate}
+\emph{Proprietà}: l'FP-tree conserva i conteggi necessari ed è molto compatto quando molte transazioni condividono prefissi.
+
+\subsection{Esempio di FP-Growth}\label{subsec:fpg-example}
+Soglia $\sigma{=}3$. Prima passata: 
+\[
+f{:}4,\quad c{:}4,\quad a{:}3,\quad b{:}3,\quad m{:}3,\quad p{:}3.
+\]
+Ordine decrescente $f\succ c\succ a\succ b\succ m\succ p$.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\textwidth]{images/fp-growth-complete.png}
+  \caption{Costruzione dell'FP-tree: a sinistra transazioni riordinate; a destra l'albero con prefissi condivisi e contatori aggiornati.}
+  \label{fig:fp-growth-complete}
+\end{figure}
+
+\paragraph{Visita per pattern-growth.}
+Processa gli item \emph{dal meno al più frequente}: 
+\[
+p \rightarrow m \rightarrow b \rightarrow a \rightarrow c \rightarrow f.
+\]
+
+\paragraph{Espansione di un item $x$.}
+\begin{enumerate}
+  \item \textbf{Pattern base condizionale}: segui i node-link di $x$; per ogni occorrenza, prendi il cammino radice\,$\to$\,genitore di $x$ con \emph{peso} uguale al contatore di $x$.
+  \item \textbf{FP-tree condizionale} $T_x$: somma i pesi per item, rimuovi quelli sotto soglia, ordina e inserisci i cammini pesati.
+  \item \textbf{Ricorsione e output}: concatena $x$ a ogni pattern frequente trovato in $T_x$. \emph{Caso path unica}: tutte le combinazioni dei nodi sono frequenti con supporto pari al \emph{minimo} contatore lungo la combinazione.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{images/fp-growth-links.png}
+  \caption{Header table e node-link per l'item $p$: la base condizionale di $p$ si ottiene seguendo i link e risalendo verso la radice.}
+  \label{fig:fp-growth-links}
+\end{figure}
+
+\paragraph{Esempio 1: item $p$.}
+Cammini verso radice: $\langle f,c,a,m\rangle{:}2$ e $\langle c,b\rangle{:}1$. Con $\sigma{=}3$ nessuna combinazione con $p$ è frequente.
+
+\paragraph{Esempio 2: item $m$.}
+Cammini: $\langle f,c,a\rangle{:}2$, $\langle f,c\rangle{:}1$. Con $\sigma{=}3$ risultano frequenti $\{m,f\}$, $\{m,c\}$ e $\{m,f,c\}$ (supporto $3$).
+
+\paragraph{Esempio 3: item $b$.}
+Cammini: $\langle f,c,a\rangle{:}2$, $\langle c\rangle{:}1$. Con $\sigma{=}3$ si ottiene $\{b,c\}$ frequente; combinazioni con $f$ o $a$ non superano la soglia.
+
+\section{Confronto: FP-Growth vs Apriori}\label{subsec:confronto-fp-apriori}
+\begin{table}[htbp]
+\centering
+\begin{tabular}{@{}p{0.28\textwidth}p{0.33\textwidth}p{0.33\textwidth}@{}}
+\toprule
+\textbf{Aspetto} & \textbf{Apriori} & \textbf{FP-Growth} \\
+\midrule
+Generazione candidati &
+Sì: crea $C_k$ a ogni livello (rischio di esplosione) &
+No: crescita diretta dei pattern da FP-tree \\
+Accessi al DB &
+Molte passate (una per $k$) &
+Tipicamente 2, poi in memoria \\
+Strutture dati &
+Liste di candidati e conteggi &
+FP-tree + header table \\
+Quando preferirlo &
+DB piccoli/sparsi, soglie alte, ambienti distribuiti semplici &
+DB densi, soglie basse, prefissi condivisi (compressione efficace) \\
+Note pratiche &
+Pruning via Apriori; implementazione semplice &
+Evita candidati; veloce se l'FP-tree è compatto \\
+\bottomrule
+\end{tabular}
+\caption{Confronto sintetico tra Apriori e FP-Growth.}
+\label{tab:apriori-vs-fpgrowth}
+\end{table}
