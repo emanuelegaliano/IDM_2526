@@ -97,3 +97,98 @@ La funzione step è utile per modelli di classificazione binaria, ma non è diff
     \caption{Esempio di un perceptron con 4 input, pesi associati e bias. L'output viene calcolato applicando la funzione step alla somma pesata degli input più il bias.}
     \label{fig:perceptron}
 \end{figure}
+
+\subsection{Funzione logistica}
+Un altro tipo di funzione di attivazione è la funzione logistica (o sigmoide), definita come:
+\[
+\sigma(x) = \frac{1}{1 + e^{-x}}
+\]
+
+La funzione sigmoide è utilizzata spesso in reti neurali per problemi di classificazione binaria, poiché mappa qualsiasi input reale in un intervallo compreso tra 0 e 1, interpretabile come una probabilità. La funzione logistica rispecchia le proprietà richieste per una funzione di attivazione, essendo differenziabile e continua:
+\[
+\sigma'(x) = \sigma(x)(1 - \sigma(x))
+\]
+tuttavia, la sua derivata può saturare per valori estremi di $x$, rallentando l'apprendimento in reti profonde.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/sigmoid_function.png}
+  \caption{Funzione sigmoide $\sigma(x)$ (blu) e sua derivata $\sigma'(x)$ (rosso tratteggiato). La derivata raggiunge il massimo in \(x=0\) (\(0{.}25\)); per \(|x|\gg 0\) la sigmoide satura e il gradiente tende a zero.}
+  \label{fig:sigmoid-derivative}
+\end{figure}
+
+\subsection{Tangente iperbolica}
+Un'altra funzione di attivazione molto simile alla sigmoide è la tangente iperbolica ($\tanh$). Questa funzione mappa gli input reali nell'intervallo tra -1 e 1, ed è definita come:
+\[
+\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+\]
+
+La tangente iperbolica è spesso preferita alla sigmoide perché la sua uscita è centrata intorno a zero, il che può facilitare l'apprendimento in alcune reti neurali. Questo si può notare riscrivendo la funzione in termini della sigmoide:
+\[
+\tanh(x) = 2\sigma(2x) - 1
+\]
+La derivata della tangente iperbolica è:
+\[
+\tanh'(x) = 1 - \tanh^2(x)
+\]
+Anche la tangente iperbolica può soffrire di saturazione per valori estremi di $x$, simile alla sigmoide, ma la sua uscita centrata intorno a zero può aiutare a mitigare questo problema in alcune situazioni.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/tanh_function.png}
+    \caption{Funzione tangente iperbolica $\tanh(x)$: attivazione dispari, centrata in \(0\) con range \((-1,1)\). Satura verso \(\pm1\) per \(|x|\) grandi; derivata $tanh'(x)$ massima in \(x=0\), utile per ridurre il bias shift rispetto alla sigmoide.}
+    \label{fig:tanh-derivative}
+\end{figure}
+
+\subsection{Funzione softmax}
+A differenza della funzione sigmoide, che opera su un unico valore e ritorna un output tra 0 e 1, la funzione softmax agisce sull'intero vettore di output di un layer, trasformandolo in una distribuzione di probabilità. Sia $x = (x_1, x_2, \ldots, x_n)$ il vettore di input, la funzione softmax è definita come:
+\[
+\mu(x) = (\mu(x_1), \mu(x_2), \ldots, \mu(x_n)) \quad \text{dove} \quad \mu(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}}
+\]
+
+Si può dimostrare che restituisce una distribuzione di probabilità, sommando i singoli valori della funzione e ottenendo 1:
+\[
+\sum_{i=1}^{n} \mu(x_i) = \sum_{i=1}^{n} \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}} = 1
+\]
+
+La funzione softmax è comunemente utilizzata nell'output layer di reti neurali per problemi di classificazione multi-classe, dove ogni output rappresenta la probabilità che l'input appartenga a una delle classi possibili.
+
+Dalla formula si evince che il denominatore è una somma di esponenziali, quindi se gli input variano in un range ampio, allora anche gli esponenziali varieranno in un range ampio. Ciò può causare problemi numerici, come overflow o underflow, durante il calcolo della funzione softmax. Possiamo però sfruttare una proprietà del softmax, ovvero l'\textbf{iperparametrizzazione}: diversi valori di input possono produrre lo stesso output. In particolare, possiamo sottrarre un valore costante $c$ da tutti gli input senza modificare l'output della funzione softmax:
+\[
+\mu(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{n} e^{x_j}} = \frac{e^{x_i - c}}{\sum_{j=1}^{n} e^{x_j - c}}
+\]
+Se scegliamo $c = \max_{j}(x_j)$, allora il massimo degli input diventa 0, evitando problemi di overflow negli esponenziali. Inoltre, il denominatore è una somma di valori tra 0 e 1, riducendo il rischio di underflow.
+
+\subsection{ReLU: Rectified Linear Unit}
+La funzione ReLU (Rectified Linear Unit) è una funzione di attivazione che prende spunto dai \emph{raddrizzatori} a singola semionda utilizzati in elettronica: essi trasformano un segnale alternato in un segnale unidirezionale (sempre positivo o sempre negativo). La funzione ReLU è definita come:
+\[
+\text{ReLU}(x) = \max(0, x) = 
+\begin{cases}
+0 & \text{se } x < 0 \\
+x & \text{se } x \geq 0
+\end{cases}
+\]
+
+Questa funzione genera un output pari a zero per input negativi e un output lineare (uguale all'input) per input positivi. 
+
+Nella pratica, la funzione ReLU non satura mai per valori positivi di $x$, il che aiuta a mitigare il problema del gradiente che scompare (vanishing gradient) durante l'addestramento delle reti neurali profonde. Tuttavia, per input negativi, la derivata della ReLU è zero, il che può portare al problema dei "neuroni morti" (dead neurons), dove alcuni neuroni non si attivano mai durante l'addestramento.
+
+\paragraph{Variante ELU.}
+Per affrontare e risolvere il problema dei neuroni morti, esistono delle varianti della ReLU, come la Leaky ReLU e la Exponential Linear Unit (ELU). La ELU è definita come:
+\[
+\text{ELU}(x) = 
+\begin{cases}
+x & \text{se } x \geq 0 \\
+\alpha (e^{x} - 1) & \text{se } x < 0
+\end{cases}
+\]
+dove $\alpha$ è un iperparametro positivo che controlla il valore di saturazione per input negativi. La ELU permette un piccolo gradiente per input negativi, riducendo il rischio di neuroni morti e migliorando l'apprendimento della rete.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/relu_function.png}
+    \caption{Grafici della funzione ReLU (rosso), della sua variante Leaky ReLU (verde) che permette un piccolo gradiente per input negativi, e della ELU (blu) che introduce una componente esponenziale per input negativi.}
+    \label{fig:relu_function}
+\end{figure}
+
+\section{Funzioni Loss}

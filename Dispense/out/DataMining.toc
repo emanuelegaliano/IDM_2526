@@ -356,5 +356,11 @@
 \contentsline {section}{\numberline {11.3}Funzioni di attivazione}{119}{section.11.3}%
 \contentsline {paragraph}{Proprietà.}{120}{section*.167}%
 \contentsline {subsection}{\numberline {11.3.1}Funzione step}{120}{subsection.11.3.1}%
-\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{123}{chapter.12}%
-\contentsline {part}{III\hspace {1em}Approfondimenti}{125}{part.3}%
+\contentsline {subsection}{\numberline {11.3.2}Funzione logistica}{121}{subsection.11.3.2}%
+\contentsline {subsection}{\numberline {11.3.3}Tangente iperbolica}{122}{subsection.11.3.3}%
+\contentsline {subsection}{\numberline {11.3.4}Funzione softmax}{122}{subsection.11.3.4}%
+\contentsline {subsection}{\numberline {11.3.5}ReLU: Rectified Linear Unit}{123}{subsection.11.3.5}%
+\contentsline {paragraph}{Variante ELU.}{124}{section*.168}%
+\contentsline {section}{\numberline {11.4}Funzioni Loss}{124}{section.11.4}%
+\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{125}{chapter.12}%
+\contentsline {part}{III\hspace {1em}Approfondimenti}{127}{part.3}%
