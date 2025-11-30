@@ -1,0 +1,347 @@
+\chapter{Subgraph Matching di Grafi Frequenti}
+Come nel caso del capitolo \ref{ch:frequent-itemsets}, l'estrazione di sotto-grafi frequenti consiste nell'\textbf{identificare} tutti i sotto-grafi che appaiono frequentemente in un database di grafi.
+
+Anche in questo caso si conta il numero di grafi del dataset che contengono il sottografo, chiamato \textbf{supporto} e se il supporto del sotto-grafo è maggiore o uguale ad una soglia minima di supporto, allora il sotto-grafo è considerato \textbf{frequente}. Per fare una relazione con il mining di insiemi frequenti, possiamo considerare una mappatura del tipo:
+\begin{itemize}
+    \item Transazioni $\rightarrow$ Grafi
+    \item Itemsets $\rightarrow$ Sotto-grafi
+    \item Item $\rightarrow$ Nodi
+    \item Relazioni tra gli item $\rightarrow$ Archi tra i nodi
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/frequent-subgraph-matching.png}
+    \caption{Esempio di estrazione di sotto-grafi frequenti da un database di grafi.}
+    \label{fig:frequent-subgraph-matching}
+\end{figure}
+
+Spesso non si calcola il supporto di un sotto-grafo, ma bensì alla seua frequenza: il conteggio relativo delle occorrenze del sotto-grafo all'interno di un singolo grafo. In questo caso, il sotto-grafo è considerato frequente se la somma delle frequenze nei grafi del database è maggiore o uguale alla soglia minima di supporto, che indichiamo con $\sigma$ ed è una percentuale.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/frequent-subgraph-frequency.png}
+    \caption{Esempio di estrazione di sotto-grafi frequenti basata sulla frequenza nei grafi del database.}
+    \label{fig:frequent-subgraph-frequency}
+\end{figure}
+
+Non si fa riferimento al supporto perché così abbiamo un valore \emph{normalizzato}\footnote{La frequenza di un elemento è definita come il numero di elementi (il supporto in questo caso) diviso il numero totale (il numero di grafi nell'intero database in questo caso).}.
+
+Il problema dell'estrazione di sotto-grafi frequenti pone sfide molto più complesse rispetto all'estrazione di insiemi frequenti, in quanto il problema dell' \textbf{isomorfismo tra sotto-grafi} è NP-completo. Questo significa che non esistono algoritmi efficienti noti per risolvere questo problema in tutti i casi.
+
+\noindent
+Per risolvere questo problema ci si pone delle domande:
+\begin{itemize}
+    \item Quale strategia adottare?
+    \item Come generare in maniera efficiente i sottografi candidati?
+    \item Come evitare o gestire le ridondanze nella generazione dei candidati?
+\end{itemize}
+Esistono due tipologie di algoritmi principali per l'estrazione di sotto-grafi frequenti:
+\begin{itemize}
+    \item \textbf{Algoritmi Apriori}: algoritmi che sono basati sulla regola \emph{apriori} e la generazione di candidati tramite join di sottografi frequenti.
+    \item \textbf{Algoritmi pattern-growth}: algoritmi basati sulla generazione dei candidati tramite \emph{aggiunta di nodi/archi} ai sottografi frequenti esistenti.
+\end{itemize}
+
+\section{Algoritmo FSG}
+Uno dei primi algoritmi proposti per l'estrazione di sotto-grafi frequenti è l'algoritmo \textbf{FSG} (Frequent Subgraph Discovery). FSG è un algoritmo basato sulla strategia \emph{apriori} che utilizza un approccio di generazione di candidati tramite join di sottografi frequenti.
+
+\subsection{Regola Apriori per sotto-grafi}
+Nel contesto dell'estrazione di sotto-grafi frequenti, la regola \emph{apriori} afferma che se un sotto-grafo è frequente, allora tutti i suoi sotto-grafi devono essere anch'essi frequenti. Questo implica che se un sotto-grafo non è frequente, allora nessuno dei suoi super-grafi può essere frequente (esattamente come nel caso degli itemsets\ref{ch:frequent-itemsets}).
+
+\subsection{Join tra sotto-grafi}
+Per capire come funzionano gli algoritmi basati sulla regola apriori, è importante comprendere come avviene la generazione dei candidati tramite join tra sotto-grafi. Due sotto-grafi $g_1$ e $g_2$ possono essere uniti se condividono un sottografo con archi in comune, chiamato \textbf{grafo core}. 
+
+Il problema di questo tipo di Join è che, a differenza degli itemset, si possono generare più candidati distinti a partire dalla stessa coppia di sotto-grafi. Esistono 3 scenari possibili.
+
+\paragraph{Scenario 1: i due sottografi differiscono per un nodo.}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/fsg-join-1.png}
+    \caption{Join tra due sottografi che differiscono per un nodo.}
+    \label{fig:fsg-join-1}
+\end{figure}
+
+Come si vede dall'esempio in figura \ref{fig:fsg-join-1}, i due sottografi condividono un sottografo comune, composto dalle etichette $a, b, c$, ma il secondo nodo $a$ differisce nel modo in cui è collegato (per $G_1^4$ è collegato a $c$, mentre per $G_2^4$ è collegato ad $a$). In questo caso esistono due possibili risultati:
+\begin{enumerate}
+    \item Tenere separate le due occorrenze del nodo $a$, ottenendo il grafo $G_1^5$.
+    \item Unire i due nodi $a$ in un unico nodo, ottenendo il grafo $G_2^5$.
+\end{enumerate}
+
+\noindent
+In questo caso i candidati vengono scelti in base al \emph{contesto}:
+\begin{description}
+    \item[Esempio 1]: Se i nodi $a, b, c$ rappresentano rispettivamente \emph{atomi di carbonio, idrogeno e ossigeno}, allora le due occorrenze del nodo $a$ rappresentano due atomi di carbonio distinti e quindi si sceglie il grafo $G_1^5$.
+    \item[Esempio 2]: Se i nodi $a, b, c$ rappresentano rispettivamente \emph{persone, pubblicazioni e conferenze}, allora le due occorrenze del nodo $a$ rappresentano la stessa persona che ha pubblicato due articoli distinti e quindi si sceglie il grafo $G_2^5$.
+\end{description}
+
+\paragraph{Scenario 2: il grafo \emph{core} ha più automorfismi.}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/fsg-join-2.png}
+    \caption{Join tra due sottografi con grafo core avente più automorfismi.}
+    \label{fig:fsg-join-2}
+\end{figure}
+
+Nel caso di figura~\ref{fig:fsg-join-2} il \emph{core} comune dei due sottografi $G_1^5$ e $G_2^5$ è un ciclo di lunghezza~4
+(etichettato tutto con $a$). Poiché tutti i vertici del core hanno la stessa etichetta, il core è altamente simmetrico: il ciclo $C_4$ ammette $8$ automorfismi (le $4$ rotazioni e le $4$ riflessioni del core).
+
+Quando si esegue la \emph{join}, bisogna quindi decidere \emph{come} mappare il core di $G_2^5$ sul core di $G_1^5$. Automorfismi diversi producono posizionamenti diversi del nodo extra (in $G_1^5$ il nodo $b$, in $G_2^5$ il nodo $c$) rispetto al core. Dopo l'eliminazione dei duplicati isomorfi, restano tre candidati non isomorfi (raffigurati a destra nella figura):
+\begin{enumerate}
+    \item \textbf{$G_1^6$ (spigoli opposti).} Il nodo $b$ si collega a un estremo di un lato del quadrato e il nodo $c$ all'estremo del lato opposto.
+    \item \textbf{$G_2^6$ (stesso lato).} I nodi $b$ e $c$ si collegano sullo \emph{stesso} lato del quadrato, ciascuno collegato ai due estremi di quel lato.
+    \item \textbf{$G_3^6$ (condivisione di un vertice).} I nodi $b$ e $c$ condividono un estremo: entrambi sono collegati allo stesso vertice del core (e all'altro estremo del rispettivo lato adiacente).
+\end{enumerate}
+
+\noindent
+Come nello Scenario~1, la scelta tra i candidati dipende dal \emph{contesto}:
+
+\begin{description}
+    \item[Esempio 1]: Se $a$ rappresenta atomi di \emph{carbonio} in un ciclo (ad es.\ un anello C$_4$) e $b,c$ sono due \emph{sostituenti}, i tre candidati corrispondono a tre posizionamenti non equivalenti: \emph{opposti} ($G_1^6$), \emph{adiacenti sullo stesso lato} ($G_2^6$) e \emph{geminali} sullo stesso carbonio ($G_3^6$). Il dominio (vincoli chimici o esempi osservati) decide quale configurazione mantenere.
+    \item[Esempio 2]: Se $a$ sono \emph{autori} connessi da collaborazioni, $b$ e $c$ sono due \emph{pubblicazioni} che coinvolgono coppie di autori adiacenti, allora:
+    \begin{itemize}
+        \item due pubblicazioni scritte da \emph{coppie disgiunte} di autori $\Rightarrow G_1^6$;
+        \item due pubblicazioni scritte dalla \emph{stessa coppia} $\Rightarrow G_2^6$;
+        \item due pubblicazioni che \emph{condividono un autore} ma non l'altro $\Rightarrow G_3^6$.
+    \end{itemize}
+\end{description}
+
+\paragraph{Scenario 3: i sottografi candidati hanno più grafi \emph{core} in comune.}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/fsg-join-3.png}
+    \caption{Join tra due sottografi con più grafi core in comune.}
+    \label{fig:fsg-join-3}
+\end{figure}
+
+Nell'esempio di figura~\ref{fig:fsg-join-3} i due pattern di partenza $G_1^4$ e $G_2^4$ condividono \emph{due} massimi sottografi comuni
+(raffigurati in basso a sinistra), che chiamiamo $H_1^3$ e $H_2^3$.
+La join va quindi eseguita due volte, una per ciascun core, perché
+allineamenti diversi del nucleo comune portano a sovrapposizioni differenti dei nodi esterni.
+
+\medskip
+\noindent\textbf{Join rispetto al primo core $\mathbf{H_1^3}$.}
+Prendendo $H_1^3$ come nucleo condiviso, i nodi rimanenti nei due pattern sono due vertici etichettati $a$ collegati a posizioni diverse del core. Come nello Scenario 1, abbiamo due possibilità:
+\begin{enumerate}
+    \item mantenere \emph{separate} le due occorrenze del nodo $a$ $\Rightarrow$ candidato $G_1^5$ (in alto a destra, primo grafo);
+    \item \emph{fondere} le due occorrenze del nodo $a$ in un unico vertice $\Rightarrow$ candidato $G_2^5$ (in alto a destra, secondo grafo).
+\end{enumerate}
+
+\noindent\textbf{Join rispetto al secondo core $\mathbf{H_2^3}$.}
+Ripetendo lo stesso procedimento usando il core $H_2^3$, otteniamo altri due candidati non isomorfi:
+\begin{enumerate}
+    \item mantenere \emph{separate} le due occorrenze del nodo $a$ $\Rightarrow$ candidato $G_3^5$ (in basso a destra, primo grafo);
+    \item \emph{fondere} le due occorrenze del nodo $a$ in un unico vertice $\Rightarrow$ candidato $G_4^5$ (in basso a destra, secondo grafo).
+\end{enumerate}
+
+\medskip
+\noindent
+Come per gli scenari precedenti, la scelta del candidato dipende dal \emph{contesto}:
+\begin{description}
+    \item[Esempio 1]: Sia $a$ un \emph{carbonio} e $b$ un \emph{eteroatomo}\footnote{Un eteroatomo è un atomo diverso dal carbonio in un composto organico.} (ad es.\ ossigeno) su una catena. Se i due frammenti osservati provengono da \emph{due sostituenti distinti} allora si mantengono i nodi separati (si seleziona $G_1^5$ o $G_3^5$ a seconda del core coerente con i dati); se invece i dati indicano che si tratta dello \emph{stesso} sostituente visto in due prospettive compatibili, si effettua la fusione ($G_2^5$ o $G_4^5$).
+    \item[Esempio 2]: Sia $a$ un \emph{autore} e $b$ un \emph{progetto}. I due core alternativi rappresentano due gruppi di co-autori sovrapposti in modo diverso. Se le osservazioni mostrano che le due occorrenze di $a$ sono \emph{persone diverse}, si sceglie un candidato con nodi separati ($G_1^5$ o $G_3^5$); se sono la \emph{stessa persona} che compare in entrambi i pattern, si sceglie il candidato con merge ($G_2^5$ o $G_4^5$).
+\end{description}
+
+\paragraph{Caso generale.}
+Il caso generale della Join tra due sottografi $g_1$ e $g_2$ prevede i seguenti passi:
+\begin{enumerate}
+    \item Sia $F^k$ l'insieme dei sottografi frequenti con $k$ archi e sia $C^{k+1}$ l'insieme dei candidati di sotto-grafi di dimensione $k+1$ (inizialmente vuoto).
+    \item Per ogni coppia di sottografi frequenti con $k$ archi ($G_1^k, G_2^k$) in $F^k$:
+    \begin{enumerate}
+        \item Calcola l'insieme dei core condivisi da $G_1^k$ e $G_2^k$.
+        \item Per ogni core condiviso e per ogni automorfismo del core, effettua la join e aggiungi i sottografi candidati trovati a $C^{k+1}$.
+    \end{enumerate}
+    \item Restituisci l'insieme $C^{k+1}$ dei sottografi candidati di dimensione $k+1$.
+\end{enumerate}
+
+\subsection{Procedura dell'algoritmo}
+L'algoritmo FSG segue i seguenti passi:
+\begin{enumerate}
+    \item Per prima cosa calcola nodi e archi frequenti (sotto-grafi di dimensione 1 e 2) e li aggiunge all'insieme finale $O$ dei risultati.
+    \item Per un certo $k \ge 3$ ripete:
+    \begin{enumerate}
+        \item Genera i candidati $C_k$ di sotto-grafi di dimensione $k$ tramite join dei sotto-grafi frequenti di dimensione $k-1$.
+        \item Per ogni grafo $G$ nel database verifica la regola Apriori, scartando tutti i candidati che contengono almeno un sottografo con archi che non è frequente.
+        \item Calcola il supporto di ogni grafo candidato e l'insieme dei sottografi frequenti con $k$ archi. Poi aggiunge  questi sottografi all'insieme finale $O$ dei risultati.
+    \end{enumerate}
+    \item Restituisci $O$
+\end{enumerate}
+
+\subsection{Generazione dei candidati}
+Il passo più complesso dell'algoritmo FSG è la generazione dei candidati. Per generare i candidati di dimensione $k$, l'algoritmo esegue una join tra tutti i sottografi frequenti di dimensione $k-1$. Una volta eseguita la join si potrebbe presentare il problema dei \textbf{candidati ridondanti}, ovvero sottografi isomorfi generati più volte. Per evitare questo problema, FSG utilizza una tecnica di \textbf{canonical labeling} (forma canonica), che assegna ad ogni sottografo un'etichetta unica basata sulla sua struttura e sulle etichette dei nodi e degli archi. In questo modo,se due sottografi isomorfi hanno la stessa etichetta canonica, uno dei due può essere scartato come ridondante.
+
+\subsection{Stringa di adiacenza}
+La stringa di adiacenza di un grafo è una stringa ottenuta concatenando le righe della matrice di adiacenza (nel caso di grafi indiretti si considera la metà superiore della matrice) come si vede nell'esempio in figura \ref{fig:adjacency-string-example}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/adjacency_string_example.png}
+    \caption{Esempio di stringa di adiacenza di un grafo.}
+    \label{fig:adjacency-string-example}
+\end{figure}
+
+\subsection{Forma canonica}
+Per un grafo $G$ con $n$ nodi, esistono $n!$ possibili modi di etichettare i nodi (ovvero $n!$ stringhe di adiacenza) considerando tutte le possibili permutazioni dei nodi di $G$ (diverse permutazioni possono produrre la stessa stringa di adiacenza). La \textbf{forma canonica} di un grafo $G$ è definita come la stringa di adiacenza minima (o massima), in ordine lessicografico, tra tutte le possibili stringhe di adiacenza generate dalle permutazioni dei nodi di $G$. Il problema di questo calcolo è che \emph{computazionalmente oneroso} e FSG risolve questo problema utilizzando \textbf{gradi dei nodi} e \textbf{etichette} per ridurre il numero di permutazioni da considerare.
+
+\noindent
+\paragraph{Algoritmo.}
+Il calcolo della forma canonica segue questi passi:
+\begin{enumerate}
+    \item Partiziona i nodi in gruppi sulla base del grado.
+    \item Partiziona ogni gruppo ottenuto al passo precedente in sottogrupi sulla base delle etichette dei nodi.
+    \item Considera le $k$ stringhe di adiacenza che è possibile ottenere permutando in tutti i modi possibili i nodi in ciascun sottogruppo.
+    \item Tra le $k$ stringhe scegli quella lessicograficamente più piccola.
+\end{enumerate}
+
+\noindent
+\paragraph{Esempio.}
+Considerando l'immagine in figura \ref{fig:canonical-form-example} il grafo ha etichette $\{a,b\}$ e gradi $\deg(v_1)=3$, $\deg(v_2)=\deg(v_3)=\deg(v_4)=1$. Il partizionamento per grado produce i blocchi $D_3=\{v_1\}$ e $D_1=\{v_2,v_3,v_4\}$. 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/canonical-form-example.png}
+    \caption{Esempio di calcolo della forma canonica di un grafo.}
+    \label{fig:canonical-form-example}
+\end{figure}
+
+\noindent
+Raffinando\footnote{In questo contesto, raggruppare i nodi per etichetta} per etichetta otteniamo:
+\[
+D_1^a=\{v_4,v_2\},\qquad D_1^b=\{v_3\},\qquad D_3^a=\{v_1\}.
+\]
+Gli unici nodi permutabili sono quelli nel blocco $D_1^a$, quindi le
+permutazioni ammesse (mostrate in figura) generano due ordini dei vertici e,
+di conseguenza, due stringhe di adiacenza (si leggono le
+$6$ voci sopra la diagonale nell'ordine $A_{12}A_{13}A_{14}A_{23}A_{24}A_{34}$):
+\[
+\pi_1=(v_4,v_1,v_3,v_2)\;\Rightarrow\; s_1=\texttt{00y0xx},\qquad
+\pi_2=(v_1,v_4,v_3,v_2)\;\Rightarrow\; s_2=\texttt{00x0yx}.
+\]
+Assumendo l'ordinamento lessicografico $0<x<y$, risulta
+$\texttt{00x0yx}<\texttt{00y0xx}$. 
+Pertanto, la \textbf{forma canonica} del grafo è la stringa
+\[
+\boxed{\texttt{00x0yx}}
+\]
+corrispondente all'ordine dei vertici $\pi_2=(v_1,v_4,v_3,v_2)$ mostrato nella figura.
+
+\subsection{Verifica della regola Apriori}
+Per ogni sottografo candidato $G$ con $k$ archi, l'algoritmo FSG verifica la regola Apriori controllando che tutti i sottografi di $G$ con $k-1$ archi siano frequenti. Se almeno uno di questi sottografi non è frequente, allora $G$ viene scartato come candidato.
+
+Per contare la frequenza degli $m$ $k$-sottografi candidati al passo $k$ si dovrebbero risolvere $n \cdot k$ problemi di subgraph matching, con $n$ numero di grafi nel database. Grazie all'indicizzazione inversa, si può ridurre il numero di problemi di subgraph matching da risolvere. L'idea è di costruire un indice che mappa ogni sottografo frequente di dimensione $k-1$ ai sottografi candidati di dimensione $k$ che lo contengono. 
+
+\noindent
+In particolare
+\begin{itemize}
+    \item Ad ogni sottografo $S$ frequente di dimensione $k-1$ viene associata una lista di sottografi candidati (TID List: Transaction IDentifier List) di dimensione $k$ che lo contengono.
+    \item Per ogni $(k+1)$-sottografo candidato $C$, si recuperano le TID List di tutti i suoi $k$-sottografi e si calcola l'intersezione di queste liste per ottenere la lista dei grafi che contengono $C$.
+    \item Se la dimensione della lista ottenuta è minore della soglia di supporto, allora $C$ viene scartato come candidato.
+\end{itemize}
+
+\section{Algoritmo gSpan}
+Un altro algoritmo popolare per l'estrazione di sotto-grafi frequenti è l'algoritmo \textbf{gSpan} (graph-based Substructure pattern mining). gSpan utilizza un approccio di \textbf{pattern-growth} per generare i candidati, evitando la necessità di eseguire join tra sottografi frequenti. In modo analogo si potrebbe pensare l'approccio \emph{pattern-growth} come una \textbf{depth-first search} (DFS) nello spazio dei sottografi, dove si parte da un sottografo frequente e si aggiungono nodi o archi per generare nuovi sottografi candidati.
+
+\subsection{Visita DFS}
+La visita DFS è un algoritmo di ricerca che esplora il grafo dando priorità ai nodi più profondi prima di tornare indietro. Gli archi vengono esplorati infatti a partire dall'\textbf{ultimo nodo} scoperto $v$ che presenta archi non ancora esplorati Terminata l'esplorazione di tutti gli archi uscenti da $v$, si torna indietro al nodo precedente nella pila e si continua l'esplorazione da lì. Un esempio può essere visto in figura \ref{fig:dfs_visit_example}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/dfs_visit_example.png}
+    \caption{Esempio di visita in profondità (DFS) su un grafo diretto. I numeri all'interno dei nodi indicano i tempi di scoperta e di completamento (d/f) di ciascun vertice. I nodi colorati in grigio o nero rappresentano rispettivamente i vertici scoperti e completati, mentre le frecce tratteggiate indicano archi di ritorno o di attraversamento classificati durante l'esecuzione.}
+    \label{fig:dfs_visit_example}
+\end{figure}
+
+\paragraph{Albero DFS.}
+Durante la visita DFS di un grafo $G$ viene prodotto un albero $T$, chiamato \emph{albero DFS}, i cui nodi sono i nodi di $G$, mentre gli archi sono gli archi di $G$ esplorati durante la visita e che hanno portato alla scoperta di nuovi nodi.
+
+\noindent
+Gli archi durante la costruzione dell'albero vengono divisi in due tipi:
+\begin{itemize}
+    \item \textbf{Archi forward}: archi di $G$ presenti in $T$ che collegano un nodo a uno dei suoi discendenti nell'albero DFS.
+    \item \textbf{Archi back}: archi di $G$ non presenti in $T$ che collegano un nodo a uno dei suoi antenati nell'albero DFS.
+\end{itemize}
+
+\noindent
+Un esempio di albero DFS può essere visto in figura \ref{fig:dfs_tree_example}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/dfs_tree_example.png}
+    \caption{A sinistra il grafo di partenza; a destra alcuni alberi di visita in profondità (DFS) ottenuti con diversi ordini di esplorazione. Gli archi forward (dell'albero) sono in nero continuo, mentre gli archi backward sono tratteggiati, come indicato in legenda.}
+    \label{fig:dfs_tree_example}
+\end{figure}
+
+\subsection{Codifica DFS}
+L'algoritmo gSpan utilizza una codifica DFS per rappresentare i sottografi. La codifica DFS è una sequenza di tuple che rappresentano gli archi del grafo in base all'ordine di visita DFS. Considerando un arco $(u, v)$ con etichette $l_u$ e $l_v$ sui nodi $u$ e $v$ e $l_{(u,v)}$ sull'arco, la tupla che rappresenta l'arco è definita come:
+\[
+\langle i, j, l_u, l_{(u,v)}, l_v \rangle
+\]
+dove $i$ e $j$ indicano \textbf{il tempo di visita} del nodo $u$ e del nodo $v$ durante la visita DFS.
+
+\paragraph{Costruzione della codifica DFS.}
+Per costruire la codifica DFS di un grafo $G$ si seguono i seugenti passi:
+\begin{enumerate}
+    \item Dato un nodo $v$, tutti i suoi \emph{archi uscenti backward} devono essere elencati per primi, ordinati in base alle etichette dei nodi di destinazione e delle etichette degli archi.
+    \item Tra gli \emph{archi forward} che partono dallo stesso nodo $v$, si seleziona l'arco con destinazione un nodo già visitato prima: $(u, v) < (u, v') \Leftrightarrow t(v) < t(v')$.
+    \item Tra gli \emph{archi forward} che partono da nodi diversi, si seleziona quello con sorgente con tempo di visita minore: $(u, v) < (u', v') \Leftrightarrow t(u) < t(u')$.
+    \item Tra gli \emph{archi backward} che partono dallo stesso nodo, si seleziona quello con destinazione uun nodo visitato prima, ovvero con tempo di visita minore: $(u, v) < (u, v') \Leftrightarrow t(v) < t(v')$.
+    \item Tra gli \emph{archi backward} che partono da nodi diversi, si seleziona quello con sorgente con tempo di visita minore: $(u, v) < (u', v') \Leftrightarrow t(u) < t(u')$.
+\end{enumerate}
+
+\noindent
+Si trova la codifica DFS minima del grafo in figura \ref{fig:dfs_tree_example} nella tabella \ref{tab:dfs_code_example}.
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{edge no.} & \textbf{(b) $\alpha$} & \textbf{(c) $\beta$} & \textbf{(d) $\gamma$} \\
+\midrule
+0 & $(0,1,X,a,Y)$ & $(0,1,Y,a,X)$ & $(0,1,X,a,X)$ \\
+1 & $(1,2,Y,b,X)$ & $(1,2,X,a,X)$ & $(1,2,X,a,Y)$ \\
+2 & $(2,0,X,a,X)$ & $(2,0,X,b,Y)$ & $(2,0,Y,b,X)$ \\
+3 & $(2,3,X,c,Z)$ & $(2,3,X,c,Z)$ & $(2,3,Y,b,Z)$ \\
+4 & $(3,1,Z,b,Y)$ & $(3,0,Z,b,Y)$ & $(3,0,Z,c,X)$ \\
+5 & $(1,4,Y,d,Z)$ & $(0,4,Y,d,Z)$ & $(2,4,Y,d,Z)$ \\
+\bottomrule
+\end{tabular}
+\caption{Codifica degli archi per i tre schemi (b)~$\alpha$, (c)~$\beta$ e (d)~$\gamma$.}
+\label{tab:dfs_code_example}
+\end{table}
+
+\paragraph{Codice DFS minimo.}
+Si definisce il particolare, tra tutti i possibili codici DFS di un grafo $G$, il \textbf{codice DFS minimo} come il codice che è lessicograficamente più piccolo tra tutti i codici DFS di $G$. Questo codice viene utilizzato come rappresentazione unica del grafo per evitare ridondanze durante la generazione dei candidati. Nella figura \ref{fig:dfs_tree_example} il codice DFS minimo, rappresentato in tabella \ref{tab:dfs_code_example}, corrisponde allo schema: (d) $\gamma$.
+
+\paragraph{DFS Code Tree.}
+Sempre dalla visita DFS e dall'albero DFS si può generare un albero chiamato \textbf{DFS Code Tree}, in cui ogni nodo rappresenta un codice DFS minimo di un sottografo. La radice dell'albero rappresenta il codice vuoto, il primo livello rappresenta i sottografi con un arco, il secondo livello rappresenta i sottografi con due archi, il livello $k$ rappresenta i sottografi con $k+1$ archi, e così via. Ogni figlio di un nodo rappresenta un'estensione del sottografo rappresentato dal nodo padre, ottenuta aggiungendo un arco.
+
+\subsection{Generazione dei candidati}
+In gSpan un sottografo candidato con $k+1$ archi viene generato per aggiunta di un singolo arco a partire da un sottografo frequente con $k$ archi. Per \emph{non} generare ridondanze, gSpan permette di aggiungere archi solo in due modi:
+\begin{itemize}
+    \item Un arco da un nodo che sta nel cammino \textbf{più a destra} dalla radice ad un nodo foglia nell'albero DFS associato al codice DFS minimo.
+    \item Un arco dal nodo foglia del cammino \emph{più a destra} dell'albero DFS associato al codice DFS minimo ad un nuovo nodo (qualsiasi).
+\end{itemize}
+
+\noindent
+Un esempio può essere visto in figura \ref{fig:gspan_candidate_generation}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/gspan_candidate_generation.png}
+    \caption{Esempio di generazione dei candidati in \textsc{gSpan}. 
+    (a) Sottografo frequente di partenza. 
+    I candidati con $k\!+\!1$ archi si ottengono aggiungendo un solo arco secondo la regola del \emph{cammino più a destra} del codice DFS minimo: 
+    (b-d) aggiunte \emph{backward} da un nodo del cammino più a destra verso un antenato; 
+    (e-f) aggiunte \emph{forward} dal nodo foglia del cammino più a destra verso un nuovo nodo. 
+    Gli archi tratteggiati indicano l'arco aggiunto. 
+    La riga inferiore (b.0-b.3, e.0-e.2) illustra le varianti non ridondanti prodotte per ciascuna estensione rispettando l'ordine del codice DFS minimo.}
+    \label{fig:gspan_candidate_generation}
+\end{figure}
+
+\paragraph{Pruning dello spazio di ricerca.}
+I grafi candidati con $k+1$ archi generati a partire da un grafo frequente con $k$ archi vengono processati seguendo l'ordine lessicografico dei loro codici DFS minimi. Se generiamo un grafo candidato $G_1$ con lo stesso codice di un grafo $G_0$ già esaminato, possiamo fare un pruning dell'intero sottoalbero radicato in $G_1$, evitando di esaminare ulteriori grafi candidati generati a partire da $G_1$. Questo perché tutti i grafi in questo sottoalbero avranno codici DFS minimi maggiori o uguali a quello di $G_1$, e quindi saranno già stati esaminati quando abbiamo esaminato $G_0$.
+
+\section*{Riferimenti}
+I riferimenti di questo capitolo includono:
+\begin{itemize}
+    \item Materiale visto a lezione.
+    \item Approfondimenti nel libro \cite{CookHolder2006}.
+\end{itemize}

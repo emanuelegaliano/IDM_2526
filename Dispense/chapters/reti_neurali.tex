@@ -1,1 +1,99 @@
-\chapter{Elementi di Reti Neurali}
+\chapter{Elementi di Reti neurali}
+Una rete neurale è un modello computazionale ispirato alla struttura e al funzionamento del cervello umano. È composta da unità chiamate neuroni artificiali, organizzati in strati (layer), che elaborano informazioni attraverso connessioni ponderate. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/nn_neuron_comparison.png}
+    \caption{Confronto tra un neurone biologico (a sinistra) e un neurone artificiale (a destra). 
+    Nel neurone biologico, il segnale si propaga dai dendriti, attraverso il soma e lungo l'assone fino ai terminali sinaptici. 
+    Nel neurone artificiale, gli ingressi $x_i$ vengono pesati con i corrispondenti pesi $w_i$, sommati e combinati con un termine di bias; 
+    il risultato $z_j$ viene poi trasformato da una funzione di attivazione per generare l'uscita del neurone.}
+    \label{fig:nn_neuron_comparison}
+\end{figure}
+
+\noindent
+La struttura di una rete neurale è generalmente definita come una sequenza di layer:
+\begin{itemize}
+    \item \textbf{Input layer}: (strato di ingresso) riceve i dati grezzi e li trasmette agli strati successivi.
+    \item \textbf{Hidden layers}: (strati nascosti) elaborano le informazioni ricevute dall'input layer attraverso una serie di trasformazioni non lineari.
+    \item \textbf{Output layer}: (strato di uscita) produce il risultato finale della rete neurale, come una classificazione o una previsione.
+\end{itemize}
+
+\section{Strati}
+Ogni strato di una rete neurale è costituito da un insieme di neuroni artificiali (esempio in figura \ref{fig:neural_network_example}).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/neural_network_example.png}
+    \caption{Esempio di una rete neurale con 1 input layers, 4 hidden layers e e 1 output layer.}
+    \label{fig:neural_network_example}
+\end{figure}
+
+Ogni \emph{hidden layer} è costituito da \textbf{nodi} che prendono in input \emph{valori pesati} proveniente dallo strato precedente, li elaborano e producono un valore di output che verrà pesato ad uno o più nodi del layer successivo. L'output layer è costituito da uno o più nodi che restituiscono in output un valore.
+
+\paragraph{Deep neural network.}
+Si parla di \emph{deep neural network} (DNN) quando una rete neurale possiede più di un hidden layer. Le DNN sono in grado di apprendere rappresentazioni più complesse dei dati rispetto alle reti neurali con un solo hidden layer, permettendo di risolvere problemi più sofisticati.
+
+In generale le reti neurali lavorano con strutture dati chiamate \textbf{tensori}\footnote{Un tensore è una struttura dati multidimensionale che generalizza i concetti di scalare (0D), vettore (1D) e matrice (2D) a dimensioni superiori. I tensori sono fondamentali nell'ambito del machine learning e delle reti neurali, poiché consentono di rappresentare e manipolare dati complessi in modo efficiente.}.
+
+\subsection{Connessioni tra layer}
+La rete neurale in figura \ref{fig:neural_network_example} è un esempio di rete \textbf{densa}, poiché ogni nodo riceve tutti gli output dai nodi del layer precedente. Altre tipologie tra layer sono:
+\begin{description}
+    \item[Random]: fissato un certo $m$, ogni nodo riceve output solamente da $m$ nodi random del precedente layer.
+    \item[Pooled]: i nodi di un layer sono partizionati in $k$ cluster. Il layer successivo sarà formato da $k$ nodi, uno per ogni cluster. Il nodo associato al cluster $C$ riceverà solo gli output dei nodi del layer precedente appartenenti a tale certo cluster.
+    \item[Convoluzionale]: ogni nodo di un layer è connesso solo a un sottoinsieme di nodi del layer precedente, definiti da una \emph{finestra di convoluzione} che si sposta lungo l'input. Questo tipo di connessione è particolarmente utile per l'elaborazione di dati strutturati, come immagini o segnali audio.
+\end{description}
+
+\section{Progettare una rete neurale}
+Quando si addestra una rete neurale bisogna stabilire: 
+\begin{itemize}
+    \item Quanti layer nascosti definire.
+    \item Quanto nodi in ciascun layer.
+    \item Come connettere nodi di layer consecutivi.
+    \item Quale funzione di attivazione scegliere per ogni layer.
+\end{itemize}
+
+Definita la struttura, il modello dweve essere addestrato su un training set per calcolare i valori ottimali dei pesi grazie a una \textbf{funzione di costo} (o \emph{loss function}) che misura l'errore tra le predizioni della rete e i valori reali. L'addestramento avviene tramite algoritmi di ottimizzazione come la \emph{discesa del gradiente} (gradient descent) e il \emph{backpropagation}, che aggiornano i pesi per minimizzare la funzione di costo.
+
+Generalmente si va per tentativi, provando diverse architetture della rete partendo da un caso semplice, che non può dare magari buoni risultati che aiuta tuttavia  capire meglio il problema e le caratteristiche dei dati.
+
+\section{Funzioni di attivazione}
+La funzione di attivazione di un neurone artificiale è quella funzione $F$ che determina l'output in base all'input ricevuto. Guardando la figura \ref{fig:nn_neuron_comparison}, l'input del neurone artificiale è dato dalla somma pesata degli ingressi più un termine di bias:
+\[
+z_j = \sum_{i} w_{ij} x_i + b_j
+\]
+
+È importante notare che tutti i nodi di uno stesso layer utilizzano la stessa funzione di attivazione.
+
+\paragraph{Proprietà.}
+Le funzioni di attivazione devono possedere alcune proprietà:
+\begin{itemize}
+    \item Devono essere \textbf{differenziabile} e \textbf{continua} per permettere l'addestramento della rete tramite algoritmi di ottimizzazione basati sul calcolo del gradiente.
+    \item La derivata della funzione non deve \emph{saturare}: ovvero non deve avvicinarsi a zero per valori estremi dell'input, altrimenti il processo di apprendimento diventa inefficace (in generale si ha uno stallo nell'aggiornamento dei pesi).
+    \item Allo stesso modo, la derivata non deve "esplodere", ovvero non deve tendere a infinito, poiché ciò può causare instabilità nell'addestramento (numerica, in questo caso, nella ricerca dei pesi ottimali).
+\end{itemize}
+
+\subsection{Funzione step}
+La funzione step (o funzione a gradino) è una funzione di attivazione semplice che restituisce 0 per input negativi e 1 per input positivi. È definita come:
+\[
+F(z) = \begin{cases}
+0 & \text{se } z < 0 \\
+1 & \text{se } z \geq 0
+\end{cases}
+\]
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/step_function.png}
+    \caption{Grafico della funzione step.}
+    \label{fig:step_function}
+\end{figure}
+
+La funzione step è utile per modelli di classificazione binaria, ma non è differenziabile nel punto $z=0$, il che limita la sua efficacia nell'addestramento delle reti neurali tramite metodi basati sul gradiente. Un modello che usa questa funzione è il \emph{perceptron}: un semplice modello di rete neurale con un singolo layer di nodi che utilizza la funzione step per prendere decisioni binarie.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/perceptron.png}
+    \caption{Esempio di un perceptron con 4 input, pesi associati e bias. L'output viene calcolato applicando la funzione step alla somma pesata degli input più il bias.}
+    \label{fig:perceptron}
+\end{figure}

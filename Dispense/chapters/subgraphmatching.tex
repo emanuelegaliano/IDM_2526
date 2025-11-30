@@ -100,33 +100,24 @@ L'algoritmo costruisce 3 insiemi per ognuno dei grafi $Q, T$:
 \noindent
 Dove il pedice $Q$ o $T$ indica se l'insieme appartiene al grafo query o target.
 
+\textbf{N.B.} È importante notare che l'algoritmo VF è ricorsivo ma lavora a \textbf{stati}: ad ogni passo ricorsivo considera lo stato attuale in cui, definito dagli insiemi di nodi mappati, adiacenti e non ancora considerati.
+
+
 \paragraph{Algoritmo.}
-Ad ogni passo dell'algoritmo:
+Ad ogni passo dell'algoritmo, per lo stato corrente $s$, si eseguono i seguenti passi:
 \begin{enumerate}
-    \item Si seleziona un nodo $q \in T_Q$ e si prova a mappare $\forall t \in T_T$.
-    \item Si verifica la regola di \textbf{fattibilità}: la mappatura parziale deve preservare le adiacenze tra i nodi mappati e i nodi adiacenti, ovvero deve esistere un arco tra un certo $(q, q')$ dove $q' \in M_Q$ se e solo se esiste un arco tra $(t, t')$ dove $t' \in M_T$.
-    \item Si spostano $q$ e $t$ negli insiemi $M_Q$ e $M_T$ rispettivamente, e si aggiornano gli insiemi $T_Q, T_T, U_Q, U_T$ di conseguenza.
+    \item Si seleziona un nodo $q \in T_Q(s)$ e si prova a mappare $\forall t \in T_T(s)$.
+    \item Si verifica la regola di \textbf{fattibilità} per un certa coppia $(q, t) \in T_Q(s) \times T_T(s)$. Se la coppia è fattibile, si crea un nuovo stato $s'$ aggiornando gli insiemi $M_Q, M_T, T_Q, T_T, U_Q, U_T$ di entrambi i grafi. Da notare che si preferisce sempre scegliere una coppia di nodi che il grado più alto possibile, in modo da massimizzare le possibilità di pruning e ridurre la computazione nel caso medio.
     \item Si ripete il processo fino a quando tutti i nodi del grafo query sono stati mappati (trovando così un match) o fino a quando non ci sono più nodi da mappare (in tal caso si esegue il backtracking).
 \end{enumerate}
 
-\paragraph{Regola di fattibilità.}
-L'algoritmo VF definisce 6 insiemi di nodi che si aggiornano durante la transizione da uno stato ad un altro e questi insiemi sono utilizzati per verificare la regola di fattibilità, che assicura che la mappatura parziale preservi le adiacenze tra i nodi mappati e i nodi adiacenti:
+\paragraph{Regola di fattibilità per grafi indiretti.}
+Una coppia di nodi $(q, t) \in T_Q(s) \times T_T(s)$ è considerata fattibile se soddisfa le seguenti condizioni:
 \begin{itemize}
-    \item $\text{Match}_Q(s)$: insieme dei nodi query già mappati allo stato $s$.
-    \item $\text{Match}_T(s)$: insieme dei nodi target già mappati allo stato $s$.
-    \item $\text{Term}_Q(s)$: insieme dei nodi query adiacenti a quelli mappati allo stato $s$.
-    \item $\text{Term}_T(s)$: insieme dei nodi target adiacenti a quelli mappati allo stato $s$.
-    \item $\text{Rem}_Q(s)$: insieme dei nodi query non ancora considerati allo stato $s$.
-    \item $\text{Rem}_T(s)$: insieme dei nodi target non ancora considerati allo stato $s$.
+    \item Per ogni nodo query $q' \in M_Q(s)$ connesso a $q$, esiste un nodo target $t' \in M_T(s)$ connesso a $t$.
+    \item Il numero di nodi query in $T_Q(s)$ deve essere minore o uguale\footnote{Minore o uguale nel caso di subgraph matching, nel caso di graph matching invece deve essere uguale.} al numero di nodi target in $T_T(s)$ (regola look-ahead a un livello).
+    \item Il numero di nodi query in $U_Q(s)$ deve essere minore o uguale\footnote{Anche qui,minore uguale solo nel caso di subgraph matching. Nel caso di Graph deve essere uguale.} al numero di nodi target in $U_T(s)$ (regola look-ahead a due livelli).
 \end{itemize}
-
-\paragraph{Regola di fattibilità nei grafi indiretti.}
-Nel caso dei grafi indiretti, la regola di fattibilità richiede che una coppia di nodi $(q, t) \in P(s)$ (insieme delle coppie di nodi mappati allo stato $s$) viene aggiunta alla mappatura parziale $M(s)$ se e solo se:
-\begin{enumerate}
-    \item Per ogni nodo query $q' \in M_Q(s)$ connesso a $q$, esiste un nodo target corrispondente $t' \in M_T(s)$ connesso a $t$. Questo vincolo assicura che le adiacenze tra i nodi già mappati siano preservate.
-    \item Il numero di nodi query in $T_Q(s)$ connessi a $q$ è minore o uguale al numero di nodi target in $T_T(s)$ connessi a $t$, anche chiamata \textbf{regola look-ahead} ad un livello. In poche parole, questo vincolo assicura che ci siano abbastanza nodi target adiacenti per mappare i nodi query adiacenti.
-    \item Il numero di nodi query in $R_Q(s)$ connessi a $q$ è minore o uguale al numero di nodi target in $R_T(s)$ connessi a $t$, anche chiamata \textbf{regola look-ahead} a due livelli. Questo vincolo, invece, estende la verifica ai nodi non ancora considerati, assicurando che ci siano abbastanza nodi target disponibili per mappare i nodi query futuri.
-\end{enumerate}
 
 \begin{figure}[htbp]
     \centering
@@ -138,34 +129,36 @@ Nel caso dei grafi indiretti, la regola di fattibilità richiede che una coppia 
     \label{fig:vf_algorithm_example}
 \end{figure}
 
-\paragraph{Regole di fattibilità nei grafi diretti.}
-Nel caso dei grafi diretti, la regola di fattibilità viene adattata per tenere conto della direzionalità degli archi. In particolare, vengono sdoppiati gli insiemi dei nodi adiacenti e non considerati in insiemi separati per i nodi entranti e uscenti:
+\paragraph{Regola di fattibilità per grafi diretti.}
+Nel caso di grafi diretti, la regola di fattibilità deve considerare anche la direzione degli archi. Quindi, ogni grafo non ha più 3 insiemi di nodi ma 6:
 \begin{itemize}
-    \item $\text{Term}^{in}_Q(s), \text{Term}^{out}_Q(s)$: insiemi dei nodi query adiacenti a quelli mappati, rispettivamente entranti e uscenti.
-    \item $\text{Term}^{in}_T(s), \text{Term}^{out}_T(s)$: insiemi dei nodi target adiacenti a quelli mappati, rispettivamente entranti e uscenti.
-    \item $\text{Rem}^{in}_Q(s), \text{Rem}^{out}_Q(s)$: insiemi dei nodi query non ancora considerati, rispettivamente entranti e uscenti.
-    \item $\text{Rem}^{in}_T(s), \text{Rem}^{out}_T(s)$: insiemi dei nodi target non ancora considerati, rispettivamente entranti e uscenti.
+    \item $M_Q^{in}, M_T^{in}$: nodi già mappati considerando gli archi entranti
+    \item $M_Q^{out}, M_T^{out}$: nodi già mappati considerando gli archi uscenti
+    \item $T_Q^{in}, T_T^{in}$: nodi adiacenti a quelli mappati considerando gli archi entranti
+    \item $T_Q^{out}, T_T^{out}$: nodi adiacenti a quelli mappati considerando gli archi uscenti
+    \item $U_Q, U_T$: nodi non ancora considerati
 \end{itemize}
 
 \noindent
-In questo contesto, una coppia di nodi $(q, t) \in P(s)$ viene aggiunta alla mappatura parziale $M(s)$ se e solo se:
+La regola di fattibilità in questo caso, deve essere modificata per tenere conto delle direzioni degli archi:
+\begin{itemize}
+    \item Per ogni nodo query $q' \in M_Q^{in}(s)$, predecessore di $q$, esiste un nodo target $t' \in M_T^{in}(s)$ predecessore di $t$.
+    \item Per ogni nodo query $q' \in M_Q^{out}(s)$, successore di $q$, esiste un nodo target $t' \in M_T^{out}(s)$ successore di $t$.
+    \item Il numero di nodi query in $T_Q^{in}(s)$ deve essere minore o uguale al numero di nodi target in $T_T^{in}(s)$.
+    \item Il numero di nodi query in $T_Q^{out}(s)$ deve essere minore o uguale al numero di nodi target in $T_T^{out}(s)$.
+    \item Il numero di nodi query in $U_Q(s)$ deve essere minore o uguale al numero di nodi target in $U_T(s)$.
+\end{itemize}
+
+\paragraph{Complessità e considerazioni}
+La complessità, nell'ipotesi che i due grafi abbiano $N$ nodi, si può calcolare come:
 \begin{enumerate}
-    \item Per ogni nodo query $q' \in M_Q(s)$ predecessore di $q$ (cioè con un arco diretto verso $q$), esiste un nodo target corrispondente $t' \in M_T(s)$ predecessore di $t$. Questo vincolo assicura che le adiacenze direzionali tra i nodi già mappati siano preservate.
-    \item Analogamente, per ogni nodo query $q' \in M_Q(s)$ successore di $q$ (cioè con un arco diretto da $q$), esiste un nodo target corrispondente $t' \in M_T(s)$ successore di $t$. Questo vincolo assicura che le adiacenze direzionali tra i nodi già mappati siano preservate.
-    \item Il numero di nodi query in $\text{Term}^{in}_Q(s)$ predecessori di $q$ è minore o uguale al numero di nodi target in $\text{Term}^{in}_T(s)$ predecessori di $t$ (look-ahead a un livello per i predecessori).
-    \item Il numero di nodi query in $\text{Term}^{out}_Q(s)$ successori di $q$ è minore o uguale al numero di nodi target in $\text{Term}^{out}_T(s)$ successori di $t$ (look-ahead a un livello per i successori).
-    \item Il numero di nodi query in $\text{Rem}^{in}_Q(s)$ predecessori di $q$ è minore o uguale al numero di nodi target in $\text{Rem}^{in}_T(s)$ predecessori di $t$ (look-ahead a due livelli per i predecessori).
-    \item Il numero di nodi query in $\text{Rem}^{out}_Q(s)$ successori di $q$ è minore o uguale al numero di nodi target in $\text{Rem}^{out}_T(s)$ successori di $t$ (look-ahead a due livelli per i successori).
+    \item Sapendo che ogni nodo ha in media $O(N)$ nodi adiacenti, quindi per ogni nodo query si devono considerare $O(N)$ possibili mappature nel grafo target.
+    \item Per ogni mappatura, si devono verificare le condizioni di fattibilità, che richiedono di controllare gli archi adiacenti. Questo richiede $O(N)$ operazioni.
 \end{enumerate}
 
-\paragraph{Complessità e considerazioni.}
-L'algoritmo VF è noto per essere più efficiente rispetto ad altri approcci di subgraph matching, grazie alla sua capacità di ridurre lo spazio di ricerca attraverso l'uso di vincoli locali e strategie di pruning. Tuttavia, la complessità computazionale rimane elevata nei casi peggiori, essendo ancora un problema NP-Completo. 
+Quindi nel caso migliore, la complessità dell'algoritmo dipende dalla visita di un solo nodo candidato per ogni nodo query, portando a una complessità di \(O(N^2)\). Tuttavia, nel caso peggiore, l'algoritmo potrebbe dover esplorare tutte le possibili mappature, portando a una complessità esponenziale di \(O(N!)\).
 
-Nel caso di isomorfismo, basta cambiare la condizione delle regole look-ahead da "minore o uguale" a "uguale", in modo da garantire che ogni nodo del grafo query abbia un corrispondente esatto nel grafo target. 
-
-La \textbf{complessità computazionale} dell'algoritmo VF, per un grafo a $N$ nodi, è di $O(N!N)$ nel caso peggiore, perché ogni nodo può avere nel caso peggiore $N$ possibili mappature e per ogni mappatura si devono verificare $N$ vincoli di adiacenza. Nel caso migliore, la complessità può scendere a $O(N^2)$ grazie al pruning efficace che riduce drasticamente lo spazio di ricerca.
-
-La \textbf{complessità spaziale} dell'algoritmo VF è di $O(N^2)$, poiché richiede di memorizzare le strutture dati per i sei insiemi di nodi (mappati, adiacenti e non considerati) per entrambi i grafi, oltre alla mappatura parziale corrente.
+La complessità spaziale, al più $k$ stati (dove $k$ è il numero di nodi del grafo query) porta a una complessità spaziale di \(O(k \cdot N)\), considerando che per ogni stato si devono memorizzare gli insiemi di nodi mappati, adiacenti e non ancora considerati per entrambi i grafi.
 
 \subsection{Algoritmo VF2}
 L'algoritmo VF2 è un miglioramento dell'algoritmo VF, progettato per essere più efficiente nel risolvere il problema del subgraph matching. VF2 ottimizza lo spazio utilizzato, fino ad ottenere una complessità spaziale pari a $O(N)$, utilizzando strutture dati globali e condivise tra i vari stati. Si introducono sei strutture dati:
@@ -212,72 +205,53 @@ Da questo si crea un punteggio per il successivo nodo da inserire:
 Se ancora dovesse esserci parità, si sceglie il nodo con il grado più alto.
 
 
-\paragraph{Esempio completo di ordinamento.}
+\subsubsection*{Esempio.}
+Consideriamo il grafo di query \(Q\) nella figura \ref{fig:ri_algorithm_example} 
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.4\textwidth]{images/ri_algorithm_example.png}
-    \caption{Grafo di query usato nell'esempio di ordinamento RI: base a griglia \(3\times3\) (nodi \(0\text{--}8\)) con nodo centrale \(4\) ad alto grado, diagonali verso \(4\) e colonna superiore \(9\!\rightarrow\!10\).}
+    \caption{Grafo non diretto di esempio (11 nodi, 0-10), usato per illustrare l'ordinamento dei nodi della query nell'algoritmo RI.}
     \label{fig:ri_algorithm_example}
 \end{figure}
 
-\noindent
-Data la query in figura~\ref{fig:ri_algorithm_example}, applichiamo la regola a tre livelli
-\(\big(|V_{\text{adj}}|,\ |V_{\text{conn}}|,\ |V_{\text{rem}}|\big)\).
-Indichiamo con \(S_i=\{q_1,\dots,q_i\}\) l'insieme dei nodi già ordinati dopo il passo \(i\).
-A parità sul primo criterio, si passa al secondo, poi al terzo; in ulteriore parità si usa il grado.
-
-\medskip
-
-\begin{description}
-  \item[\textit{Scelta 1}] \(S_1=\{4\}\). Selezioniamo \(4\) perché, al passo iniziale, tutti i \(V_{\text{adj}}\) sono vuoti; si rompe la parità col \emph{grado} massimo, massimizzando il potenziale di collegamenti verso il resto della query.
-
-  \item[\textit{Scelta 2}] \(S_2=\{4,0\}\). Tra i vicini di \(4\) (tutti con \(|V_{\text{adj}}|=1\)) i valori successivi sono in parità; scegliamo arbitrariamente \(0\) (a pari merito con \(5\) e \(6\)).
-
-  \item[\textit{Scelta 3}] \(S_3=\{4,0,1\}\). I candidati includono \(1,3,5,6,7,9\).
-  Massimizziamo \(|V_{\text{adj}}|\): \(1\) e \(3\) hanno due adiacenze verso \(S_2\) (connessi a \(0\) e \(4\)).
-  Scegliamo \(1\) perché offre migliore frontiera verso nodi rimanenti (\(V_{\text{rem}}\) introduce \(2\)).
-
-  \item[\textit{Scelta 4}] \(S_4=\{4,0,1,3\}\). Tra \(\{5,6,7,2,9\}\) massimizzano \(|V_{\text{adj}}|=2\) i nodi \(5\) (adiacente a \(4,1\)) e \(6\) (adiacente a \(4,3\)).
-  Per estendere presto verso la parte alta (catena \(9\!\to\!10\)), selezioniamo \(6\):
-  \(S_5=\{4,0,1,3,6\}\).
-
-  \item[\textit{Scelta 5}] Candidati \(\{5,7,2,9\}\).
-  Anche qui \(|V_{\text{adj}}|=2\) per \(5\) e \(7\), ma \(9\) ottiene \(|V_{\text{adj}}|=2\) rispetto a \(S_5\) (\(0\) e \(6\)) e apre \(V_{\text{rem}}\) verso \(10\).
-  Scegliamo quindi \(9\): \(S_6=\{4,0,1,3,6,9\}\).
-
-  \item[\textit{Scelta 6}] Ora \(\{5,7,2,10\}\).
-  \(5\) e \(7\) hanno \(|V_{\text{adj}}|=2\); scegliamo \(5\) perché massimizza \(V_{\text{rem}}\) (porta a \(2\) e \(8\)):
-  \(S_7=\{4,0,1,3,6,9,5\}\).
-
-  \item[\textit{Scelta 7}] Candidati \(\{7,2,8,10\}\).
-  \(|V_{\text{adj}}|=2\) per \(7\) (\(4,6\)) e \(2\) (\(1,5\)).
-  Selezioniamo \(7\) per aprire la frontiera su \(8\):
-  \(S_8=\{4,0,1,3,6,9,5,7\}\).
-
-  \item[\textit{Scelta 8}] Candidati \(\{2,8,10\}\).
-  \(|V_{\text{adj}}|=2\) per \(2\) e \(8\); in parità scegliamo \(2\):
-  \(S_9=\{4,0,1,3,6,9,5,7,2\}\).
-
-  \item[\textit{Scelta 9}] Rimangono \(\{8,10\}\).
-  \(8\) ha \(|V_{\text{adj}}|=2\) (\(5,7\)), \(10\) ha \(|V_{\text{adj}}|=1\) (solo \(9\)).
-  Scegliamo \(8\): \(S_{10}=\{4,0,1,3,6,9,5,7,2,8\}\).
-
-  \item[\textit{Scelta 10}] Ultimo nodo \(10\), collegato a \(9\):
-  \(S_{11}=\{4,0,1,3,6,9,5,7,2,8,10\}\).
-\end{description}
-
-
-\noindent\textbf{Ordinamento finale}
+\paragraph{Passo $i=1$.}
+Per prima cosa, dobbiamo ordinare i nodi. Lo stato iniziale dell'ordinamento è $U^0 = \emptyset$, per ogni nodo $v$ calcoliamo i 3 insiemi:
 \[
-[\,4,\ 0,\ 1,\ 3,\ 6,\ 9,\ 5,\ 7,\ 2,\ 8,\ 10\,].
+|V_{\text{adiac}}(1,v)| = 0, \quad |V_{\text{conn}}(1,v)| = 0, \quad |V_{\text{rem}}(1,v)| = \deg(v)
+\]
+Quindi vince il nodo con grado massimo, ovvero il nodo 4. Ora lo stato dell'ordinamento è $U^1 = (4)$.
+
+\paragraph{Passo $i=2$.}
+Possiamo calcolare una tabella per tutti i candidati al passo 2, in quanto ora $U^1 = (4)$.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{c|ccc}
+\textbf{Nodo $v$} & $V_{\text{adiac}}(2,v)$ & $V_{\text{conn}}(2,v)$ & $V_{\text{rem}}(2,v)$ \\
+\hline
+0  & \{4\}       & \{4\}       & \{9\}       \\
+1  & \{4\}       & \{4\}       & \{2\}       \\
+2  & $\varnothing$ & \{4\}     & $\varnothing$ \\
+3  & \{4\}       & \{4\}       & $\varnothing$ \\
+5  & \{4\}       & \{4\}       & \{2,8\}     \\
+6  & \{4\}       & \{4\}       & \{9\}       \\
+7  & \{4\}       & \{4\}       & \{8\}       \\
+8  & $\varnothing$ & \{4\}     & $\varnothing$ \\
+9  & $\varnothing$ & \{4\}     & \{10\}      \\
+10 & $\varnothing$ & $\varnothing$ & \{9\}   \\
+\end{tabular}
+\end{table}
+
+In questo caso, si nota che i nodi candidati hanno $|V_{\text{adiac}}| = 1$. e $|V_{\text{conn}}| = 1$. Quindi si passa a guardare $|V_{\text{rem}}|$, che è massimo per il nodo 5 (2 nodi). Quindi il secondo nodo dell'ordinamento è $u_2$ = 5, e lo stato diventa $U^2 = (4, 5)$.
+
+\paragraph{Tabella finale}
+Dopo aver ripetuto questo processo per tutti i nodi, otteniamo l'ordinamento finale:
+\[
+U = (4, 5, 1, 3, 7, 0, 6, 9, 2, 8, 10)
 \]
 
-\noindent
-Le scelte “arbitrarie in parità” derivano dall'applicazione fedele dei tre criteri
-\[
-\big(|V_{\text{adj}}|,\ |V_{\text{conn}}|,\ |V_{\text{rem}}|\big).
-\]
-Quando due o più candidati restano indistinguibili, l'algoritmo RI ammette qualsiasi selezione senza compromettere la correttezza; in pratica si preferisce quella che \emph{anticipa} l'aggancio di nuove porzioni della query (maggiore \(V_{\text{rem}}\)), così da massimizzare il pruning nei passi successivi.
 
 \subsection{RI-DS}
 Una versione ottimizzata dell'algoritmo RI, chiamata RI-DS (RI with Domain Size ordering), introduce un'ulteriore strategia di ordinamento basata sulle dimensioni del \textbf{dominio} di ciascun nodo della query. In particolare si cerca di applicare la regola del grado di Ullman in fase di matching una sola volta per una stessa coppia $(q, t)$ e ridurre a monte le possibili coppie candidate. Questo perché se un nodo $q$ della query ha un grado maggiore di un nodo $t$ del target, allora non può esistere una mappatura valida che includa la coppia $(q, t)$.
