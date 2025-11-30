@@ -192,3 +192,80 @@ dove $\alpha$ è un iperparametro positivo che controlla il valore di saturazion
 \end{figure}
 
 \section{Funzioni Loss}
+Il problema nelle reti neurali è lo stesso che si ha in modelli più piccoli come la classificazione o la regressione: serve definire un modo di misurare l'errore tra le predizioni del modello e i valori reali, così che si possa addestrare il modello per minimizzare tale errore. Questa misurazione dell'errore è definita tramite una \textbf{funzione di costo} (o \emph{loss function}).
+
+La loss function è generalmente applicata sui pesi della rete neurale generando \textbf{pesi ottimali} per i nodi della rete. L'addestramento della rete avviene tramite algoritmi di ottimizzazione come la \emph{discesa del gradiente} (gradient descent) e il \emph{backpropagation}, che aggiornano i pesi per minimizzare la funzione di costo.
+
+\subsection{Regression Loss}
+In un problema di regressione, l'obiettivo è prevedere un valore continuo. Ipotizziamo quindi una regression loss function che misuri l'errore tra il valore predetto $\hat{y}$ e il valore reale $y$. Chiamiamo questa funzione $L$:
+\[
+L(\hat{y}, y) = (\hat{y} - y)^2
+\]
+Già questa funzione, tuttavia, presenta un problema: per valori di errore molto grandi, la funzione cresce in modo quadratico, il che può portare a problemi numerici durante l'addestramento della rete. Una soluzione è utilizzare la funzione di \textbf{Huber loss}, che combina la perdita quadratica per piccoli errori e la perdita lineare per grandi errori:
+\[
+L_\delta(\hat{y}, y) =
+\begin{cases}
+(y - \hat{y})^2 & \text{se } |y - \hat{y}| \leq \delta \\
+2 \delta |y - \hat{y}| - \frac{1}{2} \delta ^2 & \text{se } |y - \hat{y}| > \delta
+\end{cases}
+\]
+dove $\delta$ è un iperparametro che determina il punto di transizione tra la perdita quadratica e lineare.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/regression_loss.png}
+    \caption{Confronto tra la squared error loss (tratteggiata, crescita quadratica) e la Huber loss (linea continua, crescita lineare oltre la soglia): la Huber loss penalizza meno fortemente gli errori molto grandi, risultando più robusta agli outlier.}
+    \label{fig:regression_loss}
+\end{figure}
+
+\paragraph{MSE: Mean Squared Error.}
+Una funzione di costo comunemente usata nei problemi di regressione è il \textbf{Mean Squared Error} (MSE), che calcola la media degli errori quadratici tra le predizioni e i valori reali su un dataset:
+\[
+\text{MSE} = \frac{1}{N} \sum_{i=1}^{N} (\hat{y}_i - y_i)^2
+\]
+dove $N$ è il numero di campioni nel dataset, $\hat{y}_i$ è la predizione per il campione $i$ e $y_i$ è il valore reale corrispondente. Un problema del MSE è che penalizza fortemente gli errori grandi, il che può essere problematico in presenza di outlier nei dati. Si può risolvere utilizzando la radice quadrata dell'MSE, chiamata \textbf{Root Mean Squared Error} (RMSE):
+\[
+\text{RMSE} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} (\hat{y}_i - y_i)^2}
+\]
+La RMSE ha la stessa unità di misura delle predizioni e dei valori reali, rendendo più intuitiva l'interpretazione dell'errore medio.
+
+\subsection{Classification Loss}
+Nei problemi di classificazione, l'obiettivo è assegnare un'etichetta discreta a ciascun input. Il problema in questo caso, diverso da quello di regressione, è che l'output della rete neurale spesso non è un'etichetta diretta, ma una distribuzione di probabilità sulle possibili classi (ad esempio tramite la funzione softmax). Per misurare l'errore tra la distribuzione predetta e la distribuzione reale (spesso rappresentata come un vettore one-hot), si utilizzano funzioni di costo specifiche per la classificazione.
+
+Consideriamo un problema di classificazione e siano $C_1, C_2, \ldots, C_n$ le classi possibili. Supponiamo che il training set sia formato da coppie $(x, p)$ dove $x$ è il vettore di input e $p = (p_1, p_2, \ldots, p_n)$ è una distribuzione di probabilità dove $p_i$ indica la probabilità che $x$ appartenga alla classe $C_i$. Supponiamo che la rete neurale produca in output una distribuzione di probabilità $q = (q_1, q_2, \ldots, q_n)$, dove $q_i$ è la probabilità predetta per la classe $C_i$, possiamo definire la funzione di costo come una misura della differenza tra le distribuzioni $p$ e $q$.
+
+\paragraph{Entropia.} Per misurare la differenza tra due distribuzioni di probabilità è possibile utilizzare l'\textbf{entropia}, in quanto essa misura l'incertezza associata a una distribuzione di probabilità.
+
+Il \emph{Teorema di Shannon} afferma che, in un sistema di codifica ottimale, il numero di bit per simbolo necessario per rappresentare un messaggio è pari all'entropia della sorgente di informazione che genera il messaggio:
+\[
+H(p) = - \sum_{i=1}^{n} p_i \log(p_i)
+\]
+dove $-\log p_i$ rappresenta il numero di bit necessari per codificare l'evento $C_i$ con probabilità $p_i$, misura comunemente nota come \textbf{self-information}.
+
+In altre parole, l'entropia fornisce un limite inferiore alla quantità di informazione necessaria per codificare i dati in modo efficiente.
+
+\paragraph{Entropia incrociata.}
+Supponendo di voler cambiare lo schema di codifica, utilizzando una distribuzione di probabilità $q$ diversa dalla distribuzione reale $p$. QUestso implica che per il nuovo schema occorrono $ - \log q_i$ bit per codificare l'evento $C_i$. La quantità media di bit necessari per codificare un messaggio generato dalla distribuzione $p$ utilizzando lo schema di codifica basato su $q$ è data dall'\textbf{entropia incrociata} (cross-entropy):
+\[
+C(p || q) = - \sum_{i=1}^{n} p_i \log(q_i)
+\]
+
+Possiamo utilizzare l'entropia incrociata per misurare la differenza tra la distribuzione reale $p$ e la distribuzione predetta $q$ dalla rete neurale. Questa differenza viene chiamata \textbf{Kullback-Leibler divergence} (o KL divergence):
+\[
+KL(p || q) = C(p || q) - H(p) = \sum_{i=1}^{n} p_i \log\left(\frac{p_i}{q_i}\right)
+\]
+e, generalmente, $C(p || q) \geq H(p)$, con uguaglianza se e solo se $p = q$.
+
+Minimizzare la KL divergence equivale a minimizzare l'entropia incrociata, poiché l'entropia $H(p)$ è costante rispetto a $q$. Quindi, possiamo utilizzare l'entropia incrociata come funzione di costo per addestrare la rete neurale:
+\[
+L(p, q) = - \sum_{i=1}^{n} p_i \log(q_i)
+\]
+
+Nella pratica però, poiché minimizzare la divergenza KL equivale a minimizzare l'entropia incrociata, si utilizza direttamente quest'ultima come funzione di costo per addestrare la rete neurale.
+
+\section*{Riferimenti}
+I riferimenti di questo capitolo includono:
+\begin{itemize}
+    \item Materiale visto a lezione.
+    \item Capitolo 13 del libro \cite{Leskovec2014MMDS}.
+\end{itemize}

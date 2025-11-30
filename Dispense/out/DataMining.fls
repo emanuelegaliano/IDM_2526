@@ -1442,6 +1442,11 @@ INPUT ./images/relu_function.png
 INPUT images/relu_function.png
 INPUT ./images/relu_function.png
 INPUT ./images/relu_function.png
+INPUT ./images/regression_loss.png
+INPUT ./images/regression_loss.png
+INPUT images/regression_loss.png
+INPUT ./images/regression_loss.png
+INPUT ./images/regression_loss.png
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex
