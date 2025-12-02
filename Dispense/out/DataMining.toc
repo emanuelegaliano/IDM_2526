@@ -367,5 +367,11 @@
 \contentsline {subsection}{\numberline {11.4.2}Classification Loss}{126}{subsection.11.4.2}%
 \contentsline {paragraph}{Entropia.}{126}{section*.170}%
 \contentsline {paragraph}{Entropia incrociata.}{126}{section*.171}%
-\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{129}{chapter.12}%
-\contentsline {part}{III\hspace {1em}Approfondimenti}{131}{part.3}%
+\contentsline {section}{\numberline {11.5}Training di una rete neurale}{127}{section.11.5}%
+\contentsline {subsection}{\numberline {11.5.1}Ottimizzazione dei pesi}{127}{subsection.11.5.1}%
+\contentsline {subsection}{\numberline {11.5.2}Metodo di discesa del gradiente}{127}{subsection.11.5.2}%
+\contentsline {paragraph}{Matrice Jacobiana.}{129}{section*.172}%
+\contentsline {paragraph}{Stochastic Gradient Descent.}{129}{section*.173}%
+\contentsline {subsection}{\numberline {11.5.3}Backpropagation}{129}{subsection.11.5.3}%
+\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{131}{chapter.12}%
+\contentsline {part}{III\hspace {1em}Approfondimenti}{133}{part.3}%

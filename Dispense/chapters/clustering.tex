@@ -1,7 +1,7 @@
 \chapter{Clustering}\label{ch:clustering}
 
 \section{Concetti generali}\label{sec:clu-concetti}
-Il \textbf{clustering} raggruppa oggetti in \emph{cluster} tali che i punti nello stesso cluster siano tra loro simili, mentre punti in cluster diversi siano dissimili. È un compito \emph{unsupervised}: non si conoscono etichette a priori. La \emph{classificazione} è invece \emph{supervised} e richiede classi note per l’addestramento.
+Il \textbf{clustering} raggruppa oggetti in \emph{cluster} tali che i punti nello stesso cluster siano tra loro simili, mentre punti in cluster diversi siano dissimili. È un compito \emph{unsupervised}: non si conoscono etichette a priori. La \emph{classificazione} è invece \emph{supervised} e richiede classi note per l'addestramento.
 
 \subsection{Spazi metrici e funzioni distanza}\label{subsec:metric-spaces}
 Si assume uno \textbf{spazio metrico} $(\mathcal{S},D)$, con $D$ che soddisfa:
@@ -69,7 +69,7 @@ Tre famiglie principali:
 \end{enumerate}
 
 \paragraph{Bontà di un algoritmo.}
-Dipende da: \emph{scalabilità}, supporto a attributi eterogenei, capacità di cogliere \emph{forme diverse} di cluster, \emph{robustezza} a outlier/rumore e dati mancanti, \emph{stabilità} all’aggiunta di nuovi dati, e \emph{interpretabilità} dei risultati. La scelta pratica è un compromesso tra qualità e costi computazionali.
+Dipende da: \emph{scalabilità}, supporto a attributi eterogenei, capacità di cogliere \emph{forme diverse} di cluster, \emph{robustezza} a outlier/rumore e dati mancanti, \emph{stabilità} all'aggiunta di nuovi dati, e \emph{interpretabilità} dei risultati. La scelta pratica è un compromesso tra qualità e costi computazionali.
 
 \subsection{Alta dimensionalità: equidistanza e ortogonalità}\label{subsec:curse}
 Spazi euclidei ad elevata dimensionalità soffrono del \emph{problema della dimensionalità}:
@@ -123,12 +123,12 @@ o usare metriche più adatte (cosine/angolare), soprattutto in presenza di dati 
 Il \textbf{dendrogramma} registra le fusioni; tagliandolo a una certa altezza si ottiene la partizione.
 Criteri di terminazione:
 (i) fermarsi a $k$ cluster prefissati;
-(ii) fermarsi quando l’unione successiva degrada troppo la qualità (es.\ aumento del diametro o della distanza media intra-cluster).
+(ii) fermarsi quando l'unione successiva degrada troppo la qualità (es.\ aumento del diametro o della distanza media intra-cluster).
 
 \begin{figure}
   \centering
   \includegraphics[width=0.75\textwidth]{images/dendograms.png}
-  \caption{A sinistra: punti nel piano con centroidi (triangoli) e cerchi che schematizzano la coesione dei gruppi; i colori indicano i cluster. A destra: dendrogramma agglomerativo che mostra l’ordine di fusione e l’altezza (distanza di linkage). Un taglio orizzontale del dendrogramma determina il numero di cluster.}
+  \caption{A sinistra: punti nel piano con centroidi (triangoli) e cerchi che schematizzano la coesione dei gruppi; i colori indicano i cluster. A destra: dendrogramma agglomerativo che mostra l'ordine di fusione e l'altezza (distanza di linkage). Un taglio orizzontale del dendrogramma determina il numero di cluster.}
   \label{fig:dendograms}
 \end{figure}
 
@@ -143,7 +143,7 @@ Approccio \textbf{top–down}: un'altra versione dove si parte da un unico clust
 
 \paragraph{Analisi \emph{naive}.}
 Al primo passo si valuta la distanza per ogni coppia di cluster e si sceglie la migliore: costo $\Theta(n^2)$.
-Dopo ogni fusione i cluster diminuiscono di uno, quindi i passi successivi costano, nell’ordine,
+Dopo ogni fusione i cluster diminuiscono di uno, quindi i passi successivi costano, nell'ordine,
 $(n-1)^2,(n-2)^2,\dots,2^2$.
 \[
 T_{\text{naive}}
@@ -202,7 +202,7 @@ Con partizione $C_1,\dots,C_k$ e centroidi $\mu_r$:
 \[
 J=\sum_{r=1}^k \sum_{x\in C_r} \|\mathbf{x}-\mu_r\|_2^2.
 \]
-Arresto quando $\Delta J$ tra iterazioni consecutive è sotto soglia o quando non cambia l’assegnazione. Con metriche diverse da euclidea il centroide non è il minimizzatore naturale.
+Arresto quando $\Delta J$ tra iterazioni consecutive è sotto soglia o quando non cambia l'assegnazione. Con metriche diverse da euclidea il centroide non è il minimizzatore naturale.
 
 \subsection{Scelta del numero di cluster $k$}\label{subsec:scelta-k}
 Poiché $k$ non è noto a priori, si esegue il metodo per più valori e si seleziona quello che ottimizza una metrica di qualità interna.
@@ -218,7 +218,7 @@ $W(k)$ è decrescente in $k$.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{images/elbow-k.png}
-  \caption{Metodo (\emph{elbow}). Si traccia la distanza media dal centroide (o WCSS/n) al variare di $k$; il valore “ottimo” è nel punto di flesso, dove l’aumento di $k$ porta benefici marginali trascurabili.}
+  \caption{Metodo (\emph{elbow}). Si traccia la distanza media dal centroide (o WCSS/n) al variare di $k$; il valore “ottimo” è nel punto di flesso, dove l'aumento di $k$ porta benefici marginali trascurabili.}
   \label{fig:elbow}
 \end{figure}
 
@@ -226,10 +226,9 @@ $W(k)$ è decrescente in $k$.
 Si calcola $\bar W(k)$ per $k=k_{\min},\dots,k_{\max}$ e si sceglie il $k$ per cui il calo di $\bar W$ passa da “ripido” a “lento” (punto di flesso).
 \begin{itemize}
   \item \emph{Procedura pratica:} si valuta $\bar W(k)$ su una griglia di valori e si ispeziona il grafico $\bar W$ vs $k$.
-  \item \emph{Variante a ricerca binaria:} fissati due estremi $x<y$, si prende $z=\lfloor(x+y)/2\rfloor$, si calcola $\bar W(z)$ e si sostituisce l’estremo \emph{più vicino} a $\bar W(z)$ con $z$; si ripete finché l’intervallo è piccolo. Il $k$ finale approssima il gomito.
+  \item \emph{Variante a ricerca binaria:} fissati due estremi $x<y$, si prende $z=\lfloor(x+y)/2\rfloor$, si calcola $\bar W(z)$ e si sostituisce l'estremo \emph{più vicino} a $\bar W(z)$ con $z$; si ripete finché l'intervallo è piccolo. Il $k$ finale approssima il gomito.
 \end{itemize}
-\emph{Nota:} se la curva non mostra un gomito netto, l’elbow diventa ambiguo e conviene affiancarlo a silhouette/stabilità.
-
+\emph{Nota:} se la curva non mostra un gomito netto, l'elbow diventa ambiguo e conviene affiancarlo a silhouette/stabilità.
 
 
 \paragraph{Metodo \emph{silhouette}.}
@@ -246,9 +245,7 @@ Valori vicini a $1$ indicano assegnazioni “pulite”, vicini a $0$ punti al co
 \[
 k^\star=\arg\max_k\ \frac{1}{n}\sum_{r=1}^n s(\mathbf{x}_r).
 \]
-\emph{Regole d’uso.} Calcolare gli indici su più esecuzioni (inizializzazioni diverse) e riportare media/deviazione; standardizzare le feature prima del confronto; evitare $k$ troppo grandi che trivialiscono $\bar W$ ma peggiorano la silhouette.
-
-% --------------------------------------------------------------------
+\emph{Regole d'uso.} Calcolare gli indici su più esecuzioni (inizializzazioni diverse) e riportare media/deviazione; standardizzare le feature prima del confronto; evitare $k$ troppo grandi che trivialiscono $\bar W$ ma peggiorano la silhouette.
 
 \subsection{Complessità computazionale}\label{subsec:kmeans-compl}
 Ogni iterazione del \emph{k}-means ha due passi:
@@ -309,7 +306,7 @@ Usare $\texttt{MinPts}\approx d{+}1$ come minimo (con $d$ dimensioni) e valori p
 \paragraph{Complessità.}
 Il costo è dominato dalle ricerche di vicinato. Con appropriate strutture (R-tree) il costo è $O(n\log n)$. Senza questo tipo di strutture, il costo è $O(n^2)$.
 \paragraph{Pro e contro.}
-\emph{Pro}: non richiede $k$, trova cluster di forma arbitraria, gestisce il rumore, poco sensibile all’ordine di scansione.  
+\emph{Pro}: non richiede $k$, trova cluster di forma arbitraria, gestisce il rumore, poco sensibile all'ordine di scansione.  
 \emph{Contro}: scelta di $(\varepsilon,\texttt{MinPts})$ non banale; difficile con densità molto diverse o in alta dimensione.
 
 % ----------------------------
@@ -347,7 +344,7 @@ un vicino a distanza \(0.6\) ha \(\mathrm{reach\_dist}=0.8\); un punto a distanz
 
 
 \paragraph{Risultato: ordering e \emph{reachability plot}.}
-OPTICS visita iterativamente i punti scegliendo, tramite una coda di priorità, quello con \emph{reach\_dist} minima; registra per ciascun punto l’ordine di visita e la sua \emph{reachability}. Plottando le \emph{reachability} nell’ordine si ottiene il \textbf{reachability plot}: le \emph{valli} corrispondono a cluster, le creste a separazioni.
+OPTICS visita iterativamente i punti scegliendo, tramite una coda di priorità, quello con \emph{reach\_dist} minima; registra per ciascun punto l'ordine di visita e la sua \emph{reachability}. Plottando le \emph{reachability} nell'ordine si ottiene il \textbf{reachability plot}: le \emph{valli} corrispondono a cluster, le creste a separazioni.
 
 \begin{figure}[htbp]
   \centering
@@ -367,7 +364,7 @@ Si possono ottenere partizioni:
   \centering
   \includegraphics[width=.8\textwidth]{images/cluster_extraction_optics.png}
   \caption{OPTICS. (1) A sinistra: punti nel piano e, sotto, \emph{reachability plot}; le valli (segmenti colorati) corrispondono a regioni dense/cluster, mentre la linea orizzontale tratteggiata indica una soglia 
-  $\epsilon$ che produce un taglio in stile DBSCAN. Le linee tratteggiate collegano ogni gruppo nel piano al suo intervallo nel plot. (2) A destra: regola \emph{steep down/up} per l’estrazione automatica dei cluster dal reachability plot (si entra quando la reachability scende bruscamente e si esce quando risale).}  
+  $\epsilon$ che produce un taglio in stile DBSCAN. Le linee tratteggiate collegano ogni gruppo nel piano al suo intervallo nel plot. (2) A destra: regola \emph{steep down/up} per l'estrazione automatica dei cluster dal reachability plot (si entra quando la reachability scende bruscamente e si esce quando risale).}  
   \label{fig:optics-cluster-extraction}
 \end{figure}
 
@@ -377,13 +374,13 @@ Con le adeguate strutture: $O(n\log n)$; altrimenti $O(n^2)$.
 % ----------------------------
 \subsection{HDBSCAN}\label{sec:hdbscan}
 \textbf{HDBSCAN} (Hierarchical DBSCAN) estende DBSCAN costruendo una \emph{gerarchia di cluster per densità} e selezionando
-automaticamente i cluster più \emph{stabili}. L’unico parametro concettuale è \texttt{MinPts} (soglia minima di densità); nelle librerie può comparire anche \texttt{min\_cluster\_size} (qui lo assimiliamo a \texttt{MinPts} come nelle slide).
+automaticamente i cluster più \emph{stabili}. L'unico parametro concettuale è \texttt{MinPts} (soglia minima di densità); nelle librerie può comparire anche \texttt{min\_cluster\_size} (qui lo assimiliamo a \texttt{MinPts} come nelle slide).
 
 \paragraph{Idea.}
 \begin{enumerate}
   \item Definisco una distanza che “appiattisce” le regioni rade e rende confrontabili densità diverse.
-  \item Costruisco l’MST su tale distanza e, facendo crescere la densità minima \(\lambda=1/\varepsilon\), ottengo un \emph{cluster tree}.
-  \item Condenso l’albero tenendo solo rami sostenuti da almeno \texttt{MinPts} punti e scelgo i cluster più \emph{stabili}. 
+  \item Costruisco l'MST su tale distanza e, facendo crescere la densità minima \(\lambda=1/\varepsilon\), ottengo un \emph{cluster tree}.
+  \item Condenso l'albero tenendo solo rami sostenuti da almeno \texttt{MinPts} punti e scelgo i cluster più \emph{stabili}. 
 \end{enumerate}
 
 \paragraph{Core distance di X.} \(\mathrm{core\_dist}(p)\) = distanza dal \texttt{MinPts} più vicino.
@@ -441,7 +438,7 @@ questo valore viene usato per decidere se mantenere o collassare un ramo nel \em
 \mathrm{stab}(C)=\sum_{p\in C}\!\bigl(\lambda^{\text{max}}_{p}(C)-\lambda^{\text{min}}(C)\bigr),
 \]
 dove \(\lambda^{\text{max}}_{p}(C)\) è la densità alla quale il punto \(p\) lascia \(C\) (per split o perché \(C\) muore).
-Equivalente: è l’“area sotto la curva” del numero di punti di \(C\) lungo \(\lambda\) nel condensed tree.
+Equivalente: è l'“area sotto la curva” del numero di punti di \(C\) lungo \(\lambda\) nel condensed tree.
 
 \paragraph{Estrazione dei cluster significativi (dal \emph{condensed tree}).}
 \emph{Input:} albero condensato in cui ogni nodo $C$ porta
@@ -450,7 +447,7 @@ $\lambda_{\text{birth}}(C)$, $\lambda_{\text{death}}(C)$ e la funzione $|C|(\lam
 
 \begin{enumerate}
   \item \textbf{Calcolo della stabilità (bottom–up).}
-  Per ogni nodo $C$ si valuta la \emph{persistenza} del cluster lungo l’intervallo
+  Per ogni nodo $C$ si valuta la \emph{persistenza} del cluster lungo l'intervallo
   in cui esiste come:
   \[
     \mathrm{stab}(C)
@@ -459,7 +456,7 @@ $\lambda_{\text{birth}}(C)$, $\lambda_{\text{death}}(C)$ e la funzione $|C|(\lam
   \]
   dove $\lambda^{\text{min}}(C)$ è la densità alla \emph{nascita} di $C$ e
   $\lambda^{\text{max}}_{p}(C)$ è la densità alla quale il punto $p$
-  \emph{esce} da $C$ (per split o scomparsa). Si procede dal basso verso l’alto
+  \emph{esce} da $C$ (per split o scomparsa). Si procede dal basso verso l'alto
   in modo da avere già disponibili le stabilità dei figli quando si valuta il padre.
 
   \item \textbf{Regola di selezione (top–down, senza sovrapposizioni).}

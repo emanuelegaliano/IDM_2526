@@ -263,6 +263,87 @@ L(p, q) = - \sum_{i=1}^{n} p_i \log(q_i)
 
 Nella pratica però, poiché minimizzare la divergenza KL equivale a minimizzare l'entropia incrociata, si utilizza direttamente quest'ultima come funzione di costo per addestrare la rete neurale.
 
+\section{Training di una rete neurale}
+In un problema di regressione lineare, l'obiettivo è trovare i pesi dell'iperpiano che riescono ad approssimare i dati. Per le reti neurale il ragionamento è lo stesso ma su interpretazioni geometriche più complesse. 
+
+\subsection{Ottimizzazione dei pesi}
+L'addestramento di una rete neurale consiste nel trovare i pesi che \emph{minimizzano} la funzione di loss su un training set di dati. Per minimizzare i pesi, si può utilizzare il metodo della \textbf{discesa del gradiente} (gradient descent), che aggiorna iterativamente i pesi della rete nella direzione del gradiente negativo\footnote{Un gradiente negativo, infatti, indica la direzione di massima discesa della funzione ovvero il miglior modo per minimizzare la funzione.} della funzione di loss.
+
+Sia $x = (x_1, x_2, \ldots, x_n)$ il vettore dei pesi della rete neurale e sia:
+\[
+f: \mathbb{R}^n \rightarrow \mathbb{R}
+\]
+la funzione di loss da minimizzare. Il gradiente di $f$ in un punto $x$ è il vettore delle derivate parziali di $f$ rispetto a ciascuna variabile:
+\[
+\nabla f(x) = \left( \frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots, \frac{\partial f}{\partial x_n} \right)
+\]
+
+\subsection{Metodo di discesa del gradiente}
+L'idea di base della discesa del gradiente è quella di aggiornare iterativamente il vettore dei pesi $x$ nella direzione del gradiente negativo della funzione di loss. Dato uno stato corrente $x^{(t)}$, l'aggiornamento è:
+
+\[
+x^{(t+1)} = x^{(t)} - \eta \, \nabla f\bigl(x^{(t)}\bigr)
+\]
+
+dove $\eta > 0$ è il \emph{learning rate}, un parametro che controlla l'ampiezza del passo lungo la direzione di discesa.\footnote{Se $\eta$ è troppo grande, l'algoritmo può divergere; se è troppo piccolo, la convergenza è molto lenta.}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/eta_examples.jpg}
+    \caption{Andamento della funzione di loss al variare del \emph{learning rate}. 
+    Un valore troppo elevato può causare instabilità o divergenza dell'addestramento, 
+    mentre un valore troppo basso rallenta significativamente la convergenza. 
+    Un \emph{learning rate} ottimale permette una discesa rapida e stabile verso il minimo.}
+    \label{fig:eta_examples}
+\end{figure}
+
+Fin qui abbiamo considerato $f$ come una funzione scalare di un vettore di pesi $x \in \mathbb{R}^n$. Nelle reti neurali, però, la funzione di loss dipende da $x$ in modo indiretto: i pesi determinano prima le \emph{attivazioni} interne dei neuroni e, tramite queste, l'output finale della rete. Questo significa che la funzione di loss $f$ può essere vista come una funzione composta:
+\[
+f(x) = \mathcal{L}\bigl( \hat{y}, y \bigr),
+\]
+dove $\hat{y}$ è l'output della rete neurale (la predizione) e $y$ è l'etichetta corretta. L'output $\hat{y}$ dipende dai pesi $x$ e dall'input $u$ della rete:
+\[
+\hat{y} = F_x(u),
+\]
+dove $F_x$ rappresenta la funzione computata dalla rete neurale con pesi $x$. Possiamo quindi vedere formalmente la rete neurale come una funzione vettoriale parametrica:
+\[
+F_x : \mathbb{R}^d \to \mathbb{R}^k, \qquad \hat{y} = F_x(u),
+\]
+che mappa l'input $u$ nello spazio delle predizioni $\hat{y}$. La funzione di loss si può allora scrivere come
+\[
+f(x) = \mathcal{L}\bigl( F_x(u), y \bigr).
+\]
+
+Per calcolare il gradiente $\nabla f(x)$ in modo efficiente è fondamentale applicare la \emph{regola della catena}\footnote{La regola della catena permette di calcolare la derivata di una funzione composta come prodotto delle derivate delle funzioni componenti.} del calcolo differenziale in forma vettoriale. In questo contesto entra in gioco la \textbf{matrice Jacobiana}.
+
+\paragraph{Matrice Jacobiana.}
+Consideriamo una funzione vettoriale
+\[
+g : \mathbb{R}^n \to \mathbb{R}^m, \qquad g(x) = 
+\begin{pmatrix}
+g_1(x) \\
+\vdots \\
+g_m(x)
+\end{pmatrix}.
+\]
+La \emph{matrice Jacobiana} di $g$ nel punto $x$ è la matrice $m \times n$ delle derivate parziali:
+\[
+J_g(x) = 
+\begin{pmatrix}
+\dfrac{\partial g_1}{\partial x_1} & \dfrac{\partial g_1}{\partial x_2} & \cdots & \dfrac{\partial g_1}{\partial x_n} \\
+\dfrac{\partial g_2}{\partial x_1} & \dfrac{\partial g_2}{\partial x_2} & \cdots & \dfrac{\partial g_2}{\partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\dfrac{\partial g_m}{\partial x_1} & \dfrac{\partial g_m}{\partial x_2} & \cdots & \dfrac{\partial g_m}{\partial x_n}
+\end{pmatrix}.
+\]
+La Jacobiana è dunque la generalizzazione matriciale del concetto di derivata: mentre il gradiente $\nabla f(x)$ descrive come una funzione \emph{scalare} varia al variare delle sue variabili, la Jacobiana $J_g(x)$ descrive come variano simultaneamente tutte le componenti di una funzione \emph{vettoriale} $g$.
+
+\paragraph{Stochastic Gradient Descent.}
+Nelle reti neurali, il calcolo esatto del gradiente $\nabla f(x)$ su tutto il training set può essere computazionalmente costoso, specialmente per dataset di grandi dimensioni. Per ovviare a questo problema, si utilizza spesso una variante chiamata \textbf{Stochastic Gradient Descent} (SGD). Invece di calcolare il gradiente su tutto il dataset, l'SGD calcola una stima del gradiente utilizzando un singolo campione (o un piccolo batch di campioni) alla volta scelto casualmente.
+
+\subsection{Backpropagation}
+
+
 \section*{Riferimenti}
 I riferimenti di questo capitolo includono:
 \begin{itemize}

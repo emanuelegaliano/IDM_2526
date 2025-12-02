@@ -1447,6 +1447,11 @@ INPUT ./images/regression_loss.png
 INPUT images/regression_loss.png
 INPUT ./images/regression_loss.png
 INPUT ./images/regression_loss.png
+INPUT ./images/eta_examples.jpg
+INPUT ./images/eta_examples.jpg
+INPUT images/eta_examples.jpg
+INPUT ./images/eta_examples.jpg
+INPUT ./images/eta_examples.jpg
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex
