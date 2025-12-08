@@ -19,37 +19,595 @@
 \babel@aux{italian}{}
 \babel@aux{italian}{}
 \@writefile{toc}{\contentsline {part}{I\hspace  {1em}Concetti Preliminari}{1}{part.1}\protected@file@percent }
-\@input{chapters/prerequisiti.aux}
-\@input{chapters/grafi.aux}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Prerequisiti Matematici Essenziali [WIP]}{3}{chapter.1}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{ch:prerequisiti}{{1}{3}{Prerequisiti Matematici Essenziali [WIP]}{chapter.1}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Grafi}{5}{chapter.2}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Definizione formale}{5}{section.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces Grafo non orientato con quattro vertici \(V=\{A,B,C,D\}\) e archi \(E=\{(A,B),(A,C),(A,D),(B,D),(C,D)\}\). In figura: A è collegato a B (in alto), a C (sinistra) e a D (diagonale); B è collegato a D (destra); C è collegato a D (in basso).}}{5}{figure.2.1}\protected@file@percent }
+\newlabel{fig:grafo_esempio}{{2.1}{5}{Grafo non orientato con quattro vertici \(V=\{A,B,C,D\}\) e archi \(E=\{(A,B),(A,C),(A,D),(B,D),(C,D)\}\). In figura: A è collegato a B (in alto), a C (sinistra) e a D (diagonale); B è collegato a D (destra); C è collegato a D (in basso)}{figure.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}Network science}{6}{subsection.2.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Grafi diretti e indiretti}{6}{section.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Confronto tra grafo non orientato (a sinistra) e grafo orientato (a destra). Nel grafo orientato, gli archi hanno una direzione indicata da frecce, mentre nel grafo non orientato rappresentano relazioni bidirezionali.}}{6}{figure.2.2}\protected@file@percent }
+\newlabel{fig:grafo_diretto_indiretto}{{2.2}{6}{Confronto tra grafo non orientato (a sinistra) e grafo orientato (a destra). Nel grafo orientato, gli archi hanno una direzione indicata da frecce, mentre nel grafo non orientato rappresentano relazioni bidirezionali}{figure.2.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Come capire che tipologia usare.}{6}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Grafi pesati e grafi etichettati}{7}{section.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Esempio di grafo pesato (a sinistra) ed etichettato (a destra). Nel grafo pesato, i numeri sugli archi rappresentano i pesi associati a ciascun arco. Nel grafo etichettato, i vertici sono etichettati con nomi specifici.}}{7}{figure.2.3}\protected@file@percent }
+\newlabel{fig:grafo_pesato_etichettato}{{2.3}{7}{Esempio di grafo pesato (a sinistra) ed etichettato (a destra). Nel grafo pesato, i numeri sugli archi rappresentano i pesi associati a ciascun arco. Nel grafo etichettato, i vertici sono etichettati con nomi specifici}{figure.2.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Gradi dei vertici}{7}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Distribuzione dei gradi}{8}{subsection.2.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Grafi bipartiti}{8}{section.2.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Esempio di grafo bipartito con partizioni \(U\) (nodi verdi) e \(V\) (nodi viola): gli archi collegano solo vertici appartenenti a insiemi diversi. In basso sono mostrati i grafi proiettati: \emph  {projection \(U\)} (a sinistra), dove due vertici di \(U\) sono adiacenti se condividono almeno un vicino in \(V\), e \emph  {projection \(V\)} (a destra), definita simmetricamente.}}{8}{figure.2.4}\protected@file@percent }
+\newlabel{fig:grafo_bipartito}{{2.4}{8}{Esempio di grafo bipartito con partizioni \(U\) (nodi verdi) e \(V\) (nodi viola): gli archi collegano solo vertici appartenenti a insiemi diversi. In basso sono mostrati i grafi proiettati: \emph {projection \(U\)} (a sinistra), dove due vertici di \(U\) sono adiacenti se condividono almeno un vicino in \(V\), e \emph {projection \(V\)} (a destra), definita simmetricamente}{figure.2.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Generalizzazione.}{9}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.6}Grafo completo vs Grafo regolare}{9}{section.2.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces A sinistra: esempi di grafi completi \(K_n\) per \(n=2,\dots  ,7\), in cui ogni coppia di vertici è adiacente. A destra: esempi di grafi \(k\)-regolari (da \(k=1\) a \(k=4\)), in cui ogni vertice ha lo stesso grado \(k\).}}{9}{figure.2.5}\protected@file@percent }
+\newlabel{fig:grafo_regolare}{{2.5}{9}{A sinistra: esempi di grafi completi \(K_n\) per \(n=2,\dots ,7\), in cui ogni coppia di vertici è adiacente. A destra: esempi di grafi \(k\)-regolari (da \(k=1\) a \(k=4\)), in cui ogni vertice ha lo stesso grado \(k\)}{figure.2.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.7}Cammini tra due nodi}{9}{section.2.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7.1}Cammino minimo}{9}{subsection.2.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.6}{\ignorespaces Esempio di cammino in un grafo: gli archi verdi definiscono la struttura, mentre in arancione è evidenziato un \emph  {cammino} che attraversa i vertici \(1 \to 2 \to 5 \to 7\).}}{10}{figure.2.6}\protected@file@percent }
+\newlabel{fig:cammino_grafo}{{2.6}{10}{Esempio di cammino in un grafo: gli archi verdi definiscono la struttura, mentre in arancione è evidenziato un \emph {cammino} che attraversa i vertici \(1 \to 2 \to 5 \to 7\)}{figure.2.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7.2}Diametro}{10}{subsection.2.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.7.3}Ciclo}{10}{subsection.2.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Cappio.}{10}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.8}Connettività}{10}{section.2.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.8.1}Connettività forte e debole}{11}{subsection.2.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.9}Coefficiente di Clustering}{11}{section.2.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.7}{\ignorespaces Esempio del coefficiente di clustering locale per un nodo centrale (viola) con quattro vicini (arancioni). A sinistra il vicinato è completamente connesso, quindi \(C_i=1\); al centro solo metà delle possibili connessioni tra i vicini è presente (\(C_i=\tfrac  {1}{2}\)); a destra non ci sono archi tra i vicini e il coefficiente è nullo (\(C_i=0\)).}}{11}{figure.2.7}\protected@file@percent }
+\newlabel{fig:clustering-coeff}{{2.7}{11}{Esempio del coefficiente di clustering locale per un nodo centrale (viola) con quattro vicini (arancioni). A sinistra il vicinato è completamente connesso, quindi \(C_i=1\); al centro solo metà delle possibili connessioni tra i vicini è presente (\(C_i=\tfrac {1}{2}\)); a destra non ci sono archi tra i vicini e il coefficiente è nullo (\(C_i=0\))}{figure.2.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{Clustering medio.}{12}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Coefficiente di clustering globale.}{12}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.10}Misure di centralità}{12}{section.2.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.1}Centralità di grado}{12}{subsection.2.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.2}Centralità di vicinanza}{12}{subsection.2.10.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.8}{\ignorespaces Esempio di calcolo della centralità di vicinanza per i nodi in un grafo. I numeri accanto ai nodi indicano le distanze minime da ciascun nodo agli altri nodi nel grafo.}}{13}{figure.2.8}\protected@file@percent }
+\newlabel{fig:centralita_vicinanza}{{2.8}{13}{Esempio di calcolo della centralità di vicinanza per i nodi in un grafo. I numeri accanto ai nodi indicano le distanze minime da ciascun nodo agli altri nodi nel grafo}{figure.2.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Esempio (nodo \(3\)).}{13}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.3}Centralità di prossimità}{14}{subsection.2.10.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.9}{\ignorespaces Esempio di calcolo della centralità di prossimità per i nodi in un grafo. I numeri accanto ai nodi indicano i valori di centralità di prossimità calcolati in base alle distanze minime da ciascun nodo agli altri nodi nel grafo.}}{14}{figure.2.9}\protected@file@percent }
+\newlabel{fig:centralita_prossimita}{{2.9}{14}{Esempio di calcolo della centralità di prossimità per i nodi in un grafo. I numeri accanto ai nodi indicano i valori di centralità di prossimità calcolati in base alle distanze minime da ciascun nodo agli altri nodi nel grafo}{figure.2.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.4}Centralità di PageRank}{14}{subsection.2.10.4}\protected@file@percent }
 \abx@aux@cite{0}{Barabasi2016NetworkScience}
 \abx@aux@segm{0}{0}{Barabasi2016NetworkScience}
-\@writefile{toc}{\contentsline {part}{II\hspace  {1em}Tecniche di Data Mining}{21}{part.2}\protected@file@percent }
-\@input{chapters/introduzione.aux}
-\@input{chapters/preprocessing.aux}
-\@input{chapters/insiemi_frequenti.aux}
-\@input{chapters/clustering.aux}
-\@input{chapters/classificazione.aux}
-\@input{chapters/regressione.aux}
+\@writefile{toc}{\contentsline {paragraph}{Esempio.}{15}{section*.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.10}{\ignorespaces Configurazione iniziale della rete diretta con quattro nodi \(A, B, C, D\), ciascuno con uno score iniziale di \(0.25\).}}{15}{figure.2.10}\protected@file@percent }
+\newlabel{fig:pagerank_initial}{{2.10}{15}{Configurazione iniziale della rete diretta con quattro nodi \(A, B, C, D\), ciascuno con uno score iniziale di \(0.25\)}{figure.2.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.11}{\ignorespaces Evoluzione dei valori di PageRank per i nodi \(A, B, C, D\) nei round successivi.}}{15}{figure.2.11}\protected@file@percent }
+\newlabel{fig:pagerank_rounds}{{2.11}{15}{Evoluzione dei valori di PageRank per i nodi \(A, B, C, D\) nei round successivi}{figure.2.11}{}}
+\@writefile{toc}{\contentsline {part}{II\hspace  {1em}Tecniche di Data Mining}{17}{part.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Introduzione al Data Mining}{19}{chapter.3}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{ch:introduzione}{{3}{19}{Introduzione al Data Mining}{chapter.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Definizione e finalità}{19}{section.3.1}\protected@file@percent }
+\newlabel{sec:definizione}{{3.1}{19}{Definizione e finalità}{section.3.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Caratteristiche dei pattern}{19}{section.3.2}\protected@file@percent }
+\newlabel{sec:caratteristiche-pattern}{{3.2}{19}{Caratteristiche dei pattern}{section.3.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Metodi di data mining}{19}{section.3.3}\protected@file@percent }
+\newlabel{sec:metodi}{{3.3}{19}{Metodi di data mining}{section.3.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Perché fare data mining}{20}{section.3.4}\protected@file@percent }
+\newlabel{sec:motivazioni}{{3.4}{20}{Perché fare data mining}{section.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Big Data}{20}{subsection.3.4.1}\protected@file@percent }
+\newlabel{subsec:bigdata}{{3.4.1}{20}{Big Data}{subsection.3.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Dai dati alla conoscenza e alle comunità coinvolte}{20}{subsection.3.4.2}\protected@file@percent }
+\newlabel{subsec:comunita}{{3.4.2}{20}{Dai dati alla conoscenza e alle comunità coinvolte}{subsection.3.4.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Limiti e insidie del data mining}{20}{section.3.5}\protected@file@percent }
+\newlabel{sec:limiti}{{3.5}{20}{Limiti e insidie del data mining}{section.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}Caso di studio: Total Information Awareness (TIA)}{20}{subsection.3.5.1}\protected@file@percent }
+\newlabel{subsec:tia}{{3.5.1}{20}{Caso di studio: Total Information Awareness (TIA)}{subsection.3.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}Esempio: co-presenza in hotel come criterio di sospetto}{21}{subsection.3.5.2}\protected@file@percent }
+\newlabel{subsec:esempio-hotel}{{3.5.2}{21}{Esempio: co-presenza in hotel come criterio di sospetto}{subsection.3.5.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Dati di partenza.}{21}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ipotesi nulla (random).}{21}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Calcoli numerici.}{21}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Considerazioni.}{21}{section*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Principio di Bonferroni e test multipli}{22}{section.3.6}\protected@file@percent }
+\newlabel{sec:bonferroni}{{3.6}{22}{Principio di Bonferroni e test multipli}{section.3.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Interpretazione operativa.}{22}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Quando applicarlo.}{22}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Preprocessing}{23}{chapter.4}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Estrazione di feature}{23}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Tecniche di estrazione di feature}{24}{subsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Portabilità dei dati}{24}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Da dati numerici a categorici}{24}{subsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Equi-width ranges.}{24}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Equi-log ranges.}{24}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Equi-depth ranges.}{24}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Da dati categorici a numerici}{25}{subsection.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{One-hot encoding.}{25}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Da testo a dati numerici}{25}{subsection.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Cleaning dei dati}{25}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Gestione dei valori mancanti}{25}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Gestione dei valori errati}{26}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Quantili.}{26}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Scala dei dati}{26}{subsection.4.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Standardizzazione.}{27}{section*.21}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Min-Max scaling.}{27}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Riduzione dei dati}{27}{section.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Sampling dei dati}{27}{subsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Selezione di feature}{28}{subsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Riduzione della dimensionalità}{28}{subsection.4.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}PCA: Principal Component Analysis}{28}{subsection.4.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}SVD: Singular Value Decomposition}{30}{subsection.4.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Interpretazione geometrica.}{30}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Varianti ridotte della SVD.}{30}{section*.24}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Confronto tra le principali varianti della Decomposizione ai Valori Singolari (SVD): Full SVD, Compact SVD, Thin SVD e Truncated SVD, con rappresentazione delle dimensioni delle matrici coinvolte.}}{31}{figure.4.1}\protected@file@percent }
+\newlabel{fig:SVD}{{4.1}{31}{Confronto tra le principali varianti della Decomposizione ai Valori Singolari (SVD): Full SVD, Compact SVD, Thin SVD e Truncated SVD, con rappresentazione delle dimensioni delle matrici coinvolte}{figure.4.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{SVD vs PCA.}{31}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.6}LSA: Latent Semantic Analysis}{32}{subsection.4.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.7}Riduzione di dimensionalità con trasformazione dei dati}{32}{subsection.4.4.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Esempio: serie temporali.}{32}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Insiemi Frequenti e Regole d'Associazione}{33}{chapter.5}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{ch:frequent-itemsets}{{5}{33}{Insiemi Frequenti e Regole d'Associazione}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Market-basket model e definizioni}{33}{section.5.1}\protected@file@percent }
+\newlabel{sec:mbm}{{5.1}{33}{Market-basket model e definizioni}{section.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Supporto}{33}{subsection.5.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Soglia di supporto: trade-off.}{33}{section*.27}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Regole d'associazione}{33}{section.5.2}\protected@file@percent }
+\newlabel{sec:assoc}{{5.2}{33}{Regole d'associazione}{section.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Qualità di una regola}{34}{subsection.5.2.1}\protected@file@percent }
+\newlabel{subsec:qualita-regole}{{5.2.1}{34}{Qualità di una regola}{subsection.5.2.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Confidenza.}{34}{section*.28}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Coverage.}{34}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Interesse.}{34}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Lift.}{34}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Nota.}{34}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Mini-esempio (toy dataset).}{34}{section*.33}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Insiemi frequenti chiusi e massimali}{34}{section.5.3}\protected@file@percent }
+\newlabel{sec:closed-maximal}{{5.3}{34}{Insiemi frequenti chiusi e massimali}{section.5.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Itemset lattice (minsup 2)}}{35}{figure.5.1}\protected@file@percent }
+\newlabel{fig:ifm}{{5.1}{35}{Itemset lattice (minsup 2)}{figure.5.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Anti-monotonia e Principio di Apriori}{35}{section.5.4}\protected@file@percent }
+\newlabel{sec:apriori-principle}{{5.4}{35}{Anti-monotonia e Principio di Apriori}{section.5.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Principio di Apriori}{35}{subsection.5.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Algoritmo Apriori}{35}{section.5.5}\protected@file@percent }
+\newlabel{sec:apriori}{{5.5}{35}{Algoritmo Apriori}{section.5.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Esempio Apriori (minsup = 2)}{36}{subsection.5.5.1}\protected@file@percent }
+\newlabel{subsec:apriori-esempio}{{5.5.1}{36}{Esempio Apriori (minsup = 2)}{subsection.5.5.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{$k=1\!\to \!2$: generazione $C_2$ e conteggi.}{36}{section*.34}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{$k=2\!\to \!3$: self-join e prune.}{36}{section*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Generazione dei candidati}{36}{subsection.5.5.2}\protected@file@percent }
+\newlabel{subsec:candidate-gen}{{5.5.2}{36}{Generazione dei candidati}{subsection.5.5.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Ottimizzazioni di Apriori}{36}{section.5.6}\protected@file@percent }
+\newlabel{sec:apriori-opt}{{5.6}{36}{Ottimizzazioni di Apriori}{section.5.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.1}Hashing in bucket: PCY}{36}{subsection.5.6.1}\protected@file@percent }
+\newlabel{subsec:pcy}{{5.6.1}{36}{Hashing in bucket: PCY}{subsection.5.6.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Varianti multistadio e multihash.}{37}{section*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.2}Partizionamento del DB: SON}{37}{subsection.5.6.2}\protected@file@percent }
+\newlabel{subsec:son}{{5.6.2}{37}{Partizionamento del DB: SON}{subsection.5.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.3}Campionamento e frontiera negativa: Toivonen}{37}{subsection.5.6.3}\protected@file@percent }
+\newlabel{subsec:toivonen}{{5.6.3}{37}{Campionamento e frontiera negativa: Toivonen}{subsection.5.6.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.7}Perch\'e andare oltre Apriori}{37}{section.5.7}\protected@file@percent }
+\newlabel{sec:oltre-apriori}{{5.7}{37}{Perch\'e andare oltre Apriori}{section.5.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.8}FP-Growth: idea di base}{37}{section.5.8}\protected@file@percent }
+\newlabel{sec:fpgrowth}{{5.8}{37}{FP-Growth: idea di base}{section.5.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8.1}Costruzione dell'FP-tree}{37}{subsection.5.8.1}\protected@file@percent }
+\newlabel{subsec:costruzione-fptree}{{5.8.1}{37}{Costruzione dell'FP-tree}{subsection.5.8.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8.2}Esempio di FP-Growth}{38}{subsection.5.8.2}\protected@file@percent }
+\newlabel{subsec:fpg-example}{{5.8.2}{38}{Esempio di FP-Growth}{subsection.5.8.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Costruzione dell'FP-tree: a sinistra transazioni riordinate; a destra l'albero con prefissi condivisi e contatori aggiornati.}}{38}{figure.5.2}\protected@file@percent }
+\newlabel{fig:fp-growth-complete}{{5.2}{38}{Costruzione dell'FP-tree: a sinistra transazioni riordinate; a destra l'albero con prefissi condivisi e contatori aggiornati}{figure.5.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Visita per pattern-growth.}{38}{section*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Espansione di un item $x$.}{38}{section*.38}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Header table e node-link per l'item $p$: la base condizionale di $p$ si ottiene seguendo i link e risalendo verso la radice.}}{39}{figure.5.3}\protected@file@percent }
+\newlabel{fig:fp-growth-links}{{5.3}{39}{Header table e node-link per l'item $p$: la base condizionale di $p$ si ottiene seguendo i link e risalendo verso la radice}{figure.5.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Esempio 1: item $p$.}{39}{section*.39}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Esempio 2: item $m$.}{39}{section*.40}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Esempio 3: item $b$.}{39}{section*.41}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.9}Confronto: FP-Growth vs Apriori}{39}{section.5.9}\protected@file@percent }
+\newlabel{subsec:confronto-fp-apriori}{{5.9}{39}{Confronto: FP-Growth vs Apriori}{section.5.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Confronto sintetico tra Apriori e FP-Growth.}}{39}{table.5.1}\protected@file@percent }
+\newlabel{tab:apriori-vs-fpgrowth}{{5.1}{39}{Confronto sintetico tra Apriori e FP-Growth}{table.5.1}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Clustering}{41}{chapter.6}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{ch:clustering}{{6}{41}{Clustering}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Concetti generali}{41}{section.6.1}\protected@file@percent }
+\newlabel{sec:clu-concetti}{{6.1}{41}{Concetti generali}{section.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Spazi metrici e funzioni distanza}{41}{subsection.6.1.1}\protected@file@percent }
+\newlabel{subsec:metric-spaces}{{6.1.1}{41}{Spazi metrici e funzioni distanza}{subsection.6.1.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Distanze in spazi euclidei.}{41}{section*.42}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Spazi non euclidei.}{42}{section*.43}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Tassonomia degli algoritmi}{42}{subsection.6.1.2}\protected@file@percent }
+\newlabel{subsec:taxonomy}{{6.1.2}{42}{Tassonomia degli algoritmi}{subsection.6.1.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Bontà di un algoritmo.}{42}{section*.44}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Alta dimensionalità: equidistanza e ortogonalità}{42}{subsection.6.1.3}\protected@file@percent }
+\newlabel{subsec:curse}{{6.1.3}{42}{Alta dimensionalità: equidistanza e ortogonalità}{subsection.6.1.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Equidistanza dei punti.}{42}{section*.45}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Conseguenze pratiche.}{43}{section*.46}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Clustering gerarchico}{43}{section.6.2}\protected@file@percent }
+\newlabel{sec:hierarchical}{{6.2}{43}{Clustering gerarchico}{section.6.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Schema agglomerativo.}{43}{section*.47}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Distanza tra cluster (\emph  {linkage})}{43}{subsection.6.2.1}\protected@file@percent }
+\newlabel{subsec:linkages}{{6.2.1}{43}{Distanza tra cluster (\emph {linkage})}{subsection.6.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Esempi grafici delle diverse nozioni di distanza tra cluster.}}{43}{figure.6.1}\protected@file@percent }
+\newlabel{fig:cluster_distances}{{6.1}{43}{Esempi grafici delle diverse nozioni di distanza tra cluster}{figure.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Dendrogramma e criteri di stop}{43}{subsection.6.2.2}\protected@file@percent }
+\newlabel{subsec:dendro}{{6.2.2}{43}{Dendrogramma e criteri di stop}{subsection.6.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Altri criteri di combinazione}{43}{subsection.6.2.3}\protected@file@percent }
+\newlabel{subsec:altri-criteri}{{6.2.3}{43}{Altri criteri di combinazione}{subsection.6.2.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces A sinistra: punti nel piano con centroidi (triangoli) e cerchi che schematizzano la coesione dei gruppi; i colori indicano i cluster. A destra: dendrogramma agglomerativo che mostra l'ordine di fusione e l'altezza (distanza di linkage). Un taglio orizzontale del dendrogramma determina il numero di cluster.}}{44}{figure.6.2}\protected@file@percent }
+\newlabel{fig:dendograms}{{6.2}{44}{A sinistra: punti nel piano con centroidi (triangoli) e cerchi che schematizzano la coesione dei gruppi; i colori indicano i cluster. A destra: dendrogramma agglomerativo che mostra l'ordine di fusione e l'altezza (distanza di linkage). Un taglio orizzontale del dendrogramma determina il numero di cluster}{figure.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.4}Versioni divisive}{44}{subsection.6.2.4}\protected@file@percent }
+\newlabel{subsec:divisive}{{6.2.4}{44}{Versioni divisive}{subsection.6.2.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.5}Complessità e ottimizzazioni}{44}{subsection.6.2.5}\protected@file@percent }
+\newlabel{subsec:hclust-compl}{{6.2.5}{44}{Complessità e ottimizzazioni}{subsection.6.2.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Analisi \emph  {naive}.}{44}{section*.48}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ottimizzazione con \emph  {coda di priorità}.}{44}{section*.49}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Clustering partizionale: k-means}{45}{section.6.3}\protected@file@percent }
+\newlabel{sec:kmeans}{{6.3}{45}{Clustering partizionale: k-means}{section.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Algoritmo base}{45}{subsection.6.3.1}\protected@file@percent }
+\newlabel{subsec:kmeans-basic}{{6.3.1}{45}{Algoritmo base}{subsection.6.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Inizializzazione}{45}{subsection.6.3.2}\protected@file@percent }
+\newlabel{subsec:init}{{6.3.2}{45}{Inizializzazione}{subsection.6.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces K-means: evoluzione in tre round. Round 1: inizializzazione e prime assegnazioni ai centroidi (quadrati). Round 2: ricalcolo dei centroidi e riassegnazione dei punti (X). Round 3: i centroidi si stabilizzano e i cluster (ellissi colorate) convergono.}}{45}{figure.6.3}\protected@file@percent }
+\newlabel{fig:k-means-example}{{6.3}{45}{K-means: evoluzione in tre round. Round 1: inizializzazione e prime assegnazioni ai centroidi (quadrati). Round 2: ricalcolo dei centroidi e riassegnazione dei punti (X). Round 3: i centroidi si stabilizzano e i cluster (ellissi colorate) convergono}{figure.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.3}Funzione obiettivo e arresto}{45}{subsection.6.3.3}\protected@file@percent }
+\newlabel{subsec:objective}{{6.3.3}{45}{Funzione obiettivo e arresto}{subsection.6.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.4}Scelta del numero di cluster $\mathbf  {k}$}{46}{subsection.6.3.4}\protected@file@percent }
+\newlabel{subsec:scelta-k}{{6.3.4}{46}{Scelta del numero di cluster $\mathbf {k}$}{subsection.6.3.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Funzione obiettivo.}{46}{section*.50}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Metodo (\emph  {elbow}). Si traccia la distanza media dal centroide (o WCSS/n) al variare di $k$; il valore “ottimo” è nel punto di flesso, dove l'aumento di $k$ porta benefici marginali trascurabili.}}{46}{figure.6.4}\protected@file@percent }
+\newlabel{fig:elbow}{{6.4}{46}{Metodo (\emph {elbow}). Si traccia la distanza media dal centroide (o WCSS/n) al variare di $k$; il valore “ottimo” è nel punto di flesso, dove l'aumento di $k$ porta benefici marginali trascurabili}{figure.6.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Metodo \emph  {elbow}.}{46}{section*.51}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Metodo \emph  {silhouette}.}{47}{section*.52}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.5}Complessità computazionale}{47}{subsection.6.3.5}\protected@file@percent }
+\newlabel{subsec:kmeans-compl}{{6.3.5}{47}{Complessità computazionale}{subsection.6.3.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Clustering per densità}{47}{section.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}DBSCAN}{47}{subsection.6.4.1}\protected@file@percent }
+\newlabel{sec:dbscan}{{6.4.1}{47}{DBSCAN}{subsection.6.4.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Definizioni.}{47}{section*.53}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces DBSCAN: esempi di \emph  {core}, \emph  {border} e \emph  {noise} con parametri $\varepsilon $ e \texttt  {MinPts}.}}{48}{figure.6.5}\protected@file@percent }
+\newlabel{fig:dbscan-core}{{6.5}{48}{DBSCAN: esempi di \emph {core}, \emph {border} e \emph {noise} con parametri $\varepsilon $ e \texttt {MinPts}}{figure.6.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Algoritmo.}{48}{section*.54}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scelta dei parametri.}{48}{section*.55}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Complessità.}{48}{section*.56}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Pro e contro.}{48}{section*.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.2}OPTICS}{48}{subsection.6.4.2}\protected@file@percent }
+\newlabel{sec:optics}{{6.4.2}{48}{OPTICS}{subsection.6.4.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces $k$-distance plot: il gomito suggerisce il valore di $\varepsilon $.}}{49}{figure.6.6}\protected@file@percent }
+\newlabel{fig:kdist}{{6.6}{49}{$k$-distance plot: il gomito suggerisce il valore di $\varepsilon $}{figure.6.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Core–distance e reachability (OPTICS).}{49}{section*.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Risultato: ordering e \emph  {reachability plot}.}{49}{section*.59}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Estrazione dei cluster.}{49}{section*.60}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces OPTICS: esempio di \emph  {reachability plot}. Le zone basse (valli) indicano cluster densi; le zone alte (creste) indicano separazioni. (immagine da libro/slide)}}{50}{figure.6.7}\protected@file@percent }
+\newlabel{fig:optics-reach}{{6.7}{50}{OPTICS: esempio di \emph {reachability plot}. Le zone basse (valli) indicano cluster densi; le zone alte (creste) indicano separazioni. (immagine da libro/slide)}{figure.6.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces OPTICS. (1) A sinistra: punti nel piano e, sotto, \emph  {reachability plot}; le valli (segmenti colorati) corrispondono a regioni dense/cluster, mentre la linea orizzontale tratteggiata indica una soglia $\epsilon $ che produce un taglio in stile DBSCAN. Le linee tratteggiate collegano ogni gruppo nel piano al suo intervallo nel plot. (2) A destra: regola \emph  {steep down/up} per l'estrazione automatica dei cluster dal reachability plot (si entra quando la reachability scende bruscamente e si esce quando risale).}}{50}{figure.6.8}\protected@file@percent }
+\newlabel{fig:optics-cluster-extraction}{{6.8}{50}{OPTICS. (1) A sinistra: punti nel piano e, sotto, \emph {reachability plot}; le valli (segmenti colorati) corrispondono a regioni dense/cluster, mentre la linea orizzontale tratteggiata indica una soglia $\epsilon $ che produce un taglio in stile DBSCAN. Le linee tratteggiate collegano ogni gruppo nel piano al suo intervallo nel plot. (2) A destra: regola \emph {steep down/up} per l'estrazione automatica dei cluster dal reachability plot (si entra quando la reachability scende bruscamente e si esce quando risale)}{figure.6.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Costo.}{50}{section*.61}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.3}HDBSCAN}{51}{subsection.6.4.3}\protected@file@percent }
+\newlabel{sec:hdbscan}{{6.4.3}{51}{HDBSCAN}{subsection.6.4.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Idea.}{51}{section*.62}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Core distance di X.}{51}{section*.63}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Distanza di \emph  {mutual reachability}.}{51}{section*.64}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Mutual Reachability graph $G_{MinPts}$.}{51}{section*.65}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces HDBSCAN: illustrazione di \emph  {core\_dist}, \emph  {reach\_dist} e \emph  {mutual reachability}. Ogni cerchio centrato in un punto ha raggio pari alla sua $\mathrm  {core\_dist}(\cdot )$ (distanza dal \texttt  {MinPts}-esimo vicino). \textbf  {Sinistra}: per i punti $p$ (verde) e $o$ (blu) la distanza di raggiungibilità da $p$ a $o$ è $\mathrm  {reach\_dist}(o\mid p)=\max \{\mathrm  {core\_dist}(p),\,D(p,o)\}$; poiché il raggio di $p$ domina, vale $\mathrm  {reach\_dist}(o\mid p)=\mathrm  {core\_dist}(p)$. \textbf  {Destra}: tra $p$ (verde) e $q$ (rosso) prevale la distanza euclidea, quindi la \emph  {mutual reachability} risulta $d_{\mathrm  {mreach}}(p,q)=\max \{\mathrm  {core\_dist}(p),\,\mathrm  {core\_dist}(q),\,D(p,q)\}=D(p,q)$. L'uso di $d_{\mathrm  {mreach}}$ ``gonfia'' le regioni rade e rende più separabili cluster con densità diverse.}}{52}{figure.6.9}\protected@file@percent }
+\newlabel{fig:hdbscan-example}{{6.9}{52}{HDBSCAN: illustrazione di \emph {core\_dist}, \emph {reach\_dist} e \emph {mutual reachability}. Ogni cerchio centrato in un punto ha raggio pari alla sua $\mathrm {core\_dist}(\cdot )$ (distanza dal \texttt {MinPts}-esimo vicino). \textbf {Sinistra}: per i punti $p$ (verde) e $o$ (blu) la distanza di raggiungibilità da $p$ a $o$ è $\mathrm {reach\_dist}(o\mid p)=\max \{\mathrm {core\_dist}(p),\,D(p,o)\}$; poiché il raggio di $p$ domina, vale $\mathrm {reach\_dist}(o\mid p)=\mathrm {core\_dist}(p)$. \textbf {Destra}: tra $p$ (verde) e $q$ (rosso) prevale la distanza euclidea, quindi la \emph {mutual reachability} risulta $d_{\mathrm {mreach}}(p,q)=\max \{\mathrm {core\_dist}(p),\,\mathrm {core\_dist}(q),\,D(p,q)\}=D(p,q)$. L'uso di $d_{\mathrm {mreach}}$ ``gonfia'' le regioni rade e rende più separabili cluster con densità diverse}{figure.6.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Condensed tree.}{52}{section*.68}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Stabilità (persistenza).}{52}{section*.69}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Estrazione dei cluster significativi (dal \emph  {condensed tree}).}{52}{section*.70}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.10}{\ignorespaces HDBSCAN. Sinistra: MST costruito sulla \emph  {mutual reachability distance} (archi più pesanti vengono tagliati al crescere di \(\lambda \)). Destra: \emph  {condensed tree}; in evidenza i cluster scelti massimizzando la stabilità.}}{53}{figure.6.10}\protected@file@percent }
+\newlabel{fig:hdbscan-figs}{{6.10}{53}{HDBSCAN. Sinistra: MST costruito sulla \emph {mutual reachability distance} (archi più pesanti vengono tagliati al crescere di \(\lambda \)). Destra: \emph {condensed tree}; in evidenza i cluster scelti massimizzando la stabilità}{figure.6.10}{}}
+\@writefile{toc}{\contentsline {paragraph}{Costo.}{53}{section*.71}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Classificazione}{55}{chapter.7}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{ch:classificazione}{{7}{55}{Classificazione}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Introduzione}{55}{section.7.1}\protected@file@percent }
+\newlabel{sec:intro-class}{{7.1}{55}{Introduzione}{section.7.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Predizione (regressione).}{55}{section*.72}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.1}Schema generale di un classificatore}{55}{subsection.7.1.1}\protected@file@percent }
+\newlabel{subsec:schema-class}{{7.1.1}{55}{Schema generale di un classificatore}{subsection.7.1.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Overfitting.}{55}{section*.73}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.2}Requisiti desiderabili}{55}{subsection.7.1.2}\protected@file@percent }
+\newlabel{subsec:req}{{7.1.2}{55}{Requisiti desiderabili}{subsection.7.1.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces Schema a blocchi di un classificatore: addestramento, validazione e uso.}}{56}{figure.7.1}\protected@file@percent }
+\newlabel{fig:schema-class}{{7.1}{56}{Schema a blocchi di un classificatore: addestramento, validazione e uso}{figure.7.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Alberi decisionali}{56}{section.7.2}\protected@file@percent }
+\newlabel{sec:trees}{{7.2}{56}{Alberi decisionali}{section.7.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.1}Classificazione tramite albero}{56}{subsection.7.2.1}\protected@file@percent }
+\newlabel{subsec:tree-class}{{7.2.1}{56}{Classificazione tramite albero}{subsection.7.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.2}{\ignorespaces Dataset \emph  {weather} (a sinistra) e albero decisionale appreso (a destra). La tabella contiene 14 esempi con quattro attributi descrittivi (\texttt  {Outlook}, \texttt  {Temperature}, \texttt  {Humidity}, \texttt  {Windy}) e la classe binaria \texttt  {P/N}. L’albero (stile ID3/C4.5) sceglie come radice \texttt  {Outlook}; il ramo \texttt  {overcast} porta direttamente alla classe \texttt  {P}, mentre per \texttt  {sunny} si testa \texttt  {Humidity} e per \texttt  {rain} si testa \texttt  {Windy}. L’esempio illustra il passaggio da dati tabellari a regole interpretabili.}}{56}{figure.7.2}\protected@file@percent }
+\newlabel{fig:weather-tree}{{7.2}{56}{Dataset \emph {weather} (a sinistra) e albero decisionale appreso (a destra). La tabella contiene 14 esempi con quattro attributi descrittivi (\texttt {Outlook}, \texttt {Temperature}, \texttt {Humidity}, \texttt {Windy}) e la classe binaria \texttt {P/N}. L’albero (stile ID3/C4.5) sceglie come radice \texttt {Outlook}; il ramo \texttt {overcast} porta direttamente alla classe \texttt {P}, mentre per \texttt {sunny} si testa \texttt {Humidity} e per \texttt {rain} si testa \texttt {Windy}. L’esempio illustra il passaggio da dati tabellari a regole interpretabili}{figure.7.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.2}Costruzione top–down}{56}{subsection.7.2.2}\protected@file@percent }
+\newlabel{subsec:topdown}{{7.2.2}{56}{Costruzione top–down}{subsection.7.2.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Pruning.}{57}{section*.74}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.3}Splitting degli attributi}{57}{subsection.7.2.3}\protected@file@percent }
+\newlabel{subsec:splitting}{{7.2.3}{57}{Splitting degli attributi}{subsection.7.2.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.4}Scelta dell’attributo e strategia greedy}{57}{subsection.7.2.4}\protected@file@percent }
+\newlabel{subsec:greedy}{{7.2.4}{57}{Scelta dell’attributo e strategia greedy}{subsection.7.2.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Misure di goodness}{57}{section.7.3}\protected@file@percent }
+\newlabel{sec:goodness}{{7.3}{57}{Misure di goodness}{section.7.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.1}Information Gain (ID3)}{57}{subsection.7.3.1}\protected@file@percent }
+\newlabel{subsec:ig}{{7.3.1}{57}{Information Gain (ID3)}{subsection.7.3.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Idea.}{57}{section*.75}\protected@file@percent }
+\newlabel{par:ig-example}{{7.3.1}{58}{Esempio e limitazioni}{section*.76}{}}
+\@writefile{toc}{\contentsline {paragraph}{Limite noto.}{58}{section*.77}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.3}{\ignorespaces Esempio di scelta della radice con Information Gain sul dataset “weather”.}}{58}{figure.7.3}\protected@file@percent }
+\newlabel{fig:ig-weather}{{7.3}{58}{Esempio di scelta della radice con Information Gain sul dataset “weather”}{figure.7.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.2}Gain Ratio (C4.5)}{58}{subsection.7.3.2}\protected@file@percent }
+\newlabel{subsec:gain-ratio}{{7.3.2}{58}{Gain Ratio (C4.5)}{subsection.7.3.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Selezione in C4.5.}{59}{section*.78}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Nota pratica (attributi continui).}{59}{section*.79}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.3}Gini Index (CART)}{59}{subsection.7.3.3}\protected@file@percent }
+\newlabel{subsec:gini}{{7.3.3}{59}{Gini Index (CART)}{subsection.7.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.4}Pruning degli alberi}{59}{subsection.7.3.4}\protected@file@percent }
+\newlabel{subsec:pruning}{{7.3.4}{59}{Pruning degli alberi}{subsection.7.3.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Che cosa misurano.}{60}{section*.81}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Decisione di pruning.}{60}{section*.82}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Errore prima e dopo lo split.}{61}{section*.84}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Indice di costo–complessità per lo split.}{61}{section*.85}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.4}{\ignorespaces Pruning: confronto errore stimato del sottoalbero vs foglia (C4.5) e principio costo–complessità (CART).}}{61}{figure.7.4}\protected@file@percent }
+\newlabel{fig:pruning}{{7.4}{61}{Pruning: confronto errore stimato del sottoalbero vs foglia (C4.5) e principio costo–complessità (CART)}{figure.7.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Pro/contro degli alberi decisionali.}{61}{section*.86}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Classificatori generativi}{61}{section.7.4}\protected@file@percent }
+\newlabel{sec:generative}{{7.4}{61}{Classificatori generativi}{section.7.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.1}Teorema di Bayes e regola di decisione}{62}{subsection.7.4.1}\protected@file@percent }
+\newlabel{subsec:bayes-rule}{{7.4.1}{62}{Teorema di Bayes e regola di decisione}{subsection.7.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.2}Naive Bayes}{62}{subsection.7.4.2}\protected@file@percent }
+\newlabel{subsec:naive-bayes}{{7.4.2}{62}{Naive Bayes}{subsection.7.4.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Idea.}{62}{section*.87}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Regola di decisione (MAP, in scala logaritmica).}{62}{section*.88}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Stima essenziale delle probabilità.}{62}{section*.89}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Vantaggi e svantaggi.}{62}{section*.90}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.3}Reti Bayesiane}{63}{subsection.7.4.3}\protected@file@percent }
+\newlabel{subsec:bayesnet}{{7.4.3}{63}{Reti Bayesiane}{subsection.7.4.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.5}{\ignorespaces Bayes net Sprinkler–Rain–Grass}}{63}{figure.7.5}\protected@file@percent }
+\newlabel{fig:bayes-net}{{7.5}{63}{Bayes net Sprinkler–Rain–Grass}{figure.7.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Uso per la classificazione.}{63}{section*.91}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}Classificatori discriminativi}{63}{section.7.5}\protected@file@percent }
+\newlabel{sec:discriminativi}{{7.5}{63}{Classificatori discriminativi}{section.7.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.1}Classificazione lineare e non lineare}{64}{subsection.7.5.1}\protected@file@percent }
+\newlabel{subsec:lin-nonlin}{{7.5.1}{64}{Classificazione lineare e non lineare}{subsection.7.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.2}Perceptron}{64}{subsection.7.5.2}\protected@file@percent }
+\newlabel{subsec:perceptron}{{7.5.2}{64}{Perceptron}{subsection.7.5.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Definizione.}{64}{section*.92}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Regola di aggiornamento.}{64}{section*.93}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Proprietà.}{64}{section*.94}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Algoritmo.}{64}{section*.95}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{One–Vs–One (OVO).}{65}{section*.96}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{One–Vs–All (OVA).}{65}{section*.97}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.3}Support Vector Machines (SVM)}{66}{subsection.7.5.3}\protected@file@percent }
+\newlabel{subsec:svm}{{7.5.3}{66}{Support Vector Machines (SVM)}{subsection.7.5.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.6}{\ignorespaces Esempio di Support Vector Machine che massimizza il margine tra due classi. I punti cerchiati sono i support vectors che definiscono l'iperpiano ottimale.}}{66}{figure.7.6}\protected@file@percent }
+\newlabel{fig:svm-margin}{{7.6}{66}{Esempio di Support Vector Machine che massimizza il margine tra due classi. I punti cerchiati sono i support vectors che definiscono l'iperpiano ottimale}{figure.7.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Formulazione del problema.}{66}{section*.98}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.7}{\ignorespaces Iperpiani con pesi $\mathbf  {w}$ normalizzati per margine unitario.}}{67}{figure.7.7}\protected@file@percent }
+\newlabel{fig:svm-margin-normalized}{{7.7}{67}{Iperpiani con pesi $\mathbf {w}$ normalizzati per margine unitario}{figure.7.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{SVM Soft margin.}{68}{section*.99}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Kernel Trick.}{69}{section*.100}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{SVM Multi-classe.}{70}{section*.101}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.6}Apprendimento Lazy}{70}{section.7.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.6.1}K-Nearest Neighbor}{70}{subsection.7.6.1}\protected@file@percent }
+\newlabel{subsec:knn}{{7.6.1}{70}{K-Nearest Neighbor}{subsection.7.6.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.8}{\ignorespaces Esempio di classificazione con K-NN (k=5). Il punto da classificare (in verde) è circondato dal cerchio che indica i $k$ vicini più prossimi: tra i 5 vicini ci sono tre triangoli rossi e due quadrati blu, quindi per maggioranza il punto viene assegnato alla classe rossa.}}{70}{figure.7.8}\protected@file@percent }
+\newlabel{fig:knn-example}{{7.8}{70}{Esempio di classificazione con K-NN (k=5). Il punto da classificare (in verde) è circondato dal cerchio che indica i $k$ vicini più prossimi: tra i 5 vicini ci sono tre triangoli rossi e due quadrati blu, quindi per maggioranza il punto viene assegnato alla classe rossa}{figure.7.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Algoritmo.}{71}{section*.102}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Varianti.}{71}{section*.103}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.7}Ensemble Learning}{71}{section.7.7}\protected@file@percent }
+\newlabel{sec:ensemble}{{7.7}{71}{Ensemble Learning}{section.7.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.7.1}Bagging}{71}{subsection.7.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Algoritmo.}{71}{section*.104}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Random Forest.}{71}{section*.105}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.9}{\ignorespaces Schema di Random Forest: dai dati di training $(X)$ si costruiscono $k$ alberi decisionali $T_1(X,\alpha _1)$, $T_2(X,\alpha _2)$, $\dots  $, $T_k(X,\alpha _k)$, ciascuno con parametri $\alpha _i$ diversi. La predizione finale è ottenuta combinando i risultati attraverso voting o averaging ($\DOTSB \sum@ \slimits@ T_i(X,\alpha _i)$).}}{72}{figure.7.9}\protected@file@percent }
+\newlabel{fig:random-forest}{{7.9}{72}{Schema di Random Forest: dai dati di training $(X)$ si costruiscono $k$ alberi decisionali $T_1(X,\alpha _1)$, $T_2(X,\alpha _2)$, $\dots $, $T_k(X,\alpha _k)$, ciascuno con parametri $\alpha _i$ diversi. La predizione finale è ottenuta combinando i risultati attraverso voting o averaging ($\sum T_i(X,\alpha _i)$)}{figure.7.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.7.2}Boosting}{72}{subsection.7.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Algoritmo.}{72}{section*.106}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.10}{\ignorespaces Schema di Boosting: ogni classificatore viene addestrato su dati pesati in base agli errori dei modelli precedenti. I dati mal classificati ricevono peso maggiore, così i modelli successivi si concentrano sulle istanze più difficili. Le predizioni finali sono combinate in un ensemble ponderato.}}{73}{figure.7.10}\protected@file@percent }
+\newlabel{fig:boosting-example}{{7.10}{73}{Schema di Boosting: ogni classificatore viene addestrato su dati pesati in base agli errori dei modelli precedenti. I dati mal classificati ricevono peso maggiore, così i modelli successivi si concentrano sulle istanze più difficili. Le predizioni finali sono combinate in un ensemble ponderato}{figure.7.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.7.3}Adaboost}{73}{subsection.7.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Gini Index Pesato.}{73}{section*.107}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Peso dello stump.}{74}{section*.108}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Aggiornamento dei pesi.}{74}{section*.109}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.11}{\ignorespaces Andamento dell'incremento e del decremento dei pesi delle tuple per Adaboost.}}{74}{figure.7.11}\protected@file@percent }
+\newlabel{fig:adaboost-weight-changes}{{7.11}{74}{Andamento dell'incremento e del decremento dei pesi delle tuple per Adaboost}{figure.7.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.8}Validazione di un classificatore}{75}{section.7.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.8.1}Matrice di confusione}{75}{subsection.7.8.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.12}{\ignorespaces Esempio di matrice di confusione per un classificatore a tre classi (Gatto, Cane, Coniglio): le righe indicano le classi reali, le colonne le classi predette. I numeri nelle celle sono le frequenze assolute; le somme marginali mostrano il totale per riga/colonna. Un buon classificatore presenta valori elevati sulla diagonale principale (corretta assegnazione).}}{75}{figure.7.12}\protected@file@percent }
+\newlabel{fig:confusion-matrix}{{7.12}{75}{Esempio di matrice di confusione per un classificatore a tre classi (Gatto, Cane, Coniglio): le righe indicano le classi reali, le colonne le classi predette. I numeri nelle celle sono le frequenze assolute; le somme marginali mostrano il totale per riga/colonna. Un buon classificatore presenta valori elevati sulla diagonale principale (corretta assegnazione)}{figure.7.12}{}}
+\@writefile{toc}{\contentsline {paragraph}{Misure di accuratezza con due classi.}{75}{section*.111}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Misure di accuratezza (due classi).}{75}{section*.112}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.8.2}Soglia discriminativa in un classificatore binario}{76}{subsection.7.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.8.3}Curva ROC}{76}{subsection.7.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.8.4}Curva di Precision-Recall}{76}{subsection.7.8.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7.13}{\ignorespaces Esempio di curva ROC al variare della soglia $\sigma $.}}{77}{figure.7.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.8.5}Validazione di un classificatore}{77}{subsection.7.8.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Cenni di Regressione}{79}{chapter.8}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}Regressione lineare semplice}{79}{section.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.1}Formulazione del modello}{79}{subsection.8.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.2}Stima dei parametri}{80}{subsection.8.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1.3}Interpretazione geoemetrica}{80}{subsection.8.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}Regressione lineare multipla}{80}{section.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2.1}Formulazione del modello}{80}{subsection.8.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2.2}Stima dei parametri}{81}{subsection.8.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2.3}Interpretazione geometrica}{81}{subsection.8.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8.3}Regressione non lineare}{81}{section.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8.4}Regressione logistica}{81}{section.8.4}\protected@file@percent }
 \abx@aux@cite{0}{Leskovec2014MMDS}
 \abx@aux@segm{0}{0}{Leskovec2014MMDS}
 \abx@aux@cite{0}{James2021ISL2}
 \abx@aux@segm{0}{0}{James2021ISL2}
 \abx@aux@cite{0}{Hastie2009ESL2}
 \abx@aux@segm{0}{0}{Hastie2009ESL2}
-\@input{chapters/subgraphmatching.aux}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4.1}Regressione logistica binaria semplice}{82}{subsection.8.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Stima dei parametri.}{82}{section*.113}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {9}Subgraph Matching}{83}{chapter.9}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {9.1}Isomorfismo di Grafi}{83}{section.9.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.1}{\ignorespaces Esempio di subgraph mapping: il grafo di query (a sinistra) viene trovato all'interno del grafo di dati (a destra).}}{83}{figure.9.1}\protected@file@percent }
+\newlabel{fig:subgraph_mapping_example}{{9.1}{83}{Esempio di subgraph mapping: il grafo di query (a sinistra) viene trovato all'interno del grafo di dati (a destra)}{figure.9.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1.1}Automorfismo}{83}{subsection.9.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.2}{\ignorespaces Esempi di \emph  {automorfismi} del grafo \(G\): a sinistra il grafo originale; al centro un automorfismo che scambia i vertici \(2\) e \(3\) mantenendo \(1\) fisso; a destra un secondo automorfismo che permuta i vertici come indicato dalle frecce tratteggiate. In entrambi i casi la struttura di adiacenza è preservata.}}{84}{figure.9.2}\protected@file@percent }
+\newlabel{fig:automorphism_example}{{9.2}{84}{Esempi di \emph {automorfismi} del grafo \(G\): a sinistra il grafo originale; al centro un automorfismo che scambia i vertici \(2\) e \(3\) mantenendo \(1\) fisso; a destra un secondo automorfismo che permuta i vertici come indicato dalle frecce tratteggiate. In entrambi i casi la struttura di adiacenza è preservata}{figure.9.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.2}Operazione di subgraph matching}{84}{section.9.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.3}{\ignorespaces Esempio di \emph  {subgraph matching}: il grafo \emph  {Query} (in alto a sinistra) viene ricercato all'interno del grafo \emph  {Target} (in alto a destra). In basso sono mostrati i possibili match del sottografo query all'interno del grafo target, evidenziati dai riquadri rossi.}}{84}{figure.9.3}\protected@file@percent }
+\newlabel{fig:subgraph_matching_example}{{9.3}{84}{Esempio di \emph {subgraph matching}: il grafo \emph {Query} (in alto a sinistra) viene ricercato all'interno del grafo \emph {Target} (in alto a destra). In basso sono mostrati i possibili match del sottografo query all'interno del grafo target, evidenziati dai riquadri rossi}{figure.9.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.3}Complessità computazionale}{85}{section.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9.4}Algoritmi di subgraph matching}{85}{section.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4.1}Soluzione Bruteforce}{85}{subsection.9.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.4}{\ignorespaces Ricerca \emph  {brute force} per \emph  {subgraph matching}: in alto i grafi \(G_a\) (query) e \(G_b\) (target); sotto l'albero di ricerca che esplora tutte le corrispondenze possibili tra vertici (es.\ \((1,4)\), \((1,5)\), \((1,6)\), \((1,7)\)). Le foglie evidenziate indicano i mapping completi che preservano le adiacenze (match isomorfi).}}{85}{figure.9.4}\protected@file@percent }
+\newlabel{fig:bruteforce_subgraph_matching}{{9.4}{85}{Ricerca \emph {brute force} per \emph {subgraph matching}: in alto i grafi \(G_a\) (query) e \(G_b\) (target); sotto l'albero di ricerca che esplora tutte le corrispondenze possibili tra vertici (es.\ \((1,4)\), \((1,5)\), \((1,6)\), \((1,7)\)). Le foglie evidenziate indicano i mapping completi che preservano le adiacenze (match isomorfi)}{figure.9.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Esempio di backtracking.}{86}{section*.115}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.5}{\ignorespaces Esempio di \emph  {backtracking} con pruning nel \emph  {subgraph matching}. A sinistra il grafo \emph  {query} e il grafo \emph  {target}; a destra l'albero di ricerca. Il ramo che mappa \((3\!\to \!c)\) viene potato perché viola un vincolo di grado (\(\deg (3)=3>\deg (c)=2\)), quindi non può condurre a una soluzione.}}{86}{figure.9.5}\protected@file@percent }
+\newlabel{fig:backtracking_subgraph_matching}{{9.5}{86}{Esempio di \emph {backtracking} con pruning nel \emph {subgraph matching}. A sinistra il grafo \emph {query} e il grafo \emph {target}; a destra l'albero di ricerca. Il ramo che mappa \((3\!\to \!c)\) viene potato perché viola un vincolo di grado (\(\deg (3)=3>\deg (c)=2\)), quindi non può condurre a una soluzione}{figure.9.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4.2}Algoritmo di Ullmann}{86}{subsection.9.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.6}{\ignorespaces Algoritmo di Ullmann: a sinistra il grafo \emph  {query} \(Q\) e il grafo \emph  {target} \(T\); a destra l'albero di ricerca con le corrispondenze provate. I nodi cerchiati in rosso indicano scelte scartate tramite \emph  {pruning}; il ramo con \((3,7)\) completa un mapping valido.}}{87}{figure.9.6}\protected@file@percent }
+\newlabel{fig:ullmann_algorithm_example}{{9.6}{87}{Algoritmo di Ullmann: a sinistra il grafo \emph {query} \(Q\) e il grafo \emph {target} \(T\); a destra l'albero di ricerca con le corrispondenze provate. I nodi cerchiati in rosso indicano scelte scartate tramite \emph {pruning}; il ramo con \((3,7)\) completa un mapping valido}{figure.9.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Esempio della figura \ref {fig:ullmann_algorithm_example}.}{87}{section*.116}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4.3}Algoritmo VF}{87}{subsection.9.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Algoritmo.}{88}{section*.117}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Regola di fattibilità per grafi indiretti.}{88}{section*.118}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Regola di fattibilità per grafi diretti.}{88}{section*.119}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.7}{\ignorespaces Rappresentazione grafica dei sei insiemi utilizzati dall'algoritmo VF per verificare la regola di fattibilità durante la costruzione incrementale della mappatura tra nodi del grafo query $Q$ e nodi del grafo target $T$. La figura mostra, per uno stato $s$ dell'algoritmo, la suddivisione di entrambi i grafi nei tre insiemi fondamentali: i nodi già mappati ($\text  {Match}_Q(s)$ e $\text  {Match}_T(s)$), i nodi adiacenti a quelli mappati ($\text  {Term}_Q(s)$ e $\text  {Term}_T(s)$) e i nodi non ancora considerati ($\text  {Rem}_Q(s)$ e $\text  {Rem}_T(s)$). Le frecce tratteggiate indicano le possibili connessioni tra nodi dei diversi insiemi, mentre le frecce orizzontali centrali rappresentano la mappatura parziale $M(s)$ costruita dallo stato corrente. Questa struttura consente di verificare la regola di fattibilità: ogni nuova coppia $(q,t)$ può essere aggiunta alla mappatura se preserva le adiacenze verso i nodi già mappati, se esistono sufficienti nodi adiacenti disponibili (look-ahead a un livello) e se esistono sufficienti nodi non ancora considerati per supportare eventuali mappature future (look-ahead a due livelli).}}{89}{figure.9.7}\protected@file@percent }
+\newlabel{fig:vf_algorithm_example}{{9.7}{89}{Rappresentazione grafica dei sei insiemi utilizzati dall'algoritmo VF per verificare la regola di fattibilità durante la costruzione incrementale della mappatura tra nodi del grafo query $Q$ e nodi del grafo target $T$. La figura mostra, per uno stato $s$ dell'algoritmo, la suddivisione di entrambi i grafi nei tre insiemi fondamentali: i nodi già mappati ($\text {Match}_Q(s)$ e $\text {Match}_T(s)$), i nodi adiacenti a quelli mappati ($\text {Term}_Q(s)$ e $\text {Term}_T(s)$) e i nodi non ancora considerati ($\text {Rem}_Q(s)$ e $\text {Rem}_T(s)$). Le frecce tratteggiate indicano le possibili connessioni tra nodi dei diversi insiemi, mentre le frecce orizzontali centrali rappresentano la mappatura parziale $M(s)$ costruita dallo stato corrente. Questa struttura consente di verificare la regola di fattibilità: ogni nuova coppia $(q,t)$ può essere aggiunta alla mappatura se preserva le adiacenze verso i nodi già mappati, se esistono sufficienti nodi adiacenti disponibili (look-ahead a un livello) e se esistono sufficienti nodi non ancora considerati per supportare eventuali mappature future (look-ahead a due livelli)}{figure.9.7}{}}
+\@writefile{toc}{\contentsline {paragraph}{Complessità e considerazioni}{90}{section*.120}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4.4}Algoritmo VF2}{90}{subsection.9.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4.5}Algoritmo RI}{91}{subsection.9.4.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Ordinamento dei nodi.}{91}{section*.121}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.8}{\ignorespaces Grafo non diretto di esempio (11 nodi, 0-10), usato per illustrare l'ordinamento dei nodi della query nell'algoritmo RI.}}{92}{figure.9.8}\protected@file@percent }
+\newlabel{fig:ri_algorithm_example}{{9.8}{92}{Grafo non diretto di esempio (11 nodi, 0-10), usato per illustrare l'ordinamento dei nodi della query nell'algoritmo RI}{figure.9.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Passo $i=1$.}{92}{section*.123}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Passo $i=2$.}{92}{section*.124}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tabella finale}{93}{section*.125}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4.6}RI-DS}{93}{subsection.9.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9.5}Subgraph Matching in Database di Grafi}{93}{section.9.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5.1}Indicizzazione}{94}{subsection.9.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9.6}Features dei grafi}{94}{section.9.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Esempio di filtraggio tramite profili di feature.}{94}{figure.9.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.9}{\ignorespaces Indicizzazione \emph  {feature-based} per il filtraggio dei candidati. A sinistra: dalla query \(Q\) si estraggono piccole caratteristiche (feature) e si costruisce il profilo di frequenza \(F_Q\). A destra: per ogni grafo del database (es.\ \(G\)) è precomputato il profilo \(F_G\).}}{95}{figure.9.9}\protected@file@percent }
+\newlabel{fig:feature_indexing_example}{{9.9}{95}{Indicizzazione \emph {feature-based} per il filtraggio dei candidati. A sinistra: dalla query \(Q\) si estraggono piccole caratteristiche (feature) e si costruisce il profilo di frequenza \(F_Q\). A destra: per ogni grafo del database (es.\ \(G\)) è precomputato il profilo \(F_G\)}{figure.9.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6.1}Schema di subgraph matching in database di grafi}{95}{subsection.9.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6.2}Indicizzazione inversa}{96}{subsection.9.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6.3}Algoritmo SING}{96}{subsection.9.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9.10}{\ignorespaces Query \(Q\) (angolo con nodo \(A\) adiacente a \(B\) e \(C\)) e due grafi candidati. Nel grafo \(g_1\) il pattern è presente come \emph  {subgrafo non indotto}, ma non come \emph  {indotto} a causa dell'arco diagonale aggiuntivo; nel grafo \(g_2\) il pattern è presente anche come \emph  {subgrafo indotto}.}}{96}{figure.9.10}\protected@file@percent }
+\newlabel{fig:sing_algorithm_example}{{9.10}{96}{Query \(Q\) (angolo con nodo \(A\) adiacente a \(B\) e \(C\)) e due grafi candidati. Nel grafo \(g_1\) il pattern è presente come \emph {subgrafo non indotto}, ma non come \emph {indotto} a causa dell'arco diagonale aggiuntivo; nel grafo \(g_2\) il pattern è presente anche come \emph {subgrafo indotto}}{figure.9.10}{}}
+\@writefile{toc}{\contentsline {paragraph}{Processamento della query.}{96}{section*.127}\protected@file@percent }
 \abx@aux@cite{0}{Cordella1999VF}
 \abx@aux@segm{0}{0}{Cordella1999VF}
 \abx@aux@cite{0}{Cordella2004VF2}
 \abx@aux@segm{0}{0}{Cordella2004VF2}
 \abx@aux@cite{0}{Bonnici2013RI}
 \abx@aux@segm{0}{0}{Bonnici2013RI}
-\@input{chapters/frequent_subgraph_matching.aux}
+\@writefile{lof}{\contentsline {figure}{\numberline {9.11}{\ignorespaces Indicizzazione inversa globale e locale per l'algoritmo SING. A sinistra: indice inverso globale che associa ad ogni feature a lista dei grafi che la contengono e il conteggio delle occorrenze. A destra: indice inverso locale per il grafo \(g_1\), dove per ogni feature è indicato un vettore binario che mostra i nodi di partenza della feature in \(g_1\).}}{97}{figure.9.11}\protected@file@percent }
+\newlabel{fig:sing_indexing_example}{{9.11}{97}{Indicizzazione inversa globale e locale per l'algoritmo SING. A sinistra: indice inverso globale che associa ad ogni feature a lista dei grafi che la contengono e il conteggio delle occorrenze. A destra: indice inverso locale per il grafo \(g_1\), dove per ogni feature è indicato un vettore binario che mostra i nodi di partenza della feature in \(g_1\)}{figure.9.11}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {10}Subgraph Matching di Grafi Frequenti}{99}{chapter.10}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {10.1}{\ignorespaces Esempio di estrazione di sotto-grafi frequenti da un database di grafi.}}{99}{figure.10.1}\protected@file@percent }
+\newlabel{fig:frequent-subgraph-matching}{{10.1}{99}{Esempio di estrazione di sotto-grafi frequenti da un database di grafi}{figure.10.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10.2}{\ignorespaces Esempio di estrazione di sotto-grafi frequenti basata sulla frequenza nei grafi del database.}}{100}{figure.10.2}\protected@file@percent }
+\newlabel{fig:frequent-subgraph-frequency}{{10.2}{100}{Esempio di estrazione di sotto-grafi frequenti basata sulla frequenza nei grafi del database}{figure.10.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10.1}Algoritmo FSG}{100}{section.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1.1}Regola Apriori per sotto-grafi}{100}{subsection.10.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1.2}Join tra sotto-grafi}{101}{subsection.10.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.3}{\ignorespaces Join tra due sottografi che differiscono per un nodo.}}{101}{figure.10.3}\protected@file@percent }
+\newlabel{fig:fsg-join-1}{{10.3}{101}{Join tra due sottografi che differiscono per un nodo}{figure.10.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Scenario 1: i due sottografi differiscono per un nodo.}{101}{figure.10.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Scenario 2: il grafo \emph  {core} ha più automorfismi.}{101}{figure.10.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.4}{\ignorespaces Join tra due sottografi con grafo core avente più automorfismi.}}{102}{figure.10.4}\protected@file@percent }
+\newlabel{fig:fsg-join-2}{{10.4}{102}{Join tra due sottografi con grafo core avente più automorfismi}{figure.10.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Scenario 3: i sottografi candidati hanno più grafi \emph  {core} in comune.}{102}{figure.10.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.5}{\ignorespaces Join tra due sottografi con più grafi core in comune.}}{103}{figure.10.5}\protected@file@percent }
+\newlabel{fig:fsg-join-3}{{10.5}{103}{Join tra due sottografi con più grafi core in comune}{figure.10.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Caso generale.}{104}{section*.132}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1.3}Procedura dell'algoritmo}{104}{subsection.10.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1.4}Generazione dei candidati}{104}{subsection.10.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1.5}Stringa di adiacenza}{105}{subsection.10.1.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.6}{\ignorespaces Esempio di stringa di adiacenza di un grafo.}}{105}{figure.10.6}\protected@file@percent }
+\newlabel{fig:adjacency-string-example}{{10.6}{105}{Esempio di stringa di adiacenza di un grafo}{figure.10.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1.6}Forma canonica}{105}{subsection.10.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Algoritmo.}{105}{section*.133}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Esempio.}{105}{section*.134}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.7}{\ignorespaces Esempio di calcolo della forma canonica di un grafo.}}{106}{figure.10.7}\protected@file@percent }
+\newlabel{fig:canonical-form-example}{{10.7}{106}{Esempio di calcolo della forma canonica di un grafo}{figure.10.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1.7}Verifica della regola Apriori}{106}{subsection.10.1.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10.2}Algoritmo gSpan}{107}{section.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2.1}Visita DFS}{107}{subsection.10.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Albero DFS.}{107}{section*.135}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2.2}Codifica DFS}{107}{subsection.10.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.8}{\ignorespaces Esempio di visita in profondità (DFS) su un grafo diretto. I numeri all'interno dei nodi indicano i tempi di scoperta e di completamento (d/f) di ciascun vertice. I nodi colorati in grigio o nero rappresentano rispettivamente i vertici scoperti e completati, mentre le frecce tratteggiate indicano archi di ritorno o di attraversamento classificati durante l'esecuzione.}}{108}{figure.10.8}\protected@file@percent }
+\newlabel{fig:dfs_visit_example}{{10.8}{108}{Esempio di visita in profondità (DFS) su un grafo diretto. I numeri all'interno dei nodi indicano i tempi di scoperta e di completamento (d/f) di ciascun vertice. I nodi colorati in grigio o nero rappresentano rispettivamente i vertici scoperti e completati, mentre le frecce tratteggiate indicano archi di ritorno o di attraversamento classificati durante l'esecuzione}{figure.10.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10.9}{\ignorespaces A sinistra il grafo di partenza; a destra alcuni alberi di visita in profondità (DFS) ottenuti con diversi ordini di esplorazione. Gli archi forward (dell'albero) sono in nero continuo, mentre gli archi backward sono tratteggiati, come indicato in legenda.}}{108}{figure.10.9}\protected@file@percent }
+\newlabel{fig:dfs_tree_example}{{10.9}{108}{A sinistra il grafo di partenza; a destra alcuni alberi di visita in profondità (DFS) ottenuti con diversi ordini di esplorazione. Gli archi forward (dell'albero) sono in nero continuo, mentre gli archi backward sono tratteggiati, come indicato in legenda}{figure.10.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Costruzione della codifica DFS.}{109}{section*.136}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {10.1}{\ignorespaces Codifica degli archi per i tre schemi (b)~$\alpha $, (c)~$\beta $ e (d)~$\gamma $.}}{109}{table.10.1}\protected@file@percent }
+\newlabel{tab:dfs_code_example}{{10.1}{109}{Codifica degli archi per i tre schemi (b)~$\alpha $, (c)~$\beta $ e (d)~$\gamma $}{table.10.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Codice DFS minimo.}{109}{section*.137}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{DFS Code Tree.}{109}{section*.138}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2.3}Generazione dei candidati}{110}{subsection.10.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.10}{\ignorespaces Esempio di generazione dei candidati in \textsc  {gSpan}. (a) Sottografo frequente di partenza. I candidati con $k\!+\!1$ archi si ottengono aggiungendo un solo arco secondo la regola del \emph  {cammino più a destra} del codice DFS minimo: (b-d) aggiunte \emph  {backward} da un nodo del cammino più a destra verso un antenato; (e-f) aggiunte \emph  {forward} dal nodo foglia del cammino più a destra verso un nuovo nodo. Gli archi tratteggiati indicano l'arco aggiunto. La riga inferiore (b.0-b.3, e.0-e.2) illustra le varianti non ridondanti prodotte per ciascuna estensione rispettando l'ordine del codice DFS minimo.}}{110}{figure.10.10}\protected@file@percent }
+\newlabel{fig:gspan_candidate_generation}{{10.10}{110}{Esempio di generazione dei candidati in \textsc {gSpan}. (a) Sottografo frequente di partenza. I candidati con $k\!+\!1$ archi si ottengono aggiungendo un solo arco secondo la regola del \emph {cammino più a destra} del codice DFS minimo: (b-d) aggiunte \emph {backward} da un nodo del cammino più a destra verso un antenato; (e-f) aggiunte \emph {forward} dal nodo foglia del cammino più a destra verso un nuovo nodo. Gli archi tratteggiati indicano l'arco aggiunto. La riga inferiore (b.0-b.3, e.0-e.2) illustra le varianti non ridondanti prodotte per ciascuna estensione rispettando l'ordine del codice DFS minimo}{figure.10.10}{}}
 \abx@aux@cite{0}{CookHolder2006}
 \abx@aux@segm{0}{0}{CookHolder2006}
-\@input{chapters/reti_neurali.aux}
+\@writefile{toc}{\contentsline {paragraph}{Pruning dello spazio di ricerca.}{111}{section*.139}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {11}Elementi di Reti neurali}{113}{chapter.11}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.1}{\ignorespaces Confronto tra un neurone biologico (a sinistra) e un neurone artificiale (a destra). Nel neurone biologico, il segnale si propaga dai dendriti, attraverso il soma e lungo l'assone fino ai terminali sinaptici. Nel neurone artificiale, gli ingressi $x_i$ vengono pesati con i corrispondenti pesi $w_i$, sommati e combinati con un termine di bias; il risultato $z_j$ viene poi trasformato da una funzione di attivazione per generare l'uscita del neurone.}}{113}{figure.11.1}\protected@file@percent }
+\newlabel{fig:nn_neuron_comparison}{{11.1}{113}{Confronto tra un neurone biologico (a sinistra) e un neurone artificiale (a destra). Nel neurone biologico, il segnale si propaga dai dendriti, attraverso il soma e lungo l'assone fino ai terminali sinaptici. Nel neurone artificiale, gli ingressi $x_i$ vengono pesati con i corrispondenti pesi $w_i$, sommati e combinati con un termine di bias; il risultato $z_j$ viene poi trasformato da una funzione di attivazione per generare l'uscita del neurone}{figure.11.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.1}Strati}{114}{section.11.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.2}{\ignorespaces Esempio di una rete neurale con 1 input layers, 4 hidden layers e e 1 output layer.}}{114}{figure.11.2}\protected@file@percent }
+\newlabel{fig:neural_network_example}{{11.2}{114}{Esempio di una rete neurale con 1 input layers, 4 hidden layers e e 1 output layer}{figure.11.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Deep neural network.}{114}{section*.141}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.1.1}Connessioni tra layer}{115}{subsection.11.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.2}Progettare una rete neurale}{115}{section.11.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.3}Funzioni di attivazione}{115}{section.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Proprietà.}{116}{section*.142}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.1}Funzione step}{116}{subsection.11.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.3}{\ignorespaces Grafico della funzione step.}}{116}{figure.11.3}\protected@file@percent }
+\newlabel{fig:step_function}{{11.3}{116}{Grafico della funzione step}{figure.11.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11.4}{\ignorespaces Esempio di un perceptron con 4 input, pesi associati e bias. L'output viene calcolato applicando la funzione step alla somma pesata degli input più il bias.}}{117}{figure.11.4}\protected@file@percent }
+\newlabel{fig:perceptron}{{11.4}{117}{Esempio di un perceptron con 4 input, pesi associati e bias. L'output viene calcolato applicando la funzione step alla somma pesata degli input più il bias}{figure.11.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.2}Funzione logistica}{117}{subsection.11.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.5}{\ignorespaces Funzione sigmoide $\sigma (x)$ (blu) e sua derivata $\sigma '(x)$ (rosso tratteggiato). La derivata raggiunge il massimo in \(x=0\) (\(0{.}25\)); per \(|x|\gg 0\) la sigmoide satura e il gradiente tende a zero.}}{117}{figure.11.5}\protected@file@percent }
+\newlabel{fig:sigmoid-derivative}{{11.5}{117}{Funzione sigmoide $\sigma (x)$ (blu) e sua derivata $\sigma '(x)$ (rosso tratteggiato). La derivata raggiunge il massimo in \(x=0\) (\(0{.}25\)); per \(|x|\gg 0\) la sigmoide satura e il gradiente tende a zero}{figure.11.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.3}Tangente iperbolica}{118}{subsection.11.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.6}{\ignorespaces Funzione tangente iperbolica $\tanh (x)$: attivazione dispari, centrata in \(0\) con range \((-1,1)\). Satura verso \(\pm 1\) per \(|x|\) grandi; derivata $tanh'(x)$ massima in \(x=0\), utile per ridurre il bias shift rispetto alla sigmoide.}}{118}{figure.11.6}\protected@file@percent }
+\newlabel{fig:tanh-derivative}{{11.6}{118}{Funzione tangente iperbolica $\tanh (x)$: attivazione dispari, centrata in \(0\) con range \((-1,1)\). Satura verso \(\pm 1\) per \(|x|\) grandi; derivata $tanh'(x)$ massima in \(x=0\), utile per ridurre il bias shift rispetto alla sigmoide}{figure.11.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.4}Funzione softmax}{118}{subsection.11.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.3.5}ReLU: Rectified Linear Unit}{119}{subsection.11.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Variante ELU.}{120}{section*.143}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.7}{\ignorespaces Grafici della funzione ReLU (rosso), della sua variante Leaky ReLU (verde) che permette un piccolo gradiente per input negativi, e della ELU (blu) che introduce una componente esponenziale per input negativi.}}{120}{figure.11.7}\protected@file@percent }
+\newlabel{fig:relu_function}{{11.7}{120}{Grafici della funzione ReLU (rosso), della sua variante Leaky ReLU (verde) che permette un piccolo gradiente per input negativi, e della ELU (blu) che introduce una componente esponenziale per input negativi}{figure.11.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.4}Funzioni Loss}{120}{section.11.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.4.1}Regression Loss}{120}{subsection.11.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.8}{\ignorespaces Confronto tra la squared error loss (tratteggiata, crescita quadratica) e la Huber loss (linea continua, crescita lineare oltre la soglia): la Huber loss penalizza meno fortemente gli errori molto grandi, risultando più robusta agli outlier.}}{121}{figure.11.8}\protected@file@percent }
+\newlabel{fig:regression_loss}{{11.8}{121}{Confronto tra la squared error loss (tratteggiata, crescita quadratica) e la Huber loss (linea continua, crescita lineare oltre la soglia): la Huber loss penalizza meno fortemente gli errori molto grandi, risultando più robusta agli outlier}{figure.11.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{MSE: Mean Squared Error.}{121}{section*.144}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.4.2}Classification Loss}{122}{subsection.11.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Entropia.}{122}{section*.145}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Entropia incrociata.}{122}{section*.146}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.5}Training di una rete neurale}{123}{section.11.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.5.1}Ottimizzazione dei pesi}{123}{subsection.11.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.5.2}Metodo di discesa del gradiente}{123}{subsection.11.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.9}{\ignorespaces Andamento della funzione di loss al variare del \emph  {learning rate}. Un valore troppo elevato può causare instabilità o divergenza dell'addestramento, mentre un valore troppo basso rallenta significativamente la convergenza. Un \emph  {learning rate} ottimale permette una discesa rapida e stabile verso il minimo.}}{124}{figure.11.9}\protected@file@percent }
+\newlabel{fig:eta_examples}{{11.9}{124}{Andamento della funzione di loss al variare del \emph {learning rate}. Un valore troppo elevato può causare instabilità o divergenza dell'addestramento, mentre un valore troppo basso rallenta significativamente la convergenza. Un \emph {learning rate} ottimale permette una discesa rapida e stabile verso il minimo}{figure.11.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Matrice Jacobiana.}{125}{section*.147}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Stochastic Gradient Descent.}{125}{section*.148}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.5.3}Esempio di computazione}{125}{subsection.11.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.10}{\ignorespaces Grafo computazionale di una rete neurale feed-forward a singolo strato, con ingresso $\mathbf  {x}$, pesi $W$, bias $b$, attivazione $\sigma $ e perdita MSE rispetto al target $\hat  {y}$.}}{126}{figure.11.10}\protected@file@percent }
+\newlabel{fig:computation_graph_nn}{{11.10}{126}{Grafo computazionale di una rete neurale feed-forward a singolo strato, con ingresso $\mathbf {x}$, pesi $W$, bias $b$, attivazione $\sigma $ e perdita MSE rispetto al target $\hat {y}$}{figure.11.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {11.5.4}Backpropagation}{126}{subsection.11.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Regola della catena.}{126}{section*.149}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Esempio.}{127}{section*.150}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.11}{\ignorespaces Grafo di backpropagation per la rete neurale in figura \ref {fig:computation_graph_nn}.}}{127}{figure.11.11}\protected@file@percent }
+\newlabel{fig:backpropagation_example}{{11.11}{127}{Grafo di backpropagation per la rete neurale in figura \ref {fig:computation_graph_nn}}{figure.11.11}{}}
 \abx@aux@cite{0}{Leskovec2014MMDS}
 \abx@aux@segm{0}{0}{Leskovec2014MMDS}
-\@input{chapters/transformer_llm.aux}
+\@writefile{toc}{\contentsline {section}{\numberline {11.6}Tecniche di Regolarizzazione}{129}{section.11.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{131}{chapter.12}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {part}{III\hspace  {1em}Approfondimenti}{133}{part.3}\protected@file@percent }
 \abx@aux@read@bbl@mdfivesum{71DEABCA5EA0D6AAC9CB3A7A445FCF5D}
 \abx@aux@defaultrefcontext{0}{Barabasi2016NetworkScience}{nty/global//global/global/global}

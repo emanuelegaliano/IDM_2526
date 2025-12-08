@@ -341,7 +341,144 @@ La Jacobiana è dunque la generalizzazione matriciale del concetto di derivata: 
 \paragraph{Stochastic Gradient Descent.}
 Nelle reti neurali, il calcolo esatto del gradiente $\nabla f(x)$ su tutto il training set può essere computazionalmente costoso, specialmente per dataset di grandi dimensioni. Per ovviare a questo problema, si utilizza spesso una variante chiamata \textbf{Stochastic Gradient Descent} (SGD). Invece di calcolare il gradiente su tutto il dataset, l'SGD calcola una stima del gradiente utilizzando un singolo campione (o un piccolo batch di campioni) alla volta scelto casualmente.
 
+\subsection{Esempio di computazione}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/computation_graph_nn.png}
+    \caption{Grafo computazionale di una rete neurale feed-forward a singolo strato, con ingresso $\mathbf{x}$, pesi $W$, bias $b$, attivazione $\sigma$ e perdita MSE rispetto al target $\hat{y}$.}
+    \label{fig:computation_graph_nn}
+\end{figure}
+
+Ipotizziamo di voler computare la rete neurale del grafo in figura \ref{fig:computation_graph_nn}. La rete prende in input un vettore $\mathbf{x} \in \mathbb{R}^n$ a cui moltiplica un vettore di pesi $W$ calcolando $\mathbf{u}$:
+\[
+\mathbf{u} = W \cdot \mathbf{x}
+\]
+
+Dopo aver calcolato il vettore $\mathbf{u}$ bisogna aggiungere il vettore di bias $b$ trovando $\mathbf{v}$:
+\[
+\mathbf{v} = \mathbf{u} + b
+\]
+
+Una volta calcolato il vettore $v$ viene applicata la funzione di attivazione per computare la predizione, una sigmoide in questo caso, restituendo $\hat{y}$:
+\[
+\hat{y} = \sigma(v) = \sigma(Wx + b)
+\]
+
+E per valutare la bontà di questa rete si utilizza la funzione di Loss tra le predizioni e le etichette vere, MSE in questo caso, per tirare fuori $L$:
+\[
+L = MSE(y, \hat{y})
+\]
+
 \subsection{Backpropagation}
+La sola definizione di una funzione di loss e della discesa del gradiente non è ancora sufficiente per addestrare in modo efficiente una rete neurale profonda. 
+Il problema principale è che la loss $L$ dipende dai pesi di tutti i layer solo \emph{indirettamente}, attraverso una lunga composizione di trasformazioni lineari e non lineari. 
+Per poter aggiornare ogni parametro è quindi necessario calcolare, per ciascun peso $w$, la derivata $\frac{\partial L}{\partial w}$.
+
+La backpropagation risolve il cosiddetto \emph{credit assignment problem}: dato l'errore complessivo $L$ osservato in uscita, stabilisce ''di chi è la colpa'' nei vari layer interni, assegnando a ciascun neurone un contributo di errore proporzionale alla sua responsabilità. 
+
+\paragraph{Regola della catena.} 
+Per fare questo, viene sfruttata la \textbf{regola della catena} (chain rule) del calcolo differenziale: se $y = g(x), z = f(y) = f(g(x))$, allora la derivata di $z$ rispetto a $x$ è:
+\[
+\frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}
+\]
+
+\noindent
+E questa regola può essere applicata anche su funzioni a più variabili: se 
+\begin{align*}
+y &= (y_1, y_2, \dots, y_n) \\
+z &= f(y) = f(y_1, y_2, \dots, y_n) \\
+&= f(g_1(x), g_2(x), \dots, g_n(x)), \quad \forall i \in \{1, n\}
+\end{align*}
+allora:
+\[
+\frac{dz}{dx} = \sum_{i=1}^n \frac{\partial{z} \cdot dy_i}{\partial{y_i} \cdot dx}
+\] 
+
+Questa regola può essere applicata anche a funzioni a più variabili vettore\footnote{Una variabile vettore è una variabile che può assumere valori rappresentati come vettori, ovvero insiemi ordinati di numeri. Ad esempio, un vettore in uno spazio tridimensionale può essere rappresentato come \((x, y, z)\), dove \(x\), \(y\) e \(z\) sono le componenti del vettore lungo ciascuna delle tre dimensioni.} come nel caso delle reti neurali, utilizzando gradienti e matrici jacobiane. Se $y = g(x)$ e $z = f(y) = f(g(x))$ allora:
+\[
+\nabla_x z = J_x(y)^\top \cdot \nabla_y z
+\]
+dove $J_x(y)$ è la matrice Jacobiana di $g$ calcolata in $x$.
+
+Questo permette di calcolare efficientemente le derivate parziali della funzione di loss rispetto a tutti i pesi della rete neurale, propagando l'errore all'indietro attraverso la rete, dal layer di output fino ai layer di input. In questo modo, ogni peso viene aggiornato in base al suo contributo all'errore complessivo, permettendo alla rete di apprendere dai dati in modo efficace.
+
+\paragraph{Esempio.}
+Ipotizziamo di voler applicare la backpropagation alla rete neurale del grafo in figura~\ref{fig:computation_graph_nn}. Indichiamo con
+\[
+g(z) = \nabla_z L
+\]
+il gradiente della loss rispetto alla variabile $z$. In questo esempio $y$ è l'output della rete e $\hat{y}$ il vettore target.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/computation_graph_nn_backpropagation.png}
+    \caption{Grafo di backpropagation per la rete neurale in figura \ref{fig:computation_graph_nn}.}
+    \label{fig:backpropagation_example}
+\end{figure}
+
+\noindent
+Per applicare la backpropagation, si procede come segue:
+\begin{enumerate}
+    \item Si parte dall'ultimo nodo del grafo, la funzione di loss (MSE), e si calcola la derivata della loss rispetto all'output della rete neurale $y$. Per una singola istanza
+    \[
+        L = \|y - \hat{y}\|^2 = \sum_i (y_i - \hat{y}_i)^2,
+    \]
+    da cui, derivando rispetto a $y$,
+    \[
+        g(y) = \nabla_{y} L = \frac{\partial L}{\partial y} = 2\,(y - \hat{y}).
+    \]
+
+    \item Si propaga quindi l'errore all'indietro attraverso la funzione di attivazione $y = \sigma(v)$, applicata componente per componente. La Jacobiana di $y$ rispetto a $v$ è diagonale:
+    \[
+        J_{v}(y) = \operatorname{diag}\bigl(y \circ (1-y)\bigr),
+    \]
+    e la regola della catena in forma vettoriale dà
+    \[
+        g(v) = J_{v}(y)\, g(y).
+    \]
+    Poiché $J_{v}(y)$ è diagonale, questa moltiplicazione corrisponde a un prodotto elemento per elemento:
+    \[
+        g(v)_i = y_i(1-y_i)\, g(y)_i
+        \qquad\text{ovvero}\qquad
+        g(v) = \bigl(y \circ (1-y)\bigr) \circ g(y).
+    \]
+
+    \item Consideriamo ora il nodo di somma $v = u + b$. Ogni componente soddisfa $v_i = u_i + b_i$, quindi le Jacobiane rispetto a $u$ e $b$ sono matrici identità:
+    \[
+        J_{u}(v) = I, \qquad J_{b}(v) = I.
+    \]
+    Applicando di nuovo la regola della catena otteniamo
+    \[
+        g(u) = J_{u}(v)\, g(v) = g(v), \qquad
+        g(b) = J_{b}(v)\, g(v) = g(v).
+    \]
+    Nel grafo di backpropagation (figura \ref{fig:backpropagation_example}) questo corrisponde alle due frecce che partono da $g(v)$ e arrivano a $g(u)$ e $g(b)$: lo stesso segnale di errore viene copiato sui due rami.
+
+    \item Infine propaghiamo l'errore fino ai pesi $W$, passando per il nodo di prodotto $u = W x$. Scriviamo $W$ per righe come
+    \[
+        W =
+        \begin{pmatrix}
+            w_1^{\top} \\
+            \vdots \\
+            w_n^{\top}
+        \end{pmatrix},
+        \qquad
+        u_i = w_i^{\top} x.
+    \]
+    Per ogni riga $w_i$ la Jacobiana di $u$ rispetto a $w_i$ ha tutti zeri tranne nella posizione relativa a $u_i$, dove compare $x$; di conseguenza
+    \[
+        g(w_i) = J_{w_i}(u)\, g(u) = g(u_i)\, x.
+    \]
+    Mettendo insieme tutte le righe otteniamo la forma compatta
+    \[
+        g(W) = g(u)\, x^{\top},
+    \]
+    che corrisponde al nodo $g(W)$ nella figura \ref{fig:backpropagation_example}: il gradiente rispetto all'intera matrice dei pesi è il prodotto esterno tra il vettore di errori sul layer e il vettore di input $x$.
+\end{enumerate}
+
+\section{Tecniche di Regolarizzazione}
+Un problema che può nascere da modelli troppo complessi è l'\textbf{overfitting}, ovvero la capacità del modello di adattarsi troppo bene ai dati di training, perdendo la capacità di generalizzare a dati nuovi. Per risolvere questo problema, si utilizza la \emph{regolarizzazione}, ovvero l'aggiunta di un termine di penalizzazione alla funzione di loss che scoraggia soluzioni troppo complesse. Questo funziona perché questo termine va a penalizzare i pesi troppo grandi, che spesso sono associati a modelli complessi.
+
 
 
 \section*{Riferimenti}
