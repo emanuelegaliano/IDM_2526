@@ -329,5 +329,20 @@
 \contentsline {paragraph}{Regola della catena.}{126}{section*.149}%
 \contentsline {paragraph}{Esempio.}{127}{section*.150}%
 \contentsline {section}{\numberline {11.6}Tecniche di Regolarizzazione}{129}{section.11.6}%
-\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{131}{chapter.12}%
-\contentsline {part}{III\hspace {1em}Approfondimenti}{133}{part.3}%
+\contentsline {subsection}{\numberline {11.6.1}Regolarizzazione L1 e L2}{129}{subsection.11.6.1}%
+\contentsline {subsection}{\numberline {11.6.2}Dropout}{130}{subsection.11.6.2}%
+\contentsline {subsection}{\numberline {11.6.3}Early Stopping}{130}{subsection.11.6.3}%
+\contentsline {subsection}{\numberline {11.6.4}Aumento del training set}{130}{subsection.11.6.4}%
+\contentsline {section}{\numberline {11.7}Tipi di reti neurali}{131}{section.11.7}%
+\contentsline {subsection}{\numberline {11.7.1}Feed-Forward Networks}{131}{subsection.11.7.1}%
+\contentsline {subsection}{\numberline {11.7.2}Reti Neurali Convoluzionali}{131}{subsection.11.7.2}%
+\contentsline {paragraph}{Fotorecettori.}{132}{section*.151}%
+\contentsline {paragraph}{Convolutional Layer.}{132}{section*.152}%
+\contentsline {paragraph}{Stride.}{132}{section*.153}%
+\contentsline {paragraph}{Zero Padding.}{132}{section*.154}%
+\contentsline {paragraph}{Pooling Layer.}{132}{section*.155}%
+\contentsline {paragraph}{CNN su immagini a colori.}{133}{section*.156}%
+\contentsline {subsection}{\numberline {11.7.3}Rete neurali di grafi}{133}{subsection.11.7.3}%
+\contentsline {subsection}{\numberline {11.7.4}Reti Neurali Ricorrenti}{134}{subsection.11.7.4}%
+\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{135}{chapter.12}%
+\contentsline {part}{III\hspace {1em}Approfondimenti}{137}{part.3}%

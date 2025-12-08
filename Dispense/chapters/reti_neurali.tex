@@ -479,7 +479,115 @@ Per applicare la backpropagation, si procede come segue:
 \section{Tecniche di Regolarizzazione}
 Un problema che può nascere da modelli troppo complessi è l'\textbf{overfitting}, ovvero la capacità del modello di adattarsi troppo bene ai dati di training, perdendo la capacità di generalizzare a dati nuovi. Per risolvere questo problema, si utilizza la \emph{regolarizzazione}, ovvero l'aggiunta di un termine di penalizzazione alla funzione di loss che scoraggia soluzioni troppo complesse. Questo funziona perché questo termine va a penalizzare i pesi troppo grandi, che spesso sono associati a modelli complessi.
 
+\subsection{Regolarizzazione L1 e L2}
+Le regolarizzazioni più comuni sono la \textbf{regolarizzazione L1} e la \textbf{regolarizzazione L2}:
+\begin{description}
+    \item[Regolarizzazione L1:] Aggiunge alla funzione di loss un termine proporzionale alla somma dei valori assoluti dei pesi:
+    \[
+    L_{\text{reg}} = \lambda \sum_{i} |w_i|
+    \]
+    dove $\lambda$ è un iperparametro che controlla l'importanza della regolarizzazione. La regolarizzazione L1 tende a produrre modelli più semplici, in quanto favorisce soluzioni con molti pesi esattamente uguali a zero, portando a una forma di selezione delle caratteristiche (feature selection).
+    \item[Regolarizzazione L2:] Aggiunge alla funzione di loss un termine proporzionale alla somma dei quadrati dei pesi:
+    \[
+    L_{\text{reg}} = \lambda \sum_{i} w_i^2
+    \]
+    Anche in questo caso, $\lambda$ controlla l'importanza della regolarizzazione. La regolarizzazione L2 tende a produrre modelli con pesi più piccoli e distribuiti, riducendo la complessità del modello senza eliminare completamente nessun peso.  
+\end{description}
 
+\subsection{Dropout}
+Un'altra tecnica di regolarizzazione molto efficace è il \textbf{dropout}. Durante l'addestramento, il dropout consiste nel "spegnere" casualmente una frazione dei neuroni in ogni layer della rete. Questo impedisce alla rete di dipendere troppo da singoli neuroni, costringendola a imparare rappresentazioni più robuste e generalizzabili. Durante la fase di test, invece, tutti i neuroni sono attivi, ma i pesi vengono scalati per tenere conto del fatto che durante l'addestramento alcuni neuroni erano stati spenti.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/dropout.png}
+    \caption{Esempio di applicazione del dropout in una rete neurale: durante l'addestramento, alcuni neuroni (in grigio) vengono "spenti" casualmente, costringendo la rete a non dipendere troppo da singoli neuroni e a imparare rappresentazioni più robuste. Durante il test, tutti i neuroni sono attivi, ma i pesi vengono scalati per tenere conto del dropout.}
+    \label{fig:dropout}
+\end{figure}
+
+\subsection{Early Stopping}
+Un problema che può sopraggiungere durante il training è trovare un minimo locale per la funzione di loss che non generalizza bene sui dati di test. Una tecnica semplice ma efficace per evitare questo problema è l'\textbf{early stopping}. Durante l'addestramento, si monitora la performance della rete su un set di validazione separato dal training set. Se la performance sul set di validazione inizia a peggiorare (ad esempio, se la loss aumenta o l'accuratezza diminuisce), si interrompe l'addestramento, anche se la performance sul training set continua a migliorare. In questo modo, si evita di addestrare troppo a lungo la rete, prevenendo l'overfitting. Questo può essere effettuato salvando i pesi della rete ogni volta che la performance sul set di validazione migliora, e ripristinando i pesi migliori alla fine dell'addestramento.
+
+Il numero di epoche senza miglioramento $\alpha$ prima di fermare l'addestramento è un iperparametro che può essere regolato in base al problema specifico.
+
+\subsection{Aumento del training set}
+Altri metodi per ridurre l'overfitting includono l'\textbf{aumento del training set} (data augmentation), che consiste nel generare nuovi dati di training a partire dai dati esistenti tramite trasformazioni come rotazioni, traslazioni, zoom, ecc. Questo aiuta la rete a imparare a riconoscere pattern più generali e a non dipendere troppo da caratteristiche specifiche dei dati originali. 
+
+Per esempio, se una rete neurale è addestrata per classificare immagini si potrebbe incrementare il training set ruotando le immagini o distorcendole leggermente, in modo che la rete impari a riconoscere gli oggetti indipendentemente dalla loro posizione o orientamento.
+
+\section{Tipi di reti neurali}
+Generalmente le reti neurali possono essere classificate in base alla loro architettura e al tipo di dati che elaborano. Infatti, una specifica architettura può essere più adatta per un certo tipo di problema rispetto ad un'altra.
+
+\subsection{Feed-Forward Networks}
+Le \textbf{Feed-Forward Networks} (FFN) sono il tipo più semplice di reti neurali, in cui l'informazione fluisce in una sola direzione, dall'input all'output, senza cicli o connessioni ricorrenti. Queste reti sono composte da strati di neuroni, dove ogni neurone in uno strato è connesso a tutti i neuroni dello strato successivo. Le FFN sono comunemente utilizzate per problemi di classificazione e regressione.
+
+\subsection{Reti Neurali Convoluzionali}
+Le \textbf{Reti Neurali Convoluzionali} (Convolutional Neural Networks, CNN) sono progettate per elaborare dati con una struttura a griglia, come le immagini. Le CNN utilizzano operazioni di convoluzione per estrarre caratteristiche locali dai dati, sfruttando la correlazione spaziale tra i pixel. Queste reti sono particolarmente efficaci per compiti di visione artificiale, come il riconoscimento di immagini e la classificazione.
+
+La loro architettura tipica alterna layer \textbf{convoluzionali}, che applicano filtri per estrarre caratteristiche, e layer di \textbf{pooling}, che riducono la dimensionalità dei dati mantenendo le informazioni più rilevanti.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{images/convolutional_nn_architecture.png}
+    \caption{Schema di una rete neurale convoluzionale per la classificazione di immagini: 
+    dall'input grezzo si susseguono layer di convoluzione + ReLU e pooling per l'estrazione gerarchica delle feature, 
+    seguiti da livelli fully connected e da un output softmax che produce le probabilità per ciascuna classe (es.\ car, truck, van, bicycle).}
+    \label{fig:cnn_architecture}
+\end{figure}
+
+\paragraph{Fotorecettori.}
+Il primo layer coglie le informazion che rappresentano i pixel essenziali delle immagini (come in dei fotorecettori nell'occhio umano), ovvero i \textbf{contorni}.. Il riconoscimento dei contorni non dipende dal punto di osservazione, quindi i filtri convoluzionali sono in grado di catturare queste caratteristiche indipendentemente dalla loro posizione nell'immagine.
+
+\paragraph{Convolutional Layer.}
+I \textbf{convolutional layer} sono composti da un insieme di filtri (o kernel) che vengono applicati all'immagine di input tramite l'operazione di convoluzione. Ogni filtro è una piccola matrice di pesi che scorre sull'immagine, calcolando prodotti scalari tra i pesi del filtro e i pixel dell'immagine. Questo processo produce delle mappe di attivazione che evidenziano la presenza di specifiche caratteristiche nell'immagine, come bordi, angoli o texture.
+
+In particolare, lavorano su un quadrato $k \times k$ di nodi nella griglia del layer precedente (dove $k$ è la dimensione del filtro). Per esempio, prendendo un pixel $x_{ij}$ il filtro viene applicato al quadrato in cui il pixel in alto a sinistra è $x_{ij}$:
+\[
+z_{ij} = \sum_{i=0}^k \sum_{j=0}^k w_{ij} \cdot x_{i+i, j+j} + b
+\]
+dove $w_{ij}$ sono i pesi del filtro e $b$ è il bias associato al filtro.
+
+\paragraph{Stride.}
+Per controllare la dimensione dell'output, si può utilizzare il parametro \textbf{stride}, che indica di quanti pixel spostarsi orizzontalmente e verticalmente dopo aver applicato il filtro. Un valore di stride maggiore di 1 riduce la dimensione dell'output, mentre uno stride di 1 mantiene la stessa dimensione (a meno di padding).
+
+Ipotizziamo di avere un'immagine di dimensione $W \times H$ e un filtro di dimensione $k \times k$ con uno stride di $s$. La dimensione dell'output dopo l'applicazione del filtro sarà:
+\[
+W_{out} = \frac{W - k}{s} + 1, \quad H_{out} = \frac{H - k}{s} + 1
+\]
+
+\paragraph{Zero Padding.}
+Per evitare che le dimensioni dell'output si riducano troppo rapidamente con l'applicazione di più layer convoluzionali, si può utilizzare il \textbf{zero padding}, che consiste nell'aggiungere un bordo di zeri attorno all'immagine di input. Questo permette di mantenere le dimensioni dell'output più vicine a quelle dell'input.
+
+\paragraph{Pooling Layer.}
+I \textbf{pooling layer} sono utilizzati per ridurre la dimensionalità delle mappe di attivazione prodotte dai convolutional layer, mantenendo le informazioni più rilevanti. Scorre in larghezza e in lunghezza (di uno step stride) una finestra di dimensione $p \times p$ e ne calcola un valore rappresentativo, come il massimo (max pooling) o la media (average pooling) dei valori all'interno della finestra. Questo processo aiuta a ridurre il numero di parametri e a prevenire l'overfitting.
+
+\paragraph{CNN su immagini a colori.}
+Nel caso di un'immagine a colori, l'input è costituito da una matrice $W \times H \times 3$, dove i tre canali rappresentano i valori di rosso, verde e blu (RGB) per ciascun pixel. I filtri convoluzionali in questo caso hanno una profondità di 3, in modo da poter operare su tutti e tre i canali contemporaneamente. Durante la convoluzione, ogni filtro produce una mappa di attivazione che combina le informazioni provenienti dai tre canali, permettendo alla rete di apprendere caratteristiche complesse che coinvolgono tutte le componenti cromatiche dell'immagine.
+
+Tutti i nodi di uno stesso layer convoluzionale condividono gli stessi pesi, in modo da rilevare la stessa caratteristica in diverse posizioni dell'immagine. Questo riduce significativamente il numero di parametri della rete rispetto a una rete fully connected, rendendo l'addestramento più efficiente e meno soggetto a overfitting.
+
+\subsection{Rete neurali di grafi}
+Le reti neurali di grafi (Graph Neural Network, GNN) hanno un funzionamento simile alle CNN ma sono progettate per lavorare su dati rappresentabili tramite grafi. La GNN produce per ogni nodo un vettore che rappresenta le informazioni principali e tali rappresentazioni possono essere poi sfruttate per risolvere i problemi di classificazioni di nodi e/o grafi oppure predizione di archi.
+
+Le GNN si basano sul concetto di \textbf{messaggistica} (message passing), in cui i nodi comunicano tra loro per aggiornare le loro rappresentazioni in base alle informazioni dei nodi vicini. Questo processo avviene in più passaggi, in cui ogni nodo aggrega le informazioni dai suoi vicini e aggiorna la sua rappresentazione. La struttura del grafo e le connessioni tra i nodi influenzano profondamente il modo in cui le informazioni vengono propagate e aggregate.
+
+Solitamente le GNN sono composte da 3 tipi di layer:
+\begin{description}
+    \item[Permutation Equivariant] - Questi layer sono progettati per essere invarianti alla permutazione dei nodi, ovvero l'ordine in cui i nodi vengono presentati non influisce sul risultato finale. Lavorano aggregando le informazioni dai nodi vicini e aggiornando le rappresentazioni in modo che siano indipendenti dall'ordine dei nodi.
+    \item[Local Aggregation] - Questi layer aggregano le informazioni dai nodi vicini in modo locale, considerando solo i nodi direttamente connessi. Utilizzano funzioni di aggregazione come la somma, la media o il massimo per combinare le rappresentazioni dei nodi vicini.
+    \item[Global Pooling] - Questi layer aggregano le informazioni da tutti i nodi del grafo per produrre una rappresentazione globale. Possono essere utilizzati per compiti di classificazione del grafo o per estrarre caratteristiche globali. Le funzioni di pooling comuni includono la somma, la media o il massimo delle rappresentazioni dei nodi.
+\end{description}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/graph_neural_network.png}
+    \caption{Schema generale di una rete neurale su grafi. 
+    (1) Un blocco \emph{permutation equivariant} propaga le informazioni sul grafo e aggiorna le rappresentazioni dei nodi; 
+    (2) un'operazione di \emph{local pooling} aggrega le caratteristiche su un sottografo rilevante; 
+    (3) un \emph{global pooling} produce un'unica rappresentazione vettoriale dell'intero grafo.}
+    \label{fig:graph_neural_network}
+\end{figure}
+
+\subsection{Reti Neurali Ricorrenti}
 
 \section*{Riferimenti}
 I riferimenti di questo capitolo includono:

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.11.29)  8 DEC 2025 12:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2025.12.8)  8 DEC 2025 22:50
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -781,11 +781,11 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ] (out/DataMining.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 6.
- [3] [4] [5{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] [6])
+ [3] [4] [5{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] [6] [7])
 \tf@toc=\write5
 \openout5 = `DataMining.toc'.
 
- [7] [8] [1
+ [8] [1
 
 
 ] [2] (./chapters/prerequisiti_matematici.tex
@@ -800,48 +800,48 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 7.
 (/usr/share/texlive/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<images/grafo_esemipo.png, id=1032, 456.5055pt x 282.45525pt>
+<images/grafo_esemipo.png, id=1077, 456.5055pt x 282.45525pt>
 File: images/grafo_esemipo.png Graphic file (type png)
 <use images/grafo_esemipo.png>
 Package pdftex.def Info: images/grafo_esemipo.png  used on input line 14.
 (pdftex.def)             Requested size: 256.07741pt x 158.44106pt.
  [5{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} <./images/grafo_esemipo.png>]
-<images/grafo_diretto_indiretto.png, id=1045, 1561.835pt x 561.09625pt>
+<images/grafo_diretto_indiretto.png, id=1090, 1561.835pt x 561.09625pt>
 File: images/grafo_diretto_indiretto.png Graphic file (type png)
 <use images/grafo_diretto_indiretto.png>
 Package pdftex.def Info: images/grafo_diretto_indiretto.png  used on input line 33.
 (pdftex.def)             Requested size: 341.43437pt x 122.66245pt.
  [6 <./images/grafo_diretto_indiretto.png>]
-<images/grafo_pesato_etichettato.png, id=1053, 1541.76pt x 1027.84pt>
+<images/grafo_pesato_etichettato.png, id=1098, 1541.76pt x 1027.84pt>
 File: images/grafo_pesato_etichettato.png Graphic file (type png)
 <use images/grafo_pesato_etichettato.png>
 Package pdftex.def Info: images/grafo_pesato_etichettato.png  used on input line 49.
 (pdftex.def)             Requested size: 341.43437pt x 227.61543pt.
  [7 <./images/grafo_pesato_etichettato.png (PNG copy)>]
-<images/grafo_bipartito_esempio.png, id=1059, 1541.76pt x 1027.84pt>
+<images/grafo_bipartito_esempio.png, id=1104, 1541.76pt x 1027.84pt>
 File: images/grafo_bipartito_esempio.png Graphic file (type png)
 <use images/grafo_bipartito_esempio.png>
 Package pdftex.def Info: images/grafo_bipartito_esempio.png  used on input line 88.
 (pdftex.def)             Requested size: 341.43437pt x 227.61543pt.
  [8 <./images/grafo_bipartito_esempio.png (PNG copy)>]
-<images/grafo_regolare_completo.png, id=1066, 1476.51625pt x 475.7775pt>
+<images/grafo_regolare_completo.png, id=1111, 1476.51625pt x 475.7775pt>
 File: images/grafo_regolare_completo.png Graphic file (type png)
 <use images/grafo_regolare_completo.png>
 Package pdftex.def Info: images/grafo_regolare_completo.png  used on input line 105.
 (pdftex.def)             Requested size: 426.79135pt x 137.52182pt.
-<images/cammino.png, id=1067, 479.7925pt x 333.245pt>
+<images/cammino.png, id=1112, 479.7925pt x 333.245pt>
 File: images/cammino.png Graphic file (type png)
 <use images/cammino.png>
 Package pdftex.def Info: images/cammino.png  used on input line 115.
 (pdftex.def)             Requested size: 256.07741pt x 177.86479pt.
  [9 <./images/grafo_regolare_completo.png>] [10 <./images/cammino.png>]
-<images/clustering_coeff.png, id=1086, 857.2025pt x 352.31625pt>
+<images/clustering_coeff.png, id=1131, 857.2025pt x 352.31625pt>
 File: images/clustering_coeff.png Graphic file (type png)
 <use images/clustering_coeff.png>
 Package pdftex.def Info: images/clustering_coeff.png  used on input line 154.
 (pdftex.def)             Requested size: 426.79135pt x 175.4158pt.
  [11 <./images/clustering_coeff.png>]
-<images/betweenness_centrality.png, id=1094, 595.22375pt x 620.3175pt>
+<images/betweenness_centrality.png, id=1139, 595.22375pt x 620.3175pt>
 File: images/betweenness_centrality.png Graphic file (type png)
 <use images/betweenness_centrality.png>
 Package pdftex.def Info: images/betweenness_centrality.png  used on input line 187.
@@ -850,18 +850,18 @@ Package pdftex.def Info: images/betweenness_centrality.png  used on input line 1
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [13 <./images/betweenness_centrality.png>]
-<images/centralita_prossimita.png, id=1113, 661.47125pt x 607.26875pt>
+<images/centralita_prossimita.png, id=1159, 661.47125pt x 607.26875pt>
 File: images/centralita_prossimita.png Graphic file (type png)
 <use images/centralita_prossimita.png>
 Package pdftex.def Info: images/centralita_prossimita.png  used on input line 233.
 (pdftex.def)             Requested size: 170.71393pt x 156.71861pt.
  [14 <./images/centralita_prossimita.png>]
-<images/pagerank_initial.png, id=1122, 831.105pt x 525.965pt>
+<images/pagerank_initial.png, id=1168, 831.105pt x 525.965pt>
 File: images/pagerank_initial.png Graphic file (type png)
 <use images/pagerank_initial.png>
 Package pdftex.def Info: images/pagerank_initial.png  used on input line 258.
 (pdftex.def)             Requested size: 192.0548pt x 121.53922pt.
-<images/pagerank_rounds.png, id=1123, 1284.8pt x 487.8225pt>
+<images/pagerank_rounds.png, id=1169, 1284.8pt x 487.8225pt>
 File: images/pagerank_rounds.png Graphic file (type png)
 <use images/pagerank_rounds.png>
 Package pdftex.def Info: images/pagerank_rounds.png  used on input line 278.
@@ -893,7 +893,7 @@ Overfull \hbox (2.02293pt too wide) in paragraph at lines 134--135
  []
 
 [28] [29] [30]
-<images/SVD.png, id=1224, 1373.13pt x 750.805pt>
+<images/SVD.png, id=1270, 1373.13pt x 750.805pt>
 File: images/SVD.png Graphic file (type png)
 <use images/SVD.png>
 Package pdftex.def Info: images/SVD.png  used on input line 196.
@@ -903,7 +903,7 @@ Capitolo 5.
 [33
 
 ]
-<images/insiemi_frequenti_massimale.png, id=1243, 830.10126pt x 559.08875pt>
+<images/insiemi_frequenti_massimale.png, id=1288, 830.10126pt x 559.08875pt>
 File: images/insiemi_frequenti_massimale.png Graphic file (type png)
 <use images/insiemi_frequenti_massimale.png>
 Package pdftex.def Info: images/insiemi_frequenti_massimale.png  used on input line 61.
@@ -914,12 +914,12 @@ Overfull \hbox (4.59721pt too wide) in paragraph at lines 108--115
  []
 
 [36] [37]
-<images/fp-growth-complete.png, id=1283, 975.645pt x 539.01375pt>
+<images/fp-growth-complete.png, id=1328, 975.645pt x 539.01375pt>
 File: images/fp-growth-complete.png Graphic file (type png)
 <use images/fp-growth-complete.png>
 Package pdftex.def Info: images/fp-growth-complete.png  used on input line 180.
 (pdftex.def)             Requested size: 392.64725pt x 216.92584pt.
-<images/fp-growth-links.png, id=1284, 877.2775pt x 566.115pt>
+<images/fp-growth-links.png, id=1329, 877.2775pt x 566.115pt>
 File: images/fp-growth-links.png Graphic file (type png)
 <use images/fp-growth-links.png>
 Package pdftex.def Info: images/fp-growth-links.png  used on input line 200.
@@ -939,18 +939,18 @@ Overfull \hbox (54.78693pt too wide) detected at line 46
  []
 
 [41] [42]
-<images/cluster_distances.png, id=1331, 560.0925pt x 877.2775pt>
+<images/cluster_distances.png, id=1376, 560.0925pt x 877.2775pt>
 File: images/cluster_distances.png Graphic file (type png)
 <use images/cluster_distances.png>
 Package pdftex.def Info: images/cluster_distances.png  used on input line 116.
 (pdftex.def)             Requested size: 115.23547pt x 180.48558pt.
-<images/dendograms.png, id=1332, 1394.20876pt x 650.43pt>
+<images/dendograms.png, id=1377, 1394.20876pt x 650.43pt>
 File: images/dendograms.png Graphic file (type png)
 <use images/dendograms.png>
 Package pdftex.def Info: images/dendograms.png  used on input line 130.
 (pdftex.def)             Requested size: 320.0935pt x 149.32777pt.
  [43 <./images/cluster_distances.png>] [44 <./images/dendograms.png>]
-<images/k-means.png, id=1350, 1162.3425pt x 609.27625pt>
+<images/k-means.png, id=1395, 1162.3425pt x 609.27625pt>
 File: images/k-means.png Graphic file (type png)
 <use images/k-means.png>
 Package pdftex.def Info: images/k-means.png  used on input line 192.
@@ -964,7 +964,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 207.
 
-<images/elbow-k.png, id=1364, 1298.8525pt x 731.73375pt>
+<images/elbow-k.png, id=1409, 1298.8525pt x 731.73375pt>
 File: images/elbow-k.png Graphic file (type png)
 <use images/elbow-k.png>
 Package pdftex.def Info: images/elbow-k.png  used on input line 220.
@@ -979,24 +979,24 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [47]
-<images/dbscan_core.png, id=1385, 1298.8525pt x 519.9425pt>
+<images/dbscan_core.png, id=1430, 1298.8525pt x 519.9425pt>
 File: images/dbscan_core.png Graphic file (type png)
 <use images/dbscan_core.png>
 Package pdftex.def Info: images/dbscan_core.png  used on input line 283.
 (pdftex.def)             Requested size: 290.21498pt x 116.17278pt.
-<images/kdistance_plot.png, id=1386, 1422.31375pt x 779.91376pt>
+<images/kdistance_plot.png, id=1431, 1422.31375pt x 779.91376pt>
 File: images/kdistance_plot.png Graphic file (type png)
 <use images/kdistance_plot.png>
 Package pdftex.def Info: images/kdistance_plot.png  used on input line 301.
 (pdftex.def)             Requested size: 290.21498pt x 159.13362pt.
  [48 <./images/dbscan_core.png>]
-<images/optics_reachability.png, id=1401, 1441.385pt x 865.2325pt>
+<images/optics_reachability.png, id=1446, 1441.385pt x 865.2325pt>
 File: images/optics_reachability.png Graphic file (type png)
 <use images/optics_reachability.png>
 Package pdftex.def Info: images/optics_reachability.png  used on input line 351.
 (pdftex.def)             Requested size: 341.43437pt x 204.95355pt.
  [49 <./images/kdistance_plot.png>]
-<images/cluster_extraction_optics.png, id=1411, 1587.9325pt x 653.44125pt>
+<images/cluster_extraction_optics.png, id=1457, 1587.9325pt x 653.44125pt>
 File: images/cluster_extraction_optics.png Graphic file (type png)
 <use images/cluster_extraction_optics.png>
 Package pdftex.def Info: images/cluster_extraction_optics.png  used on input line 365.
@@ -1005,18 +1005,18 @@ Package pdftex.def Info: images/cluster_extraction_optics.png  used on input lin
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [50 <./images/optics_reachability.png> <./images/cluster_extraction_optics.png>]
-<images/HDBSCAN_example.png, id=1421, 1499.6025pt x 512.91624pt>
+<images/HDBSCAN_example.png, id=1467, 1499.6025pt x 512.91624pt>
 File: images/HDBSCAN_example.png Graphic file (type png)
 <use images/HDBSCAN_example.png>
 Package pdftex.def Info: images/HDBSCAN_example.png  used on input line 399.
 (pdftex.def)             Requested size: 426.79135pt x 145.97133pt.
  [51] [52 <./images/HDBSCAN_example.png>]
-<images/hdbscan_mst.png, id=1444, 1143.27126pt x 762.85pt>
+<images/hdbscan_mst.png, id=1490, 1143.27126pt x 762.85pt>
 File: images/hdbscan_mst.png Graphic file (type png)
 <use images/hdbscan_mst.png>
 Package pdftex.def Info: images/hdbscan_mst.png  used on input line 487.
 (pdftex.def)             Requested size: 196.32687pt x 130.99812pt.
-<images/hdbscan_condensed_tree.png, id=1445, 920.43875pt x 567.11874pt>
+<images/hdbscan_condensed_tree.png, id=1491, 920.43875pt x 567.11874pt>
 File: images/hdbscan_condensed_tree.png Graphic file (type png)
 <use images/hdbscan_condensed_tree.png>
 Package pdftex.def Info: images/hdbscan_condensed_tree.png  used on input line 488.
@@ -1025,18 +1025,18 @@ Package pdftex.def Info: images/hdbscan_condensed_tree.png  used on input line 4
 
 ]
 Capitolo 7.
-<images/schema_classificatore.png, id=1463, 1852.9225pt x 744.7825pt>
+<images/schema_classificatore.png, id=1508, 1852.9225pt x 744.7825pt>
 File: images/schema_classificatore.png Graphic file (type png)
 <use images/schema_classificatore.png>
 Package pdftex.def Info: images/schema_classificatore.png  used on input line 26.
 (pdftex.def)             Requested size: 307.29028pt x 123.50885pt.
 [55]
-<images/weather_table.png, id=1473, 799.98875pt x 682.55pt>
+<images/weather_table.png, id=1518, 799.98875pt x 682.55pt>
 File: images/weather_table.png Graphic file (type png)
 <use images/weather_table.png>
 Package pdftex.def Info: images/weather_table.png  used on input line 52.
 (pdftex.def)             Requested size: 213.39568pt x 182.06218pt.
-<images/decision_tree_weather.png, id=1474, 1003.75pt x 712.6625pt>
+<images/decision_tree_weather.png, id=1519, 1003.75pt x 712.6625pt>
 File: images/decision_tree_weather.png Graphic file (type png)
 <use images/decision_tree_weather.png>
 Package pdftex.def Info: images/decision_tree_weather.png  used on input line 56.
@@ -1046,31 +1046,31 @@ Overfull \hbox (67.96466pt too wide) detected at line 128
 []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 246\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 029\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 151\OML/lmm/m/it/10.95 ;  []\OT1/lmr/m/n/10.95 ([]) = 0\OML/lmm/m/it/10.95 :\OT1/lmr/m/n/10.95 048\OML/lmm/m/it/10.95 :
  []
 
-<images/ig_outlook_example.png, id=1495, 1613.02625pt x 540.0175pt>
+<images/ig_outlook_example.png, id=1540, 1613.02625pt x 540.0175pt>
 File: images/ig_outlook_example.png Graphic file (type png)
 <use images/ig_outlook_example.png>
 Package pdftex.def Info: images/ig_outlook_example.png  used on input line 137.
 (pdftex.def)             Requested size: 384.1096pt x 128.59332pt.
 [58 <./images/ig_outlook_example.png>] [59] [60]
-<images/tree_pruning_example.png, id=1521, 1595.9625pt x 816.04875pt>
+<images/tree_pruning_example.png, id=1566, 1595.9625pt x 816.04875pt>
 File: images/tree_pruning_example.png Graphic file (type png)
 <use images/tree_pruning_example.png>
 Package pdftex.def Info: images/tree_pruning_example.png  used on input line 248.
 (pdftex.def)             Requested size: 320.0935pt x 163.66757pt.
  [61 <./images/tree_pruning_example.png>] [62]
-<images/bayes_network_example.png, id=1539, 1531.7225pt x 861.2175pt>
+<images/bayes_network_example.png, id=1585, 1531.7225pt x 861.2175pt>
 File: images/bayes_network_example.png Graphic file (type png)
 <use images/bayes_network_example.png>
 Package pdftex.def Info: images/bayes_network_example.png  used on input line 313.
 (pdftex.def)             Requested size: 384.1096pt x 215.96089pt.
  [63 <./images/bayes_network_example.png>] [64] [65]
-<images/svm_margin.png, id=1575, 1146.2825pt x 668.4975pt>
+<images/svm_margin.png, id=1620, 1146.2825pt x 668.4975pt>
 File: images/svm_margin.png Graphic file (type png)
 <use images/svm_margin.png>
 Package pdftex.def Info: images/svm_margin.png  used on input line 410.
 (pdftex.def)             Requested size: 384.1096pt x 224.0118pt.
  [66 <./images/svm_margin.png>]
-<images/normalized_hyperplane_svm.png, id=1583, 1298.8525pt x 863.225pt>
+<images/normalized_hyperplane_svm.png, id=1628, 1298.8525pt x 863.225pt>
 File: images/normalized_hyperplane_svm.png Graphic file (type png)
 <use images/normalized_hyperplane_svm.png>
 Package pdftex.def Info: images/normalized_hyperplane_svm.png  used on input line 447.
@@ -1082,19 +1082,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 1796) has occurred while \output is active []
 
  [68] [69]
-<images/knn_example.png, id=1604, 1038.88126pt x 746.79pt>
+<images/knn_example.png, id=1649, 1038.88126pt x 746.79pt>
 File: images/knn_example.png Graphic file (type png)
 <use images/knn_example.png>
 Package pdftex.def Info: images/knn_example.png  used on input line 557.
 (pdftex.def)             Requested size: 341.43437pt x 245.42729pt.
  [70 <./images/knn_example.png>]
-<images/random_forest.png, id=1613, 2633.84pt x 2087.8pt>
+<images/random_forest.png, id=1658, 2633.84pt x 2087.8pt>
 File: images/random_forest.png Graphic file (type png)
 <use images/random_forest.png>
 Package pdftex.def Info: images/random_forest.png  used on input line 601.
 (pdftex.def)             Requested size: 320.0935pt x 253.7109pt.
  [71]
-<images/boosting_example.png, id=1631, 1331.97626pt x 764.8575pt>
+<images/boosting_example.png, id=1676, 1331.97626pt x 764.8575pt>
 File: images/boosting_example.png Graphic file (type png)
 <use images/boosting_example.png>
 Package pdftex.def Info: images/boosting_example.png  used on input line 625.
@@ -1106,7 +1106,7 @@ Underfull \vbox (badness 1515) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [73 <./images/boosting_example.png>]
-<images/aumento_pesi_tuple.png, id=1656, 1376.14125pt x 861.2175pt>
+<images/aumento_pesi_tuple.png, id=1702, 1376.14125pt x 861.2175pt>
 File: images/aumento_pesi_tuple.png Graphic file (type png)
 <use images/aumento_pesi_tuple.png>
 Package pdftex.def Info: images/aumento_pesi_tuple.png  used on input line 685.
@@ -1115,13 +1115,13 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 687.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 687.
-<images/diminuzione_pesI_tuple.png, id=1657, 1421.31pt x 866.23625pt>
+<images/diminuzione_pesI_tuple.png, id=1703, 1421.31pt x 866.23625pt>
 File: images/diminuzione_pesI_tuple.png Graphic file (type png)
 <use images/diminuzione_pesI_tuple.png>
 Package pdftex.def Info: images/diminuzione_pesI_tuple.png  used on input line 691.
 (pdftex.def)             Requested size: 204.85802pt x 124.85423pt.
  [74 <./images/aumento_pesi_tuple.png> <./images/diminuzione_pesI_tuple.png>]
-<images/confusion_matrix.png, id=1672, 801.99625pt x 464.73625pt>
+<images/confusion_matrix.png, id=1718, 801.99625pt x 464.73625pt>
 File: images/confusion_matrix.png Graphic file (type png)
 <use images/confusion_matrix.png>
 Package pdftex.def Info: images/confusion_matrix.png  used on input line 709.
@@ -1130,7 +1130,7 @@ Package pdftex.def Info: images/confusion_matrix.png  used on input line 709.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [75 <./images/confusion_matrix.png>]
-<images/curve-roc-example.png, id=1682, 899.36pt x 915.42pt>
+<images/curve-roc-example.png, id=1727, 899.36pt x 915.42pt>
 File: images/curve-roc-example.png Graphic file (type png)
 <use images/curve-roc-example.png>
 Package pdftex.def Info: images/curve-roc-example.png  used on input line 755.
@@ -1144,12 +1144,12 @@ Underfull \vbox (badness 1484) has occurred while \output is active []
 
  [80] [81]) (./chapters/subgraphmatching.tex [82]
 Capitolo 9.
-<images/subgraph_mapping_example.png, id=1723, 1245.65375pt x 366.36874pt>
+<images/subgraph_mapping_example.png, id=1768, 1245.65375pt x 366.36874pt>
 File: images/subgraph_mapping_example.png Graphic file (type png)
 <use images/subgraph_mapping_example.png>
 Package pdftex.def Info: images/subgraph_mapping_example.png  used on input line 9.
 (pdftex.def)             Requested size: 341.43437pt x 100.41908pt.
-<images/automorphism_example.png, id=1724, 1451.4225pt x 409.53pt>
+<images/automorphism_example.png, id=1769, 1451.4225pt x 409.53pt>
 File: images/automorphism_example.png Graphic file (type png)
 <use images/automorphism_example.png>
 Package pdftex.def Info: images/automorphism_example.png  used on input line 19.
@@ -1157,24 +1157,24 @@ Package pdftex.def Info: images/automorphism_example.png  used on input line 19.
 [83
 
  <./images/subgraph_mapping_example.png>]
-<images/subgraph_matching_example.png, id=1732, 820.06375pt x 509.905pt>
+<images/subgraph_matching_example.png, id=1777, 820.06375pt x 509.905pt>
 File: images/subgraph_matching_example.png Graphic file (type png)
 <use images/subgraph_matching_example.png>
 Package pdftex.def Info: images/subgraph_matching_example.png  used on input line 33.
 (pdftex.def)             Requested size: 341.43437pt x 212.30687pt.
  [84 <./images/automorphism_example.png> <./images/subgraph_matching_example.png>]
-<images/bruteforce_subgraph_matching.png, id=1742, 1541.76pt x 1027.84pt>
+<images/bruteforce_subgraph_matching.png, id=1787, 1541.76pt x 1027.84pt>
 File: images/bruteforce_subgraph_matching.png Graphic file (type png)
 <use images/bruteforce_subgraph_matching.png>
 Package pdftex.def Info: images/bruteforce_subgraph_matching.png  used on input line 51.
 (pdftex.def)             Requested size: 332.89673pt x 221.9223pt.
  [85 <./images/bruteforce_subgraph_matching.png (PNG copy)>]
-<images/backtracking_subgraph_matching.png, id=1749, 1359.0775pt x 533.995pt>
+<images/backtracking_subgraph_matching.png, id=1794, 1359.0775pt x 533.995pt>
 File: images/backtracking_subgraph_matching.png Graphic file (type png)
 <use images/backtracking_subgraph_matching.png>
 Package pdftex.def Info: images/backtracking_subgraph_matching.png  used on input line 67.
 (pdftex.def)             Requested size: 341.43437pt x 134.15027pt.
-<images/ullmann_algorithm_example.png, id=1750, 1541.76pt x 1027.84pt>
+<images/ullmann_algorithm_example.png, id=1795, 1541.76pt x 1027.84pt>
 File: images/ullmann_algorithm_example.png Graphic file (type png)
 <use images/ullmann_algorithm_example.png>
 Package pdftex.def Info: images/ullmann_algorithm_example.png  used on input line 79.
@@ -1184,19 +1184,19 @@ Overfull \hbox (1.85927pt too wide) in paragraph at lines 110--111
 \T1/lmr/m/n/10.95 (-20) pia è fat-ti-bi-le, si crea un nuo-vo sta-to $\OML/lmm/m/it/10.95 s[]$ \T1/lmr/m/n/10.95 (-20) ag-gior-nan-do gli in-sie-mi $\OML/lmm/m/it/10.95 M[]; M[]; T[]; T[]; U[]; U[]$
  []
 
-<images/vf_algorithm_example.png, id=1767, 1541.76pt x 1027.84pt>
+<images/vf_algorithm_example.png, id=1813, 1541.76pt x 1027.84pt>
 File: images/vf_algorithm_example.png Graphic file (type png)
 <use images/vf_algorithm_example.png>
 Package pdftex.def Info: images/vf_algorithm_example.png  used on input line 124.
 (pdftex.def)             Requested size: 426.79135pt x 284.51537pt.
 [88] [89 <./images/vf_algorithm_example.png (PNG copy)>] [90] [91]
-<images/ri_algorithm_example.png, id=1811, 793.96625pt x 935.495pt>
+<images/ri_algorithm_example.png, id=1856, 793.96625pt x 935.495pt>
 File: images/ri_algorithm_example.png Graphic file (type png)
 <use images/ri_algorithm_example.png>
 Package pdftex.def Info: images/ri_algorithm_example.png  used on input line 213.
 (pdftex.def)             Requested size: 170.71393pt x 201.14177pt.
  [92 <./images/ri_algorithm_example.png>] [93]
-<images/feature_indexing_example.png, id=1834, 1297.84875pt x 612.2875pt>
+<images/feature_indexing_example.png, id=1879, 1297.84875pt x 612.2875pt>
 File: images/feature_indexing_example.png Graphic file (type png)
 <use images/feature_indexing_example.png>
 Package pdftex.def Info: images/feature_indexing_example.png  used on input line 303.
@@ -1205,12 +1205,12 @@ Package pdftex.def Info: images/feature_indexing_example.png  used on input line
 Underfull \vbox (badness 4254) has occurred while \output is active []
 
  [95 <./images/feature_indexing_example.png>]
-<images/sing_algorithm_example.png, id=1851, 1682.285pt x 527.9725pt>
+<images/sing_algorithm_example.png, id=1896, 1682.285pt x 527.9725pt>
 File: images/sing_algorithm_example.png Graphic file (type png)
 <use images/sing_algorithm_example.png>
 Package pdftex.def Info: images/sing_algorithm_example.png  used on input line 336.
 (pdftex.def)             Requested size: 384.1096pt x 120.54494pt.
-<images/sing_indexing_example.png, id=1853, 1856.9375pt x 776.9025pt>
+<images/sing_indexing_example.png, id=1898, 1856.9375pt x 776.9025pt>
 File: images/sing_indexing_example.png Graphic file (type png)
 <use images/sing_indexing_example.png>
 Package pdftex.def Info: images/sing_indexing_example.png  used on input line 354.
@@ -1219,29 +1219,29 @@ Package pdftex.def Info: images/sing_indexing_example.png  used on input line 35
 
 ]
 Capitolo 10.
-<images/frequent-subgraph-matching.png, id=1883, 879.285pt x 162.6075pt>
+<images/frequent-subgraph-matching.png, id=1929, 879.285pt x 162.6075pt>
 File: images/frequent-subgraph-matching.png Graphic file (type png)
 <use images/frequent-subgraph-matching.png>
 Package pdftex.def Info: images/frequent-subgraph-matching.png  used on input line 14.
 (pdftex.def)             Requested size: 426.79135pt x 78.92656pt.
-<images/frequent-subgraph-frequency.png, id=1884, 799.98875pt x 330.23375pt>
+<images/frequent-subgraph-frequency.png, id=1930, 799.98875pt x 330.23375pt>
 File: images/frequent-subgraph-frequency.png Graphic file (type png)
 <use images/frequent-subgraph-frequency.png>
 Package pdftex.def Info: images/frequent-subgraph-frequency.png  used on input line 23.
 (pdftex.def)             Requested size: 426.79135pt x 176.182pt.
 [99 <./images/frequent-subgraph-matching.png>] [100 <./images/frequent-subgraph-frequency.png>]
-<images/fsg-join-1.png, id=1900, 869.2475pt x 321.2pt>
+<images/fsg-join-1.png, id=1946, 869.2475pt x 321.2pt>
 File: images/fsg-join-1.png Graphic file (type png)
 <use images/fsg-join-1.png>
 Package pdftex.def Info: images/fsg-join-1.png  used on input line 59.
 (pdftex.def)             Requested size: 426.79135pt x 157.70795pt.
-<images/fsg-join-2.png, id=1902, 807.015pt x 274.02374pt>
+<images/fsg-join-2.png, id=1948, 807.015pt x 274.02374pt>
 File: images/fsg-join-2.png Graphic file (type png)
 <use images/fsg-join-2.png>
 Package pdftex.def Info: images/fsg-join-2.png  used on input line 80.
 (pdftex.def)             Requested size: 426.79135pt x 144.91829pt.
  [101 <./images/fsg-join-1.png>]
-<images/fsg-join-3.png, id=1917, 856.19875pt x 417.56pt>
+<images/fsg-join-3.png, id=1962, 856.19875pt x 417.56pt>
 File: images/fsg-join-3.png Graphic file (type png)
 <use images/fsg-join-3.png>
 Package pdftex.def Info: images/fsg-join-3.png  used on input line 111.
@@ -1250,29 +1250,29 @@ Package pdftex.def Info: images/fsg-join-3.png  used on input line 111.
 Underfull \vbox (badness 1342) has occurred while \output is active []
 
  [104]
-<images/adjacency_string_example.png, id=1957, 810.02625pt x 314.17375pt>
+<images/adjacency_string_example.png, id=2002, 810.02625pt x 314.17375pt>
 File: images/adjacency_string_example.png Graphic file (type png)
 <use images/adjacency_string_example.png>
 Package pdftex.def Info: images/adjacency_string_example.png  used on input line 177.
 (pdftex.def)             Requested size: 341.43437pt x 132.42667pt.
-<images/canonical-form-example.png, id=1959, 896.34875pt x 412.54124pt>
+<images/canonical-form-example.png, id=2004, 896.34875pt x 412.54124pt>
 File: images/canonical-form-example.png Graphic file (type png)
 <use images/canonical-form-example.png>
 Package pdftex.def Info: images/canonical-form-example.png  used on input line 200.
 (pdftex.def)             Requested size: 384.1096pt x 176.78497pt.
  [105 <./images/adjacency_string_example.png>] [106 <./images/canonical-form-example.png>]
-<images/dfs_visit_example.png, id=1981, 1262.7175pt x 867.24pt>
+<images/dfs_visit_example.png, id=2026, 1262.7175pt x 867.24pt>
 File: images/dfs_visit_example.png Graphic file (type png)
 <use images/dfs_visit_example.png>
 Package pdftex.def Info: images/dfs_visit_example.png  used on input line 247.
 (pdftex.def)             Requested size: 341.43437pt x 234.50198pt.
-<images/dfs_tree_example.png, id=1983, 1586.92876pt x 659.46375pt>
+<images/dfs_tree_example.png, id=2028, 1586.92876pt x 659.46375pt>
 File: images/dfs_tree_example.png Graphic file (type png)
 <use images/dfs_tree_example.png>
 Package pdftex.def Info: images/dfs_tree_example.png  used on input line 267.
 (pdftex.def)             Requested size: 426.79135pt x 177.35321pt.
  [107] [108 <./images/dfs_visit_example.png> <./images/dfs_tree_example.png>] [109]
-<images/gspan_candidate_generation.png, id=2016, 1318.9275pt x 944.52875pt>
+<images/gspan_candidate_generation.png, id=2062, 1318.9275pt x 944.52875pt>
 File: images/gspan_candidate_generation.png Graphic file (type png)
 <use images/gspan_candidate_generation.png>
 Package pdftex.def Info: images/gspan_candidate_generation.png  used on input line 328.
@@ -1284,13 +1284,13 @@ Package microtype Info: Character `029' is missing
 
 ]
 Capitolo 11.
-<images/nn_neuron_comparison.png, id=2037, 1541.76pt x 1027.84pt>
+<images/nn_neuron_comparison.png, id=2082, 1541.76pt x 1027.84pt>
 File: images/nn_neuron_comparison.png Graphic file (type png)
 <use images/nn_neuron_comparison.png>
 Package pdftex.def Info: images/nn_neuron_comparison.png  used on input line 6.
 (pdftex.def)             Requested size: 426.79135pt x 284.51537pt.
 [113 <./images/nn_neuron_comparison.png (PNG copy)>]
-<images/neural_network_example.png, id=2045, 567.11874pt x 391.96437pt>
+<images/neural_network_example.png, id=2090, 567.11874pt x 391.96437pt>
 File: images/neural_network_example.png Graphic file (type png)
 <use images/neural_network_example.png>
 Package pdftex.def Info: images/neural_network_example.png  used on input line 27.
@@ -1299,12 +1299,12 @@ Package pdftex.def Info: images/neural_network_example.png  used on input line 2
 Underfull \vbox (badness 1796) has occurred while \output is active []
 
  [114 <./images/neural_network_example.png>] [115]
-<images/step_function.png, id=2061, 937.5025pt x 812.03375pt>
+<images/step_function.png, id=2106, 937.5025pt x 812.03375pt>
 File: images/step_function.png Graphic file (type png)
 <use images/step_function.png>
 Package pdftex.def Info: images/step_function.png  used on input line 87.
 (pdftex.def)             Requested size: 256.07741pt x 221.8045pt.
-<images/perceptron.png, id=2062, 1167.36125pt x 611.28375pt>
+<images/perceptron.png, id=2107, 1167.36125pt x 611.28375pt>
 File: images/perceptron.png Graphic file (type png)
 <use images/perceptron.png>
 Package pdftex.def Info: images/perceptron.png  used on input line 96.
@@ -1313,31 +1313,31 @@ Package pdftex.def Info: images/perceptron.png  used on input line 96.
 Underfull \vbox (badness 3179) has occurred while \output is active []
 
  [116 <./images/step_function.png>]
-<images/sigmoid_function.png, id=2070, 1276.77pt x 545.03625pt>
+<images/sigmoid_function.png, id=2115, 1276.77pt x 545.03625pt>
 File: images/sigmoid_function.png Graphic file (type png)
 <use images/sigmoid_function.png>
 Package pdftex.def Info: images/sigmoid_function.png  used on input line 115.
 (pdftex.def)             Requested size: 341.43437pt x 145.74794pt.
  [117 <./images/perceptron.png> <./images/sigmoid_function.png (PNG copy)>]
-<images/tanh_function.png, id=2078, 960.58875pt x 578.16pt>
+<images/tanh_function.png, id=2123, 960.58875pt x 578.16pt>
 File: images/tanh_function.png Graphic file (type png)
 <use images/tanh_function.png>
 Package pdftex.def Info: images/tanh_function.png  used on input line 138.
 (pdftex.def)             Requested size: 341.43437pt x 205.49966pt.
  [118 <./images/tanh_function.png>] [119]
-<images/relu_function.png, id=2090, 284.39583pt x 125.46875pt>
+<images/relu_function.png, id=2135, 284.39583pt x 125.46875pt>
 File: images/relu_function.png Graphic file (type png)
 <use images/relu_function.png>
 Package pdftex.def Info: images/relu_function.png  used on input line 189.
 (pdftex.def)             Requested size: 384.1096pt x 169.4712pt.
  [120 <./images/relu_function.png>]
-<images/regression_loss.png, id=2098, 1212.53pt x 808.01875pt>
+<images/regression_loss.png, id=2143, 1212.53pt x 808.01875pt>
 File: images/regression_loss.png Graphic file (type png)
 <use images/regression_loss.png>
 Package pdftex.def Info: images/regression_loss.png  used on input line 216.
 (pdftex.def)             Requested size: 298.75264pt x 199.08214pt.
  [121 <./images/regression_loss.png>] [122] [123]
-<images/eta_examples.jpg, id=2119, 1204.5pt x 724.7075pt>
+<images/eta_examples.jpg, id=2165, 1204.5pt x 724.7075pt>
 File: images/eta_examples.jpg Graphic file (type jpg)
 <use images/eta_examples.jpg>
 Package pdftex.def Info: images/eta_examples.jpg  used on input line 292.
@@ -1346,13 +1346,13 @@ Package pdftex.def Info: images/eta_examples.jpg  used on input line 292.
 Underfull \vbox (badness 2376) has occurred while \output is active []
 
  [124 <./images/eta_examples.jpg>]
-<images/computation_graph_nn.png, id=2127, 1635.10875pt x 752.8125pt>
+<images/computation_graph_nn.png, id=2173, 1635.10875pt x 752.8125pt>
 File: images/computation_graph_nn.png Graphic file (type png)
 <use images/computation_graph_nn.png>
 Package pdftex.def Info: images/computation_graph_nn.png  used on input line 347.
 (pdftex.def)             Requested size: 341.43437pt x 157.1878pt.
  [125] [126 <./images/computation_graph_nn.png>]
-<images/computation_graph_nn_backpropagation.png, id=2146, 1584.92125pt x 898.35625pt>
+<images/computation_graph_nn_backpropagation.png, id=2192, 1584.92125pt x 898.35625pt>
 File: images/computation_graph_nn_backpropagation.png Graphic file (type png)
 <use images/computation_graph_nn_backpropagation.png>
 Package pdftex.def Info: images/computation_graph_nn_backpropagation.png  used on input line 414.
@@ -1360,35 +1360,56 @@ Package pdftex.def Info: images/computation_graph_nn_backpropagation.png  used o
  [127 <./images/computation_graph_nn_backpropagation.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [128]) (./chapters/transformer_llm.tex [129] [130
+ [128]
+Underfull \vbox (badness 1028) has occurred while \output is active []
 
-]
+ [129]
+<images/dropout.png, id=2216, 1881.0275pt x 697.60625pt>
+File: images/dropout.png Graphic file (type png)
+<use images/dropout.png>
+Package pdftex.def Info: images/dropout.png  used on input line 502.
+(pdftex.def)             Requested size: 341.43437pt x 126.61751pt.
+ [130 <./images/dropout.png>]
+<images/convolutional_nn_architecture.png, id=2223, 1688.3075pt x 595.22375pt>
+File: images/convolutional_nn_architecture.png Graphic file (type png)
+<use images/convolutional_nn_architecture.png>
+Package pdftex.def Info: images/convolutional_nn_architecture.png  used on input line 530.
+(pdftex.def)             Requested size: 426.79135pt x 150.46764pt.
+ [131 <./images/convolutional_nn_architecture.png>] [132]
+<images/graph_neural_network.png, id=2240, 1768.6075pt x 557.08125pt>
+File: images/graph_neural_network.png Graphic file (type png)
+<use images/graph_neural_network.png>
+Package pdftex.def Info: images/graph_neural_network.png  used on input line 582.
+(pdftex.def)             Requested size: 341.43437pt x 107.5381pt.
+ [133]) (./chapters/transformer_llm.tex [134 <./images/graph_neural_network.png>]
 Capitolo 12.
-) [131] [132
+) [135
 
-] [133] [134] [135
+] [136
+
+] [137] [138] [139
 
 
 ] (out/DataMining.aux)
 Package rerunfilecheck Info: File `DataMining.out' has not changed.
-(rerunfilecheck)             Checksum: 3FF86A168E7721CE958F46A1783BA28A;35211.
+(rerunfilecheck)             Checksum: B1B75CE7D835FD513177FE1087CDBD7B;36748.
 Package logreq Info: Writing requests to 'DataMining.run.xml'.
 \openout1 = `DataMining.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24445 strings out of 476041
- 426935 string characters out of 5793173
+ 24500 strings out of 476041
+ 428145 string characters out of 5793174
  1868388 words of memory out of 6000000
- 43226 multiletter control sequences out of 15000+600000
+ 43256 multiletter control sequences out of 15000+600000
  678294 words of font info for 373 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
  75i,13n,76p,1353b,2146s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on out/DataMining.pdf (143 pages, 13051560 bytes).
+Output written on out/DataMining.pdf (147 pages, 14898578 bytes).
 PDF statistics:
- 2502 PDF objects out of 2984 (max. 8388607)
- 2137 compressed objects within 22 object streams
- 723 named destinations out of 1000 (max. 500000)
- 89462 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 2585 PDF objects out of 2984 (max. 8388607)
+ 2209 compressed objects within 23 object streams
+ 745 named destinations out of 1000 (max. 500000)
+ 89549 words of extra memory for PDF output out of 106986 (max. 10000000)
 
