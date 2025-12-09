@@ -344,5 +344,6 @@
 \contentsline {paragraph}{CNN su immagini a colori.}{133}{section*.156}%
 \contentsline {subsection}{\numberline {11.7.3}Rete neurali di grafi}{133}{subsection.11.7.3}%
 \contentsline {subsection}{\numberline {11.7.4}Reti Neurali Ricorrenti}{134}{subsection.11.7.4}%
-\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{135}{chapter.12}%
-\contentsline {part}{III\hspace {1em}Approfondimenti}{137}{part.3}%
+\contentsline {paragraph}{Input di una RNN.}{134}{section*.157}%
+\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{137}{chapter.12}%
+\contentsline {part}{III\hspace {1em}Approfondimenti}{139}{part.3}%

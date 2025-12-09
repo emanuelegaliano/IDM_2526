@@ -579,7 +579,7 @@ Solitamente le GNN sono composte da 3 tipi di layer:
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/graph_neural_network.png}
+    \includegraphics[width=1\textwidth]{images/graph_neural_network.png}
     \caption{Schema generale di una rete neurale su grafi. 
     (1) Un blocco \emph{permutation equivariant} propaga le informazioni sul grafo e aggiorna le rappresentazioni dei nodi; 
     (2) un'operazione di \emph{local pooling} aggrega le caratteristiche su un sottografo rilevante; 
@@ -588,6 +588,58 @@ Solitamente le GNN sono composte da 3 tipi di layer:
 \end{figure}
 
 \subsection{Reti Neurali Ricorrenti}
+Le \textbf{Reti Neurali Ricorrenti} (Recurrent Neural Networks, RNN) sono progettate per elaborare dati sequenziali, come serie temporali o testo. Le RNN mantengono uno stato interno che viene aggiornato ad ogni passo della sequenza, permettendo alla rete di "ricordare" informazioni precedenti e di catturare dipendenze temporali nei dati.
+
+Si parla di reti neurali \emph{ricorrenti} perché i neuroni in un layer possono avere connessioni che ritornano a se stessi o ad altri neuroni nello stesso layer, creando cicli nel grafo computazionale, chiamati \textbf{layer ricorrenti}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{images/rnn_example.png}
+    \caption{A sinistra, l'unità base di una rete neurale ricorrente (RNN), in cui lo stato nascosto $\mathbf{s}$ viene aggiornato combinando l'input corrente $\mathbf{x}$ con lo stato precedente tramite le matrici di pesi $\mathbf{U}$, $\mathbf{W}$ e genera l'output $\mathbf{y}$ tramite $\mathbf{V}$. A destra, la stessa RNN “unrolled” per $n$ passi temporali, con la catena di stati $\mathbf{s}_1,\dots,\mathbf{s}_n$ e dei corrispondenti input $\mathbf{x}_1,\dots,\mathbf{x}_n$ e output $\mathbf{y}_1,\dots,\mathbf{y}_n$.}
+    \label{fig:rnn_example}
+\end{figure}
+
+\paragraph{Input di una RNN.}
+L'input di una RNN è una sequenza di vettori:
+\[
+x = (x_1, x_2, \ldots, x_T)
+\]
+dove ogni vettore $x_t$ rappresenta l'input al tempo $t$, consegnando una sequenza di output di vettori:
+\[
+y = (y_1, y_2, \ldots, y_T)
+\]
+
+I pesi della rete sono condivisi da tutti i nodi del layer ricorrente e sono rappresentati da tre matrici:
+
+\begin{itemize}
+    \item $\mathbf{U}$: matrice dei pesi che collega l'input $\mathbf{x}_t$ allo stato nascosto $\mathbf{s}_t$.
+    \item $\mathbf{W}$: matrice dei pesi che collega lo stato nascosto precedente $\mathbf{s}_{t-1}$ allo stato nascosto corrente $\mathbf{s}_t$.
+    \item $\mathbf{V}$: matrice dei pesi che collega lo stato nascosto corrente $\mathbf{s}_t$ all'output $\mathbf{y}_t$.
+\end{itemize}
+
+Chiamiamo $\mathbf{s}_t$ lo stato nascosto della RNN al tempo $t$.  
+Lo stato nascosto viene aggiornato combinando l'input corrente $\mathbf{x}_t$ con lo stato precedente $\mathbf{s}_{t-1}$:
+
+\[
+\mathbf{s}_t = f(\mathbf{U}\,\mathbf{x}_t + \mathbf{W}\,\mathbf{s}_{t-1} + \mathbf{b})
+\]
+
+dove $f$ è una funzione di attivazione non lineare (ad esempio \textit{tanh} o ReLU) e $\mathbf{b}$ è il bias associato allo stato nascosto.
+
+L'output al tempo $t$ si ottiene applicando la matrice $\mathbf{V}$ allo stato nascosto:
+\[
+\mathbf{y}_t = \mathbf{V}\,\mathbf{s}_t .
+\]
+
+Uno dei problemi principali di queste RNN sono le \textbf{sequenze di lunghezza variabile}. Per gestirlo, si possono utilizzare due tecniche:
+\begin{description}
+    \item[Zero Padding] - Come nel caso delle CNN, si possono aggiungere zeri alla fine delle sequenze più corte per uniformare la lunghezza di tutte le sequenze nel batch.
+    \item[Bucketing] - Si possono raggruppare le sequenze in "bucket" in base alla loro lunghezza, in modo che tutte le sequenze in un bucket abbiano la stessa lunghezza. In questo modo, si può addestrare la RNN su ciascun bucket separatamente, evitando di dover gestire sequenze di lunghezza variabile all'interno dello stesso batch. 
+\end{description}
+
+Si possono anche \textbf{combinare} le due tecniche: si costruiscono diversi bucket che \emph{gestiscono} sequenze di lunghezza simile, e all'interno di ogni bucket si applica lo zero padding per \emph{uniformare} la lunghezza delle sequenze.
+
+Un limite delle RNN, però, è l'apprendimento di relazioni "distanti", ovvero la difficoltà di catturare dipendenze a lungo termine nelle sequenze. Questo causa a livello di calcolo differenziale il problema del \textbf{vanishing gradient}, in cui i gradienti calcolati durante la backpropagation diventano molto piccoli, rendendo difficile l'aggiornamento efficace dei pesi associati a queste dipendenze lontane.
 
 \section*{Riferimenti}
 I riferimenti di questo capitolo includono:

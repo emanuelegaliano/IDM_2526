@@ -1408,6 +1408,11 @@ INPUT ./images/graph_neural_network.png
 INPUT images/graph_neural_network.png
 INPUT ./images/graph_neural_network.png
 INPUT ./images/graph_neural_network.png
+INPUT ./images/rnn_example.png
+INPUT ./images/rnn_example.png
+INPUT images/rnn_example.png
+INPUT ./images/rnn_example.png
+INPUT ./images/rnn_example.png
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex

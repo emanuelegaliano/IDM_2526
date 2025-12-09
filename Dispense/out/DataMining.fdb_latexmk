@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber out/DataMining"] 1765189954.69629 "out/DataMining.bcf" "out/DataMining.bbl" "out/DataMining" 1765230660.67704 0
-  "out/DataMining.bcf" 1765230660.46807 109120 96839b7770ce67d06efbeb3121e3c5d2 "pdflatex"
+["biber out/DataMining"] 1765189954.69629 "out/DataMining.bcf" "out/DataMining.bbl" "out/DataMining" 1765310169.21481 0
+  "out/DataMining.bcf" 1765310169.10634 109120 96839b7770ce67d06efbeb3121e3c5d2 "pdflatex"
   "refs.bib" 1764492941.27128 3011 442be963e092d435fb42e60f8343bfbc ""
   (generated)
   "out/DataMining.bbl"
   "out/DataMining.blg"
   (rewritten before read)
-["pdflatex"] 1765230651.71281 "/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex" "out/DataMining.pdf" "DataMining" 1765230660.67744 0
+["pdflatex"] 1765310164.88232 "/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex" "out/DataMining.pdf" "DataMining" 1765310169.21502 0
   "/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex" 1765186150.72436 3142 cf5521a6cdf879a41150a0904a768873 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
@@ -212,7 +212,7 @@
   "chapters/preprocessing.tex" 1764456287.36442 24297 d4bf265c01ca12b185908cfca3374d6d ""
   "chapters/prerequisiti_matematici.tex" 1765185770.29691 74 afacb3140f05cbe431174f9b9992b342 ""
   "chapters/regressione.tex" 1764455929.04356 7187 513a47632411b3842d749ca0f594a4a6 ""
-  "chapters/reti_neurali.tex" 1765230642.8789 44601 247ee738035cc5fb484cc230679f41db ""
+  "chapters/reti_neurali.tex" 1765310164.7643 48545 500d71b4e6e19583f9e97f45cca9f2aa ""
   "chapters/subgraphmatching.tex" 1764494053.02158 33890 a039fcc78c13fc6912f65006a1f8fa40 ""
   "chapters/transformer_llm.tex" 1764456060.61277 42 e73bed8c201f999afed985473e209106 ""
   "images/HDBSCAN_example.png" 1760627889.26441 139652 088735e553ae078005010f579091bf12 ""
@@ -278,6 +278,7 @@
   "images/regression_loss.png" 1764537866.51862 70343 fd62b5bbe4dbe3d071fcf8d4ff117a3b ""
   "images/relu_function.png" 1764500358.10255 55420 18e2603e89fdd241bc50cdef71203c6c ""
   "images/ri_algorithm_example.png" 1764444479.11444 64045 5f4fb4384600cda40616272ab110e227 ""
+  "images/rnn_example.png" 1765275791.59627 46512 6623bf6f428c8ed4c7e2d95b5393e754 ""
   "images/schema_classificatore.png" 1760631366.35848 279377 c99ef6addd8b8c7a6e618f54e4e5bd87 ""
   "images/sigmoid_function.png" 1764498353.51462 50970 88f33fcbe77ecaa2b6d1900f45e9a717 ""
   "images/sing_algorithm_example.png" 1764453103.45858 53580 affde9e9170fe02fd808a8ee6a2cf621 ""
@@ -291,11 +292,11 @@
   "images/ullmann_algorithm_example.png" 1762252343.43425 842266 b8b8fbc341632df76ec332f59a3138a4 ""
   "images/vf_algorithm_example.png" 1764441451.16922 1161170 c0a247bd40a4b1ca9caec8a39a8002bb ""
   "images/weather_table.png" 1760631525.04841 124021 04522894a899a9d29cc8ca9a5345b16d ""
-  "out/DataMining.aux" 1765230660.45395 99003 bc9222c9fecedfba52ac849a8bb2595f "pdflatex"
+  "out/DataMining.aux" 1765310169.09934 100365 99dd1369fc3b36aa610fbd5eb3d83fb6 "pdflatex"
   "out/DataMining.bbl" 1765189955.15631 15099 71deabca5ea0d6aac9cb3a7a445fcf5d "biber out/DataMining"
-  "out/DataMining.out" 1765230660.46607 36748 b1b75ce7d835fd513177fe1087cdbd7b "pdflatex"
-  "out/DataMining.run.xml" 1765230660.47094 2341 7085788052d90af631c9774d41509bfd "pdflatex"
-  "out/DataMining.toc" 1765230660.47094 28218 23fd4c81e73b9e7105aaae278baaeaa7 "pdflatex"
+  "out/DataMining.out" 1765310169.10621 36748 b1b75ce7d835fd513177fe1087cdbd7b "pdflatex"
+  "out/DataMining.run.xml" 1765310169.10894 2341 7085788052d90af631c9774d41509bfd "pdflatex"
+  "out/DataMining.toc" 1765310169.10894 28283 218b018948e5b4db873203bc7202b4b9 "pdflatex"
   (generated)
   "out/DataMining.aux"
   "out/DataMining.bcf"
