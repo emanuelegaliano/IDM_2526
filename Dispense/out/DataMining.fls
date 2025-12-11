@@ -1413,6 +1413,11 @@ INPUT ./images/rnn_example.png
 INPUT images/rnn_example.png
 INPUT ./images/rnn_example.png
 INPUT ./images/rnn_example.png
+INPUT ./images/lstm_example.png
+INPUT ./images/lstm_example.png
+INPUT images/lstm_example.png
+INPUT ./images/lstm_example.png
+INPUT ./images/lstm_example.png
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex

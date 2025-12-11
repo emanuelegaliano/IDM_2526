@@ -345,5 +345,12 @@
 \contentsline {subsection}{\numberline {11.7.3}Rete neurali di grafi}{133}{subsection.11.7.3}%
 \contentsline {subsection}{\numberline {11.7.4}Reti Neurali Ricorrenti}{134}{subsection.11.7.4}%
 \contentsline {paragraph}{Input di una RNN.}{134}{section*.157}%
-\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{137}{chapter.12}%
-\contentsline {part}{III\hspace {1em}Approfondimenti}{139}{part.3}%
+\contentsline {subsection}{\numberline {11.7.5}LSTM: Long Short-Term Memory}{135}{subsection.11.7.5}%
+\contentsline {paragraph}{Aggiornamento della cella di memoria.}{136}{section*.158}%
+\contentsline {subsection}{\numberline {11.7.6}Autoencoder}{138}{subsection.11.7.6}%
+\contentsline {paragraph}{Varianti di autoencoder.}{138}{section*.159}%
+\contentsline {subsection}{\numberline {11.7.7}Variational Autoencoder}{138}{subsection.11.7.7}%
+\contentsline {paragraph}{Loss function dei VAE.}{139}{section*.160}%
+\contentsline {paragraph}{Applicazione di VAE.}{139}{section*.161}%
+\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{141}{chapter.12}%
+\contentsline {part}{III\hspace {1em}Approfondimenti}{143}{part.3}%

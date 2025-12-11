@@ -641,6 +641,104 @@ Si possono anche \textbf{combinare} le due tecniche: si costruiscono diversi buc
 
 Un limite delle RNN, però, è l'apprendimento di relazioni "distanti", ovvero la difficoltà di catturare dipendenze a lungo termine nelle sequenze. Questo causa a livello di calcolo differenziale il problema del \textbf{vanishing gradient}, in cui i gradienti calcolati durante la backpropagation diventano molto piccoli, rendendo difficile l'aggiornamento efficace dei pesi associati a queste dipendenze lontane.
 
+\subsection{LSTM: Long Short-Term Memory}
+Per superare il problema del vanishing gradient nelle RNN, sono state sviluppate le \textbf{Long Short-Term Memory} (LSTM), un tipo speciale di RNN progettato per catturare dipendenze a lungo termine nelle sequenze. Le LSTM introducono una struttura di memoria chiamata \emph{cell state} che permette di mantenere informazioni rilevanti per periodi di tempo più lunghi. Le LSTM utilizzano tre \emph{gates} (porte) principali per controllare il flusso di informazioni nella cella di memoria:
+\begin{description}
+    \item[Forget Gate] - Decide quali informazioni dalla cella di memoria devono essere dimenticate. Utilizza una funzione sigmoide per produrre un vettore di valori tra 0 e 1, dove 0 significa "dimentica completamente" e 1 significa "mantieni completamente".
+    \item[Input Gate] - Determina quali nuove informazioni devono essere aggiunte alla cella di memoria. Anche questa gate utilizza una funzione sigmoide per selezionare le informazioni rilevanti.
+    \item[Output Gate] - Decide quali informazioni dalla cella di memoria devono essere utilizzate per calcolare l'output della LSTM. Utilizza una funzione sigmoide per selezionare le informazioni rilevanti.
+\end{description}
+
+La struttura di una LSTM è definita da:
+\begin{itemize}
+    \item Uno stato nascosto $\mathbf{H}_t$ che rappresenta la memoria corrente della rete al tempo $t$.
+    \item Una cella di memoria $\mathbf{C}_t$ che immagazzina informazioni a lungo termine.
+    \item Le tre gates $I_t, F_t, O_t$ (input, forget, output) che regolano il flusso di informazioni nella cella di memoria al tempo $t$.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/lstm_example.png}
+    \caption{Struttura interna di una cella LSTM. 
+    La cella utilizza tre gate principali — \emph{forget gate}, \emph{input gate} e \emph{output gate} — 
+    per controllare in modo dinamico il flusso di informazione nello stato interno \(C_t\) e nello stato nascosto \(H_t\). 
+    Le attivazioni sigmoide (\(\sigma\)) e tangente iperbolica (\(\tanh\)) regolano rispettivamente la selezione e la trasformazione dei valori.}
+    \label{fig:lstm_example}
+\end{figure}
+
+\paragraph{Aggiornamento della cella di memoria.}
+I pesi di una LSTM sono rappresentati da diverse matrici:
+\begin{itemize}
+    \item $\mathbf{W}_i, \mathbf{W}_f, \mathbf{W}_o$: matrici dei pesi che collegano l'input $\mathbf{x}_t$ alle rispettive gates (input, forget, output).
+    \item $\mathbf{U}_i, \mathbf{U}_f, \mathbf{U}_o$: matrici dei pesi che collegano lo stato nascosto precedente $\mathbf{H}_{t-1}$ alle rispettive gates.
+    \item $\mathbf{b}_i, \mathbf{b}_f, \mathbf{b}_o$: bias associati alle rispettive gates.
+\end{itemize}
+
+Per aggiornare la cella di memoria e lo stato nascosto al tempo $t$, si seguono questi passaggi:
+
+\begin{enumerate}
+    \item \textbf{Calcolo della forget gate.}  
+    Per prima cosa la rete decide quali informazioni della cella precedente $\mathbf{C}_{t-1}$ devono essere \emph{dimenticate}. Questo è il ruolo della \emph{forget gate} $\mathbf{F}_t$ (blocco a sinistra in figura~\ref{fig:lstm_example}):
+    \[
+        \mathbf{F}_t = \sigma\!\left(\mathbf{W}_f \mathbf{x}_t + \mathbf{U}_f \mathbf{H}_{t-1} + \mathbf{b}_f\right).
+    \]
+    Ogni componente di $\mathbf{F}_t$ è un valore tra 0 e 1: valori vicini a 0 annullano la corrispondente componente di memoria precedente, valori vicini a 1 la lasciano passare quasi inalterata.
+    \item \textbf{Calcolo della input gate.}  
+    In parallelo, la \emph{input gate} $\mathbf{I}_t$ (secondo blocco $\sigma$ in figura \ref{fig:lstm_example}) stabilisce quanto della nuova informazione candidata verrà effettivamente scritta nella cella:
+    \[
+        \mathbf{I}_t = \sigma\!\left(\mathbf{W}_i \mathbf{x}_t + \mathbf{U}_i \mathbf{H}_{t-1} + \mathbf{b}_i\right).
+    \]
+    \item \textbf{Calcolo della nuova informazione candidata.}  
+    Il nodo interno di input $\widetilde{\mathbf{C}}_t$ (blocco \texttt{tanh} al centro della figura \ref{fig:lstm_example}) produce un vettore di possibili nuovi contenuti di memoria:
+    \[
+        \widetilde{\mathbf{C}}_t = \tanh\!\left(\mathbf{W}_c \mathbf{x}_t + \mathbf{U}_c \mathbf{H}_{t-1} + \mathbf{b}_c\right),
+    \]
+    dove $\mathbf{W}_c, \mathbf{U}_c, \mathbf{b}_c$ sono i pesi specifici del nodo di input. Qui $\tanh$ comprime ogni componente in $[-1, 1]$, producendo valori “firmati” che possono sia aumentare che ridurre la memoria.
+    \item \textbf{Aggiornamento dello stato di cella.}  
+    A questo punto combiniamo la memoria precedente con la nuova informazione candidata. Come si vede dal ramo superiore della figura \ref{fig:lstm_example}, la cella viene aggiornata come:
+    \[
+        \mathbf{C}_t = \mathbf{F}_t \odot \mathbf{C}_{t-1} + \mathbf{I}_t \odot \widetilde{\mathbf{C}}_t,
+    \]
+    dove $\odot$ indica il prodotto elemento per elemento (prodotto di Hadamard). Il termine $\mathbf{F}_t \odot \mathbf{C}_{t-1}$ implementa la dimenticanza controllata (una sorta di “cancella/riduci”), mentre $\mathbf{I}_t \odot \widetilde{\mathbf{C}}_t$ rappresenta la parte di nuova informazione che viene effettivamente memorizzata.
+    \item \textbf{Calcolo della output gate.}  
+    Non tutta la memoria aggiornata $\mathbf{C}_t$ viene resa visibile all'esterno. La \emph{output gate} $\mathbf{O}_t$ (blocco $\sigma$ a destra in figura \ref{fig:lstm_example}) decide quali componenti della cella parteciperanno allo stato nascosto:
+    \[
+        \mathbf{O}_t = \sigma\!\left(\mathbf{W}_o \mathbf{x}_t + \mathbf{U}_o \mathbf{H}_{t-1} + \mathbf{b}_o\right).
+    \]
+    \item \textbf{Aggiornamento dello stato nascosto.}  
+    Infine, lo stato nascosto $\mathbf{H}_t$ (ramo inferiore della
+    figura \ref{fig:lstm_example}) viene ottenuto filtrando la memoria aggiornata
+    attraverso una non linearità $\tanh$ e modulandola con la output gate:
+    \[
+        \mathbf{H}_t = \mathbf{O}_t \odot \tanh(\mathbf{C}_t).
+    \]
+\end{enumerate}ù
+
+\subsection{Autoencoder}
+Gli \textbf{autoencoder} sono un tipo di rete neurale utilizzata principalmente per l'apprendimento non supervisionato di rappresentazioni compatte dei dati. Un autoencoder è composto da due parti principali: un \emph{encoder} e un \emph{decoder}. L'encoder comprime l'input in una rappresentazione a bassa dimensionalità (chiamata \emph{codice} o \emph{embedding}), mentre il decoder cerca di ricostruire l'input originale a partire da questa rappresentazione compressa.
+
+La loss function da minimizzare si basa sulla differenza tra l'input originale e la sua ricostruzione, spesso utilizzando la Mean Squared Error (MSE) o la Binary Cross-Entropy (BCE) a seconda del tipo di dati. Uno dei problemi di questa loss function è la dimensione dello \textbf{spazio latente}\footnote{Per spazio latente, si intende lo spazio delle rappresentazioni compresse generate dall'encoder, che dovrebbe essere di dimensione inferiore rispetto all'input originale per garantire una compressione efficace.} $F$:
+\begin{itemize}
+    \item Se $F$ è troppo grande, l'autoencoder potrebbe semplicemente imparare a copiare l'input all'output senza estrarre caratteristiche significative, portando a una scarsa generalizzazione.
+    \item Se $F$ è troppo piccolo, l'autoencoder potrebbe non essere in grado di catturare tutte le informazioni rilevanti dell'input, risultando in una ricostruzione di bassa qualità.
+\end{itemize}
+
+\paragraph{Varianti di autoencoder.}
+Oltre all'architettura di base, esistono diverse varianti di autoencoder progettate per affrontare specifici problemi o migliorare le prestazioni:
+\begin{itemize}
+    \item \textbf{Denoising Autoencoder:} Progettato per imparare rappresentazioni robuste, questo tipo di autoencoder viene addestrato a ricostruire l'input originale a partire da una versione rumorosa dello stesso. Questo aiuta la rete a imparare caratteristiche più significative e a ridurre il rumore nei dati.
+    \item \textbf{Sparse Autoencoder:} Introduce una penalizzazione sulla sparsità delle attivazioni nello spazio latente, incoraggiando la rete a utilizzare solo un piccolo numero di neuroni per rappresentare l'input. Questo può portare a rappresentazioni più interpretabili e a una migliore generalizzazione.
+\end{itemize}
+
+\subsection{Variational Autoencoder}
+Una variante avanza degli autoencoder è il \textbf{Variational Autoencoder} (VAE): utilizzano la stessa struttura degli autoencoder tradizionali, ma ricostruiscono campioni da una distribuzione probabilistica nello spazio latente invece di un singolo punto. Questo consente di generare nuovi dati simili a quelli di training, rendendo i VAE utili per compiti di generazione di dati. L'assunzione fatta è che i dati nello spazio latente siano \textbf{distribuiti} secondo una distribuzione gaussiana multivariata con media $\mu$ e deviazione standarda $\sigma$ e sono parametri appresi dalla rete in fase di training sulla basa degli input forniti.
+
+\paragraph{Loss function dei VAE.}
+Nella definizione della funzione di loss dei VAE si considera la perdita di informazione nella ricostruzione dell'input e una regolarizzazione che forza la distribuzione appresa nello spazio latente a essere vicina a una distribuzione gaussiana standard (con media 0 e deviazione standard 1). 
+
+\paragraph{Applicazione di VAE.}
+I VAE sono utilizzati in vari campi, tra cui la generazione di immagini, la modellazione del linguaggio e la sintesi di dati. La loro capacità di generare nuovi campioni simili a quelli di training li rende particolarmente utili per applicazioni creative e di simulazione.
+
 \section*{Riferimenti}
 I riferimenti di questo capitolo includono:
 \begin{itemize}
