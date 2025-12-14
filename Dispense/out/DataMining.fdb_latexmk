@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber out/DataMining"] 1765189954.69629 "out/DataMining.bcf" "out/DataMining.bbl" "out/DataMining" 1765369034.73533 0
-  "out/DataMining.bcf" 1765369034.61918 109120 96839b7770ce67d06efbeb3121e3c5d2 "pdflatex"
+["biber out/DataMining"] 1765189954.69629 "out/DataMining.bcf" "out/DataMining.bbl" "out/DataMining" 1765726743.37011 0
+  "out/DataMining.bcf" 1765726743.25658 109120 96839b7770ce67d06efbeb3121e3c5d2 "pdflatex"
   "refs.bib" 1764492941.27128 3011 442be963e092d435fb42e60f8343bfbc ""
   (generated)
   "out/DataMining.bbl"
   "out/DataMining.blg"
   (rewritten before read)
-["pdflatex"] 1765369030.03472 "/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex" "out/DataMining.pdf" "DataMining" 1765369034.73555 0
-  "/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex" 1765186150.72436 3142 cf5521a6cdf879a41150a0904a768873 ""
+["pdflatex"] 1765726738.75367 "/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex" "out/DataMining.pdf" "DataMining" 1765726743.37033 0
+  "/home/manu/Documents/Data mining/IDM_2526/Dispense/DataMining.tex" 1765722417.32341 3179 d04ac0639c7c4e4b5d2f5ea685c1e1c8 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc" 1202520719 3486 c7eadf5dcc57b3b2d11736679f6636ba ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
@@ -202,9 +202,10 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1764115200 40900 887e0dc8cac988a9e9c574af364cf837 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1765227749.68386 4547210 0b4d8bce3d83ee4f50b88a57a6a0d7ef ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1765227292 7753934 fcc119afe311e3a438141b2d30925fbf ""
-  "DataMining.tex" 1765186150.72436 3142 cf5521a6cdf879a41150a0904a768873 ""
+  "DataMining.tex" 1765722417.32341 3179 d04ac0639c7c4e4b5d2f5ea685c1e1c8 ""
   "chapters/classificazione.tex" 1764267359.21884 50871 b12b8189d4bd8011c6271239c10e4d74 ""
   "chapters/clustering.tex" 1765186884.63495 27060 d7c3c354a082eac730c8d6a1b8c75623 ""
+  "chapters/clustering_corretto.tex" 1765726734.04662 23360 79231dee799310d4355c808e146f3ce3 ""
   "chapters/frequent_subgraph_matching.tex" 1764492960.16653 26525 87f6a40c3e6a96c709e76ddbef39f50c ""
   "chapters/grafi.tex" 1764456567.16524 21061 2b6cdc84f598934df3912d10bfcaa7d7 ""
   "chapters/insiemi_frequenti.tex" 1764412862.28775 13735 a99d1c54efedf2ee3082822d99e88711 ""
@@ -293,11 +294,11 @@
   "images/ullmann_algorithm_example.png" 1762252343.43425 842266 b8b8fbc341632df76ec332f59a3138a4 ""
   "images/vf_algorithm_example.png" 1764441451.16922 1161170 c0a247bd40a4b1ca9caec8a39a8002bb ""
   "images/weather_table.png" 1760631525.04841 124021 04522894a899a9d29cc8ca9a5345b16d ""
-  "out/DataMining.aux" 1765369034.61108 102226 3af0e7028605200ba0656a9b1807f887 "pdflatex"
+  "out/DataMining.aux" 1765726743.24955 106994 a6417d7920e765f7b04d653a6d026cb4 "pdflatex"
   "out/DataMining.bbl" 1765189955.15631 15099 71deabca5ea0d6aac9cb3a7a445fcf5d "biber out/DataMining"
-  "out/DataMining.out" 1765369034.61918 37265 d36f1e93dfa34fa6c5e250552f428535 "pdflatex"
-  "out/DataMining.run.xml" 1765369034.62101 2341 7085788052d90af631c9774d41509bfd "pdflatex"
-  "out/DataMining.toc" 1765369034.62101 28862 c29aa2eb692b78e432061818ad43f196 "pdflatex"
+  "out/DataMining.out" 1765726743.25561 40808 b57a543477cd24e0f2a545cf5cdf49a0 "pdflatex"
+  "out/DataMining.run.xml" 1765726743.25791 2341 7085788052d90af631c9774d41509bfd "pdflatex"
+  "out/DataMining.toc" 1765726743.25791 30904 3ef028666e0442857883aa6582dc11a8 "pdflatex"
   (generated)
   "out/DataMining.aux"
   "out/DataMining.bcf"
