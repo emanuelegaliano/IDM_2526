@@ -340,4 +340,7 @@
 \contentsline {paragraph}{Loss function dei VAE.}{143}{section*.219}%
 \contentsline {paragraph}{Applicazione di VAE.}{143}{section*.220}%
 \contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{145}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Transformer}{145}{section.12.1}%
+\contentsline {subsection}{\numberline {12.1.1}Seq2seq}{145}{subsection.12.1.1}%
+\contentsline {paragraph}{Limitazioni delle RNN.}{145}{section*.223}%
 \contentsline {part}{III\hspace {1em}Approfondimenti}{147}{part.3}%

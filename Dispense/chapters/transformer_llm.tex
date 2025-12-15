@@ -1,1 +1,21 @@
 \chapter{Introduzione a Transformer e LLM}
+I transformer e i modelli di linguaggio di grandi dimensioni (LLM) hanno rivoluzionato il campo dell'elaborazione del linguaggio naturale (NLP) e dell'intelligenza artificiale. In particolare, i transformer hanno introdotto un nuovo paradigma per la modellazione delle sequenze, superando molte delle limitazioni dei modelli precedenti come le reti neurali ricorrenti (RNN) e le Long Short-Term Memory (LSTM).
+
+\section{Transformer}
+Le reti neurali ricorrenti (RNN) sono particolarmente \emph{efficaci} nella gestione di \textbf{sequenza di dati}, come il testo, grazie alla loro capacità di mantenere uno stato interno che può catturare informazioni a lungo termine.
+
+\subsection{Seq2seq}
+Una tipologia di RN, nota come \textbf{seq2seq}, è stata utilizzata per \textbf{trasformare} una sequenza di elementi (come delle parole in una frase) in un'altra sequenza di elementi (come la traduzione di quella frase in un'altra lingua). Questa architettura è stata ampiamente adottata in compiti di traduzione automatica, generazione di testo e altre applicazioni di NLP, in particolare grazie a un modello specifico di seq2seq di tipo \textbf{LSTM}, che memorizza le dipendenze tra termini importanti in sequenze molto lunghe.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/seq2seq.png}
+    \caption{Schema di un modello \emph{encoder--decoder} basato su reti neurali ricorrenti.
+    L'\textbf{encoder} riceve in ingresso una sequenza $x^{(1)}, x^{(2)}, \ldots, x^{(T)}$ e la comprime in una rappresentazione latente finale.
+    Il \textbf{decoder} utilizza tale rappresentazione per generare iterativamente la sequenza di output
+    $y^{(1)}, y^{(2)}, \ldots, y^{(T')}$, producendo a ogni passo un simbolo di uscita fino al token di fine sequenza (\texttt{<End>}).
+    Le frecce ricorsive indicano la dipendenza temporale tra gli stati consecutivi.}
+\end{figure}
+
+\paragraph{Limitazioni delle RNN.}
+Una delle limitazioni di questi modelli di reti neurali è

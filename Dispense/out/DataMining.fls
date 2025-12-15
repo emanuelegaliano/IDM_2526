@@ -1460,6 +1460,11 @@ INPUT chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex
 INPUT ./chapters/transformer_llm.tex
 INPUT chapters/transformer_llm.tex
+INPUT ./images/seq2seq.png
+INPUT ./images/seq2seq.png
+INPUT images/seq2seq.png
+INPUT ./images/seq2seq.png
+INPUT ./images/seq2seq.png
 INPUT out/DataMining.aux
 INPUT out/DataMining.out
 INPUT out/DataMining.out
@@ -1487,6 +1492,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr8.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmr9.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmri10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy10.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy6.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmsy8.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/lm/lmtt10.pfb
