@@ -1,13 +1,10 @@
-\chapter{Introduzione a Transformer e LLM}
+\chapter{Introduzione a Transformer, LLM e Vector Databases}
 I transformer e i modelli di linguaggio di grandi dimensioni (LLM) hanno rivoluzionato il campo dell'elaborazione del linguaggio naturale (NLP) e dell'intelligenza artificiale. In particolare, i transformer hanno introdotto un nuovo paradigma per la modellazione delle sequenze, superando molte delle limitazioni dei modelli precedenti come le reti neurali ricorrenti (RNN) e le Long Short-Term Memory (LSTM).
 
 \section{Transformer}
 Le reti neurali ricorrenti (RNN) sono particolarmente \emph{efficaci} nella gestione di \textbf{sequenza di dati}, come il testo, grazie alla loro capacità di mantenere uno stato interno che può catturare informazioni a lungo termine.
 
-\subsection{Seq2seq}
-Una tipologia di RN, nota come \textbf{seq2seq}, è stata utilizzata per \textbf{trasformare} una sequenza di elementi (come delle parole in una frase) in un'altra sequenza di elementi (come la traduzione di quella frase in un'altra lingua). Questa architettura è stata ampiamente adottata in compiti di traduzione automatica, generazione di testo e altre applicazioni di NLP, in particolare grazie a un modello specifico di seq2seq di tipo \textbf{LSTM}, che memorizza le dipendenze tra termini importanti in sequenze molto lunghe.
-
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/seq2seq.png}
     \caption{Schema di un modello \emph{encoder--decoder} basato su reti neurali ricorrenti.
@@ -17,5 +14,184 @@ Una tipologia di RN, nota come \textbf{seq2seq}, è stata utilizzata per \textbf
     Le frecce ricorsive indicano la dipendenza temporale tra gli stati consecutivi.}
 \end{figure}
 
+\subsection{Seq2seq}
+Una tipologia di RN, nota come \textbf{seq2seq}, è stata utilizzata per \textbf{trasformare} una sequenza di elementi (come delle parole in una frase) in un'altra sequenza di elementi (come la traduzione di quella frase in un'altra lingua). Questa architettura è stata ampiamente adottata in compiti di traduzione automatica, generazione di testo e altre applicazioni di NLP, in particolare grazie a un modello specifico di seq2seq di tipo \textbf{LSTM}, che memorizza le dipendenze tra termini importanti in sequenze molto lunghe.
+
 \paragraph{Limitazioni delle RNN.}
-Una delle limitazioni di questi modelli di reti neurali è
+Una delle limitazioni di questi modelli di reti neurali è l'elaborazione di lunghe sequenze di dati: man mano che la lunghezza della sequenza aumenta, diventa sempre più difficile per il modello catturare le dipendenze a lungo termine tra gli elementi della sequenza. Un punto di forza invece è la capacità di elaborare in modo parallelo le sequenze di dati.
+
+\subsection{Architettura Encoder - Decoder}
+Il transformer utilizza un'architettura \textbf{encoder-decoder} per gestire le sequenze di dati. L'encoder prende in input una sequenza di elementi e li trasforma in una rappresentazione interna, mentre il decoder utilizza questa rappresentazione per generare la sequenza di output desiderata.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.42\textwidth}
+\vspace{0pt}
+Rispetto alle reti neurali tradizionali (come RNN e CNN), i \emph{Transformer}
+introducono due elementi fondamentali:
+
+\begin{itemize}[leftmargin=1.2em]
+    \item \textbf{Self-Attention Mechanism}.  
+    Ogni elemento della sequenza può pesare dinamicamente l'importanza degli altri,
+    consentendo al modello di catturare dipendenze anche a lungo raggio
+    senza ricorrere a strutture ricorsive.
+    
+    \item \textbf{Positional Encoding}.  
+    Poiché l'architettura non è sequenziale, le informazioni sulla posizione
+    vengono sommate agli embedding di input e output, permettendo al modello
+    di preservare l'ordine degli elementi nella sequenza.
+\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.54\textwidth}
+\vspace{0pt}
+\centering
+\includegraphics[width=\linewidth]{images/transformer_architecture.png}
+\caption{Architettura encoder--decoder di un Transformer.}
+\label{fig:transformer-architecture}
+\end{minipage}
+\end{figure}
+
+\subsection{Tokenizzazione ed Embedding}
+Prima di essere elaborati dal transformer, i dati di input (come il testo) vengono suddivisi in unità più piccole chiamate \textbf{token}. Questi token possono essere parole, sottoparole o caratteri, a seconda della strategia di tokenizzazione utilizzata. Ogni token viene quindi convertito in un vettore numerico, \emph{embedding}, che rappresenta le sue caratteristiche semantiche.
+
+La tokenizzazione non richiede la rimozione di stopword, stemming e troncatura in quanto i modelli transformer sono in grado di apprendere le relazioni tra i token anche in presenza di tali elementi.
+
+Gli \textbf{embedding} sono rappresentazioni vettoriali dense che catturano le caratteristiche semantiche dei token. Questi vettori vengono appresi durante il processo di addestramento del modello e consentono al transformer di comprendere le relazioni tra i token in uno spazio continuo.
+
+La scelta della strategia di tokenizzazione e della dimensione degli embedding può influenzare significativamente le prestazioni del modello, ma per l'embedding esistono metodi matematici per verificare la similarità semantica tra parole, come ad esempio il calcolo della distanza coseno tra i vettori di embedding: due parole con significati simili avranno vettori di embedding vicini nello spazio vettoriale, mentre parole con significati diversi saranno rappresentate da vettori più distanti, questo implica che la distanza del coseno sarà vicina a $1$ per parole simili (o $-1$ per parole di significato opposto) e vicina a $0$ per parole diverse.
+
+\subsection{Encoding posizionale}
+Poiché l'architettura del transformer non è sequenziale, è necessario fornire al modello informazioni sulla posizione dei token nella sequenza. Questo viene fatto attraverso l'\textbf{encoding posizionale}, che aggiunge un vettore di posizione agli embedding dei token. Questo permette al modello di distinguere tra token che appaiono in posizioni diverse nella sequenza. In particolare, vengono utilizzate le funzioni seno e coseno per generare gli encoding posizionali, in modo che il modello possa apprendere le relazioni tra le posizioni dei token in modo più efficace.
+
+Considerando una sequenza di $L$ token, dove ogni token è stato codificato con un vettore di embedding di dimensione pari a $d_{model}$, l'encoding posizionale viene calcolato come segue:
+\[
+\mathrm{PE}(pos,2i)=\sin\!\left(\frac{pos}{10000^{\,\frac{2i}{d_{\text{model}}}}}\right),
+\qquad
+\mathrm{PE}(pos,2i+1)=\cos\!\left(\frac{pos}{10000^{\,\frac{2i}{d_{\text{model}}}}}\right).
+\]
+
+dove $pos$ è la posizione del token nella sequenza (da $0$ a $L-1$) e $i$ è l'indice della dimensione dell'embedding (da $0$ a $d_{model}-1$). Questo metodo garantisce che ogni posizione nella sequenza abbia un encoding unico e che le relazioni tra le posizioni siano rappresentate in modo continuo.
+
+Questo meccanismo permette al modello di apprendere le relazioni tra i token in base alla loro posizione relativa, migliorando così la capacità del transformer di comprendere il contesto della sequenza.
+
+\subsection{Meccanismo di Self-Attention}
+Il meccanismo di \textbf{self-attention} è uno degli elementi chiave che distingue i transformer dalle architetture precedenti. Questo meccanismo consente al modello di pesare dinamicamente l'importanza di ogni token rispetto agli altri token nella sequenza, permettendo di catturare dipendenze a lungo raggio senza dover ricorrere a strutture ricorsive.
+
+Partendo dalla sequenza di ingresso suddivisa in $L$ token, ad ogni token viene associato un vettore di embedding di dimensione $d_{model}$. Questi vettori vengono poi trasformati in tre diverse rappresentazioni:
+\begin{itemize}
+    \item \textbf{Query (Q)} $XW_q$: rappresenta la richiesta di informazioni da parte di un token, dove $X$ è la matrice degli embedding dei token e $W_q$ è una matrice di pesi appresa durante l'addestramento.
+    \item \textbf{Key (K)} $XW_k$: rappresenta le caratteristiche dei token che possono essere utili per rispondere alla query, dove $W_k$ è un'altra matrice di pesi appresa.
+    \item \textbf{Value (V)} $XW_v$: rappresenta le informazioni effettive associate ai token, dove $W_v$ è una terza matrice di pesi appresa.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{images/transformer_self_attention.png}
+    \caption{Schema del meccanismo di \emph{self-attention} per una singola testa di attenzione.
+    A partire dagli embedding di input, il modello costruisce tre rappresentazioni ($Q$, $K$ e $V$) tramite proiezioni lineari.
+    Le similarità tra query e key determinano i pesi di attenzione, che vengono normalizzati con una softmax.
+    Tali pesi sono poi utilizzati per combinare i value, producendo embedding finali arricchiti dal contesto della sequenza.}
+\end{figure}
+
+\noindent
+Si può dividere le operazioni fatte nel meccanismo di self-attention in:
+\begin{enumerate}
+    \item \textbf{Prima operazione.} - Calcolo delle similarità tra le query e le key tramite il prodotto scalare:
+    \[
+    \text{scores} = \frac{QK^T}{\sqrt{d_k}},
+    \]
+    dove $d_k$ è la dimensione delle key. Questo passaggio produce una matrice di punteggi che indica quanto ogni token dovrebbe prestare attenzione agli altri token nella sequenza.
+    \item \textbf{Seconda operazione.} - Applicare un fattore di scala per evitare valori troppo piccoli (o troppo grandi) del gradiente durante l'addestramento.
+    \item \textbf{Terza operazione.} - Questa operazione è opzionale e consiste nell'applicare una \textbf{maschera}: si applica una maschera alle matrici dei pesi per impedire al modello di prestare attenzione a determinati token, per consentire al modello di gestire sequenze di lunghezza variabile. Alcuni tipi di maschere:
+    \begin{itemize}
+        \item \textbf{Padding Mask}: Utilizzata per ignorare i token di padding che vengono aggiunti per uniformare la lunghezza delle sequenze in un batch.
+        \item \textbf{Future attention Mask}: Utilizzata nel decoder per impedire al modello di prestare attenzione ai token futuri durante la generazione della sequenza di output.
+    \end{itemize}
+    \item \textbf{Quarta operazione.} - Applicare la funzione softmax ai punteggi per ottenere una distribuzione di probabilità:
+    \[
+    \text{attention\_weights} = \text{softmax}(\text{scores}).
+    \]
+    Questo passaggio normalizza i punteggi in modo che sommino a uno, facilitando l'interpretazione come pesi di attenzione.
+    \item \textbf{Quinta operazione.} - Calcolare la somma pesata delle value utilizzando i pesi di attenzione:
+    \[
+    \text{output} = \text{attention\_weights} \cdot V.
+    \]
+    Questo produce una nuova rappresentazione della sequenza, in cui ogni token è influenzato dagli altri token in base ai pesi di attenzione calcolati.
+\end{enumerate}
+
+\paragraph{Single-head vs Multi-head attention.}
+Nel caso \emph{single-head}, il modello costruisce una sola terna di matrici $Q$, $K$ e $V$ e quindi una sola matrice di attenzione: in pratica “guarda” la sequenza con un'unica prospettiva, evidenziando soprattutto un tipo di relazione tra i token. Questo può essere limitante, perché nello stesso testo possono coesistere dipendenze diverse (ad esempio legami sintattici come soggetto--verbo e legami più semantici legati al significato complessivo). La \emph{multi-head attention} risolve il problema eseguendo più attenzioni in parallelo su proiezioni lineari diverse dell'input: ogni head può specializzarsi su un pattern differente, e alla fine i risultati vengono combinati (concatenati e riproiettati) per ottenere una rappresentazione più ricca e informativa della sequenza.
+
+\section{LLM: Large Language Models}
+I modelli di linguaggio di grandi dimensioni (LLM) sono modelli di intelligenza artificiale progettati per comprendere, generare e manipolare il linguaggio naturale suna vasta scala. Questi modelli sono addestrati su enormi quantità di dati testuali, spesso provenienti da libri, articoli, siti web e altre fonti, per apprendere le strutture linguistiche, il vocabolario e le sfumature del linguaggio umano.
+
+\subsection{Caratteristiche principali}
+Gli LLM solitamente svolgono due compiti principali:
+\begin{description}
+    \item[Generativi.] - Possono generare testo coerente e contestualmente rilevante in risposta a un prompt o una domanda. Ad esempio, possono scrivere articoli, racconti, rispondere a domande o persino creare codice. Esempi di modelli generativi includono GPT-3, GPT-4 e altri modelli basati su architetture transformer.
+    \item[Auto-Encoding.] - Possono comprendere e rappresentare il significato del testo in modo più profondo, catturando le relazioni semantiche tra le parole e le frasi. Questi modelli sono spesso utilizzati per compiti di classificazione del testo, analisi del sentiment, estrazione di informazioni e altre applicazioni di NLP\footnote{Natural Language Processing, un campo dell'informatica che si occupa dell'interazione tra computer e linguaggio umano}. Esempi di modelli auto-encoding includono BERT, RoBERTa e altri modelli basati su architetture transformer.
+\end{description}
+
+\subsection{Applicazioni}
+I LLM trovano applicazione in una vasta gamma di settori e compiti, tra cui:
+\begin{itemize}
+    \item \textbf{Classificazione di testi}: assegnare etichette o categorie a documenti, email, recensioni, ecc.
+    \item \textbf{Traslazione}: tradurre testi da una lingua all'altra, mantenendo il significato e il contesto. Un esempio che non sia su lingue umane è la traduzione di codice da un linguaggio di programmazione a un altro (o da linguaggio naturale a codice).
+    \item \textbf{Testo libero}: generare articoli, storie, poesie o altri contenuti testuali in modo autonomo.
+\end{itemize}
+
+\paragraph{Temperatura.}
+Un parametro importante nei LLM generativi è la \textbf{temperatura}, che controlla il livello di casualità nella generazione del testo. Una temperatura più bassa (ad esempio 0.2) rende il modello più conservativo, producendo risposte più prevedibili e coerenti. Al contrario, una temperatura più alta (ad esempio 0.8) introduce più varietà e creatività nelle risposte, ma può anche portare a risultati meno coerenti o rilevanti.
+
+\subsection{Pre-Training e Fine-Tuning}
+I LLM vengono solitamente addestrati in due fasi principali: \textbf{pre-training} e \textbf{fine-tuning}. Durante il pre-training, il modello viene addestrato su un vasto corpus di testo per apprendere le strutture linguistiche generali. Successivamente, durante il \emph{fine-tuning} (anche chiamato transfer learning), il modello viene ulteriormente addestrato su un set di dati più specifico per adattarlo a compiti particolari o domini specifici. Questo approccio consente di sfruttare le conoscenze acquisite durante il pre-training e di adattarle a nuove situazioni, migliorando le prestazioni del modello in compiti specifici.
+
+Un esempio è BERT: è stato pre-allenato su due \textbf{corpora}\footnote{Un corpus (plurale: corpora) è una raccolta di testi o documenti utilizzati per l'analisi linguistica o l'addestramento di modelli di linguaggio.}:
+\begin{itemize}
+    \item \textbf{English wikipedia}: una vasta raccolta di articoli enciclopedici in lingua inglese.
+    \item \textbf{BookCorpus}: un insieme di oltre 11.000 libri di narrativa non protetti da copyright.
+\end{itemize}
+
+Dopo il pre-allenamento, BERT può essere \textbf{fine-tuned} su compiti specifici come l'analisi del sentiment, la risposta a domande o la classificazione di testi, utilizzando set di dati più piccoli e mirati.
+
+\subsection{Prompt}
+I LLM generativi spesso utilizzano un meccanismo chiamato \textbf{prompting} per guidare la generazione del testo. Un prompt è una breve frase o un insieme di istruzioni fornite al modello per indicare il tipo di risposta desiderata. Ad esempio, un prompt potrebbe essere una domanda specifica, una frase incompleta o un contesto che il modello deve completare. I prompt possono essere progettati in modo da influenzare il tono, lo stile o il contenuto della risposta generata dal modello.
+
+Un prompt deve essere chiaro, specifico e \textbf{diretto} per ottenere i migliori risultati. Inoltre, si possono inserire esempi nel prompt per guidare ulteriormente il modello nella generazione del testo desiderato oppure dichiarare il formato di output atteso (ad esempio, elenchi puntati, tabelle, ecc.).
+
+\subsection{RAG: Retrieval-Augmented Generation}
+Gli LLM possono essere combinati con sistemi di recupero delle informazioni per migliorare la qualità e la pertinenza delle risposte generate. Questo approccio è noto come \textbf{Retrieval-Augmented Generation} (RAG). In un sistema RAG, il modello di linguaggio viene integrato con un motore di ricerca o un database che può fornire informazioni aggiuntive rilevanti per il contesto della domanda o del prompt. Quando viene posta una domanda, il sistema RAG prima recupera i documenti o le informazioni pertinenti dal database e poi utilizza queste informazioni per generare una risposta più accurata e informata
+
+\paragraph{Esempio.}
+Supponiamo di avere un LLM integrato con un database di conoscenze mediche. Quando un utente chiede: "Quali sono i sintomi del diabete?", il sistema RAG recupera informazioni pertinenti dal database, come articoli medici o linee guida cliniche, e le utilizza per generare una risposta dettagliata che elenca i sintomi del diabete, come sete eccessiva, minzione frequente, affaticamento e perdita di peso inspiegabile.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{images/rag_llm.jpg}
+    \caption{Schema del processo di \emph{Retrieval-Augmented Generation} (RAG).
+    A partire da un prompt e una query, il sistema recupera informazioni rilevanti da fonti di conoscenza esterne,
+    le integra nel contesto e le fornisce al modello di linguaggio, che genera una risposta finale più informata e coerente.}
+\end{figure}
+
+\section{Vector Databases}
+I database vettoriali sono sistemi di gestione dei dati progettati per memorizzare, indicizzare e recuperare vettori ad alta dimensione in modo efficiente. Questi database sono particolarmente utili in applicazioni che coinvolgono l'elaborazione del linguaggio naturale, la visione artificiale e altre aree dell'intelligenza artificiale, dove i dati vengono spesso rappresentati come vettori in uno spazio multidimensionale.
+
+Nel caso dei transformer e dei LLM, i database vettoriali possono essere utilizzati per \textbf{memorizzare} gli \textbf{embedding} generati dai modelli. Per tornare i chunk simili alla query vengono utilizzate \textbf{misure di similarità} come la distanza coseno o la distanza euclidea tra i vettori di embedding.
+
+\subsection{Splitting in chunk}
+Uno dei problemi della ricerca in un database vettoriale è la gestione di documenti lunghi: per risolvere questo problema, i documenti vengono suddivisi in \textbf{chunk} più piccoli (ad esempio, paragrafi o frasi) prima di essere convertiti in vettori di embedding. Questo consente di migliorare la precisione della ricerca, poiché i chunk più piccoli possono essere più rilevanti per una query specifica rispetto a un intero documento.
+
+Esistono diversi modi per dividere un documento in chunk:
+\begin{description}
+    \item[Chunk con dimensione fissa.] - Si suddivide il testo in segmenti di lunghezza predefinita (ad esempio, 100 parole o 512 token). Questo metodo è semplice da implementare, ma potrebbe non rispettare i confini naturali del testo, come frasi o paragrafi. In generale non è un buon metodo per mantenere il contesto.
+    \item[Chunk con overlapping.] - Simile al metodo precedente, ma con una sovrapposizione tra i chunk consecutivi (ad esempio, 50 parole) nella parte finale di un chunk e la parte iniziale del successivo. Questo aiuta a preservare il contesto tra i chunk, ma aumenta la quantità di dati da memorizzare.
+\end{description}
+
+\subsection{Memorizzazione nel database vettoriale}
+Per ridurre il numero di chunk e migliorare la coerenza del contesto, si possono utilizzare delle tecniche più avanzate come il \emph{clustering} basato su similarità semantica o l'analisi della struttura del testo (ad esempio, suddividere in paragrafi o sezioni basate su titoli e sottotitoli).
+
+Una volta diviso i testi in chunk, essi vengono convertiti in vettori di embedding utilizzando un modello di linguaggio pre-addestrato. Questi vettori vengono poi memorizzati nel database vettoriale insieme a metadati associati, come l'identificatore del documento originale, la posizione del chunk nel documento e altre informazioni rilevanti.
+
+\subsection{Graph-RAG}
+Un'estensione del concetto di RAG è il \textbf{Graph-RAG} (Graph Retrieval-Augmented Generation), che combina i modelli di linguaggio con database vettoriali strutturati come grafi. In un sistema Graph-RAG, i nodi del grafo rappresentano entità o concetti, mentre gli archi rappresentano le relazioni tra di essi. Questo approccio consente di catturare meglio le connessioni semantiche tra le informazioni e di migliorare la qualità delle risposte generate dal modello di linguaggio.  Quando viene posta una domanda, il sistema Graph-RAG può utilizzare il grafo per recuperare informazioni pertinenti e le relazioni tra di esse, fornendo un contesto più ricco al modello di linguaggio per generare una risposta accurata e informata.

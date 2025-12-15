@@ -604,14 +604,35 @@
 \abx@aux@segm{0}{0}{Leskovec2014MMDS}
 \@writefile{toc}{\contentsline {paragraph}{Loss function dei VAE.}{143}{section*.219}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Applicazione di VAE.}{143}{section*.220}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{145}{chapter.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {12}Introduzione a Transformer, LLM e Vector Databases}{145}{chapter.12}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {12.1}Transformer}{145}{section.12.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {12.1.1}Seq2seq}{145}{subsection.12.1.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Limitazioni delle RNN.}{145}{section*.223}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {12.1}{\ignorespaces Schema di un modello \emph  {encoder--decoder} basato su reti neurali ricorrenti. L'\textbf  {encoder} riceve in ingresso una sequenza $x^{(1)}, x^{(2)}, \ldots  , x^{(T)}$ e la comprime in una rappresentazione latente finale. Il \textbf  {decoder} utilizza tale rappresentazione per generare iterativamente la sequenza di output $y^{(1)}, y^{(2)}, \ldots  , y^{(T')}$, producendo a ogni passo un simbolo di uscita fino al token di fine sequenza (\texttt  {<End>}). Le frecce ricorsive indicano la dipendenza temporale tra gli stati consecutivi.\relax }}{146}{figure.caption.222}\protected@file@percent }
-\@writefile{toc}{\contentsline {part}{III\hspace  {1em}Approfondimenti}{147}{part.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1.2}Architettura Encoder - Decoder}{146}{subsection.12.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1.3}Tokenizzazione ed Embedding}{146}{subsection.12.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.2}{\ignorespaces Architettura encoder--decoder di un Transformer.\relax }}{147}{figure.caption.224}\protected@file@percent }
+\newlabel{fig:transformer-architecture}{{12.2}{147}{Architettura encoder--decoder di un Transformer.\relax }{figure.caption.224}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1.4}Encoding posizionale}{147}{subsection.12.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1.5}Meccanismo di Self-Attention}{148}{subsection.12.1.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.3}{\ignorespaces Schema del meccanismo di \emph  {self-attention} per una singola testa di attenzione. A partire dagli embedding di input, il modello costruisce tre rappresentazioni ($Q$, $K$ e $V$) tramite proiezioni lineari. Le similarità tra query e key determinano i pesi di attenzione, che vengono normalizzati con una softmax. Tali pesi sono poi utilizzati per combinare i value, producendo embedding finali arricchiti dal contesto della sequenza.\relax }}{148}{figure.caption.225}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Single-head vs Multi-head attention.}{149}{section*.226}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.2}LLM: Large Language Models}{150}{section.12.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2.1}Caratteristiche principali}{150}{subsection.12.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2.2}Applicazioni}{150}{subsection.12.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Temperatura.}{150}{section*.227}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2.3}Pre-Training e Fine-Tuning}{151}{subsection.12.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2.4}Prompt}{151}{subsection.12.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2.5}RAG: Retrieval-Augmented Generation}{151}{subsection.12.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Esempio.}{151}{section*.228}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.4}{\ignorespaces Schema del processo di \emph  {Retrieval-Augmented Generation} (RAG). A partire da un prompt e una query, il sistema recupera informazioni rilevanti da fonti di conoscenza esterne, le integra nel contesto e le fornisce al modello di linguaggio, che genera una risposta finale più informata e coerente.\relax }}{152}{figure.caption.229}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.3}Vector Databases}{152}{section.12.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3.1}Splitting in chunk}{152}{subsection.12.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3.2}Memorizzazione nel database vettoriale}{153}{subsection.12.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3.3}Graph-RAG}{153}{subsection.12.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {part}{III\hspace  {1em}Approfondimenti}{155}{part.3}\protected@file@percent }
 \abx@aux@read@bbl@mdfivesum{71DEABCA5EA0D6AAC9CB3A7A445FCF5D}
 \abx@aux@defaultrefcontext{0}{Barabasi2016NetworkScience}{nty/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{Bonnici2013RI}{nty/global//global/global/global}
@@ -621,4 +642,4 @@
 \abx@aux@defaultrefcontext{0}{Hastie2009ESL2}{nty/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{James2021ISL2}{nty/global//global/global/global}
 \abx@aux@defaultrefcontext{0}{Leskovec2014MMDS}{nty/global//global/global/global}
-\gdef \@abspage@last{157}
+\gdef \@abspage@last{165}

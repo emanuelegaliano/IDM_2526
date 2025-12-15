@@ -339,8 +339,25 @@
 \contentsline {subsection}{\numberline {11.7.7}Variational Autoencoder}{142}{subsection.11.7.7}%
 \contentsline {paragraph}{Loss function dei VAE.}{143}{section*.219}%
 \contentsline {paragraph}{Applicazione di VAE.}{143}{section*.220}%
-\contentsline {chapter}{\numberline {12}Introduzione a Transformer e LLM}{145}{chapter.12}%
+\contentsline {chapter}{\numberline {12}Introduzione a Transformer, LLM e Vector Databases}{145}{chapter.12}%
 \contentsline {section}{\numberline {12.1}Transformer}{145}{section.12.1}%
 \contentsline {subsection}{\numberline {12.1.1}Seq2seq}{145}{subsection.12.1.1}%
 \contentsline {paragraph}{Limitazioni delle RNN.}{145}{section*.223}%
-\contentsline {part}{III\hspace {1em}Approfondimenti}{147}{part.3}%
+\contentsline {subsection}{\numberline {12.1.2}Architettura Encoder - Decoder}{146}{subsection.12.1.2}%
+\contentsline {subsection}{\numberline {12.1.3}Tokenizzazione ed Embedding}{146}{subsection.12.1.3}%
+\contentsline {subsection}{\numberline {12.1.4}Encoding posizionale}{147}{subsection.12.1.4}%
+\contentsline {subsection}{\numberline {12.1.5}Meccanismo di Self-Attention}{148}{subsection.12.1.5}%
+\contentsline {paragraph}{Single-head vs Multi-head attention.}{149}{section*.226}%
+\contentsline {section}{\numberline {12.2}LLM: Large Language Models}{150}{section.12.2}%
+\contentsline {subsection}{\numberline {12.2.1}Caratteristiche principali}{150}{subsection.12.2.1}%
+\contentsline {subsection}{\numberline {12.2.2}Applicazioni}{150}{subsection.12.2.2}%
+\contentsline {paragraph}{Temperatura.}{150}{section*.227}%
+\contentsline {subsection}{\numberline {12.2.3}Pre-Training e Fine-Tuning}{151}{subsection.12.2.3}%
+\contentsline {subsection}{\numberline {12.2.4}Prompt}{151}{subsection.12.2.4}%
+\contentsline {subsection}{\numberline {12.2.5}RAG: Retrieval-Augmented Generation}{151}{subsection.12.2.5}%
+\contentsline {paragraph}{Esempio.}{151}{section*.228}%
+\contentsline {section}{\numberline {12.3}Vector Databases}{152}{section.12.3}%
+\contentsline {subsection}{\numberline {12.3.1}Splitting in chunk}{152}{subsection.12.3.1}%
+\contentsline {subsection}{\numberline {12.3.2}Memorizzazione nel database vettoriale}{153}{subsection.12.3.2}%
+\contentsline {subsection}{\numberline {12.3.3}Graph-RAG}{153}{subsection.12.3.3}%
+\contentsline {part}{III\hspace {1em}Approfondimenti}{155}{part.3}%
