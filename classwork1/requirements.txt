@@ -1,0 +1,20 @@
+git+https://github.com/emanuelegaliano/TRACCIA.git
+
+# Core data handling
+pandas>=2.0
+numpy>=1.24
+
+# Visualization
+matplotlib>=3.7
+
+# Data mining - association rules
+mlxtend>=0.23
+
+# Machine learning / statistics
+scikit-learn>=1.3
+
+# Utilities
+tqdm>=4.66
+
+# Development / testing
+pytest>=7.4
