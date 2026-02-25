@@ -5,6 +5,5 @@ Dispense/out
 classwork1/AnonymizedFidelity.csv
 classwork1/outputs/
 
-project/datasets
-project/case2_out
-project/case2_stage
+project/src/datasets
+project/out
