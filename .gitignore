@@ -1,4 +1,10 @@
+__pycache__/
+
 Dispense/out
+
 classwork1/AnonymizedFidelity.csv
 classwork1/outputs/
-__pycache__/
+
+project/datasets
+project/case2_out
+project/case2_stage
