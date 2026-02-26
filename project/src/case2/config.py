@@ -4,10 +4,10 @@ case2/config.py
 Configurazione centrale per il package case2.
 Gestisce:
 - Path dataset
-- Parametri performance (RAM / parallelismo)
+- Parametri performance
 - Strategia gene_id
-- Logging (console e opzionalmente file)
-- Validazione finale (validate=True)
+- Logging (console e file separati)
+- Validazione finale
 """
 
 from dataclasses import dataclass, field
@@ -23,11 +23,11 @@ class Case2Config:
     # Path principali
     # -----------------------
     datasets_root: Path = Path("datasets")
-    output_dir: Path = Path("datasets/case2_generated")
-    tmp_dir: Path = Path("datasets/case2_generated/tmp")
+    output_dir: Path = Path("output")
+    tmp_dir: Path = Path("output/tmp")
 
     # -----------------------
-    # Pattern directory
+    # Directory pattern
     # -----------------------
     mutations_dir: str = "mutations"
     edges_dir: str = "edges"
@@ -38,26 +38,23 @@ class Case2Config:
     # -----------------------
     chunk_size_rows: int = 10_000
     workers: int = 1
-    use_sqlite_index: bool = True
 
     # -----------------------
-    # Gene ID Strategy
+    # Gene ID strategy
     # -----------------------
-    # "symbol"            -> matrice già a symbol
-    # "ensembl"           -> ENSG(.version) -> ENSG
-    # "ensembl_api_cache" -> usa Ensembl REST per mappare SYMBOL->ENSG (solo whitelist) e matchare ENSG nella matrice
     gene_id_mode: str = "symbol"
 
     # -----------------------
     # Validation
     # -----------------------
-    validate: bool = False  # se True, pipeline chiama validate_case2_outputs(config) a fine esecuzione
+    validate: bool = False
 
     # -----------------------
     # Logging
     # -----------------------
+    verbose: bool = True          # console logging
+    log_to_file: bool = False     # file logging
     log_level: str = "INFO"
-    log_to_file: bool = False
     log_file_path: Optional[Path] = None
     log_file_max_bytes: int = 5_000_000
     log_file_backup_count: int = 3
@@ -65,27 +62,39 @@ class Case2Config:
     # Runtime
     logger: logging.Logger = field(init=False, repr=False)
 
+    # ============================================================
+    # INIT
+    # ============================================================
+
     def __post_init__(self):
         self.datasets_root = Path(self.datasets_root)
         self.output_dir = Path(self.output_dir)
         self.tmp_dir = Path(self.tmp_dir)
 
+        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.tmp_dir.mkdir(parents=True, exist_ok=True)
+
         if self.log_to_file and self.log_file_path is None:
             self.log_file_path = self.output_dir / "case2.log"
 
-        self._ensure_directories()
         self.logger = self._setup_logger()
 
-    def _ensure_directories(self):
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-        self.tmp_dir.mkdir(parents=True, exist_ok=True)
+    # ============================================================
+    # LOGGER SETUP
+    # ============================================================
 
     def _setup_logger(self) -> logging.Logger:
         logger = logging.getLogger("case2")
         logger.setLevel(self._get_log_level())
         logger.propagate = False
 
+        # Rimuove eventuali handler precedenti
         if logger.handlers:
+            logger.handlers.clear()
+
+        # Se entrambi disabilitati → logger completamente silenzioso
+        if not self.verbose and not self.log_to_file:
+            logger.disabled = True
             return logger
 
         formatter = logging.Formatter(
@@ -93,14 +102,17 @@ class Case2Config:
             datefmt="%Y-%m-%d %H:%M:%S",
         )
 
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(self._get_log_level())
-        console_handler.setFormatter(formatter)
-        logger.addHandler(console_handler)
+        # Console handler
+        if self.verbose:
+            console_handler = logging.StreamHandler()
+            console_handler.setLevel(self._get_log_level())
+            console_handler.setFormatter(formatter)
+            logger.addHandler(console_handler)
 
+        # File handler
         if self.log_to_file:
             file_handler = RotatingFileHandler(
-                filename=self.log_file_path, # type: ignore
+                filename=self.log_file_path,
                 maxBytes=self.log_file_max_bytes,
                 backupCount=self.log_file_backup_count,
             )
@@ -108,22 +120,18 @@ class Case2Config:
             file_handler.setFormatter(formatter)
             logger.addHandler(file_handler)
 
-        logger.debug("Logger inizializzato correttamente.")
         return logger
 
     def _get_log_level(self):
         return getattr(logging, self.log_level.upper(), logging.INFO)
 
-    # -----------------------
+    # ============================================================
     # PATH HELPERS
-    # -----------------------
+    # ============================================================
+
     @property
     def mutations_path(self) -> Path:
         return self.datasets_root / self.mutations_dir
-
-    @property
-    def edges_path(self) -> Path:
-        return self.datasets_root / self.edges_dir
 
     @property
     def tumors_path(self) -> Path:

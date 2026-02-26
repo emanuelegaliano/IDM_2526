@@ -4,15 +4,16 @@ case2/gene_resolver.py
 Client Ensembl REST con cache sqlite per risolvere:
 - gene SYMBOL -> Ensembl Gene ID (ENSG...)
 
-Usato per costruire una mappa ENSG->SYMBOL per la whitelist dei geni delle mutazioni,
-evitando chiamate per ogni riga della matrice di espressione.
+Fix:
+- chiusura esplicita di HTTPError per evitare warning su finalizzazione HTTPResponse
+- gestione Retry-After su HTTP 429
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, List, Dict
+from typing import Optional
 import logging
 import sqlite3
 import json
@@ -51,10 +52,6 @@ class EnsemblRestCachedClient:
     # -----------------------------
 
     def symbol_to_ensembl_gene_id(self, symbol: str) -> Optional[str]:
-        """
-        Ritorna un Ensembl Gene ID (ENSG...) per un gene symbol.
-        Usa cache sqlite. Se non risolvibile, ritorna None (e cache-a None).
-        """
         symbol = (symbol or "").strip()
         if not symbol or symbol == ".":
             return None
@@ -116,20 +113,38 @@ class EnsemblRestCachedClient:
                     return json.loads(data)
 
             except urllib.error.HTTPError as e:
-                # 429: rate limit; 5xx: server error -> retry
-                if e.code in (429, 500, 502, 503, 504):
-                    wait = self.backoff_base_sec * (2 ** (attempt - 1))
-                    self.logger.warning(
-                        f"Ensembl REST HTTP {e.code} su symbol={symbol} (attempt {attempt}/{self.max_retries}) "
-                        f"-> retry tra {wait:.2f}s"
-                    )
-                    time.sleep(wait)
-                    last_err = e
-                    continue
+                # Importante: HTTPError è anche un file-like -> chiudere sempre.
+                try:
+                    code = e.code
+                    retry_after = e.headers.get("Retry-After") if getattr(e, "headers", None) else None
 
-                # 400/404 ecc: non retryare (tipicamente symbol non valido)
-                self.logger.warning(f"Ensembl REST HTTP {e.code} per symbol={symbol} (no-retry)")
-                return []
+                    if code in (429, 500, 502, 503, 504):
+                        if retry_after:
+                            try:
+                                wait = float(retry_after)
+                            except Exception:
+                                wait = self.backoff_base_sec * (2 ** (attempt - 1))
+                        else:
+                            wait = self.backoff_base_sec * (2 ** (attempt - 1))
+
+                        self.logger.warning(
+                            f"Ensembl REST HTTP {code} su symbol={symbol} (attempt {attempt}/{self.max_retries}) "
+                            f"-> retry tra {wait:.2f}s"
+                        )
+                        last_err = e
+                        time.sleep(wait)
+                        continue
+
+                    # 400/404 ecc: non retryare
+                    self.logger.warning(f"Ensembl REST HTTP {code} per symbol={symbol} (no-retry)")
+                    return []
+
+                finally:
+                    # chiusura esplicita per evitare warning in GC/finalizer
+                    try:
+                        e.close()
+                    except Exception:
+                        pass
 
             except urllib.error.URLError as e:
                 wait = self.backoff_base_sec * (2 ** (attempt - 1))
@@ -156,12 +171,6 @@ class EnsemblRestCachedClient:
 
     @staticmethod
     def _extract_first_ensg(payload: object) -> Optional[str]:
-        """
-        payload atteso: lista di dizionari con campi tipo:
-          - id (può essere ENSG... o altro)
-          - type (gene/transcript/...)
-        Prendiamo il primo record di tipo gene con id che inizia con ENSG.
-        """
         if not isinstance(payload, list):
             return None
 
@@ -173,7 +182,6 @@ class EnsemblRestCachedClient:
             if _type == "gene" and isinstance(_id, str) and _id.startswith("ENSG"):
                 return _id
 
-        # fallback: primo id ENSG anche se type assente
         for item in payload:
             if isinstance(item, dict):
                 _id = item.get("id")
