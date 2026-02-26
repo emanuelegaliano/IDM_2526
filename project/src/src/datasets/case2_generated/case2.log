@@ -1,0 +1,6 @@
+2026-02-26 11:45:15 | DEBUG | Logger inizializzato correttamente.
+2026-02-26 11:45:15 | INFO | Configurazione caricata correttamente.
+2026-02-26 11:45:57 | DEBUG | Logger inizializzato correttamente.
+2026-02-26 11:45:57 | INFO | Configurazione caricata correttamente.
+2026-02-26 11:46:39 | INFO | === START CASE2 PIPELINE ===
+2026-02-26 11:46:39 | ERROR | Directory mutazioni non trovata: src/datasets/mutations
