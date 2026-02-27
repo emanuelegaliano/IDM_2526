@@ -1,423 +1,513 @@
-"""
-case2/pipeline.py
-
-Pipeline Caso 2 (parallela):
-- Step 1 (mutations): parallelizza per cromosoma con ProcessPoolExecutor.
-  Ogni worker scrive part files:
-    - genes_mutations_edges.<chr>.tsv
-    - genes.<chr>.tsv  (gene_id, chromosome)
-  Poi merge nel main:
-    - genes_mutations_edges.tsv
-    - genes.tsv
-
-- Step 3 (expression): streaming della matrice, ma la risoluzione whitelist SYMBOL->ENSG
-  è parallela con ThreadPoolExecutor (I/O bound).
-
-Se config.validate=True, esegue validate_outputs a fine pipeline.
-"""
-
 from __future__ import annotations
 
 import csv
+import os
+import re
 import sys
+import math
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Set, Tuple
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
-from .config import Case2Config
-from .gene_resolver import EnsemblRestCachedClient
-
-
-# ============================================================
-# CSV FIELD LIMIT FIX
-# ============================================================
-
-def _raise_csv_field_limit():
-    max_int = sys.maxsize
-    while True:
-        try:
-            csv.field_size_limit(max_int)
-            return
-        except OverflowError:
-            max_int = int(max_int / 10)
-
-_raise_csv_field_limit()
+from case2.config import Case2Config
+from case2.gene_resolver import OfflineGeneResolver
 
 
-# ============================================================
-# PUBLIC ENTRYPOINT
-# ============================================================
-
-def run_case2(config: Case2Config):
-    logger = config.logger
-    logger.info("=== START CASE2 PIPELINE ===")
-
-    mutation_files = discover_chromosomes(config)
-    logger.info(f"Trovati {len(mutation_files)} cromosomi.")
-
-    parts_dir = config.tmp_dir / "parts"
-    parts_dir.mkdir(parents=True, exist_ok=True)
-
-    # STEP 1: parallel processing mutations
-    logger.info(f"STEP 1 (parallel) — indicizzazione mutazioni con workers={config.workers}")
-    part_edges_files, part_genes_files = parallel_index_mutations(
-        config=config,
-        mutation_files=mutation_files,
-        parts_dir=parts_dir,
-    )
-
-    # Merge parts -> final edges + genes nodes
-    logger.info("STEP 1b — merge part files in output finali")
-    merge_edges_parts(
-        part_files=part_edges_files,
-        out_path=config.genes_mutations_edges_path,
-        header=["gene_id", "mutation_id"],
-    )
-
-    genes_map = merge_genes_parts(part_genes_files)
-    write_genes_tsv(
-        out_path=config.genes_output_path,
-        genes_map=genes_map,
-    )
-    logger.info(f"genes.tsv creato | geni: {len(genes_map)}")
-
-    # STEP 3: expression edges (streaming) + whitelist mapping (parallel threads)
-    build_expression_edges(
-        config=config,
-        genes_map=genes_map,
-    )
-
-    # Validation (opzionale)
-    if config.validate:
-        logger.info("Validazione abilitata (config.validate=True). Avvio validazione output...")
-        from .validate_outputs import validate_case2_outputs  # import lazy
-        report = validate_case2_outputs(config)
-        if not report.ok:
-            logger.error("Validazione fallita. Interrompo con exit code 1.")
-            raise SystemExit(1)
-        logger.info("Validazione completata con successo.")
-
-    logger.info("=== CASE2 PIPELINE COMPLETATA ===")
+# ------------------------------------------------------------
+# CSV safety (alcune righe possono avere campi lunghi)
+# ------------------------------------------------------------
+def _set_csv_limits() -> None:
+    try:
+        csv.field_size_limit(sys.maxsize)
+    except OverflowError:
+        csv.field_size_limit(2**31 - 1)
 
 
-# ============================================================
-# DISCOVERY
-# ============================================================
+# ------------------------------------------------------------
+# Discovery
+# ------------------------------------------------------------
+@dataclass(frozen=True)
+class ChromosomeFile:
+    chromosome: str  # es "22"
+    path: Path       # file chr_22.tsv
 
-def discover_chromosomes(config: Case2Config) -> List[Path]:
-    logger = config.logger
-    mutations_dir = config.mutations_path
 
+def discover_chromosomes(config: Case2Config, logger) -> List[ChromosomeFile]:
+    mutations_dir = config.datasets_root / "mutations"
     if not mutations_dir.exists():
         logger.error(f"Directory mutazioni non trovata: {mutations_dir}")
         raise FileNotFoundError(mutations_dir)
 
     files = sorted(mutations_dir.glob("chr_*.tsv"))
     logger.info(f"Discovery completata: {len(files)} file mutazioni trovati.")
-    return files
+    chromosomes: List[ChromosomeFile] = []
+
+    rgx = re.compile(r"chr_(\d+|X|Y|MT)\.tsv$", re.IGNORECASE)
+    for fp in files:
+        m = rgx.search(fp.name)
+        if not m:
+            continue
+        chrom = m.group(1).upper()
+        # normalizziamo MT in "MT" ma nel tuo genes.tsv hai numeri: ok, lasciamo stringa
+        chromosomes.append(ChromosomeFile(chromosome=str(chrom), path=fp))
+
+    logger.info(f"Trovati {len(chromosomes)} cromosomi.")
+    return chromosomes
 
 
-# ============================================================
-# STEP 1 — PARALLEL MUTATIONS INDEXING
-# ============================================================
+# ------------------------------------------------------------
+# Step 1 worker: indicizza un cromosoma -> part edges + part genes
+# ------------------------------------------------------------
+@dataclass
+class WorkerResult:
+    chromosome: str
+    rows: int
+    edges: int
+    genes: int
+    part_edges_path: Path
+    part_genes_path: Path
 
-def parallel_index_mutations(
-    *,
+
+def _parse_gene_list(gene_field: str) -> List[str]:
+    """
+    Gene.refGene può essere:
+    - '.' oppure vuoto
+    - singolo gene
+    - lista separata da ';'
+    """
+    if not gene_field:
+        return []
+    gene_field = gene_field.strip()
+    if not gene_field or gene_field == ".":
+        return []
+    # split su ';' e pulizia
+    out = []
+    for g in gene_field.split(";"):
+        g = g.strip()
+        if not g or g == ".":
+            continue
+        out.append(g)
+    return out
+
+
+def _index_single_chromosome(args) -> WorkerResult:
+    """
+    Funzione eseguita in processi separati.
+    Non usa logger (o usa print) per non complicare multiprocess.
+    """
+    chr_file: ChromosomeFile
+    tmp_dir: Path
+    chr_file, tmp_dir = args
+
+    _set_csv_limits()
+
+    in_path = chr_file.path
+    chrom = chr_file.chromosome
+
+    part_edges = tmp_dir / f"genes_mutations_edges.chr_{chrom}.part.tsv"
+    part_genes = tmp_dir / f"genes.chr_{chrom}.part.tsv"
+
+    rows = 0
+    edges = 0
+    genes_set: Set[str] = set()
+
+    with in_path.open("r", encoding="utf-8", newline="") as f_in, \
+         part_edges.open("w", encoding="utf-8", newline="") as f_edges:
+
+        reader = csv.DictReader(f_in, delimiter="\t")
+        if not reader.fieldnames:
+            raise ValueError(f"Header mancante in {in_path}")
+
+        if "unique_id" not in reader.fieldnames or "Gene.refGene" not in reader.fieldnames:
+            raise ValueError(
+                f"{in_path.name} deve contenere colonne 'unique_id' e 'Gene.refGene' "
+                f"(trovate: {reader.fieldnames})"
+            )
+
+        w_edges = csv.writer(f_edges, delimiter="\t", lineterminator="\n")
+        # no header nei part file (lo aggiunge il merge)
+
+        for row in reader:
+            rows += 1
+            mut_id = (row.get("unique_id") or "").strip()
+            gene_field = row.get("Gene.refGene") or ""
+            if not mut_id:
+                continue
+
+            genes = _parse_gene_list(gene_field)
+            if not genes:
+                continue
+
+            for g in genes:
+                genes_set.add(g)
+                w_edges.writerow([g, mut_id])
+                edges += 1
+
+    # scrivi lista geni del cromosoma (uno per riga)
+    with part_genes.open("w", encoding="utf-8", newline="") as f_g:
+        w = csv.writer(f_g, delimiter="\t", lineterminator="\n")
+        for g in sorted(genes_set):
+            w.writerow([g, chrom])
+
+    return WorkerResult(
+        chromosome=chrom,
+        rows=rows,
+        edges=edges,
+        genes=len(genes_set),
+        part_edges_path=part_edges,
+        part_genes_path=part_genes,
+    )
+
+
+# ------------------------------------------------------------
+# Step 1 merge: unisci parts -> output finali
+# ------------------------------------------------------------
+def _merge_parts_to_outputs(
     config: Case2Config,
-    mutation_files: List[Path],
-    parts_dir: Path,
-) -> Tuple[List[Path], List[Path]]:
+    logger,
+    results: List[WorkerResult],
+) -> Tuple[Path, Path, Set[str]]:
     """
-    Esegue in parallelo il parsing dei file chr_*.tsv.
-    Ogni worker produce:
-      - genes_mutations_edges.<chr>.tsv
-      - genes.<chr>.tsv
-    Ritorna la lista dei file part prodotti.
+    Ritorna:
+    - genes_tsv_path
+    - genes_mut_edges_path
+    - whitelist_symbols (set di gene symbols)
     """
-    logger = config.logger
-    workers = max(1, int(config.workers))
+    out_dir = config.output_dir
+    out_dir.mkdir(parents=True, exist_ok=True)
 
-    tasks: List[Tuple[str, Path]] = []
-    for fp in mutation_files:
-        chr_name = fp.stem.replace("chr_", "")
-        tasks.append((chr_name, fp))
+    genes_tsv = out_dir / "genes.tsv"
+    genes_mut_edges = out_dir / "genes_mutations_edges.tsv"
 
-    part_edges_files: List[Path] = []
-    part_genes_files: List[Path] = []
+    # 1) merge genes_mutations_edges.tsv
+    with genes_mut_edges.open("w", encoding="utf-8", newline="") as f_out:
+        w = csv.writer(f_out, delimiter="\t", lineterminator="\n")
+        w.writerow(["gene_id", "mutation_id"])
 
-    # Se 1 worker, evita overhead multiprocessing
-    if workers == 1:
-        for chr_name, fp in tasks:
-            pe, pg, stats = _process_mutation_file_worker(
-                chr_name=chr_name,
-                file_path=fp,
-                parts_dir=parts_dir,
-            )
-            part_edges_files.append(pe)
-            part_genes_files.append(pg)
-            logger.info(
-                f"{fp.name} completato | righe={stats['rows']} edges={stats['edges']} geni={stats['genes']}"
-            )
-        return part_edges_files, part_genes_files
+        for r in sorted(results, key=lambda x: x.chromosome):
+            with r.part_edges_path.open("r", encoding="utf-8", newline="") as f_in:
+                for line in f_in:
+                    line = line.rstrip("\n")
+                    if not line:
+                        continue
+                    # line già in TSV: gene \t mut
+                    f_out.write(line + "\n")
 
-    with ProcessPoolExecutor(max_workers=workers) as ex:
-        futures = [
-            ex.submit(
-                _process_mutation_file_worker,
-                chr_name,
-                fp,
-                parts_dir,
-            )
-            for chr_name, fp in tasks
-        ]
-
-        for fut in as_completed(futures):
-            pe, pg, stats = fut.result()
-            part_edges_files.append(pe)
-            part_genes_files.append(pg)
-            logger.info(
-                f"Worker done | {stats['chr']} | righe={stats['rows']} edges={stats['edges']} geni={stats['genes']}"
-            )
-
-    # deterministic order
-    part_edges_files = sorted(part_edges_files)
-    part_genes_files = sorted(part_genes_files)
-    return part_edges_files, part_genes_files
-
-
-def _process_mutation_file_worker(
-    chr_name: str,
-    file_path: Path,
-    parts_dir: Path,
-) -> Tuple[Path, Path, Dict[str, int]]:
-    """
-    Worker process-safe: non usa logger.
-    Scrive due file part:
-      - genes_mutations_edges.<chr>.tsv
-      - genes.<chr>.tsv
-    """
-    out_edges = parts_dir / f"genes_mutations_edges.{chr_name}.tsv"
-    out_genes = parts_dir / f"genes.{chr_name}.tsv"
-
-    rows_seen = 0
-    edges_written = 0
-    genes_seen: Set[str] = set()
-
-    with open(out_edges, "w", newline="") as fe:
-        w_edges = csv.writer(fe, delimiter="\t")
-        w_edges.writerow(["gene_id", "mutation_id"])
-
-        with open(file_path, "r", newline="") as f:
-            reader = csv.DictReader(f, delimiter="\t")
-            # required columns
-            if not reader.fieldnames or "unique_id" not in reader.fieldnames or "Gene.refGene" not in reader.fieldnames:
-                raise ValueError(f"Invalid header in {file_path}")
-
+    # 2) merge genes.tsv
+    # gene -> set cromosomi
+    gene_to_chroms: Dict[str, Set[str]] = {}
+    for r in results:
+        with r.part_genes_path.open("r", encoding="utf-8", newline="") as f_in:
+            reader = csv.reader(f_in, delimiter="\t")
             for row in reader:
-                rows_seen += 1
-                mutation_id = row.get("unique_id")
-                gene_field = row.get("Gene.refGene")
-                if not mutation_id or not gene_field:
+                if not row or len(row) < 2:
                     continue
-
-                for gene_id in parse_gene_field(gene_field):
-                    w_edges.writerow([gene_id, mutation_id])
-                    edges_written += 1
-                    genes_seen.add(gene_id)
-
-    with open(out_genes, "w", newline="") as fg:
-        w_genes = csv.writer(fg, delimiter="\t")
-        w_genes.writerow(["gene_id", "chromosome"])
-        for g in genes_seen:
-            w_genes.writerow([g, chr_name])
-
-    stats = {"chr": int(chr_name) if chr_name.isdigit() else chr_name, "rows": rows_seen, "edges": edges_written, "genes": len(genes_seen)}
-    return out_edges, out_genes, stats
-
-
-# ============================================================
-# MERGE PARTS
-# ============================================================
-
-def merge_edges_parts(*, part_files: List[Path], out_path: Path, header: List[str]) -> None:
-    """
-    Concatena part_files (ognuno con header) in un unico file con un solo header.
-    """
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(out_path, "w", newline="") as out:
-        w = csv.writer(out, delimiter="\t")
-        w.writerow(header)
-        for pf in part_files:
-            with open(pf, "r", newline="") as f:
-                r = csv.reader(f, delimiter="\t")
-                next(r, None)  # skip header
-                for row in r:
-                    if row:
-                        w.writerow(row)
-
-
-def merge_genes_parts(part_genes_files: List[Path]) -> Dict[str, Set[str]]:
-    """
-    Legge i files genes.<chr>.tsv e aggrega gene_id -> set(chromosome)
-    """
-    genes_map: Dict[str, Set[str]] = {}
-    for pf in part_genes_files:
-        with open(pf, "r", newline="") as f:
-            r = csv.reader(f, delimiter="\t")
-            next(r, None)
-            for row in r:
-                if len(row) != 2:
+                g = (row[0] or "").strip()
+                c = (row[1] or "").strip()
+                if not g or not c:
                     continue
-                gene_id, chr_name = row[0], row[1]
-                if not gene_id:
-                    continue
-                genes_map.setdefault(gene_id, set()).add(chr_name)
-    return genes_map
+                gene_to_chroms.setdefault(g, set()).add(c)
 
+    whitelist_symbols = set(gene_to_chroms.keys())
 
-def write_genes_tsv(*, out_path: Path, genes_map: Dict[str, Set[str]]) -> None:
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(out_path, "w", newline="") as out:
-        w = csv.writer(out, delimiter="\t")
+    with genes_tsv.open("w", encoding="utf-8", newline="") as f_out:
+        w = csv.writer(f_out, delimiter="\t", lineterminator="\n")
         w.writerow(["gene_id", "chromosome"])
-        for gene_id in sorted(genes_map.keys()):
-            chr_list = ",".join(sorted(genes_map[gene_id], key=lambda x: (len(x), x)))
-            w.writerow([gene_id, chr_list])
+        for g in sorted(gene_to_chroms.keys()):
+            chroms = ",".join(sorted(gene_to_chroms[g], key=lambda x: (len(x), x)))
+            w.writerow([g, chroms])
+
+    logger.info(f"genes.tsv creato | geni: {len(whitelist_symbols)}")
+    return genes_tsv, genes_mut_edges, whitelist_symbols
 
 
-# ============================================================
-# STEP 3 — EXPRESSION EDGES
-# ============================================================
-
-def build_expression_edges(*, config: Case2Config, genes_map: Dict[str, Set[str]]) -> None:
-    logger = config.logger
-    logger.info("Costruzione patients_genes_expression_edges.tsv...")
-
-    tumor_files = sorted(config.tumors_path.glob("*.tsv"))
+# ------------------------------------------------------------
+# Step 3: patients_genes_expression_edges.tsv (OFFLINE mapping)
+# ------------------------------------------------------------
+def build_expression_edges_offline(
+    config: Case2Config,
+    logger,
+    whitelist_symbols: Set[str],
+) -> Path:
+    tumors_dir = config.datasets_root / "tumors"
+    # scegli il primo .tsv (nel tuo caso TCGA-OV.star_fpkm.tsv)
+    tumor_files = sorted(tumors_dir.glob("*.tsv"))
     if not tumor_files:
-        logger.error(f"Nessuna matrice espressione trovata in: {config.tumors_path}")
-        raise FileNotFoundError("No tumor expression file found.")
+        raise FileNotFoundError(f"Nessun file tumore trovato in {tumors_dir}")
+    tumor_matrix = tumor_files[0]
+    logger.info(f"Usando matrice espressione: {tumor_matrix.name}")
 
-    tumor_file = tumor_files[0]
-    logger.info(f"Usando matrice espressione: {tumor_file.name}")
-
-    whitelist_symbols = list(genes_map.keys())
-    logger.info(f"Geni in whitelist (symbol da mutazioni): {len(whitelist_symbols)}")
-
-    mode = (config.gene_id_mode or "symbol").lower()
-
-    ensg_to_symbol: Dict[str, str] = {}
-
-    if mode == "ensembl_api_cache":
-        client = EnsemblRestCachedClient(
-            logger=logger,
-            cache_db_path=(config.tmp_dir / "ensembl_cache.db"),
+    # resolver offline
+    if config.gene_id_mode != "offline_mapping":
+        raise ValueError(
+            f"Questa versione della pipeline supporta solo gene_id_mode='offline_mapping' "
+            f"(attuale: {config.gene_id_mode})"
         )
 
-        logger.info("Risoluzione whitelist SYMBOL -> ENSG via Ensembl REST (cache sqlite), in parallelo (threads)...")
+    mapping_db = config.tmp_dir / "gene_mapping.db"
+    resolver = OfflineGeneResolver(
+        logger=logger,
+        mapping_tsv=config.mapping_tsv,
+        cache_db=mapping_db,
+    )
 
-        resolved = 0
-        missing = 0
+    # converti whitelist SYMBOL -> ENSG (serve per matchare velocemente sulla matrice)
+    logger.info(f"Geni in whitelist (symbol da mutazioni): {len(whitelist_symbols)}")
+    logger.info("Risoluzione whitelist SYMBOL -> ENSG via mapping OFFLINE (TSV+SQLite)...")
 
-        # ThreadPool perché I/O bound
-        max_threads = min(8, max(4, config.workers))
-        with ThreadPoolExecutor(max_workers=max_threads) as ex:
-            futs = {ex.submit(client.symbol_to_ensembl_gene_id, sym): sym for sym in whitelist_symbols}
-            done = 0
-            for fut in as_completed(futs):
-                sym = futs[fut]
-                ensg = fut.result()
-                done += 1
-                if ensg:
-                    ensg_to_symbol[ensg] = sym
-                    resolved += 1
-                else:
-                    missing += 1
+    sym_to_ensg, missing = resolver.resolve_whitelist_symbols_to_ensg(sorted(whitelist_symbols))
+    whitelist_ensg = set(sym_to_ensg.values())
 
-                if done % 100 == 0:
-                    logger.info(
-                        f"Whitelist mapping progress: {done}/{len(whitelist_symbols)} | resolved={resolved} | missing={missing}"
-                    )
+    logger.info(f"Offline mapping completato | resolved={len(sym_to_ensg)} | missing={len(missing)}")
 
-        logger.info(f"Whitelist mapping completato | resolved={resolved} | missing={missing}")
-        if resolved == 0:
-            logger.error("Nessun gene risolto in ENSG. Controlla internet/species/symbol.")
+    # output
+    out_path = config.output_dir / "patients_genes_expression_edges.tsv"
 
-    whitelist_set = set(whitelist_symbols)
+    _set_csv_limits()
 
-    total_rows = 0
-    matched_rows = 0
-    written_edges = 0
+    # Leggiamo la matrice in streaming:
+    # - header: Ensembl_ID \t patient1 \t patient2 ...
+    # - righe: ENSG....(.version) \t val1 \t val2 ...
+    rows_read = 0
+    rows_matched = 0
+    edges_written = 0
 
-    with open(config.patients_genes_expression_edges_path, "w", newline="") as out:
-        w = csv.writer(out, delimiter="\t")
+    with tumor_matrix.open("r", encoding="utf-8", newline="") as f_in, \
+         out_path.open("w", encoding="utf-8", newline="") as f_out:
+
+        reader = csv.reader(f_in, delimiter="\t")
+        header = next(reader, None)
+        if not header or len(header) < 2:
+            raise ValueError(f"Header non valido in {tumor_matrix}")
+
+        # pazienti sono le colonne dopo la prima
+        patient_ids = header[1:]
+        logger.info(f"Pazienti trovati nella matrice: {len(patient_ids)}")
+
+        w = csv.writer(f_out, delimiter="\t", lineterminator="\n")
         w.writerow(["patient_id", "gene_id", "expression_value"])
 
-        with open(tumor_file, "r", newline="") as f:
-            r = csv.reader(f, delimiter="\t")
-            header = next(r, None)
-            if not header or len(header) < 2:
-                raise ValueError(f"Header matrice espressione non valido: {tumor_file}")
+        for row in reader:
+            rows_read += 1
+            if not row:
+                continue
+            ensg_raw = (row[0] or "").strip()
+            if not ensg_raw:
+                continue
 
-            patient_ids = header[1:]
-            logger.info(f"Pazienti trovati nella matrice: {len(patient_ids)}")
+            # strip version
+            ensg = ensg_raw.split(".", 1)[0]
+            if ensg not in whitelist_ensg:
+                continue
 
-            for row in r:
-                total_rows += 1
-                raw_key = (row[0] or "").strip()
-                if not raw_key:
+            # gene_id nell'output deve essere SYMBOL (come hai già ora)
+            symbol = resolver.ensg_to_symbol(ensg)
+            if not symbol:
+                continue
+            if symbol not in whitelist_symbols:
+                continue
+
+            rows_matched += 1
+
+            # scrivi edges per ciascun paziente
+            # Nota: non filtriamo zeri; scriviamo tutti i valori numerici presenti.
+            vals = row[1:]
+            # se riga corta, pad
+            if len(vals) < len(patient_ids):
+                vals = vals + [""] * (len(patient_ids) - len(vals))
+
+            for pid, v in zip(patient_ids, vals):
+                v = (v or "").strip()
+                if not v:
                     continue
-
-                if mode == "symbol":
-                    gene_id = raw_key
-                    if gene_id not in whitelist_set:
-                        continue
-
-                elif mode == "ensembl":
-                    # NOTA: questo non matcha mutazioni=SYMBOL, ma lo lasciamo per completezza
-                    gene_id = raw_key.split(".", 1)[0]
-                    if gene_id not in whitelist_set:
-                        continue
-
-                elif mode == "ensembl_api_cache":
-                    ensg = raw_key.split(".", 1)[0]
-                    sym = ensg_to_symbol.get(ensg)
-                    if not sym:
-                        continue
-                    gene_id = sym
-
-                else:
-                    raise ValueError(f"gene_id_mode non supportato: {config.gene_id_mode}")
-
-                matched_rows += 1
-                values = row[1:]
-                for pid, val in zip(patient_ids, values):
-                    w.writerow([pid, gene_id, val])
-                    written_edges += 1
-
-                if total_rows % (config.chunk_size_rows * 5) == 0:
-                    logger.info(
-                        f"Matrice | righe lette: {total_rows} | righe matchate: {matched_rows} | edges scritti: {written_edges}"
-                    )
+                # valida numerico leggero
+                try:
+                    float(v)
+                except Exception:
+                    continue
+                w.writerow([pid, symbol, v])
+                edges_written += 1
 
     logger.info("patients_genes_expression_edges.tsv creato.")
-    logger.info(f"Matrice | righe lette: {total_rows} | righe matchate: {matched_rows} | edges scritti: {written_edges}")
-
-    if matched_rows == 0:
-        logger.error(
-            "Nessuna riga della matrice ha matchato la whitelist. "
-            "Con mutazioni=SYMBOL e matrice=ENSG, usa gene_id_mode='ensembl_api_cache'."
-        )
+    logger.info(
+        f"Matrice | righe lette: {rows_read} | righe matchate: {rows_matched} | edges scritti: {edges_written}"
+    )
+    return out_path
 
 
-# ============================================================
-# UTILITIES
-# ============================================================
+# ------------------------------------------------------------
+# Validation
+# ------------------------------------------------------------
+def _read_tsv_header(path: Path) -> List[str]:
+    with path.open("r", encoding="utf-8", newline="") as f:
+        line = f.readline()
+        return [x.strip() for x in line.rstrip("\n").split("\t") if x.strip()]
 
-def parse_gene_field(gene_field: str) -> List[str]:
-    genes: List[str] = []
-    for g in (gene_field or "").split(";"):
-        g = g.strip()
-        if g and g != ".":
-            genes.append(g)
-    return genes
+
+def _count_lines(path: Path) -> int:
+    # conta righe excl header
+    n = 0
+    with path.open("r", encoding="utf-8", newline="") as f:
+        next(f, None)
+        for _ in f:
+            n += 1
+    return n
+
+
+def validate_outputs(config: Case2Config, logger) -> None:
+    logger.info("=== VALIDAZIONE OUTPUT CASE2 ===")
+
+    genes_tsv = config.output_dir / "genes.tsv"
+    genes_mut_edges = config.output_dir / "genes_mutations_edges.tsv"
+    expr_edges = config.output_dir / "patients_genes_expression_edges.tsv"
+
+    ok = True
+
+    # headers
+    h1 = _read_tsv_header(genes_tsv)
+    h2 = _read_tsv_header(genes_mut_edges)
+    h3 = _read_tsv_header(expr_edges)
+
+    logger.info(f"Header genes.tsv: {h1}")
+    logger.info(f"Header genes_mutations_edges.tsv: {h2}")
+    logger.info(f"Header patients_genes_expression_edges.tsv: {h3}")
+
+    if h1 != ["gene_id", "chromosome"]:
+        logger.error("genes.tsv header atteso: gene_id, chromosome")
+        ok = False
+    if h2 != ["gene_id", "mutation_id"]:
+        logger.error("genes_mutations_edges.tsv header atteso: gene_id, mutation_id")
+        ok = False
+    if h3 != ["patient_id", "gene_id", "expression_value"]:
+        logger.error("patients_genes_expression_edges.tsv header atteso: patient_id, gene_id, expression_value")
+        ok = False
+
+    # counts
+    n_genes = _count_lines(genes_tsv)
+    n_edges = _count_lines(genes_mut_edges)
+    n_expr = _count_lines(expr_edges)
+
+    logger.info(f"Righe genes.tsv: {n_genes}")
+    logger.info(f"Righe genes_mutations_edges.tsv: {n_edges}")
+    logger.info(f"Righe patients_genes_expression_edges.tsv: {n_expr}")
+
+    # load gene set in RAM (piccolo)
+    logger.info("Caricamento set geni da genes.tsv (unico set in RAM)...")
+    gene_set: Set[str] = set()
+    with genes_tsv.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for row in reader:
+            g = (row.get("gene_id") or "").strip()
+            if g:
+                gene_set.add(g)
+    logger.info(f"Geni unici in genes.tsv: {len(gene_set)}")
+    if len(gene_set) != n_genes:
+        logger.warning("genes.tsv potrebbe contenere duplicati (non critico, ma inatteso).")
+
+    # sample expression values numeric
+    ok_num = 0
+    bad_num = 0
+    sample_limit = 5000
+    with expr_edges.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for i, row in enumerate(reader):
+            if i >= sample_limit:
+                break
+            v = (row.get("expression_value") or "").strip()
+            try:
+                float(v)
+                ok_num += 1
+            except Exception:
+                bad_num += 1
+    logger.info(f"Campione expression_value: ok={ok_num} bad={bad_num} (su {min(sample_limit, n_expr)})")
+    if bad_num > 0:
+        logger.error("Trovati expression_value non numerici.")
+        ok = False
+
+    # check mutation_id set membership (costoso ma fattibile se fai set grande)
+    # Nota: per multi-cromosoma può essere grande; lo facciamo comunque perché serve.
+    logger.info("Caricamento mutation_id (unique_id) dai file datasets/mutations/chr_*.tsv ...")
+    mutations_dir = config.datasets_root / "mutations"
+    mut_ids: Set[str] = set()
+    _set_csv_limits()
+    for fp in sorted(mutations_dir.glob("chr_*.tsv")):
+        with fp.open("r", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f, delimiter="\t")
+            if not reader.fieldnames or "unique_id" not in reader.fieldnames:
+                continue
+            for row in reader:
+                mid = (row.get("unique_id") or "").strip()
+                if mid:
+                    mut_ids.add(mid)
+    logger.info(f"mutation_id unici caricati: {len(mut_ids)}")
+
+    # controlla un campione di edges
+    sample_limit = 20000
+    missing = 0
+    with genes_mut_edges.open("r", encoding="utf-8", newline="") as f:
+        reader = csv.DictReader(f, delimiter="\t")
+        for i, row in enumerate(reader):
+            if i >= sample_limit:
+                break
+            mid = (row.get("mutation_id") or "").strip()
+            if mid and mid not in mut_ids:
+                missing += 1
+    if missing > 0:
+        logger.error(f"Trovati mutation_id non presenti nei chr_*.tsv (sample): {missing}")
+        ok = False
+
+    if ok:
+        logger.info("VALIDAZIONE OK.")
+    else:
+        logger.error("Validazione fallita. Interrompo con exit code 1.")
+        raise SystemExit(1)
+
+
+# ------------------------------------------------------------
+# Main pipeline
+# ------------------------------------------------------------
+def run_case2(config: Case2Config, logger) -> None:
+    config.resolve_paths()
+    config.output_dir.mkdir(parents=True, exist_ok=True)
+    config.tmp_dir.mkdir(parents=True, exist_ok=True)
+
+    logger.info("=== START CASE2 PIPELINE ===")
+
+    chromosomes = discover_chromosomes(config, logger)
+    if not chromosomes:
+        logger.error("Nessun cromosoma trovato in datasets/mutations (atteso chr_*.tsv).")
+        raise SystemExit(1)
+
+    # tmp per part files
+    parts_dir = config.tmp_dir / "parts"
+    parts_dir.mkdir(parents=True, exist_ok=True)
+
+    logger.info(f"STEP 1 (parallel) — indicizzazione mutazioni con workers={config.workers}")
+
+    results: List[WorkerResult] = []
+    if config.workers <= 1:
+        for cf in chromosomes:
+            r = _index_single_chromosome((cf, parts_dir))
+            logger.info(f"{cf.path.name} completato | righe={r.rows} edges={r.edges} geni={r.genes}")
+            results.append(r)
+    else:
+        with ProcessPoolExecutor(max_workers=config.workers) as ex:
+            futures = [ex.submit(_index_single_chromosome, (cf, parts_dir)) for cf in chromosomes]
+            for fut in as_completed(futures):
+                r = fut.result()
+                logger.info(f"Worker done | {r.chromosome} | righe={r.rows} edges={r.edges} geni={r.genes}")
+                results.append(r)
+
+    logger.info("STEP 1b — merge part files in output finali")
+    genes_tsv, genes_mut_edges, whitelist_symbols = _merge_parts_to_outputs(config, logger, results)
+
+    logger.info("Costruzione patients_genes_expression_edges.tsv...")
+    _ = build_expression_edges_offline(config, logger, whitelist_symbols)
+
+    if config.validate:
+        logger.info("Validazione abilitata (config.validate=True). Avvio validazione output...")
+        validate_outputs(config, logger)
+        logger.info("Validazione completata con successo.")
+
+    logger.info("=== CASE2 PIPELINE COMPLETATA ===")

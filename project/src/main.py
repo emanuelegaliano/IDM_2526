@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 
 from case2 import Case2Config, run_case2
+from case2.config import setup_logger
 
 
 def run_case2_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers: int) -> None:
@@ -19,22 +20,33 @@ def run_case2_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers
         output_dir=output_dir,
         tmp_dir=tmp_dir,
         workers=workers,
-        verbose=verbose,          # <--- nuovo flag: console on/off
-        log_to_file=log_file,     # <--- file on/off
-        log_level="INFO",
-        gene_id_mode="ensembl_api_cache",
-        chunk_size_rows=10_000,
-        validate=False,
+        verbose=verbose,
+        log_to_file=log_file,
+        gene_id_mode="offline_mapping",
+        validate=True,  # in CLI ha senso lasciarlo True
     )
 
-    cfg.logger.info("Avvio Caso 2 (CLI)")
-    cfg.logger.info(f"datasets_root={cfg.datasets_root}")
-    cfg.logger.info(f"output_dir={cfg.output_dir}")
-    cfg.logger.info(f"tmp_dir={cfg.tmp_dir}")
-    cfg.logger.info(f"workers={cfg.workers}")
-    cfg.logger.info(f"verbose={cfg.verbose} log_to_file={cfg.log_to_file}")
+    # normalizza path e imposta default (mapping_tsv, log_file_path, ecc.)
+    cfg.resolve_paths()
 
-    run_case2(cfg)
+    logger = setup_logger(
+        "case2",
+        verbose=cfg.verbose,
+        log_to_file=cfg.log_to_file,
+        log_file_path=cfg.log_file_path, # type: ignore
+    )
+
+    logger.info("Avvio Caso 2 (CLI)")
+    logger.info(f"datasets_root={cfg.datasets_root}")
+    logger.info(f"output_dir={cfg.output_dir}")
+    logger.info(f"tmp_dir={cfg.tmp_dir}")
+    logger.info(f"workers={cfg.workers}")
+    logger.info(f"verbose={cfg.verbose} log_to_file={cfg.log_to_file}")
+    logger.info(f"gene_id_mode={cfg.gene_id_mode}")
+    logger.info(f"mapping_tsv={cfg.mapping_tsv}")
+    logger.info(f"validate={cfg.validate}")
+
+    run_case2(cfg, logger)
 
 
 def build_parser() -> argparse.ArgumentParser:
