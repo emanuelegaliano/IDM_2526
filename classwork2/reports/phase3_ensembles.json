@@ -1,0 +1,143 @@
+{
+  "phase": 3,
+  "input_clean": "data/phase0_clean.csv",
+  "split": {
+    "test_size": 0.2,
+    "random_state": 42
+  },
+  "results": {
+    "bagging": {
+      "model_name": "Bagging(DecisionTree)",
+      "accuracy_test": 0.65,
+      "f1_macro_test": 0.6424047235641438,
+      "labels": [
+        "ASD",
+        "Controls",
+        "GDD"
+      ],
+      "confusion_matrix": [
+        [
+          12,
+          1,
+          2
+        ],
+        [
+          0,
+          7,
+          4
+        ],
+        [
+          3,
+          4,
+          7
+        ]
+      ],
+      "classification_report": {
+        "ASD": {
+          "precision": 0.8,
+          "recall": 0.8,
+          "f1-score": 0.8,
+          "support": 15.0
+        },
+        "Controls": {
+          "precision": 0.5833333333333334,
+          "recall": 0.6363636363636364,
+          "f1-score": 0.6086956521739131,
+          "support": 11.0
+        },
+        "GDD": {
+          "precision": 0.5384615384615384,
+          "recall": 0.5,
+          "f1-score": 0.5185185185185185,
+          "support": 14.0
+        },
+        "accuracy": 0.65,
+        "macro avg": {
+          "precision": 0.6405982905982905,
+          "recall": 0.6454545454545455,
+          "f1-score": 0.6424047235641438,
+          "support": 40.0
+        },
+        "weighted avg": {
+          "precision": 0.6488782051282052,
+          "recall": 0.65,
+          "f1-score": 0.6488727858293075,
+          "support": 40.0
+        }
+      },
+      "params": {
+        "n_estimators": 300,
+        "max_samples": 0.8,
+        "max_features": 1.0,
+        "base_max_depth": null,
+        "random_state": 42
+      }
+    },
+    "boosting": {
+      "model_name": "AdaBoost(DecisionTree)",
+      "accuracy_test": 0.575,
+      "f1_macro_test": 0.5637350456751902,
+      "labels": [
+        "ASD",
+        "Controls",
+        "GDD"
+      ],
+      "confusion_matrix": [
+        [
+          10,
+          1,
+          4
+        ],
+        [
+          0,
+          4,
+          7
+        ],
+        [
+          2,
+          3,
+          9
+        ]
+      ],
+      "classification_report": {
+        "ASD": {
+          "precision": 0.8333333333333334,
+          "recall": 0.6666666666666666,
+          "f1-score": 0.7407407407407407,
+          "support": 15.0
+        },
+        "Controls": {
+          "precision": 0.5,
+          "recall": 0.36363636363636365,
+          "f1-score": 0.42105263157894735,
+          "support": 11.0
+        },
+        "GDD": {
+          "precision": 0.45,
+          "recall": 0.6428571428571429,
+          "f1-score": 0.5294117647058824,
+          "support": 14.0
+        },
+        "accuracy": 0.575,
+        "macro avg": {
+          "precision": 0.5944444444444444,
+          "recall": 0.5577200577200577,
+          "f1-score": 0.5637350456751902,
+          "support": 40.0
+        },
+        "weighted avg": {
+          "precision": 0.6075,
+          "recall": 0.575,
+          "f1-score": 0.5788613691090472,
+          "support": 40.0
+        }
+      },
+      "params": {
+        "n_estimators": 300,
+        "learning_rate": 0.5,
+        "base_max_depth": 1,
+        "random_state": 42
+      }
+    }
+  }
+}
