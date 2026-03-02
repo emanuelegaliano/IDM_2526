@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+from case1.pipeline import run_case1
+
 from case2 import Case2Config, run_case2
 from case2.config import setup_logger
 
@@ -23,10 +25,9 @@ def run_case2_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers
         verbose=verbose,
         log_to_file=log_file,
         gene_id_mode="offline_mapping",
-        validate=True,  # in CLI ha senso lasciarlo True
+        validate=True, 
     )
 
-    # normalizza path e imposta default (mapping_tsv, log_file_path, ecc.)
     cfg.resolve_paths()
 
     logger = setup_logger(
@@ -70,6 +71,10 @@ def build_parser() -> argparse.ArgumentParser:
     return p
 
 
+def run_case1_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers: int) -> None:
+    run_case1(base_dir=base_dir, workers=workers)
+
+
 def main() -> None:
     base_dir = Path(__file__).resolve().parent  # .../project/src
     parser = build_parser()
@@ -78,8 +83,8 @@ def main() -> None:
     verbose = args.verbose.lower() == "true"
     log_file = args.log_file.lower() == "true"
 
-    if args.case == 2:
-        run_case2_from_cli(
+    if args.case == 1:
+        run_case1_from_cli(
             base_dir=base_dir,
             verbose=verbose,
             log_file=log_file,
@@ -87,7 +92,17 @@ def main() -> None:
         )
         return
 
-    raise SystemExit("Caso 1 non implementato in questo main.py (usa --case 2).")
+    elif args.case == 2:
+        run_case2_from_cli(
+            base_dir=base_dir,
+            verbose=verbose,
+            log_file=log_file,
+            workers=args.workers,
+        )
+        return
+    
+    
+    raise SystemExit("Caso non implementato.")
 
 
 if __name__ == "__main__":
