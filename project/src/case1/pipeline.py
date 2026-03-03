@@ -125,7 +125,6 @@ def validate_case1_outputs(output_dir: Path, logger: logging.Logger) -> bool:
     check_header(exp_mut_file, ["gene_exp_id", "mutation_id"])
 
     # 3. Validazione dati e caricamento ID per integrità referenziale
-    # Nota: Usiamo un set per gene_exp_ids. Con 105GB di input, assicurati di avere RAM a sufficienza.
     gene_exp_ids = set()
     bad_num = 0
     logger.info("Verifica valori numerici e indicizzazione gene_exp_id...")
