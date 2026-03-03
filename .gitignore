@@ -1,9 +1,16 @@
 __pycache__/
 
-Dispense/out
+# Dataset e Output
+project/src/datasets/
+project/src/output/
+project/src/output_case1/
 
+# File temporanei e database di cache
+*.db
+project/src/case1/tmp/
+project/src/case2/tmp/
+
+# Altro
+Dispense/out/
 classwork1/AnonymizedFidelity.csv
 classwork1/outputs/
-
-project/src/datasets
-project/src/output

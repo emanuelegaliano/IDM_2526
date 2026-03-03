@@ -3,7 +3,7 @@ import csv
 from pathlib import Path
 from typing import Optional
 
-class EnsemblAPIResolver:
+class OfflineGeneResolver:
     def __init__(self, db_path: str, mapping_tsv: Optional[Path] = None):
         self.db_path = db_path
         self._init_db()

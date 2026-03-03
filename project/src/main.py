@@ -3,13 +3,14 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
+# Assicurati di aver aggiunto il parametro validate alla firma di run_case1 in pipeline.py
 from case1.pipeline import run_case1
 
 from case2 import Case2Config, run_case2
 from case2.config import setup_logger
 
 
-def run_case2_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers: int) -> None:
+def run_case2_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers: int, validate: bool) -> None:
     """
     Esegue il caso 2 con output in: base_dir / "output"
     """
@@ -25,7 +26,7 @@ def run_case2_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers
         verbose=verbose,
         log_to_file=log_file,
         gene_id_mode="offline_mapping",
-        validate=True, 
+        validate=validate, # Utilizza il valore passato da CLI
     )
 
     cfg.resolve_paths()
@@ -34,7 +35,7 @@ def run_case2_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers
         "case2",
         verbose=cfg.verbose,
         log_to_file=cfg.log_to_file,
-        log_file_path=cfg.log_file_path, # type: ignore
+        log_file_path=cfg.log_file_path, 
     )
 
     logger.info("Avvio Caso 2 (CLI)")
@@ -67,21 +68,51 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["true", "false"],
         help="Se true, log anche su file (default: false)",
     )
+    p.add_argument(
+        "--validate",
+        type=str,
+        default="true",
+        choices=["true", "false"],
+        help="Abilita la validazione degli output (default: true)",
+    )
     p.add_argument("--workers", type=int, default=1, help="Numero di workers (default: 1)")
     return p
 
 
-def run_case1_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers: int) -> None:
-    run_case1(base_dir=base_dir, workers=workers)
+def run_case1_from_cli(*, base_dir: Path, verbose: bool, log_file: bool, workers: int, validate: bool) -> None:
+
+    # 1. Configurazione dei percorsi (coerente con la struttura del Caso 1)
+    datasets_root = base_dir / "datasets"
+    output_dir = base_dir / "output_case1"
+    tmp_dir = output_dir / "tmp"
+    
+    log_file_path = tmp_dir / "case1.log"
+    logger = setup_logger(
+        "case1",
+        verbose=verbose,
+        log_to_file=log_file,
+        log_file_path=log_file_path
+    )
+
+    logger.info("Avvio Caso 1 (CLI) ")
+    logger.info(f"datasets_root={datasets_root} ")
+    logger.info(f"output_dir={output_dir} ")
+    logger.info(f"tmp_dir={tmp_dir} ")
+    logger.info(f"workers={workers} ")
+    logger.info(f"verbose={verbose} log_to_file={log_file} ")
+    logger.info(f"validate={validate} ")
+
+    run_case1(base_dir=base_dir, workers=workers, validate=validate)
 
 
 def main() -> None:
-    base_dir = Path(__file__).resolve().parent  # .../project/src
+    base_dir = Path(__file__).resolve().parent 
     parser = build_parser()
     args = parser.parse_args()
 
     verbose = args.verbose.lower() == "true"
     log_file = args.log_file.lower() == "true"
+    validate = args.validate.lower() == "true"
 
     if args.case == 1:
         run_case1_from_cli(
@@ -89,6 +120,7 @@ def main() -> None:
             verbose=verbose,
             log_file=log_file,
             workers=args.workers,
+            validate=validate,
         )
         return
 
@@ -98,9 +130,9 @@ def main() -> None:
             verbose=verbose,
             log_file=log_file,
             workers=args.workers,
+            validate=validate,
         )
         return
-    
     
     raise SystemExit("Caso non implementato.")
 
