@@ -1,100 +1,251 @@
-% !TEX encoding = UTF-8 Unicode
 \documentclass[a4paper,11pt]{book}
 
-% ===== Pacchetti essenziali =====
-\usepackage[utf8]{inputenc}     % codifica sorgente (se usi pdfLaTeX)
-\usepackage[T1]{fontenc}        % output font con accenti corretti
-\usepackage[italian]{babel}     % sillabazione e testi automatici in italiano
-\usepackage{lmodern}            % font Latin Modern
-\usepackage{microtype}          % migliore giustificazione del testo
+% =====================================================
+% LANGUAGE AND ENCODING
+% =====================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
 
-% ===== Matematica =====
+% =====================================================
+% TYPOGRAPHY
+% =====================================================
+\usepackage{libertinus}
+\usepackage[scale=0.95]{sourcesanspro}
+\usepackage{microtype}
+\usepackage{xcolor}
+
+% =====================================================
+% COLOR PALETTE
+% =====================================================
+\definecolor{Accent}{HTML}{0B3A3E}
+\definecolor{TextGray}{gray}{0.25}
+\definecolor{RuleGray}{gray}{0.75}
+
+% =====================================================
+% GRAPHICS
+% =====================================================
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,decorations.pathreplacing,calc}
+\usepackage{subcaption}
+
+% =====================================================
+% CODE LISTINGS
+% =====================================================
+\usepackage{listings}
+\usepackage[scaled=0.9]{beramono}
+\lstdefinestyle{py}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numbersep=8pt,
+  frame=single,
+  framerule=0.4pt,
+  breaklines=true,
+  tabsize=4,
+  showstringspaces=false,
+  captionpos=b
+}
+
+% =====================================================
+% MATHEMATICS
+% =====================================================
 \usepackage{amsmath,amssymb,amsthm}
 \numberwithin{equation}{chapter}
 
-% ===== Impaginazione =====
+% =====================================================
+% PAGE LAYOUT
+% =====================================================
 \usepackage{geometry}
-% Margini comodi per tablet/stampa: non stretti, ma senza sprecare spazio
-\geometry{a4paper, top=30mm, bottom=32mm, left=30mm, right=30mm}                                        
+\geometry{a4paper, top=28mm, bottom=30mm, left=30mm, right=30mm}
 
 \usepackage{setspace}
-% Interlinea: ben leggibile ma con buona densità di contenuto
-\setstretch{1.15}
+\setstretch{1.12}
 
-% Evita vedove/orfani (migliora la lettura su pagina singola)
 \clubpenalty=10000
 \widowpenalty=10000
 
-% Profondità di numerazione / indice (come nello screenshot: 1.1.1)
-\setcounter{secnumdepth}{3} % numerazione fino a \subsubsection
-\setcounter{tocdepth}{2}    % TOC fino a \subsection (metti 3 se vuoi anche le subsubsection)
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
 
-% ===== Intestazioni e piè di pagina =====
+% =====================================================
+% HEADERS AND FOOTERS
+% =====================================================
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancyhf{} % pulisci
+\fancyhf{}
 \fancyhead[LE,RO]{\thepage}
 \fancyhead[LO]{\nouppercase{\rightmark}}
 \fancyhead[RE]{\nouppercase{\leftmark}}
 \setlength{\headheight}{15pt}
-\addtolength{\topmargin}{-2pt}
+\renewcommand{\headrulewidth}{0.4pt}
 
-% ===== Tabelle, grafica,    link =====
+% =====================================================
+% TABLES
+% =====================================================
 \usepackage{booktabs}
-\usepackage{graphicx}
-\usepackage[hidelinks]{hyperref}
-\usepackage{subcaption}
 
-\usepackage{csquotes}
-\usepackage{biblatex}
-\addbibresource{refs.bib}
-
-% ===== Liste: leggibili, non compattate eccessivamente =====
+% =====================================================
+% LISTS
+% =====================================================
 \usepackage{enumitem}
-% itemize / enumerate: spazi moderati per mantenere i dettagli visivi
-\setlist[itemize]{topsep=4pt, partopsep=0pt, itemsep=3pt, parsep=2pt}
-\setlist[enumerate]{topsep=4pt, partopsep=0pt, itemsep=3pt, parsep=2pt}
-% description: rientro e allineamento gradevole; etichetta in grassetto
+\setlist[itemize]{topsep=4pt, itemsep=3pt}
+\setlist[enumerate]{topsep=4pt, itemsep=3pt}
 \setlist[description]{font=\normalfont\bfseries, labelsep=0.6em, leftmargin=2em}
 
-% (Facoltativo) Se vuoi che gli elenchi siano più “a colonna” in certi punti:
-% \begin{description}[widest=Etichetta-più-lunga,leftmargin=!,labelsep=0.6em]
-%   \item[Etichetta] Testo...
-% \end{description}
+% =====================================================
+% MULTICOLUMN
+% =====================================================
+\usepackage{multicol}
 
-% ===== Metadati =====
-\title{\Huge \bfseries Riassunti e Appunti di Introduzione al Data Mining}
-\author{\Large Emanuele Galiano \\
-Studente di Informatica \\
-Università di Catania}
-\date{Anno Accademico 2025/2026}
+% =====================================================
+% ALGORITHMS
+% =====================================================
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
+% =====================================================
+% LINKS
+% =====================================================
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+
+% =====================================================
+% BIBLIOGRAPHY
+% =====================================================
+\usepackage{csquotes}
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{refs.bib}
+
+% =====================================================
+% COVER BACKGROUND PATTERN
+% =====================================================
+\newcommand{\DataPattern}{
+  \begin{tikzpicture}[remember picture,overlay]
+    \foreach \x in {0.12,0.22,...,0.88} {
+      \foreach \y in {0.10,0.20,...,0.90} {
+        \fill[Accent!7] ($(current page.south west) + (\x\paperwidth,\y\paperheight)$)
+          circle[radius=0.55pt];
+      }
+    }
+    \draw[Accent!10,line width=0.6pt]
+      ($(current page.south west)+(0.06\paperwidth,0.30\paperheight)$)
+      .. controls ($(current page.south west)+(0.35\paperwidth,0.55\paperheight)$)
+      and ($(current page.south west)+(0.55\paperwidth,0.20\paperheight)$)
+      .. ($(current page.south west)+(0.92\paperwidth,0.48\paperheight)$);
+  \end{tikzpicture}
+}
+
+% =====================================================
+% METADATA (DEL PRIMO DOCUMENTO)
+% =====================================================
+\newcommand{\BookTitle}{Riassunti e Appunti di Introduzione al Data Mining}
+\newcommand{\BookSubtitle}{Appunti di corso}
+\newcommand{\BookAuthor}{Emanuele Galiano}
+\newcommand{\BookUni}{Università degli Studi di Catania}
+\newcommand{\BookDept}{Dipartimento di Matematica e Informatica}
+\newcommand{\BookAY}{Anno Accademico 2025/2026}
+\newcommand{\BookLogoPath}{images/unict_logo.jpg}
+
+% =====================================================
+% DOCUMENT
+% =====================================================
 \begin{document}
 
 \frontmatter
-\maketitle
+
+% =====================================================
+% TITLE PAGE
+% =====================================================
+\begin{titlepage}
+\thispagestyle{empty}
+\DataPattern
+
+\begin{center}
+\vspace*{18mm}
+
+{\fontsize{28}{34}\selectfont\bfseries\color{Accent} \BookTitle\par}
+
+\vspace{7mm}
+{\color{Accent}\rule{0.66\textwidth}{1.1pt}}
+
+\vspace{10mm}
+{\Large\sffamily\color{TextGray}\BookSubtitle\par}
+
+\vspace{20mm}
+\includegraphics[height=16mm]{\BookLogoPath}
+
+\vspace{12mm}
+{\sffamily\color{TextGray}
+\BookUni\\[1mm]
+\BookDept\\[1mm]
+Corso di Laurea Triennale in Informatica (L-31)
+\par}
+
+\vfill
+
+\begin{minipage}{0.92\textwidth}
+\sffamily\small\color{TextGray}
+
+% --- Autore (unica colonna) ---
+\begin{flushleft}
+\textbf{\color{Accent}Autore}\\
+\BookAuthor
+\end{flushleft}
+
+\vspace{4mm}
+{\color{RuleGray}\rule{\textwidth}{0.4pt}}
+
+\vspace{4mm}
+\begin{flushleft}
+\textbf{\color{Accent}Anno accademico}\\
+\BookAY
+
+\vspace{2mm}
+\footnotesize
+Versione: \today
+\end{flushleft}
+
+\end{minipage}
+
+\vspace*{6mm}
+\end{center}
+\end{titlepage}
+
+% =====================================================
+% LICENSE PAGE (opzionale, se presente)
+% =====================================================
+\input{frontmatter/prefazione}
+\input{frontmatter/license}
+
+% =====================================================
+% TOC
+% =====================================================
 \tableofcontents
+\cleardoublepage
 
+% =====================================================
+% MAIN CONTENT (STRUTTURA DEL PRIMO DOCUMENTO)
+% =====================================================
 \mainmatter
-\part{Concetti Preliminari}
-\input{chapters/prerequisiti_matematici}
-\input{chapters/grafi}
 
-\part{Tecniche di Data Mining}
 \input{chapters/introduzione}
 \input{chapters/preprocessing}
 \input{chapters/insiemi_frequenti}
 \input{chapters/clustering}
 \input{chapters/classificazione}
 \input{chapters/regressione}
+\input{chapters/grafi}
 \input{chapters/subgraphmatching}
 \input{chapters/frequent_subgraph_matching}
 \input{chapters/reti_neurali}
 \input{chapters/transformer_llm}
 
-\part{Approfondimenti}
-
+% =====================================================
+% BIBLIOGRAPHY
+% =====================================================
 \backmatter
-\printbibliography  
+\printbibliography
 
 \end{document}
