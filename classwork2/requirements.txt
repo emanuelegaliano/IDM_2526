@@ -1,0 +1,21 @@
+# Manipolazione dati
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Machine Learning
+scikit-learn>=1.0.0
+
+# Visualizzazione
+matplotlib>=3.4.0
+
+# Interfaccia notebook
+ipython>=7.0.0
+jupyter_client>=7.0.0
+
+# PDF / testo (se ti serve leggere o esportare pdf)
+# PyPDF2>=3.0.0         # opzionale, commentato se non serve
+
+# Utility
+tqdm>=4.62.0
+
+git+https://github.com/emanuelegaliano/TRACCIA.git 
