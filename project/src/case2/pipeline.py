@@ -49,7 +49,6 @@ def discover_chromosomes(config: Case2Config, logger) -> List[ChromosomeFile]:
         if not m:
             continue
         chrom = m.group(1).upper()
-        # normalizziamo MT in "MT" ma nel tuo genes.tsv hai numeri: ok, lasciamo stringa
         chromosomes.append(ChromosomeFile(chromosome=str(chrom), path=fp))
 
     logger.info(f"Trovati {len(chromosomes)} cromosomi.")
@@ -81,7 +80,6 @@ def _parse_gene_list(gene_field: str) -> List[str]:
     gene_field = gene_field.strip()
     if not gene_field or gene_field == ".":
         return []
-    # split su ';' e pulizia
     out = []
     for g in gene_field.split(";"):
         g = g.strip()
@@ -126,7 +124,6 @@ def _index_single_chromosome(args) -> WorkerResult:
             )
 
         w_edges = csv.writer(f_edges, delimiter="\t", lineterminator="\n")
-        # no header nei part file (lo aggiunge il merge)
 
         for row in reader:
             rows += 1
@@ -144,7 +141,6 @@ def _index_single_chromosome(args) -> WorkerResult:
                 w_edges.writerow([g, mut_id])
                 edges += 1
 
-    # scrivi lista geni del cromosoma (uno per riga)
     with part_genes.open("w", encoding="utf-8", newline="") as f_g:
         w = csv.writer(f_g, delimiter="\t", lineterminator="\n")
         for g in sorted(genes_set):
@@ -168,12 +164,6 @@ def _merge_parts_to_outputs(
     logger,
     results: List[WorkerResult],
 ) -> Tuple[Path, Path, Set[str]]:
-    """
-    Ritorna:
-    - genes_tsv_path
-    - genes_mut_edges_path
-    - whitelist_symbols (set di gene symbols)
-    """
     out_dir = config.output_dir
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -191,11 +181,9 @@ def _merge_parts_to_outputs(
                     line = line.rstrip("\n")
                     if not line:
                         continue
-                    # line già in TSV: gene \t mut
                     f_out.write(line + "\n")
 
     # 2) merge genes.tsv
-    # gene -> set cromosomi
     gene_to_chroms: Dict[str, Set[str]] = {}
     for r in results:
         with r.part_genes_path.open("r", encoding="utf-8", newline="") as f_in:
@@ -223,7 +211,7 @@ def _merge_parts_to_outputs(
 
 
 # ------------------------------------------------------------
-# Step 3: patients_genes_expression_edges.tsv (OFFLINE mapping)
+# Step 3: patients_genes_expression_edges.tsv (OFFLINE mapping)  (MULTI-TUMOR)
 # ------------------------------------------------------------
 def build_expression_edges_offline(
     config: Case2Config,
@@ -231,12 +219,18 @@ def build_expression_edges_offline(
     whitelist_symbols: Set[str],
 ) -> Path:
     tumors_dir = config.datasets_root / "tumors"
-    # scegli il primo .tsv (nel tuo caso TCGA-OV.star_fpkm.tsv)
-    tumor_files = sorted(tumors_dir.glob("*.tsv"))
-    if not tumor_files:
+
+    # MULTI-TUMOR: lista tumori da config (risolta) oppure glob
+    tumor_paths: List[Path]
+    if getattr(config, "tumor_matrix_paths", None):
+        tumor_paths = list(config.tumor_matrix_paths)
+    else:
+        tumor_paths = sorted(tumors_dir.glob("*.tsv"))
+
+    if not tumor_paths:
         raise FileNotFoundError(f"Nessun file tumore trovato in {tumors_dir}")
-    tumor_matrix = tumor_files[0]
-    logger.info(f"Usando matrice espressione: {tumor_matrix.name}")
+
+    logger.info(f"Tumori da processare: {len(tumor_paths)}")
 
     # resolver offline
     if config.gene_id_mode != "offline_mapping":
@@ -261,77 +255,84 @@ def build_expression_edges_offline(
 
     logger.info(f"Offline mapping completato | resolved={len(sym_to_ensg)} | missing={len(missing)}")
 
-    # output
+    # output (UNICO FILE multi-tumor)
     out_path = config.output_dir / "patients_genes_expression_edges.tsv"
-
     _set_csv_limits()
 
-    # Leggiamo la matrice in streaming:
-    # - header: Ensembl_ID \t patient1 \t patient2 ...
-    # - righe: ENSG....(.version) \t val1 \t val2 ...
-    rows_read = 0
-    rows_matched = 0
-    edges_written = 0
+    total_rows_read = 0
+    total_rows_matched = 0
+    total_edges_written = 0
 
-    with tumor_matrix.open("r", encoding="utf-8", newline="") as f_in, \
-         out_path.open("w", encoding="utf-8", newline="") as f_out:
+    # Scrivi una sola volta header, poi appendi righe per ogni tumore
+    with out_path.open("w", encoding="utf-8", newline="") as f_out:
+        w_out = csv.writer(f_out, delimiter="\t", lineterminator="\n")
+        w_out.writerow(["tumor_id", "patient_id", "gene_id", "expression_value"])
 
-        reader = csv.reader(f_in, delimiter="\t")
-        header = next(reader, None)
-        if not header or len(header) < 2:
-            raise ValueError(f"Header non valido in {tumor_matrix}")
+        for tumor_matrix in tumor_paths:
+            tumor_id = config.tumor_id_from_path(tumor_matrix) if hasattr(config, "tumor_id_from_path") else tumor_matrix.stem
+            logger.info(f"[{tumor_id}] Usando matrice espressione: {tumor_matrix.name}")
 
-        # pazienti sono le colonne dopo la prima
-        patient_ids = header[1:]
-        logger.info(f"Pazienti trovati nella matrice: {len(patient_ids)}")
+            rows_read = 0
+            rows_matched = 0
+            edges_written = 0
 
-        w = csv.writer(f_out, delimiter="\t", lineterminator="\n")
-        w.writerow(["patient_id", "gene_id", "expression_value"])
+            with tumor_matrix.open("r", encoding="utf-8", newline="") as f_in:
+                reader = csv.reader(f_in, delimiter="\t")
+                header = next(reader, None)
+                if not header or len(header) < 2:
+                    raise ValueError(f"Header non valido in {tumor_matrix}")
 
-        for row in reader:
-            rows_read += 1
-            if not row:
-                continue
-            ensg_raw = (row[0] or "").strip()
-            if not ensg_raw:
-                continue
+                patient_ids = header[1:]
+                logger.info(f"[{tumor_id}] Pazienti trovati nella matrice: {len(patient_ids)}")
 
-            # strip version
-            ensg = ensg_raw.split(".", 1)[0]
-            if ensg not in whitelist_ensg:
-                continue
+                for row in reader:
+                    rows_read += 1
+                    if not row:
+                        continue
+                    ensg_raw = (row[0] or "").strip()
+                    if not ensg_raw:
+                        continue
 
-            # gene_id nell'output deve essere SYMBOL (come hai già ora)
-            symbol = resolver.ensg_to_symbol(ensg)
-            if not symbol:
-                continue
-            if symbol not in whitelist_symbols:
-                continue
+                    ensg = ensg_raw.split(".", 1)[0]
+                    if ensg not in whitelist_ensg:
+                        continue
 
-            rows_matched += 1
+                    symbol = resolver.ensg_to_symbol(ensg)
+                    if not symbol:
+                        continue
+                    if symbol not in whitelist_symbols:
+                        continue
 
-            # scrivi edges per ciascun paziente
-            # Nota: non filtriamo zeri; scriviamo tutti i valori numerici presenti.
-            vals = row[1:]
-            # se riga corta, pad
-            if len(vals) < len(patient_ids):
-                vals = vals + [""] * (len(patient_ids) - len(vals))
+                    rows_matched += 1
 
-            for pid, v in zip(patient_ids, vals):
-                v = (v or "").strip()
-                if not v:
-                    continue
-                # valida numerico leggero
-                try:
-                    float(v)
-                except Exception:
-                    continue
-                w.writerow([pid, symbol, v])
-                edges_written += 1
+                    vals = row[1:]
+                    if len(vals) < len(patient_ids):
+                        vals = vals + [""] * (len(patient_ids) - len(vals))
 
-    logger.info("patients_genes_expression_edges.tsv creato.")
+                    for pid, v in zip(patient_ids, vals):
+                        v = (v or "").strip()
+                        if not v:
+                            continue
+                        try:
+                            float(v)
+                        except Exception:
+                            continue
+
+                        out_pid = f"{tumor_id}::{pid}" if getattr(config, "prefix_patient_id_with_tumor", True) else pid
+                        w_out.writerow([tumor_id, out_pid, symbol, v])
+                        edges_written += 1
+
+            logger.info(
+                f"[{tumor_id}] Matrice | righe lette: {rows_read} | righe matchate: {rows_matched} | edges scritti: {edges_written}"
+            )
+
+            total_rows_read += rows_read
+            total_rows_matched += rows_matched
+            total_edges_written += edges_written
+
+    logger.info("patients_genes_expression_edges.tsv creato (MULTI-TUMOR).")
     logger.info(
-        f"Matrice | righe lette: {rows_read} | righe matchate: {rows_matched} | edges scritti: {edges_written}"
+        f"TOTALE | righe lette: {total_rows_read} | righe matchate: {total_rows_matched} | edges scritti: {total_edges_written}"
     )
     return out_path
 
@@ -346,7 +347,6 @@ def _read_tsv_header(path: Path) -> List[str]:
 
 
 def _count_lines(path: Path) -> int:
-    # conta righe excl header
     n = 0
     with path.open("r", encoding="utf-8", newline="") as f:
         next(f, None)
@@ -379,8 +379,10 @@ def validate_outputs(config: Case2Config, logger) -> None:
     if h2 != ["gene_id", "mutation_id"]:
         logger.error("genes_mutations_edges.tsv header atteso: gene_id, mutation_id")
         ok = False
-    if h3 != ["patient_id", "gene_id", "expression_value"]:
-        logger.error("patients_genes_expression_edges.tsv header atteso: patient_id, gene_id, expression_value")
+
+    # MULTI-TUMOR header atteso
+    if h3 != ["tumor_id", "patient_id", "gene_id", "expression_value"]:
+        logger.error("patients_genes_expression_edges.tsv header atteso: tumor_id, patient_id, gene_id, expression_value")
         ok = False
 
     # counts
@@ -425,8 +427,7 @@ def validate_outputs(config: Case2Config, logger) -> None:
         logger.error("Trovati expression_value non numerici.")
         ok = False
 
-    # check mutation_id set membership (costoso ma fattibile se fai set grande)
-    # Nota: per multi-cromosoma può essere grande; lo facciamo comunque perché serve.
+    # check mutation_id set membership
     logger.info("Caricamento mutation_id (unique_id) dai file datasets/mutations/chr_*.tsv ...")
     mutations_dir = config.datasets_root / "mutations"
     mut_ids: Set[str] = set()
@@ -442,7 +443,6 @@ def validate_outputs(config: Case2Config, logger) -> None:
                     mut_ids.add(mid)
     logger.info(f"mutation_id unici caricati: {len(mut_ids)}")
 
-    # controlla un campione di edges
     sample_limit = 20000
     missing = 0
     with genes_mut_edges.open("r", encoding="utf-8", newline="") as f:
@@ -479,7 +479,6 @@ def run_case2(config: Case2Config, logger) -> None:
         logger.error("Nessun cromosoma trovato in datasets/mutations (atteso chr_*.tsv).")
         raise SystemExit(1)
 
-    # tmp per part files
     parts_dir = config.tmp_dir / "parts"
     parts_dir.mkdir(parents=True, exist_ok=True)
 
@@ -502,7 +501,7 @@ def run_case2(config: Case2Config, logger) -> None:
     logger.info("STEP 1b — merge part files in output finali")
     genes_tsv, genes_mut_edges, whitelist_symbols = _merge_parts_to_outputs(config, logger, results)
 
-    logger.info("Costruzione patients_genes_expression_edges.tsv...")
+    logger.info("Costruzione patients_genes_expression_edges.tsv (MULTI-TUMOR)...")
     _ = build_expression_edges_offline(config, logger, whitelist_symbols)
 
     if config.validate:

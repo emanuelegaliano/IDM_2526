@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List
 import logging
 
 
@@ -17,13 +17,13 @@ class Case2Config:
       - patients/patients.tsv
       - edges/patients_diseases/patients_diseases.tsv
       - mutations/chr_*.tsv
-      - tumors/*.tsv (es. TCGA-OV.star_fpkm.tsv)
+      - tumors/*.tsv (più tumori supportati)
       - mappings/symbol_to_ensg.tsv (BioMart)  <-- per modalità offline
 
     Output:
       - output_dir/genes.tsv
       - output_dir/genes_mutations_edges.tsv
-      - output_dir/patients_genes_expression_edges.tsv
+      - output_dir/patients_genes_expression_edges.tsv   (multi-tumor con colonna tumor_id)
     """
 
     # input
@@ -37,17 +37,32 @@ class Case2Config:
     workers: int = 4
 
     # logging
-    verbose: bool = True          # se False e log_to_file=False, logging completamente disabilitato
-    log_to_file: bool = False     # se True, scrive anche su file
+    verbose: bool = True
+    log_to_file: bool = False
     log_file_path: Optional[Path] = None
 
     # gene-id resolution
-    # per questa versione supportiamo SOLO offline mapping
     gene_id_mode: str = "offline_mapping"
     mapping_tsv: Optional[Path] = None  # default: datasets_root/mappings/symbol_to_ensg.tsv
 
     # validation
     validate: bool = True
+
+    # ----------------------------
+    # MULTI-TUMOR (NUOVO)
+    # ----------------------------
+    # Se tumor_files=None => usa tutti i file matching tumors_glob in datasets_root/tumors/
+    tumor_files: Optional[List[str]] = None
+    tumors_glob: str = "*.tsv"
+
+    # tumor_id derivato dal filename: "TCGA-OV.star_fpkm.tsv" -> "TCGA-OV"
+    tumor_id_split_on: str = "."
+
+    # Per evitare collisioni patient_id tra tumori (consigliato True)
+    prefix_patient_id_with_tumor: bool = True
+
+    # resolved
+    tumor_matrix_paths: List[Path] = None  # type: ignore
 
     def resolve_paths(self) -> None:
         """Normalizza e completa i path (default sensati)."""
@@ -61,10 +76,34 @@ class Case2Config:
             self.mapping_tsv = Path(self.mapping_tsv).resolve()
 
         if self.log_file_path is None:
-            # mettiamo i log nella tmp_dir così non “sporchiamo” output finale
             self.log_file_path = (self.tmp_dir / "case2.log").resolve()
         else:
             self.log_file_path = Path(self.log_file_path).resolve()
+
+        tumors_dir = (self.datasets_root / "tumors").resolve()
+        if not tumors_dir.exists():
+            raise FileNotFoundError(f"Directory tumors non trovata: {tumors_dir}")
+
+        paths: List[Path] = []
+        if self.tumor_files:
+            for name in self.tumor_files:
+                p = (tumors_dir / name).resolve()
+                if not p.exists():
+                    raise FileNotFoundError(f"Tumor file non trovato: {p}")
+                paths.append(p)
+        else:
+            paths = sorted(tumors_dir.glob(self.tumors_glob))
+
+        if not paths:
+            raise FileNotFoundError(f"Nessun file tumore trovato in {tumors_dir} con glob={self.tumors_glob}")
+
+        self.tumor_matrix_paths = paths
+
+    def tumor_id_from_path(self, p: Path) -> str:
+        name = p.name
+        if self.tumor_id_split_on and self.tumor_id_split_on in name:
+            return name.split(self.tumor_id_split_on, 1)[0]
+        return p.stem
 
 
 def setup_logger(
@@ -83,11 +122,9 @@ def setup_logger(
     """
     logger = logging.getLogger(name)
 
-    # reset handlers per evitare duplicati (es. in test o run multiple)
     for h in list(logger.handlers):
         logger.removeHandler(h)
 
-    # IMPORTANT: se disabilitato, non deve stampare nulla
     if not verbose and not log_to_file:
         logger.addHandler(logging.NullHandler())
         logger.propagate = False

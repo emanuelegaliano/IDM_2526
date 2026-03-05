@@ -83,14 +83,67 @@ datasets/
 ## Esecuzione da linea di comando
 
 Per avviare la pipeline da riga di comando, posizionarsi nella cartella `project/src` ed eseguire:
-1. **Caso 1:**
+### **Caso 1:**
 ```bash
 python .\main.py --case 1 --workers 8 --verbose true --validate true
 ```
-2. **Caso 2:**
+Ecco una **documentazione CLI breve e pulita in Markdown** per il tuo `main.py`, aggiornata con gli argomenti e con `{}` per obbligatori e `[]` per opzionali.
+
+### Caso 2
 ```bash
-python .\main.py --case 2 --workers 4 --verbose true --validate true
+python main.py --case {2} [--workers N] [--verbose true|false] [--log_file true|false] [--validate true|false] [--tumors_glob PATTERN] [--tumor_files FILE1,FILE2,...] [--prefix_patient_id true|false] [--tumor_id_split_on CHAR]
 ```
+
+### Parametri
+
+| Argomento                       | Descrizione                                                                            |                                                                                             |
+| ------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `--case {2}`                    | Specifica quale caso eseguire (in questo caso la pipeline del **Caso 2**).             |                                                                                             |
+| `--workers N`                   | Numero di processi paralleli per l’indicizzazione delle mutazioni (default: `1`).      |                                                                                             |
+| `--verbose true                 | false`                                                                                 | Abilita/disabilita il logging su console (default: `true`).                                 |
+| `--log_file true                | false`                                                                                 | Scrive il log anche su file nella cartella `output/tmp` (default: `false`).                 |
+| `--validate true                | false`                                                                                 | Esegue la validazione degli output al termine della pipeline (default: `true`).             |
+| `--tumors_glob PATTERN`         | Pattern per selezionare i file tumorali in `datasets/tumors/` (default: `*.tsv`).      |                                                                                             |
+| `--tumor_files FILE1,FILE2,...` | Lista esplicita di file tumorali da processare (se non specificato usa `tumors_glob`). |                                                                                             |
+| `--prefix_patient_id true       | false`                                                                                 | Prefissa `patient_id` con `tumor_id::` per evitare collisioni tra tumori (default: `true`). |
+| `--tumor_id_split_on CHAR`      | Carattere usato per estrarre `tumor_id` dal nome del file tumorale (default: `.`).     |                                                                                             |
+
+### Esempio
+
+Esecuzione standard con 4 worker e validazione:
+
+```bash
+python main.py --case 2 --workers 4 --verbose true --validate true
+```
+
+### Selezionare solo alcuni tumori
+
+```bash
+python main.py --case 2 --tumor_files TCGA-BRCA.star_fpkm.tsv,TCGA-OV.star_fpkm.tsv
+```
+
+### Usare solo tumori con un certo pattern
+
+```bash
+python main.py --case 2 --tumors_glob "TCGA-*.tsv"
+```
+
+### Output generati
+
+La pipeline produce nella cartella `output/`:
+
+* `genes.tsv` → lista dei geni coinvolti nelle mutazioni
+* `genes_mutations_edges.tsv` → relazioni gene–mutazione
+* `patients_genes_expression_edges.tsv` → espressione genica per paziente (multi-tumor)
+
+Formato di `patients_genes_expression_edges.tsv`:
+
+```
+tumor_id    patient_id    gene_id    expression_value
+```
+
+Ogni riga rappresenta l’espressione di un gene per un paziente in un determinato tumore.
+
 
 Argomenti:
 * `--case {1,2}`: esegue il caso richiesto (al momento implementato **Case 2**)
@@ -105,13 +158,13 @@ Una volta completata l'esecuzione, la struttura delle cartelle generata sarà la
 ### Caso 1
 ```text
 src\output_case1
-│   expression_mutation_edges.tsv   # Risultato del merge finale dei worker
-│   expression_profiling_nodes.tsv  # Risultato del merge finale dei worker
-│   patient_expression_edges.tsv    # Risultato del merge finale dei worker
+│   expression_mutation_edges.tsv
+│   expression_profiling_nodes.tsv
+│   patient_expression_edges.tsv
 │
 └───tmp/
         ensembl_cache_case1.db
-        *.part.tsv                  # File temporanei eliminati post-merge
+        *.part.tsv
 ```
 
 ### Caso 2
